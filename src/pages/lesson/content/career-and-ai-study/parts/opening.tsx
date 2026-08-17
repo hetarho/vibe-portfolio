@@ -124,18 +124,21 @@ export function WorriesSlide() {
 
 const SHIFT = [
   {
-    head: '줄어든 건 사실이에요',
-    body: '신입 공고가 확 줄었어요. 주니어가 맡던 일 — 디버깅, 테스트 코드, 간단한 기능 — 이 하필 AI가 제일 잘하는 구간이었거든요',
+    head: '신입 공고 vs 신입 지원',
+    stat: '0.8% vs 29.5%',
+    body: '개발 공고 중 신입 공고는 0.8%인데, 지원자의 29.5%가 신입이었어요. 자리가 없는 게 아니라 신입 자리가 없어요',
     tone: 'sunken' as const,
   },
   {
-    head: '구현 값이 떨어졌어요',
-    body: '하루 걸리던 화면 하나가 한 시간이 됐어요. 코드를 치는 속도로는 이제 차별화가 안 돼요',
+    head: '5~10년차 공고 비중',
+    stat: '39.7%',
+    body: '공고의 39.7%가 5~10년차에 몰려 있어요. 주니어가 맡던 디버깅·테스트·간단한 기능이 하필 AI가 제일 잘하는 구간이었거든요',
     tone: 'sunken' as const,
   },
   {
-    head: '안 줄어든 자리가 있어요',
-    body: '뭘 만들지 정하고, AI가 뱉은 걸 판단하고, 끝까지 책임지는 자리. 여기는 오히려 사람이 모자라요',
+    head: '2026 선호 직군 1위',
+    stat: '28.1%',
+    body: '기업이 2026년에 가장 뽑고 싶은 직군은 여전히 개발(28.1%)이에요. 시장이 닫힌 게 아니라 문이 옮겨간 거예요',
     tone: 'accentSoft' as const,
   },
 ]
@@ -165,12 +168,17 @@ export function MarketShiftSlide() {
               index === 2 && 'animate-rise-3',
             )}
           >
-            <PanelLabel tone={item.tone === 'accentSoft' ? 'accent' : 'muted'}>{`0${index + 1}`}</PanelLabel>
-            <p className="text-deck-body font-bold text-content-strong">{item.head}</p>
+            <PanelLabel tone={item.tone === 'accentSoft' ? 'accent' : 'muted'}>{item.head}</PanelLabel>
+            <p className="text-deck-lead font-bold tabular-nums text-content-strong">{item.stat}</p>
             <p className="text-deck-caption text-content-secondary">{item.body}</p>
           </Panel>
         ))}
       </div>
+
+      <p className="text-deck-meta text-content-muted">
+        사람인·점핏 「2025 상반기 개발자 채용 리포트」 (공고 10만 건 · 입사지원 260만 건) · 원티드랩 「2026 채용 트렌드
+        서베이」 (기업 153곳)
+      </p>
 
       <SlideNote>사라진 건 개발자 자리가 아니라, 시키는 대로 코드만 치는 자리예요</SlideNote>
     </SlideLayout>

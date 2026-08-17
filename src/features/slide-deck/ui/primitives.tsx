@@ -51,12 +51,14 @@ export function SlideHeadline({ children, size = 'title' }: HeadlineProps) {
   )
 }
 
+// text-balance: max-w-column(60rem)에 걸려 두 줄이 될 때 줄 길이를 고르게 나눈다.
+// 없으면 마지막 줄에 한 어절만 남아 엉뚱한 데서 끊긴 것처럼 보인다.
 export function SlideLead({ children }: { children: ReactNode }) {
-  return <p className="animate-rise-2 max-w-column text-deck-lead text-content-secondary">{children}</p>
+  return <p className="animate-rise-2 max-w-column text-deck-lead text-balance text-content-secondary">{children}</p>
 }
 
 export function SlideBody({ children }: { children: ReactNode }) {
-  return <p className="max-w-column text-deck-body text-content-secondary">{children}</p>
+  return <p className="max-w-column text-deck-body text-balance text-content-secondary">{children}</p>
 }
 
 /** 화면 하단 강조 띠 — 한 화면에 하나만 */

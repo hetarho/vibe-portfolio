@@ -160,6 +160,18 @@ export function DayInLifeSlide() {
         </Panel>
       </CompareGrid>
 
+      <Panel tone="sunken" pad="md" className="flex flex-wrap items-baseline justify-between gap-6">
+        <p className="text-deck-caption text-content-secondary">
+          국내 개발 공고 비중 <span className="font-bold text-content-strong">BE 16.2% · FE 11.1%</span>
+        </p>
+        <p className="text-deck-caption text-content-secondary">
+          입사지원 비중 <span className="font-bold text-content-strong">BE 23.5% · FE 15.5%</span>
+        </p>
+        <p className="text-deck-meta text-content-muted">
+          공고 대비 지원 배수는 FE 1.4배 · BE 1.45배 — 경쟁 강도는 거의 같아요 (사람인·점핏 2025 상반기)
+        </p>
+      </Panel>
+
       <SlideNote>상상했던 개발자의 하루랑, 어느 쪽이 더 가까워요?</SlideNote>
     </SlideLayout>
   )
@@ -172,7 +184,7 @@ const TALKING_POINTS = [
   },
   {
     head: '시장 얘기 한 번 더',
-    body: '채용 공고는 지금의 수요예요. 졸업할 때의 수요가 아니고요',
+    body: 'FE·BE 어느 쪽도 결정적으로 유리하지 않아요. 공고는 BE가 1.5배 많지만 지원도 그만큼 몰려요. 채용 공고는 지금의 수요지 졸업할 때의 수요가 아니고요',
   },
   {
     head: '포트폴리오',
