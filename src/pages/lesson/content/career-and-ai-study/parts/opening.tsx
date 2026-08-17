@@ -53,7 +53,7 @@ export function StandbySlide() {
             1
           </span>
           <p className="text-deck-caption text-content-secondary">
-            오늘 가져갈 것 ① 성향을 근거로 세운 <span className="text-content-strong">방향 가설</span>
+            오늘 가져갈 것 ① 내 성향으로 잡은 <span className="text-content-strong">방향</span>
           </p>
         </Panel>
         <Panel tone="sunken" pad="md" className="flex items-center gap-5">
@@ -69,36 +69,48 @@ export function StandbySlide() {
   )
 }
 
-const WORRIES = [
+/**
+ * 실제 게시글에서 추린 것. 국내는 OKKY 본문, 해외는 스레드 제목을 옮겼다.
+ * - okky.kr/articles/1516395 (6개월차 신입) · okky.kr/articles/1535768
+ * - r/learnprogramming "Choosing my IT path feels harder than learning to code",
+ *   "1st Year CS Student ... AI is making me rethink everything"
+ * - r/cscareerquestions "Two years into AI coding tools the actual harm isn't job
+ *   displacement, it's that mid-level engineers can no longer explain what they built"
+ */
+const VOICES = [
   {
-    quote: 'AI가 코드를 다 써주는데, 내가 문법을 외울 필요가 있을까',
-    tail: '생산은 싸졌는데 학습 목표는 그대로예요',
+    source: 'OKKY · 6개월차 신입',
+    quote: '구현은 거의 지피티한테 시켜요. 이게 맞나 싶어요',
+    tail: '방법은 아는데 코드로 안 나온대요',
   },
   {
-    quote: '요즘 개발자 시장 망했다던데',
-    tail: '신입 공고가 줄었다는 얘기가 계속 들려요',
+    source: 'OKKY · 주니어',
+    quote: '신입을 거의 안 뽑는다는데, 제가 막차인가 싶어요',
+    tail: 'CS 전공에 부트캠프까지 마친 사람 얘기예요',
   },
   {
-    quote: 'FE냐 BE냐, 정하지도 못했는데 학기가 가요',
-    tail: '남의 기준으로 고르니까 계속 흔들려요',
+    source: 'r/learnprogramming',
+    quote: '진로 정하는 게 코딩 배우는 것보다 어렵네요',
+    tail: '풀스택 하려다 AI 보고 흔들린 1학년도 있어요',
   },
   {
-    quote: '강의는 완강했는데 혼자서는 백지예요',
-    tail: '읽은 것과 할 수 있는 것 사이의 거리',
+    source: 'r/cscareerquestions',
+    quote: '진짜 문제는 일자리가 아니라, 만든 걸 설명 못 하는 거예요',
+    tail: 'AI 코딩 도구 2년 만에 나온 결론이에요',
   },
 ]
 
-/** C1. 오프닝 — AI 시대 개발자의 고민 */
+/** C1. 오프닝 — 커뮤니티가 하는 이야기 */
 export function WorriesSlide() {
   return (
     <SlideLayout>
       <SlideKicker>오프닝</SlideKicker>
-      <SlideHeadline>요즘 개발자들이 걸려 있는 자리</SlideHeadline>
+      <SlideHeadline>요즘 개발자 커뮤니티 의견</SlideHeadline>
 
       <div className="grid gap-5 lg:grid-cols-2">
-        {WORRIES.map((worry, index) => (
+        {VOICES.map((voice, index) => (
           <Panel
-            key={worry.quote}
+            key={voice.quote}
             tone={index === 3 ? 'accentSoft' : 'raised'}
             pad="lg"
             className={cx(
@@ -109,14 +121,19 @@ export function WorriesSlide() {
               index === 3 && 'animate-rise-4',
             )}
           >
-            <p className="text-deck-body font-semibold text-content-strong">&ldquo;{worry.quote}&rdquo;</p>
-            <p className="text-deck-caption text-content-secondary">{worry.tail}</p>
+            <PanelLabel tone={index === 3 ? 'accent' : 'muted'}>{voice.source}</PanelLabel>
+            <p className="text-deck-body font-semibold text-content-strong">&ldquo;{voice.quote}&rdquo;</p>
+            <p className="text-deck-caption text-content-secondary">{voice.tail}</p>
           </Panel>
         ))}
       </div>
 
+      <p className="text-deck-meta text-content-muted">
+        OKKY 게시글 본문 · Reddit r/learnprogramming, r/cscareerquestions 최근 1년 상위 스레드에서 추림
+      </p>
+
       <SlideBody>
-        고민의 모양은 다른데 뿌리는 하나예요. <Mark>판단 기준이 내 것이 아니라서.</Mark>
+        걱정의 모양은 다른데 뿌리는 하나예요. <Mark>판단 기준이 내 것이 아니라서.</Mark>
       </SlideBody>
     </SlideLayout>
   )
@@ -126,19 +143,19 @@ const SHIFT = [
   {
     head: '신입 공고 vs 신입 지원',
     stat: '0.8% vs 29.5%',
-    body: '개발 공고 중 신입 공고는 0.8%인데, 지원자의 29.5%가 신입이었어요. 자리가 없는 게 아니라 신입 자리가 없어요',
+    body: '개발 공고 중 신입은 0.8%, 지원자 중 신입은 29.5%. 신입 자리만 사라진 거예요',
     tone: 'sunken' as const,
   },
   {
     head: '5~10년차 공고 비중',
     stat: '39.7%',
-    body: '공고의 39.7%가 5~10년차에 몰려 있어요. 주니어가 맡던 디버깅·테스트·간단한 기능이 하필 AI가 제일 잘하는 구간이었거든요',
+    body: '공고의 39.7%가 5~10년차예요. 주니어가 맡던 디버깅·테스트·간단한 기능이 하필 AI가 제일 잘하는 일이었거든요',
     tone: 'sunken' as const,
   },
   {
     head: '2026 선호 직군 1위',
     stat: '28.1%',
-    body: '기업이 2026년에 가장 뽑고 싶은 직군은 여전히 개발(28.1%)이에요. 시장이 닫힌 게 아니라 문이 옮겨간 거예요',
+    body: '2026년에 기업이 가장 뽑고 싶은 직군은 여전히 개발이에요. 문이 닫힌 게 아니라 옮겨간 거예요',
     tone: 'accentSoft' as const,
   },
 ]
@@ -186,14 +203,14 @@ export function MarketShiftSlide() {
 }
 
 const PE_BEFORE = [
-  '받은 명세대로 기능을 구현해요',
-  '코드를 잘 치는 사람이 잘하는 사람이에요',
-  '기획·디자인·개발이 칸으로 나뉘어요',
+  '시키는 대로 기능을 만들어요',
+  '코드 잘 치면 잘하는 개발자예요',
+  '기획·디자인·개발이 따로 놀아요',
 ]
 const PE_AFTER = [
-  '문제와 사용자에서 시작해요',
-  'AI를 옆에 두고 아이디어부터 배포까지 끌고 가요',
-  '기능이 아니라 제품 성과로 평가받아요',
+  '문제부터 잡고 들어가요',
+  '아이디어부터 배포까지 직접 끌고 가요',
+  '기능 말고 성과로 평가받아요',
 ]
 
 /** C3. 개편의 결과 — 프로덕트 엔지니어 */
@@ -231,39 +248,39 @@ export function ProductEngineerSlide() {
       </CompareGrid>
 
       <SlideBody>
-        구현은 자동화되는데 <Mark>문제를 정의하는 일은 자동화가 안 돼요.</Mark> 그래서 뽑는 조건이 그쪽으로 옮겨가는
-        중이에요.
+        코드는 AI가 짜줘도 <Mark>뭘 만들지는 못 정해줘요.</Mark>
       </SlideBody>
     </SlideLayout>
   )
 }
 
-const CHAIN = ['성향에 맞아요', '오래 해요', '실력이 쌓여요', '어느 판에서든 뽑혀요']
+const CHAIN = ['성향에 맞아요', '오래 해요', '실력이 쌓여요', '어디서든 뽑혀요']
 
-/** C4. 오늘의 프레임 — 시장은 참고자료, 성향은 엔진 */
+/** C4. 오늘의 프레임 — 시장은 참고, 기준은 내 성향 */
 export function FrameSlide() {
   return (
     <SlideLayout>
       <div className="flex items-center gap-5">
         <Compass size={44} className="text-accent" />
         <SlideHeadline size="hero">
-          시장은 <span className="text-content-secondary">참고자료</span>, 성향은 <Mark>엔진</Mark>
+          시장은 <span className="text-content-secondary">참고만</span>, 기준은 <Mark>내 성향</Mark>
         </SlideHeadline>
       </div>
 
       <Panel tone="sunken" pad="lg" className="animate-rise-2">
         <p className="text-deck-body text-content-secondary">
-          판은 <span className="text-content-strong">2~4년</span>마다 또 바뀌어요. 그때마다 방향을 갈아엎을 순 없잖아요.
+          시장은 <span className="text-content-strong">2~4년</span>마다 또 바뀌어요. 그때마다 방향을 갈아엎을 순
+          없잖아요.
         </p>
       </Panel>
 
-      <ol className="grid gap-4 lg:grid-cols-7">
+      {/* 8칸 = (칩 2칸 + 화살표) × 3 + 마지막 칩 2칸. 마지막만 좁아져 두 줄이 되는 걸 막는다 */}
+      <ol className="grid gap-4 lg:grid-cols-8">
         {CHAIN.map((step, index) => (
           <li
             key={step}
             className={cx(
-              'flex items-center gap-4',
-              index === 3 ? 'lg:col-span-1' : 'lg:col-span-2',
+              'flex items-center gap-4 lg:col-span-2',
               index === 0 && 'animate-rise-1',
               index === 1 && 'animate-rise-2',
               index === 2 && 'animate-rise-3',

@@ -47,26 +47,26 @@ const FIELDS = [
   {
     icon: MonitorSmartphone,
     name: '웹 프론트엔드',
-    line: '사람이 만지는 화면을 만들어요',
-    detail: '컴포넌트, 상태 관리, 반응형, 접근성',
+    line: '보이는 화면을 만들어요',
+    detail: '컴포넌트 · 상태 관리 · 반응형 · 접근성',
   },
   {
     icon: Server,
     name: '웹 백엔드',
     line: '데이터와 규칙을 다뤄요',
-    detail: 'API 설계, DB, 인증, 성능',
+    detail: 'API 설계 · DB · 인증 · 성능',
   },
   {
     icon: Smartphone,
     name: '모바일 앱',
-    line: '기기 기능까지 쓰는 앱을 만들어요',
-    detail: '네이티브 UI, 푸시, 카메라·센서, 스토어 배포',
+    line: '폰 기능까지 쓰는 앱이요',
+    detail: '네이티브 UI · 푸시 · 센서 · 스토어 배포',
   },
   {
     icon: Database,
     name: '데이터 · 인프라',
     line: '오늘은 이름만 알고 가요',
-    detail: '데이터 파이프라인, 클라우드, 배포 자동화',
+    detail: '파이프라인 · 클라우드 · 배포 자동화',
     quiet: true,
   },
 ]
@@ -160,15 +160,18 @@ export function DayInLifeSlide() {
         </Panel>
       </CompareGrid>
 
-      <Panel tone="sunken" pad="md" className="flex flex-wrap items-baseline justify-between gap-6">
-        <p className="text-deck-caption text-content-secondary">
-          국내 개발 공고 비중 <span className="font-bold text-content-strong">BE 16.2% · FE 11.1%</span>
-        </p>
-        <p className="text-deck-caption text-content-secondary">
-          입사지원 비중 <span className="font-bold text-content-strong">BE 23.5% · FE 15.5%</span>
-        </p>
+      <Panel tone="sunken" pad="md" className="flex flex-col gap-3">
+        <div className="flex flex-wrap items-baseline gap-x-12 gap-y-2">
+          <p className="text-deck-caption text-content-secondary">
+            공고 <span className="font-bold text-content-strong">BE 16.2% · FE 11.1%</span>
+          </p>
+          <p className="text-deck-caption text-content-secondary">
+            지원 <span className="font-bold text-content-strong">BE 23.5% · FE 15.5%</span>
+          </p>
+          <p className="text-deck-caption font-bold text-accent">경쟁 강도는 거의 같아요</p>
+        </div>
         <p className="text-deck-meta text-content-muted">
-          공고 대비 지원 배수는 FE 1.4배 · BE 1.45배 — 경쟁 강도는 거의 같아요 (사람인·점핏 2025 상반기)
+          사람인·점핏 2025 상반기 · 공고 대비 지원 배수 FE 1.4배 · BE 1.45배
         </p>
       </Panel>
 
@@ -180,23 +183,23 @@ export function DayInLifeSlide() {
 const TALKING_POINTS = [
   {
     head: '처음 6개월은 어느 길이든 겹쳐요',
-    body: 'HTTP, git, 자료구조 기초, 언어 하나 제대로. 지금 고른 게 평생 결정이 아니에요',
+    body: 'HTTP · git · 자료구조 · 언어 하나. 지금 고른 게 평생 가는 결정이 아니에요',
   },
   {
     head: '시장 얘기 한 번 더',
-    body: 'FE·BE 어느 쪽도 결정적으로 유리하지 않아요. 공고는 BE가 1.5배 많지만 지원도 그만큼 몰려요. 채용 공고는 지금의 수요지 졸업할 때의 수요가 아니고요',
+    body: '공고는 BE가 1.5배 많은데 지원도 그만큼 몰려요. 그리고 채용 공고는 지금 수요지 졸업할 때 수요가 아니에요',
   },
   {
     head: '포트폴리오',
-    body: '클론 코딩을 늘어놓는 것보다, 어떤 문제를 왜 그렇게 풀었는지 이야기 하나가 훨씬 강해요',
+    body: '클론 코딩 여러 개보다, 문제 하나를 왜 그렇게 풀었는지가 훨씬 세게 먹혀요',
   },
   {
     head: '전환 비용은 생각보다 낮아요',
-    body: '겹치는 근육이 커요. 디버깅, 코드 읽기, 커뮤니케이션',
+    body: '겹치는 근육이 커요. 디버깅 · 코드 읽기 · 커뮤니케이션',
   },
   {
     head: 'AI 시대에 신입에게 남는 것',
-    body: '코드 생산은 싸졌고, 읽고 판단하는 능력이 병목이에요. 여기서 2부로 넘어가요',
+    body: '코드 뽑는 건 싸졌고 이제 읽고 판단하는 게 병목이에요. 여기서 2부로 넘어가요',
   },
 ]
 

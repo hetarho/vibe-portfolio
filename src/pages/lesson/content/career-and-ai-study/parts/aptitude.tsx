@@ -96,7 +96,7 @@ export function AptitudeTestSlide() {
               <Chip tone={result.platform === 'app' ? 'accent' : 'quiet'}>
                 앱 {QUESTIONS.length - TENDENCY_COUNT - result.wCount}
               </Chip>
-              <span className="text-deck-caption text-content-muted">플랫폼은 참고 축</span>
+              <span className="text-deck-caption text-content-muted">플랫폼은 참고만</span>
             </div>
           </Panel>
         </div>
@@ -227,7 +227,7 @@ export function AptitudeGuideSlide() {
       </div>
 
       <Panel tone="sunken" pad="lg" className="flex flex-col gap-3">
-        <PanelLabel>플랫폼 축(W/P)은 참고용</PanelLabel>
+        <PanelLabel>플랫폼(W/P)은 참고만</PanelLabel>
         <p className="text-deck-body text-content-secondary">
           FE 성향 + P가 나왔다면 모바일 앱 개발도 후보에 넣으세요.
         </p>

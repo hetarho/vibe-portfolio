@@ -25,10 +25,10 @@ const PART = {
 export const careerAndAiStudyDeck: DeckDef = {
   slides: [
     { id: 'C0', part: PART.standby, title: '시작 전 · 설치 확인', component: StandbySlide },
-    { id: 'C1', part: PART.opening, title: '요즘 개발자들이 걸려 있는 자리', component: WorriesSlide },
+    { id: 'C1', part: PART.opening, title: '요즘 개발자 커뮤니티 의견', component: WorriesSlide },
     { id: 'C2', part: PART.market, title: '시장이 망한 게 아니라 개편되는 중', component: MarketShiftSlide },
     { id: 'C3', part: PART.market, title: '프로덕트 엔지니어', component: ProductEngineerSlide },
-    { id: 'C4', part: PART.market, title: '시장은 참고자료, 성향은 엔진', component: FrameSlide },
+    { id: 'C4', part: PART.market, title: '시장은 참고, 기준은 내 성향', component: FrameSlide },
     { id: 'C5', part: PART.aptitude, title: '⭐ 개발 성향 체크 13문항', component: AptitudeTestSlide },
     { id: 'C6', part: PART.aptitude, title: '채점 · 해석 가이드', component: AptitudeGuideSlide },
     { id: 'C7', part: PART.map, title: '결과 같이 뜯어보기', component: ResultTalkSlide },

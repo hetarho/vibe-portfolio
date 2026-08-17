@@ -47,8 +47,8 @@ export function DeckShell({ deck, lessonTitle, index, onIndexChange, onExit }: P
 
   return (
     // break-keep: 한글이 어절 중간에서 잘리지 않게 (예: "참고자/료")
-    // text-pretty: 마지막 줄에 한 어절만 남는 고아 줄 방지 (개별 요소의 text-balance가 우선)
-    <div className="fixed inset-0 flex h-dvh w-screen flex-col overflow-hidden bg-surface-base font-sans break-keep text-pretty text-content-primary">
+    // text-balance: 카드 안 문구까지 줄 길이를 고르게 나눈다 (한 어절만 남는 고아 줄 방지)
+    <div className="fixed inset-0 flex h-dvh w-screen flex-col overflow-hidden bg-surface-base font-sans break-keep text-balance text-content-primary">
       <header className="flex shrink-0 items-center gap-10 px-12 pt-7 pb-5">
         <div className="flex items-center gap-4">
           <button
