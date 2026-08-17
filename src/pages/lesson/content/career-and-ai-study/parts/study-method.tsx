@@ -34,7 +34,7 @@ export function TutorialHellSlide() {
         </Panel>
       </CompareGrid>
 
-      <SlideNote>읽었지만 못 합니다. 손이 기억하지 않았거든요</SlideNote>
+      <SlideNote>읽었지만 못 해요. 손이 기억하지 않았거든요</SlideNote>
     </SlideLayout>
   )
 }
@@ -47,7 +47,7 @@ export function AiTrapSlide() {
         <BrainCircuit size={44} className="text-critical" />
         <SlideKicker>문제 제기 ②</SlideKicker>
       </div>
-      <SlideHeadline>AI에게 시키면 결과물은 나옵니다. 그런데</SlideHeadline>
+      <SlideHeadline>AI에게 시키면 결과물은 나와요. 그런데</SlideHeadline>
 
       <div className="grid gap-6 lg:grid-cols-9">
         <Panel tone="sunken" pad="lg" className="animate-rise-1 flex flex-col gap-4 lg:col-span-4">
@@ -60,27 +60,27 @@ export function AiTrapSlide() {
           <PanelLabel tone="accent">안 남는 것</PanelLabel>
           <p className="text-deck-lead font-bold text-content-strong">내 실력</p>
           <p className="text-deck-body text-content-secondary">
-            면접과 실무 코드리뷰는 <Mark>내가 읽고 설명할 수 있는가</Mark>를 봅니다
+            면접이랑 실무 코드리뷰는 <Mark>내가 읽고 설명할 수 있는지</Mark>를 봐요
           </p>
         </Panel>
       </div>
 
-      <SlideBody>결과물은 싸졌고 판단은 여전히 비쌉니다.</SlideBody>
+      <SlideBody>결과물은 싸졌고, 판단은 여전히 비싸요.</SlideBody>
     </SlideLayout>
   )
 }
 
 const CONDITIONS = [
   { icon: ListOrdered, text: '모르는 게 갑자기 튀어나오지 않는 순서' },
-  { icon: Hammer, text: '읽기만 하지 않고 개념마다 손으로 침' },
-  { icon: FileQuestion, text: '누군가 근거를 갖고 채점하고 설명을 요구함' },
+  { icon: Hammer, text: '개념마다 직접 손으로 쳐봐요' },
+  { icon: FileQuestion, text: '채점은 근거를 대고, 설명까지 요구해요' },
 ]
 
 /** C13. 공부의 목표 재정의 */
 export function RedefineSlide() {
   return (
     <SlideLayout>
-      <SlideKicker>그래서 목표를 다시 잡습니다</SlideKicker>
+      <SlideKicker>그래서 목표를 다시 잡아요</SlideKicker>
 
       <div className="animate-rise-1 flex flex-col gap-4">
         <p className="text-deck-lead font-semibold text-content-muted line-through">코드를 치는 사람</p>
@@ -113,7 +113,7 @@ export function RedefineSlide() {
         ))}
       </ol>
 
-      <SlideBody>이 세 조건을 문서 하나로 강제한 게 지금 보여드릴 튜터 프롬프트입니다.</SlideBody>
+      <SlideBody>이 세 조건을 문서 하나로 못 박은 게 지금 보여드릴 튜터 프롬프트예요.</SlideBody>
     </SlideLayout>
   )
 }

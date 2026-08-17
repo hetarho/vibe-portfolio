@@ -15,23 +15,23 @@ import {
 const DESIGN_POINTS = [
   {
     icon: ShieldCheck,
-    head: '안 배운 것으로 가르치지 않는다',
-    body: '레슨에 나오는 모든 토큰이 이전에 설명된 것인지 기계가 검사합니다. 갑자기 어려워지는 순간이 없어요.',
+    head: '안 배운 걸로 가르치지 않아요',
+    body: '레슨에 나오는 모든 토큰이 이전에 설명된 것인지 기계가 검사해요. 갑자기 어려워지는 순간이 없어요.',
   },
   {
     icon: FolderGit2,
     head: '채팅이 아니라 레포',
-    body: '레슨이 파일로 쌓입니다. 사라지지 않고 git 히스토리가 내 성장 기록이 됩니다.',
+    body: '레슨이 파일로 쌓여요. 사라지지 않고, git 히스토리가 내 성장 기록이 돼요.',
   },
   {
     icon: GraduationCap,
     head: '개념 하나당 실습 하나 + 판정',
-    body: '"이해했겠지"가 아니라 명령어 실행 결과로 판정합니다.',
+    body: '"이해했겠지"가 아니라 명령어 실행 결과로 판정해요.',
   },
   {
     icon: MessageCircleQuestion,
-    head: 'AI가 답을 안 준다',
-    body: '채점이 질문으로 옵니다. 이해도 체크를 통과 못 하면 다음 레슨을 안 줍니다.',
+    head: 'AI가 답을 안 줘요',
+    body: '채점이 질문으로 와요. 이해도 체크를 통과 못 하면 다음 레슨을 안 줘요.',
   },
 ]
 
@@ -40,7 +40,7 @@ export function TutorPromptSlide() {
   return (
     <SlideLayout>
       <SlideKicker>튜터 프롬프트</SlideKicker>
-      <SlideHeadline>어떻게 설계되어 있나</SlideHeadline>
+      <SlideHeadline>이렇게 설계했어요</SlideHeadline>
 
       <div className="grid gap-5 lg:grid-cols-2">
         {DESIGN_POINTS.map((point, index) => (
@@ -128,7 +128,7 @@ export function LiveDemoSlide() {
       <div className="flex flex-wrap items-end justify-between gap-6">
         <div className="flex flex-col gap-4">
           <SlideKicker>라이브 데모 · 15분</SlideKicker>
-          <SlideHeadline>미리 만들어둔 레포로 보여드립니다</SlideHeadline>
+          <SlideHeadline>미리 만들어둔 레포로 보여드릴게요</SlideHeadline>
         </div>
       </div>
 

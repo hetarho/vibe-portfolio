@@ -16,7 +16,7 @@ import {
 import { PromptCopyButton } from '../widgets/PromptCopyButton'
 
 const SETUP_STEPS = [
-  { head: '빈 폴더에서 Claude Code 실행', body: '아까 복사한 프롬프트를 그대로 붙여넣어요' },
+  { head: '빈 폴더에서 코딩 CLI 실행', body: '아까 복사한 프롬프트를 그대로 붙여넣어요' },
   { head: '맨 끝 학습 대상을 내 걸로', body: '예) TypeScript + React, 목표는 실무 FE 코드 읽기' },
   { head: '첫 질문에 솔직하게', body: '"주 언어 없음", "목표 코드베이스 아직 없음"도 그대로 답하면 돼요' },
   { head: 'S1까지가 이번 주 몫', body: '여기까지 오면 첫 레슨이 열려요' },
@@ -118,11 +118,11 @@ export function WarningSlide() {
 const TWO_LINES = [
   {
     head: '방향',
-    body: '시장 말고 뭘 고칠 때 시간 가는 줄 모르는가로 정한다',
+    body: '시장 말고, 뭘 고칠 때 시간 가는 줄 몰랐는지로 정해요',
   },
   {
     head: 'AI 시대의 공부',
-    body: 'AI에게 시키기가 아니라 AI에게 배우되 손은 내가 움직인다',
+    body: 'AI에게 시키지 말고 AI한테 배우되, 손은 내가 움직여요',
   },
 ]
 
@@ -201,7 +201,7 @@ const PREP = [
   { head: '학생 목표 스택 확인', hint: '데모 레포를 가능하면 그 스택으로 맞추기' },
   { head: '배포용 튜터 프롬프트 최종본', hint: '학습 대상 칸 채우는 법 예시까지' },
   { head: '프롬프트 전송 경로 확인', hint: '수업 후 채팅으로 보낼 링크 미리 준비' },
-  { head: '사전 설치 공지', hint: '일주일 전 · Claude Code, git, python3' },
+  { head: '사전 설치 공지', hint: '일주일 전 · LLM 계정, 코딩 CLI, git, python3' },
 ]
 
 /** C20. 강사용 — 수업 전 준비 (학생에게 보여주는 화면 아님) */

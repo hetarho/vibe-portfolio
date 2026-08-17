@@ -105,7 +105,7 @@ export function AptitudeTestSlide() {
           <SlideNote>FE 성향 + 앱 선호 → 모바일 앱 개발도 후보에 넣어보세요</SlideNote>
         ) : (
           <SlideNote tone="quiet">
-            3번(뿌듯함)과 6번(파고들고 싶은 문제)에 뭐라고 답했는지 다시 보세요 — 거기가 제일 중요합니다
+            3번(뿌듯함)과 6번(파고들고 싶은 문제)에 뭐라고 답했는지 다시 보세요 — 거기가 제일 중요해요
           </SlideNote>
         )}
       </SlideLayout>
@@ -182,7 +182,7 @@ export function AptitudeTestSlide() {
       </div>
 
       <p className="text-deck-caption text-content-muted">
-        키보드 <Mark>1</Mark> / <Mark>2</Mark> 로도 고를 수 있습니다 · Backspace 이전 문항
+        키보드 <Mark>1</Mark> / <Mark>2</Mark> 로도 고를 수 있어요 · Backspace 이전 문항
       </p>
     </SlideLayout>
   )
@@ -201,7 +201,7 @@ export function AptitudeGuideSlide() {
   return (
     <SlideLayout>
       <div className="flex flex-wrap items-center justify-between gap-6">
-        <SlideHeadline>어떻게 읽으면 되나</SlideHeadline>
+        <SlideHeadline>이렇게 읽으면 돼요</SlideHeadline>
         {result ? <Chip tone="accent">내 결과 · {TRACK_INFO[result.track].label}</Chip> : null}
       </div>
 
@@ -234,10 +234,10 @@ export function AptitudeGuideSlide() {
       </Panel>
 
       <SlideNote>
-        3번과 6번이 제일 중요합니다 — 뭘 고칠 때 시간 가는 줄 모르는가
+        3번과 6번을 다시 보세요 — 뭘 고칠 때 시간 가는 줄 몰랐는지
       </SlideNote>
 
-      <SlideBody>풀스택형이 나왔다고 실패한 게 아닙니다. 처음 6개월 기초는 어차피 겹칩니다.</SlideBody>
+      <SlideBody>풀스택형이 나왔다고 실패한 게 아니에요. 처음 6개월 기초는 어차피 겹쳐요.</SlideBody>
     </SlideLayout>
   )
 }

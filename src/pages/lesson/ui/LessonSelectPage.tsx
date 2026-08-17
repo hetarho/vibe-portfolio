@@ -8,7 +8,7 @@ type Props = {
 /** 강의 선택 화면 — URL을 직접 입력해야만 도달하는 진입점 */
 export function LessonSelectPage({ onOpen }: Props) {
   return (
-    <div className="min-h-dvh w-full bg-surface-base font-sans text-content-primary">
+    <div className="min-h-dvh w-full bg-surface-base font-sans break-keep text-content-primary">
       <div className="mx-auto flex max-w-stage flex-col gap-12 px-12 py-20">
         <header className="animate-rise flex flex-col gap-5">
           <p className="flex items-center gap-3 text-deck-caption font-semibold tracking-widest text-content-muted uppercase">

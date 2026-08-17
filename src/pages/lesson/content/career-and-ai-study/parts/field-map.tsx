@@ -20,7 +20,7 @@ export function ResultTalkSlide() {
     <SlideLayout>
       <div className="flex items-center gap-5">
         <MessagesSquare size={44} className="text-accent" />
-        <SlideHeadline>결과, 같이 뜯어봅시다</SlideHeadline>
+        <SlideHeadline>결과, 같이 뜯어봐요</SlideHeadline>
       </div>
 
       <div className="grid items-center gap-8 lg:grid-cols-9">
@@ -47,25 +47,25 @@ const FIELDS = [
   {
     icon: MonitorSmartphone,
     name: '웹 프론트엔드',
-    line: '사람이 만지는 화면을 만든다',
+    line: '사람이 만지는 화면을 만들어요',
     detail: '컴포넌트, 상태 관리, 반응형, 접근성',
   },
   {
     icon: Server,
     name: '웹 백엔드',
-    line: '데이터와 규칙을 다룬다',
+    line: '데이터와 규칙을 다뤄요',
     detail: 'API 설계, DB, 인증, 성능',
   },
   {
     icon: Smartphone,
     name: '모바일 앱',
-    line: '기기 기능까지 쓰는 앱을 만든다',
+    line: '기기 기능까지 쓰는 앱을 만들어요',
     detail: '네이티브 UI, 푸시, 카메라·센서, 스토어 배포',
   },
   {
     icon: Database,
     name: '데이터 · 인프라',
-    line: '오늘은 이름만 알고 갑니다',
+    line: '오늘은 이름만 알고 가요',
     detail: '데이터 파이프라인, 클라우드, 배포 자동화',
     quiet: true,
   },
@@ -167,24 +167,24 @@ export function DayInLifeSlide() {
 
 const TALKING_POINTS = [
   {
-    head: '처음 6개월은 어느 길이든 겹친다',
+    head: '처음 6개월은 어느 길이든 겹쳐요',
     body: 'HTTP, git, 자료구조 기초, 언어 하나 제대로. 지금 고른 게 평생 결정이 아니에요',
   },
   {
-    head: '시장 얘기 정면 돌파',
+    head: '시장 얘기 한 번 더',
     body: '채용 공고는 지금의 수요예요. 졸업할 때의 수요가 아니고요',
   },
   {
     head: '포트폴리오',
-    body: '클론 코딩을 늘어놓는 것보다, 어떤 문제를 왜 그렇게 풀었는지 이야기 하나가 더 셉니다',
+    body: '클론 코딩을 늘어놓는 것보다, 어떤 문제를 왜 그렇게 풀었는지 이야기 하나가 훨씬 강해요',
   },
   {
-    head: '전환 비용은 생각보다 낮다',
-    body: '겹치는 근육이 큽니다. 디버깅, 코드 읽기, 커뮤니케이션',
+    head: '전환 비용은 생각보다 낮아요',
+    body: '겹치는 근육이 커요. 디버깅, 코드 읽기, 커뮤니케이션',
   },
   {
     head: 'AI 시대에 신입에게 남는 것',
-    body: '코드 생산은 싸졌고 읽고 판단하는 능력이 병목이에요. 여기서 2부로 넘어갑니다',
+    body: '코드 생산은 싸졌고, 읽고 판단하는 능력이 병목이에요. 여기서 2부로 넘어가요',
   },
 ]
 
@@ -235,7 +235,7 @@ export function BreakSlide() {
       <div className="flex flex-col items-center gap-10 text-center">
         <SlideKicker>휴식</SlideKicker>
         <CountdownTimer seconds={300} autoStart caption="다시 시작까지" />
-        <p className="text-deck-lead font-semibold text-content-primary">2부는 손을 씁니다. 노트북 켜두고 오세요.</p>
+        <p className="text-deck-lead font-semibold text-content-primary">2부는 손을 써요. 노트북 켜두고 오세요.</p>
       </div>
 
       <SlideNote tone="quiet">

@@ -186,6 +186,7 @@ exit code로 분기한다 (0/1/2/3 의미는 기존 게이트와 동일):
 
 - `장르: 칼럼|리포트|블로그|공적` — 장르 명시 (생략 시 자동 추정)
 - `강도: 보수|기본|적극` — 윤문 강도 (기본값: 기본. light 경로는 항상 보수)
+- `문체: 해요체` — 종결어미를 해요체(토스 스타일)로 통일. 지정 시 [`references/haeyo-tone.md`](references/haeyo-tone.md)를 윤문 콜에 함께 넘긴다. **register 보존 원칙을 덮어쓰는 유일한 옵션**이며, 명시하지 않으면 입력의 문체를 그대로 따른다
 - `--strict` / `정밀 모드` — heavy 경로 강제 (route_hint 무시)
 - `가볍게` / `빠르게만` — light 경로 강제
 
@@ -248,7 +249,7 @@ exit code로 분기한다 (0/1/2/3 의미는 기존 게이트와 동일):
 - **핵심 내용 명사·개념어는 원형 보존.** 조사·어미 외의 동의어 치환이나 삭제로 주장 뼈대를 바꾸지 않는다.
 - **수치·고유명사·직접 인용은 탐지/윤문 대상 아님.** Do-NOT list 엄수.
 - **장르 이탈 금지.** 칼럼이 에세이로, 에세이가 문학으로 옮겨가지 않는다.
-- **register 보존 — 양방향.** 격식체 입력 → 격식체 출력, 구어 입력 → 구어 출력. 격식 상향('-했-'→'-하였-') 금지, 구어 종결('~인데요/~거든요') 보존.
+- **register 보존 — 양방향.** 격식체 입력 → 격식체 출력, 구어 입력 → 구어 출력. 격식 상향('-했-'→'-하였-') 금지, 구어 종결('~인데요/~거든요') 보존. 예외는 `문체: 해요체` 옵션뿐 — 이때만 종결어미를 해요체로 통일한다.
 - **AI 티는 빼기만 하고 넣지 않는다.** 원문에 없던 상투구("기록적인 성과를 거두었다"류) 신규 삽입 금지. light 경로에서 특히 — 잘 쓴 글에 손대는 것 자체가 리스크다.
 - **변경률 30% 초과 → 경고, 50% 초과 → 강제 중단.**
 - **자동 로드 금지.** 프로젝트 CLAUDE.md 등 다른 파일을 자동 파싱해 옵션을 추론하지 않는다.
@@ -257,6 +258,7 @@ exit code로 분기한다 (0/1/2/3 의미는 기존 게이트와 동일):
 ## 참고 자료
 
 - 슬림 룰북 (monolith 전용): [`references/quick-rules.md`](references/quick-rules.md) — S1·S2 핵심 패턴 + 자체검증 체크리스트
+- 해요체 프리셋 (옵션): [`references/haeyo-tone.md`](references/haeyo-tone.md) — 토스 8가지 라이팅 원칙 + 합쇼체→해요체 종결어미 변환표 + 번역투 제목 처리. `문체: 해요체` 지정 시에만 윤문 콜에 전달
 - 진단 인덱스 (diagnostician 전용): [`references/diagnosis-rules.md`](references/diagnosis-rules.md) — 71패턴 전수 ID·정의·시그니처. `build_diagnosis_rules.py`가 taxonomy에서 자동 생성(직접 편집 금지)
 - 정량 점수 shim: `scripts/prepare_monolith_input.py` — `references/metrics_v2.py`(실패 시 `metrics.py` fallback) + `references/baseline.json` 기반 사전 점수 + `route_hint` 산출
 - 텍스트 위생: `scripts/sanitize_text.py` — shim이 자동 호출(끄려면 `--no-sanitize`). 제로폭·bidi·특수공백 제거 + 한글 NFD→NFC 정규화를 `01_input.txt`에 반영해 이후 변경률 게이트·diff·글자수가 같은 기준을 쓰게 한다. 결정적 처리, LLM 0콜. 변경이 있으면 `00_sanitize.json` 기록. **AI 워터마크 제거 기능이 아니다** (CLAUDE.md 「AI 워터마킹에 대한 입장」 참조)
