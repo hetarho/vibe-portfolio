@@ -16,7 +16,7 @@ import {
 
 /** C0. 시작 전 — 설치 확인 */
 export function StandbySlide() {
-  const [checks, setChecks] = useState([false, false, false])
+  const [checks, setChecks] = useState([false, false, false, false])
   const toggle = (index: number) =>
     setChecks((list) => list.map((value, itemIndex) => (itemIndex === index ? !value : value)))
 
@@ -30,7 +30,7 @@ export function StandbySlide() {
             <br />
             <Mark>AI 시대 개발 공부법</Mark>
           </h1>
-          <SlideBody>2부는 같이 손을 써요. 시작 전에 옆의 세 가지만 확인할게요.</SlideBody>
+          <SlideBody>2부는 같이 손을 써요. 시작 전에 옆에 네 가지만 확인할게요.</SlideBody>
         </div>
 
         <Panel tone="raised" pad="lg" className="animate-rise-2 flex flex-col gap-4 lg:col-span-4">
@@ -43,6 +43,9 @@ export function StandbySlide() {
           </CheckRow>
           <CheckRow checked={checks[2]} onToggle={() => toggle(2)} hint="git --version · python3 --version">
             git &amp; python3
+          </CheckRow>
+          <CheckRow checked={checks[3]} onToggle={() => toggle(3)} hint="레슨 뷰어를 띄우는 데 필요해요">
+            node &amp; pnpm
           </CheckRow>
         </Panel>
       </div>
@@ -219,7 +222,7 @@ export function ProductEngineerSlide() {
     <SlideLayout>
       <div className="flex items-center gap-5">
         <Search size={44} className="text-accent" />
-        <SlideKicker>집에 가서 이 단어로 검색해보세요</SlideKicker>
+        <SlideKicker>이따 이 단어로 검색해봐요</SlideKicker>
       </div>
       <SlideHeadline size="hero">프로덕트 엔지니어</SlideHeadline>
 

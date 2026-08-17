@@ -1,6 +1,7 @@
-import { ClipboardCheck } from 'lucide-react'
+import { MessagesSquare, Terminal } from 'lucide-react'
 import {
   Chip,
+  cx,
   Mark,
   Panel,
   PanelLabel,
@@ -8,50 +9,106 @@ import {
   SlideHeadline,
   SlideKicker,
   SlideLayout,
+  SlideNote,
 } from '@/features/slide-deck'
-import { PromptCopyButton, tutorPrompt } from '../widgets/PromptCopyButton'
+import { PromptCopyButton } from '../widgets/PromptCopyButton'
 
-const PREVIEW_LINES = tutorPrompt.split('\n').slice(0, 6)
+const RUN_STEPS = [
+  { head: '빈 폴더를 하나 만들고', body: '거기서 코딩 CLI를 열어요' },
+  { head: '복사한 프롬프트를 붙여넣고', body: '맨 끝 학습 대상 칸을 내 걸로 바꿔요' },
+  { head: '물어보는 것에 답해요', body: '답이 끝나면 알아서 만들기 시작해요' },
+]
 
-const CONTAINS = ['가르치는 순서 규칙', '레슨 파일 구조', '채점 기준과 근거', '세션 재개 스킬']
-
-/** C10. PART 2 시작 — 튜터 프롬프트 건네기 */
-export function PromptHandoffSlide() {
+/** 2부 시작 — 프롬프트를 먼저 돌려놓는다 */
+export function RunNowSlide() {
   return (
     <SlideLayout>
       <div className="grid items-center gap-12 lg:grid-cols-9">
         <div className="flex flex-col gap-7 lg:col-span-5">
           <SlideKicker>PART 2 시작</SlideKicker>
           <SlideHeadline>
-            듣기 전에, <Mark>이것부터 복사해두세요</Mark>
+            먼저 <Mark>돌려놓고</Mark> 시작할게요
           </SlideHeadline>
-          <SlideBody>지금부터 45분 동안 설명할 게 전부 이 문서 안에 있어요.</SlideBody>
+          <SlideBody>세팅되는 동안 앞으로 어떻게 공부할지 설명할게요.</SlideBody>
           <PromptCopyButton />
-          <p className="flex items-center gap-3 text-deck-caption text-content-muted">
-            <ClipboardCheck size={24} />
-            맨 끝 &lsquo;학습 대상&rsquo; 칸을 채워야 시작돼요
-          </p>
         </div>
 
         <Panel tone="sunken" pad="lg" className="flex flex-col gap-5 lg:col-span-4">
-          <PanelLabel>이 안에 들어 있는 것</PanelLabel>
-          <div className="flex flex-wrap gap-3">
-            {CONTAINS.map((item) => (
-              <Chip key={item}>{item}</Chip>
-            ))}
+          <div className="flex items-center gap-4">
+            <Terminal size={34} className="text-accent" />
+            <PanelLabel tone="accent">지금 할 것</PanelLabel>
           </div>
-          <div className="flex flex-col gap-2 rounded-card bg-surface-base p-7">
-            {PREVIEW_LINES.map((line, index) => (
-              <p key={index} className="truncate font-mono text-deck-meta text-content-muted">
-                {line || ' '}
-              </p>
-            ))}
-            <p className="font-mono text-deck-meta text-accent">…</p>
-          </div>
-          <p className="text-deck-caption text-content-secondary">
-            길어요. 지금 읽지 말고 복사만 해두세요.
-          </p>
+          {RUN_STEPS.map((step, index) => (
+            <div
+              key={step.head}
+              className={cx(
+                'flex items-start gap-5',
+                index === 0 && 'animate-rise-1',
+                index === 1 && 'animate-rise-2',
+                index === 2 && 'animate-rise-3',
+              )}
+            >
+              <span className="grid size-12 shrink-0 place-items-center rounded-full bg-surface-raised text-deck-caption font-bold text-content-primary">
+                {index + 1}
+              </span>
+              <span className="flex flex-col gap-1">
+                <span className="text-deck-caption font-bold text-content-strong">{step.head}</span>
+                <span className="text-deck-caption text-content-secondary">{step.body}</span>
+              </span>
+            </div>
+          ))}
         </Panel>
+      </div>
+
+      <SlideNote>붙여넣으면 코드부터 안 짜고 질문부터 올라와요. 그거 답하는 게 첫 일이에요</SlideNote>
+    </SlideLayout>
+  )
+}
+
+const ASKS = [
+  { q: '뭘 배우고 싶어요?', a: '언어든 프레임워크든. 1부에서 나온 방향으로' },
+  { q: '어디까지 가고 싶어요?', a: '읽을 수 있으면 / 혼자 짤 수 있게 / 설계까지' },
+  { q: '한 번에 얼마나 해요?', a: '레슨 하나의 크기가 여기서 정해져요' },
+  { q: '편한 언어 있어요?', a: '앞으로 비유를 그 언어로 들어줘요' },
+  { q: '어떤 AI 도구 써요?', a: '세션 여는 방법이 도구마다 달라서 물어봐요' },
+]
+
+/** 2부 · 튜터가 먼저 물어보는 것 */
+export function InterviewSlide() {
+  return (
+    <SlideLayout>
+      <SlideKicker>첫 화면</SlideKicker>
+      <SlideHeadline>코드보다 질문이 먼저 와요</SlideHeadline>
+
+      <div className="grid gap-4 lg:grid-cols-2">
+        {ASKS.map((ask, index) => (
+          <Panel
+            key={ask.q}
+            tone={index === 4 ? 'accentSoft' : 'raised'}
+            pad="md"
+            className={cx(
+              'flex flex-col gap-2',
+              index === 4 && 'lg:col-span-2',
+              index === 0 && 'animate-rise-1',
+              index === 1 && 'animate-rise-2',
+              index === 2 && 'animate-rise-3',
+              index >= 3 && 'animate-rise-4',
+            )}
+          >
+            <p className="flex items-center gap-4 text-deck-body font-bold text-content-strong">
+              <MessagesSquare size={26} className={index === 4 ? 'text-accent' : 'text-content-muted'} />
+              {ask.q}
+            </p>
+            <p className="text-deck-caption text-content-secondary">{ask.a}</p>
+          </Panel>
+        ))}
+      </div>
+
+      <div className="flex flex-wrap items-center gap-4">
+        <Chip tone="accent">모르겠으면 모르겠다고</Chip>
+        <span className="text-deck-caption text-content-secondary">
+          기본값을 정해서 알려주고 넘어가요. 붙잡고 고민하지 마세요
+        </span>
       </div>
     </SlideLayout>
   )

@@ -210,7 +210,7 @@ export function CareerTalkSlide() {
   return (
     <SlideLayout>
       <div className="flex flex-col items-center gap-8 text-center">
-        <SlideKicker>20분 · 커리어 패스 토크</SlideKicker>
+        <SlideKicker>커리어 얘기</SlideKicker>
         <SlideHeadline size="hero">
           여기서부터는 화면 접고 <Mark>얘기만 할게요</Mark>
         </SlideHeadline>
@@ -219,7 +219,7 @@ export function CareerTalkSlide() {
           onClick={() => setNotes((value) => !value)}
           className="rounded-full bg-surface-raised px-8 py-4 text-deck-caption font-semibold text-content-secondary shadow-raised transition duration-200 ease-deck hover:bg-surface-highlight hover:text-content-primary"
         >
-          {notes ? '노트 접기' : '말할 거리 펼치기 (강사용)'}
+          {notes ? '노트 접기' : '말할 거리 펼치기'}
         </button>
       </div>
 
@@ -250,7 +250,7 @@ export function BreakSlide() {
       <div className="flex flex-col items-center gap-10 text-center">
         <SlideKicker>휴식</SlideKicker>
         <CountdownTimer seconds={300} autoStart caption="다시 시작까지" />
-        <p className="text-deck-lead font-semibold text-content-primary">2부는 손을 써요. 노트북 켜두고 오세요.</p>
+        <p className="text-deck-lead font-semibold text-content-primary">2부는 손을 써요. 노트북은 켜둔 채로 쉬어요.</p>
       </div>
 
       <SlideNote tone="quiet">

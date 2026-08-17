@@ -15,56 +15,63 @@ import {
 } from '@/features/slide-deck'
 import { PromptCopyButton } from '../widgets/PromptCopyButton'
 
-const SETUP_STEPS = [
-  { head: '빈 폴더에서 코딩 CLI 실행', body: '아까 복사한 프롬프트를 그대로 붙여넣어요' },
-  { head: '맨 끝 학습 대상을 내 걸로', body: '예) TypeScript + React, 목표는 실무 FE 코드 읽기' },
-  { head: '첫 질문에 솔직하게', body: '"주 언어 없음", "목표 코드베이스 아직 없음"도 그대로 답하면 돼요' },
-  { head: 'S1까지가 이번 주 몫', body: '여기까지 오면 첫 레슨이 열려요' },
+const STAGES = [
+  { tag: 'S1', head: '문서와 도구', body: '커리큘럼 · 어휘 원장 · 채점 기준 · 검사기' },
+  { tag: 'S2', head: '레슨 뷰어', body: 'pnpm dev로 빈 화면까지 뜨는지' },
+  { tag: 'S3', head: '첫 레슨 L01', body: '뷰어에 레슨이 렌더되면 끝' },
 ]
 
-/** C16. 세팅 가이드 */
+const DONE_CHECKS = [
+  { head: 'pnpm dev가 뜨나요', hint: '브라우저에 뷰어 화면이 나와야 해요' },
+  { head: 'study-status.py가 다음 할 일을 말하나요', hint: '"L01 집필부터"가 나오면 정상' },
+  { head: '뷰어에 L01이 보이나요', hint: '여기까지 오면 혼자 굴러가요' },
+]
+
+/** 2부 · 세팅이 끝나갈 때 확인할 것 */
 export function SetupGuideSlide() {
+  const [checks, setChecks] = useState(() => DONE_CHECKS.map(() => false))
+  const toggle = (index: number) =>
+    setChecks((list) => list.map((value, itemIndex) => (itemIndex === index ? !value : value)))
+
   return (
     <SlideLayout align="top">
       <div className="flex flex-wrap items-end justify-between gap-6 pt-6">
         <div className="flex flex-col gap-4">
-          <SlideKicker>돌아가서 할 것</SlideKicker>
-          <SlideHeadline>세팅은 네 단계예요</SlideHeadline>
+          <SlideKicker>세팅은 세 번 끊겨요</SlideKicker>
+          <SlideHeadline>중간에 멈추면 정상이에요</SlideHeadline>
         </div>
         <PromptCopyButton size="md" />
       </div>
 
-      <ol className="grid gap-5 lg:grid-cols-2">
-        {SETUP_STEPS.map((step, index) => (
+      <div className="grid gap-5 lg:grid-cols-3">
+        {STAGES.map((stage, index) => (
           <Panel
-            key={step.head}
-            tone={index === 1 ? 'accentSoft' : 'raised'}
+            key={stage.tag}
+            tone={index === 2 ? 'accentSoft' : 'raised'}
             pad="lg"
             className={cx(
-              'flex items-start gap-6',
+              'flex flex-col gap-3',
               index === 0 && 'animate-rise-1',
               index === 1 && 'animate-rise-2',
               index === 2 && 'animate-rise-3',
-              index === 3 && 'animate-rise-4',
             )}
           >
-            <span className="grid size-14 shrink-0 place-items-center rounded-full bg-surface-sunken text-deck-caption font-bold text-content-primary">
-              {index + 1}
-            </span>
-            <span className="flex flex-col gap-2">
-              <span className="text-deck-body font-bold text-content-strong">{step.head}</span>
-              <span className="text-deck-caption text-content-secondary">{step.body}</span>
-            </span>
+            <PanelLabel tone={index === 2 ? 'accent' : 'muted'}>{stage.tag}</PanelLabel>
+            <p className="text-deck-body font-bold text-content-strong">{stage.head}</p>
+            <p className="text-deck-caption text-content-secondary">{stage.body}</p>
           </Panel>
         ))}
-      </ol>
+      </div>
 
-      <Panel tone="sunken" pad="lg" className="flex flex-wrap items-center justify-between gap-8">
-        <p className="text-deck-body text-content-secondary">
-          프롬프트 전문은 수업 끝나고 채팅으로 한 번 더 보낼게요.
-        </p>
-        <p className="text-deck-caption text-content-muted">막히면 2번 단계부터 다시 보기</p>
-      </Panel>
+      <div className="flex flex-col gap-4">
+        {DONE_CHECKS.map((item, index) => (
+          <CheckRow key={item.head} checked={checks[index]} onToggle={() => toggle(index)} hint={item.hint}>
+            {item.head}
+          </CheckRow>
+        ))}
+      </div>
+
+      <SlideNote tone="quiet">단계 끝마다 멈추고 물어봐요. &ldquo;계속해주세요&rdquo; 하면 다음으로 가요</SlideNote>
     </SlideLayout>
   )
 }
@@ -118,11 +125,11 @@ export function WarningSlide() {
 const TWO_LINES = [
   {
     head: '방향',
-    body: '시장 말고, 뭘 고칠 때 시간 가는 줄 몰랐는지로 정해요',
+    body: '시장 말고, 뭘 고칠 때 시간이 훅 갔는지로 정해요',
   },
   {
     head: 'AI 시대의 공부',
-    body: 'AI에게 시키지 말고 AI한테 배우되, 손은 내가 움직여요',
+    body: 'AI한테 시키지 말고 AI한테 배워요. 손은 내가 움직여요',
   },
 ]
 
@@ -165,7 +172,7 @@ export function AssignmentSlide() {
     <SlideLayout>
       <SlideKicker>다음 수업까지</SlideKicker>
       <SlideHeadline>
-        S1 부트스트랩 끝내고 <Mark>첫 레슨(L01)</Mark>까지 받아보기
+        세팅 끝내고 <Mark>첫 레슨(L01)</Mark>까지 열어보기
       </SlideHeadline>
 
       <div className="grid items-stretch gap-6 lg:grid-cols-9">
@@ -180,7 +187,7 @@ export function AssignmentSlide() {
           <div className="flex flex-wrap gap-3">
             <Chip>설치가 안 돼요</Chip>
             <Chip>인터뷰에 뭐라고 답하죠</Chip>
-            <Chip>레슨이 안 열려요</Chip>
+            <Chip>뷰어가 안 떠요</Chip>
           </div>
         </Panel>
 
@@ -197,11 +204,11 @@ export function AssignmentSlide() {
 }
 
 const PREP = [
-  { head: '데모용 학습 레포 준비', hint: 'S2(L01 포함)까지 미리. 현장 부트스트랩 금지' },
+  { head: '데모용 학습 레포 준비', hint: 'L01까지 · 뷰어 떠 있는 상태로. 현장 부트스트랩 금지' },
   { head: '학생 목표 스택 확인', hint: '데모 레포를 가능하면 그 스택으로 맞추기' },
+  { head: '학생이 쓰는 AI 도구 확인', hint: '세션 재개 파일 위치가 도구마다 달라요' },
   { head: '배포용 튜터 프롬프트 최종본', hint: '학습 대상 칸 채우는 법 예시까지' },
-  { head: '프롬프트 전송 경로 확인', hint: '수업 후 채팅으로 보낼 링크 미리 준비' },
-  { head: '사전 설치 공지', hint: '일주일 전 · LLM 계정, 코딩 CLI, git, python3' },
+  { head: '사전 설치 공지', hint: '일주일 전 · LLM 계정, 코딩 CLI, git, python3, node, pnpm' },
 ]
 
 /** C20. 강사용 — 수업 전 준비 (학생에게 보여주는 화면 아님) */

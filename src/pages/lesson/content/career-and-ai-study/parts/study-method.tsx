@@ -47,7 +47,7 @@ export function AiTrapSlide() {
         <BrainCircuit size={44} className="text-critical" />
         <SlideKicker>문제 제기 ②</SlideKicker>
       </div>
-      <SlideHeadline>AI에게 시키면 결과물은 나와요. 그런데</SlideHeadline>
+      <SlideHeadline>AI한테 시키면 결과물은 나와요. 그런데</SlideHeadline>
 
       <div className="grid gap-6 lg:grid-cols-9">
         <Panel tone="sunken" pad="lg" className="animate-rise-1 flex flex-col gap-4 lg:col-span-4">
@@ -113,7 +113,7 @@ export function RedefineSlide() {
         ))}
       </ol>
 
-      <SlideBody>이 세 조건을 문서 하나로 못 박은 게 지금 보여드릴 튜터 프롬프트예요.</SlideBody>
+      <SlideBody>이 세 조건을 문서 하나로 못 박은 게 지금 돌아가고 있는 그 프롬프트예요.</SlideBody>
     </SlideLayout>
   )
 }

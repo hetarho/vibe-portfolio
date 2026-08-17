@@ -16,22 +16,22 @@ const DESIGN_POINTS = [
   {
     icon: ShieldCheck,
     head: '안 배운 걸로 가르치지 않아요',
-    body: '레슨에 나오는 모든 토큰이 이전에 설명된 것인지 기계가 검사해요. 갑자기 어려워지는 순간이 없어요.',
+    body: '배운 단어를 원장에 적어두고, 레슨에 새 문법이 끼어들면 검사기가 통째로 실패시켜요. 갑자기 어려워지는 순간이 없어요.',
   },
   {
     icon: FolderGit2,
     head: '채팅이 아니라 레포',
-    body: '레슨이 파일로 쌓여요. 사라지지 않고, git 히스토리가 내 성장 기록이 돼요.',
+    body: '레슨이 파일로 쌓이고 뷰어에서 읽어요. 사라지지 않고, git 히스토리가 내 성장 기록이 돼요.',
   },
   {
     icon: GraduationCap,
-    head: '개념 하나당 실습 하나 + 판정',
-    body: '"이해했겠지"가 아니라 명령어 실행 결과로 판정해요.',
+    head: '개념 하나당 실습 하나',
+    body: '실습마다 판정 명령이 붙어요. "에디터를 보세요"는 판정이 아니에요.',
   },
   {
     icon: MessageCircleQuestion,
     head: 'AI가 답을 안 줘요',
-    body: '채점이 질문으로 와요. 이해도 체크를 통과 못 하면 다음 레슨을 안 줘요.',
+    body: '"여기 고치세요" 대신 "이 줄에서 err이 nil이면 어떻게 되죠?"로 물어요. 통과 못 하면 다음 레슨을 안 줘요.',
   },
 ]
 
@@ -40,7 +40,7 @@ export function TutorPromptSlide() {
   return (
     <SlideLayout>
       <SlideKicker>튜터 프롬프트</SlideKicker>
-      <SlideHeadline>이렇게 설계했어요</SlideHeadline>
+      <SlideHeadline>그래서 이런 장치를 걸어놨어요</SlideHeadline>
 
       <div className="grid gap-5 lg:grid-cols-2">
         {DESIGN_POINTS.map((point, index) => (
@@ -63,7 +63,7 @@ export function TutorPromptSlide() {
         ))}
       </div>
 
-      <SlideNote>AI를 코드 생성기가 아니라 전담 과외 선생으로 계약하는 문서</SlideNote>
+      <SlideNote>AI를 코드 생성기 말고 전담 과외 선생으로 계약하는 문서예요</SlideNote>
     </SlideLayout>
   )
 }
@@ -74,37 +74,37 @@ export function TutorPromptSlide() {
  */
 const DEMO_STEPS = [
   {
-    label: '진행 상황 한 화면',
+    label: '오늘 뭐 할지 판정',
     command: 'python3 tools/study-status.py',
     lines: [
       { text: '진행   L01–L07 완료 · 7 / 10', tone: 'plain' as const },
-      { text: '다음   L08 · 에러 처리', tone: 'plain' as const },
-      { text: '미제출 drill-06', tone: 'caution' as const },
+      { text: '뷰어   http://localhost:5173 응답 OK', tone: 'positive' as const },
+      { text: '다음   L08 집필부터', tone: 'plain' as const },
     ],
   },
   {
-    label: '레슨 파일 훑기',
-    command: 'open lessons/L01/LESSON.md',
+    label: '뷰어에서 레슨 읽기',
+    command: 'pnpm dev',
     lines: [
-      { text: '## drill 3 — 직접 쳐볼 것', tone: 'plain' as const },
-      { text: '## 과제 카드', tone: 'plain' as const },
-      { text: '## 이해도 체크 (3문항)', tone: 'plain' as const },
+      { text: ':::drill 3 — 직접 쳐볼 것', tone: 'plain' as const },
+      { text: ':::spec  과제 카드', tone: 'plain' as const },
+      { text: ':::check 이해도 질문 (힌트 접힘)', tone: 'plain' as const },
     ],
   },
   {
     label: '⭐ 안전장치 시연',
-    command: 'python3 tools/check-order.py lessons/L08',
+    command: 'python3 tools/check-order.py lessons/08-interface',
     lines: [
-      { text: '✗ L08:42  배운 적 없는 개념이 등장', tone: 'critical' as const },
-      { text: '  → 선행 레슨이 필요합니다', tone: 'critical' as const },
+      { text: '✗ L08:42  원장에 없는 토큰', tone: 'critical' as const },
+      { text: '  → 먼저 가르치거나 빼세요', tone: 'critical' as const },
       { text: 'FAILED (1 violation)', tone: 'critical' as const },
     ],
   },
   {
     label: '채점 장면',
-    command: 'submit drill-06',
+    command: '구현 제출',
     lines: [
-      { text: '점수 82 / 100', tone: 'positive' as const },
+      { text: '정확성 4 · 관용성 3 · 에러처리 3', tone: 'positive' as const },
       { text: 'Q. 이 줄에서 err이 nil이 아니면 어떻게 되죠?', tone: 'plain' as const },
       { text: 'Q. 왜 여기서 early return을 골랐나요?', tone: 'plain' as const },
     ],
@@ -127,8 +127,8 @@ export function LiveDemoSlide() {
     <SlideLayout>
       <div className="flex flex-wrap items-end justify-between gap-6">
         <div className="flex flex-col gap-4">
-          <SlideKicker>라이브 데모 · 15분</SlideKicker>
-          <SlideHeadline>미리 만들어둔 레포로 보여드릴게요</SlideHeadline>
+          <SlideKicker>미리 만들어둔 레포로</SlideKicker>
+          <SlideHeadline>다 만들어지면 이런 화면이에요</SlideHeadline>
         </div>
       </div>
 
@@ -164,7 +164,7 @@ export function LiveDemoSlide() {
         </ol>
 
         <Panel tone="sunken" pad="lg" className="flex flex-col gap-5 lg:col-span-5">
-          <PanelLabel>이 화면에서 보여줄 것</PanelLabel>
+          <PanelLabel>이럴 때 이런 게 나와요</PanelLabel>
           <p className="font-mono text-deck-caption text-accent">$ {current.command}</p>
           <div className="flex flex-col gap-3 rounded-card bg-surface-base p-7">
             {current.lines.map((line) => (
@@ -177,7 +177,7 @@ export function LiveDemoSlide() {
       </div>
 
       <SlideBody>
-        3번이 오늘의 하이라이트예요 — <Mark>막히기 전에 막아주는 안전장치</Mark>
+        여기가 오늘의 하이라이트예요 — <Mark>막히기 전에 막아주는 안전장치</Mark>
       </SlideBody>
     </SlideLayout>
   )

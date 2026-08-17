@@ -2,8 +2,9 @@ import type { DeckDef } from '@/features/slide-deck'
 import { FrameSlide, MarketShiftSlide, ProductEngineerSlide, StandbySlide, WorriesSlide } from './parts/opening'
 import { AptitudeGuideSlide, AptitudeTestSlide } from './parts/aptitude'
 import { BreakSlide, CareerTalkSlide, DayInLifeSlide, FieldMapSlide, ResultTalkSlide } from './parts/field-map'
-import { PromptHandoffSlide } from './parts/handoff'
+import { InterviewSlide, RunNowSlide } from './parts/handoff'
 import { AiTrapSlide, RedefineSlide, TutorialHellSlide } from './parts/study-method'
+import { RepoMapSlide, SessionLoopSlide, ViewerSlide } from './parts/repo'
 import { LiveDemoSlide, TutorPromptSlide } from './parts/tutor'
 import { AssignmentSlide, PrepChecklistSlide, SetupGuideSlide, SummarySlide, WarningSlide } from './parts/setup'
 
@@ -15,9 +16,10 @@ const PART = {
   map: 'PART 1 · 분야 지도',
   talk: 'PART 1 · 커리어 토크',
   rest: '휴식',
-  why: 'PART 2 · 왜 공부법이 달라져야 하나',
-  tutor: 'PART 2 · 튜터 프롬프트',
-  setup: 'PART 2 · 세팅 & 경고',
+  run: 'PART 2 · 일단 돌려놓기',
+  why: 'PART 2 · 왜 이렇게 공부하나',
+  repo: 'PART 2 · 만들어지는 것',
+  use: 'PART 2 · 쓰는 법',
   closing: 'PART 2 · 마무리',
   instructor: '강사용',
 }
@@ -36,21 +38,25 @@ export const careerAndAiStudyDeck: DeckDef = {
     { id: 'C9', part: PART.map, title: 'FE의 하루 vs BE의 하루', component: DayInLifeSlide },
     { id: 'C10', part: PART.talk, title: '커리어 패스 토크 (구두)', component: CareerTalkSlide },
     { id: 'C11', part: PART.rest, title: '휴식 5분', component: BreakSlide },
-    { id: 'C12', part: PART.tutor, title: '⭐ 튜터 프롬프트 복사', component: PromptHandoffSlide },
-    { id: 'C13', part: PART.why, title: '튜토리얼 지옥', component: TutorialHellSlide },
-    { id: 'C14', part: PART.why, title: 'AI 시대의 함정', component: AiTrapSlide },
-    { id: 'C15', part: PART.why, title: '공부의 목표 재정의', component: RedefineSlide },
-    { id: 'C16', part: PART.tutor, title: '튜터 프롬프트 설계', component: TutorPromptSlide },
-    { id: 'C17', part: PART.tutor, title: '라이브 데모', component: LiveDemoSlide },
-    { id: 'C18', part: PART.setup, title: '세팅 가이드', component: SetupGuideSlide },
-    { id: 'C19', part: PART.setup, title: '경고 2가지', component: WarningSlide },
-    { id: 'C20', part: PART.closing, title: '오늘 남길 2줄', component: SummarySlide },
-    { id: 'C21', part: PART.closing, title: '다음 수업까지', component: AssignmentSlide },
-    { id: 'C22', part: PART.instructor, title: '수업 전 준비 체크리스트', component: PrepChecklistSlide },
+    { id: 'C12', part: PART.run, title: '⭐ 프롬프트 복사해서 지금 실행', component: RunNowSlide },
+    { id: 'C13', part: PART.run, title: '튜터가 먼저 물어보는 것', component: InterviewSlide },
+    { id: 'C14', part: PART.why, title: '튜토리얼 지옥', component: TutorialHellSlide },
+    { id: 'C15', part: PART.why, title: 'AI 시대의 함정', component: AiTrapSlide },
+    { id: 'C16', part: PART.why, title: '공부의 목표 재정의', component: RedefineSlide },
+    { id: 'C17', part: PART.repo, title: '만들어지는 폴더 구조', component: RepoMapSlide },
+    { id: 'C18', part: PART.repo, title: '레슨 뷰어 · pnpm dev', component: ViewerSlide },
+    { id: 'C19', part: PART.repo, title: '프롬프트가 걸어둔 장치', component: TutorPromptSlide },
+    { id: 'C20', part: PART.use, title: '다음 세션부터의 사용법', component: SessionLoopSlide },
+    { id: 'C21', part: PART.use, title: '완성된 레포 데모', component: LiveDemoSlide },
+    { id: 'C22', part: PART.use, title: '세팅 끝나면 확인할 것', component: SetupGuideSlide },
+    { id: 'C23', part: PART.use, title: '경고 2가지', component: WarningSlide },
+    { id: 'C24', part: PART.closing, title: '오늘 남길 2줄', component: SummarySlide },
+    { id: 'C25', part: PART.closing, title: '다음 수업까지', component: AssignmentSlide },
+    { id: 'C26', part: PART.instructor, title: '수업 전 준비 체크리스트', component: PrepChecklistSlide },
   ],
   shortcuts: [
     { key: 'a', slideId: 'C5', label: '성향 체크' },
     { key: 'c', slideId: 'C12', label: '프롬프트 복사' },
-    { key: 'd', slideId: 'C17', label: '데모' },
+    { key: 'd', slideId: 'C21', label: '데모' },
   ],
 }
