@@ -1,12 +1,14 @@
 import { ArrowRight, Code2, MessageSquare, Plus, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 import {
+  CheckRow,
   Chip,
   CompareGrid,
   cx,
   Mark,
   Panel,
   PanelLabel,
+  QrSlot,
   SlideBody,
   SlideHeadline,
   SlideKicker,
@@ -14,9 +16,7 @@ import {
   SlideNote,
 } from '@/features/slide-deck'
 import { useIdeas } from '../model/ideas'
-import { CheckRow } from '../widgets/CheckRow'
 import { MenuRoulette } from '../widgets/MenuRoulette'
-import { QrSlot } from '../widgets/QrSlot'
 
 /** S0. 대기 화면 — 참가자 입장 중 */
 export function StandbySlide() {

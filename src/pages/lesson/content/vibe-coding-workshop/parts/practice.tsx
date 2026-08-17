@@ -1,6 +1,7 @@
 import { Copy, Hand, MessageSquareWarning, Star, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import {
+  CheckRow,
   Chip,
   CountdownTimer,
   cx,
@@ -14,7 +15,6 @@ import {
   SlideNote,
 } from '@/features/slide-deck'
 import { useIdeas } from '../model/ideas'
-import { CheckRow } from '../widgets/CheckRow'
 
 /** S15. 실습 준비 체크리스트 */
 export function PracticeReadySlide() {

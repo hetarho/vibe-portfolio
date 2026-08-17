@@ -1,6 +1,6 @@
 import { Check } from 'lucide-react'
 import type { ReactNode } from 'react'
-import { cx } from '@/features/slide-deck'
+import { cx } from './primitives'
 
 type Props = {
   checked: boolean

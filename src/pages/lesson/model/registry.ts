@@ -1,4 +1,5 @@
 import type { DeckDef } from '@/features/slide-deck'
+import { careerAndAiStudyDeck } from '../content/career-and-ai-study'
 import { vibeCodingWorkshopDeck } from '../content/vibe-coding-workshop'
 
 export type Lesson = {
@@ -27,6 +28,15 @@ export const lessons: Lesson[] = [
     duration: '2시간 · 22화면',
     outline: ['웹 앱이란 무엇인가', 'AI 에이전트의 작동 방식', '프롬프트 공식', '직접 만들고 고치기'],
     deck: vibeCodingWorkshopDeck,
+  },
+  {
+    id: 'career-and-ai-study',
+    title: '진로 찾기 & AI 시대 개발 공부법',
+    subtitle: '성향으로 방향을 정하고, 혼자 굴릴 학습 레포까지',
+    audience: '개발 지망 대학생 (FE/BE 미정 포함)',
+    duration: '2시간 · 21화면',
+    outline: ['개발 성향 체크 13문항', '분야 지도와 하루 일과', '왜 공부법이 달라져야 하나', '튜터 프롬프트 세팅'],
+    deck: careerAndAiStudyDeck,
   },
 ]
 

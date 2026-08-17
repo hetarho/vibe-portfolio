@@ -5,13 +5,13 @@ import {
   CountdownTimer,
   cx,
   Panel,
+  QrSlot,
   SlideBody,
   SlideHeadline,
   SlideKicker,
   SlideLayout,
   SlideNote,
 } from '@/features/slide-deck'
-import { QrSlot } from '../widgets/QrSlot'
 
 const MISSIONS = [
   { emoji: '🌙', name: '다크모드', how: '"어두운 테마도 만들어줘"' },
