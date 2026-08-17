@@ -22,7 +22,7 @@ const READ_ONLY = [
 const INTERACTIVE = [
   { name: '지메일', why: '내가 쓴 메일이 저장되고 전송됩니다' },
   { name: '지도', why: '내 위치에 반응해 경로를 계산합니다' },
-  { name: '인스타그램', why: '올리고, 누르고, 반응이 남습니다' },
+  { name: '인스타그램', why: '올리고 누르고 반응이 남습니다' },
 ]
 
 /** S5. 웹사이트 vs 웹 앱 */
@@ -153,7 +153,7 @@ export function IngredientsSlide() {
                 +1 누르기
               </button>
               <p className="text-deck-caption text-content-muted">
-                {js ? '버튼을 누르면 숫자가 올라갑니다' : '버튼은 그대로인데, 눌러도 아무 반응이 없습니다'}
+                {js ? '버튼을 누르면 숫자가 올라갑니다' : '버튼은 그대로인데 눌러도 아무 반응이 없습니다'}
               </p>
             </Panel>
           ) : (

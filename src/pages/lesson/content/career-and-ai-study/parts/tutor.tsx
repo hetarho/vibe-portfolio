@@ -21,7 +21,7 @@ const DESIGN_POINTS = [
   {
     icon: FolderGit2,
     head: '채팅이 아니라 레포',
-    body: '레슨이 파일로 쌓입니다. 사라지지 않고, git 히스토리가 내 성장 기록이 됩니다.',
+    body: '레슨이 파일로 쌓입니다. 사라지지 않고 git 히스토리가 내 성장 기록이 됩니다.',
   },
   {
     icon: GraduationCap,
@@ -63,7 +63,7 @@ export function TutorPromptSlide() {
         ))}
       </div>
 
-      <SlideNote>AI를 코드 생성기가 아니라, 전담 과외 선생으로 계약하는 문서</SlideNote>
+      <SlideNote>AI를 코드 생성기가 아니라 전담 과외 선생으로 계약하는 문서</SlideNote>
     </SlideLayout>
   )
 }
@@ -177,7 +177,7 @@ export function LiveDemoSlide() {
       </div>
 
       <SlideBody>
-        3번이 오늘의 하이라이트입니다 — <Mark>여러분을 지켜주는 안전장치</Mark>
+        3번이 오늘의 하이라이트예요 — <Mark>막히기 전에 막아주는 안전장치</Mark>
       </SlideBody>
     </SlideLayout>
   )

@@ -14,31 +14,31 @@ import {
   SlideNote,
 } from '@/features/slide-deck'
 
-/** C6. 결과 나눔 — 짝 토론 */
-export function PairTalkSlide() {
+/** C5. 결과 같이 뜯어보기 */
+export function ResultTalkSlide() {
   return (
     <SlideLayout>
       <div className="flex items-center gap-5">
         <MessagesSquare size={44} className="text-accent" />
-        <SlideHeadline>옆 사람과 5분</SlideHeadline>
+        <SlideHeadline>결과, 같이 뜯어봅시다</SlideHeadline>
       </div>
 
       <div className="grid items-center gap-8 lg:grid-cols-9">
         <div className="flex flex-col gap-5 lg:col-span-5">
           <Panel tone="raised" pad="lg">
-            <p className="text-deck-lead font-bold text-content-strong">결과에 동의하나요?</p>
+            <p className="text-deck-lead font-bold text-content-strong">이 결과, 납득이 가요?</p>
           </Panel>
           <Panel tone="raised" pad="lg">
-            <p className="text-deck-lead font-bold text-content-strong">의외였던 문항은 뭐였나요?</p>
+            <p className="text-deck-lead font-bold text-content-strong">고르기 망설였던 문항은 뭐였어요?</p>
           </Panel>
         </div>
 
         <Panel tone="sunken" pad="lg" className="lg:col-span-4">
-          <CountdownTimer seconds={300} caption="짝 토론" size="md" />
+          <CountdownTimer seconds={300} caption="이 얘기에 5분" size="md" />
         </Panel>
       </div>
 
-      <SlideNote tone="quiet">끝나면 2~3명, 전체와 나눠봅시다</SlideNote>
+      <SlideNote tone="quiet">망설인 문항이 진짜 정보예요. 거기에 답이 숨어 있어요</SlideNote>
     </SlideLayout>
   )
 }
@@ -47,7 +47,7 @@ const FIELDS = [
   {
     icon: MonitorSmartphone,
     name: '웹 프론트엔드',
-    line: '사용자가 만지는 화면을 만든다',
+    line: '사람이 만지는 화면을 만든다',
     detail: '컴포넌트, 상태 관리, 반응형, 접근성',
   },
   {
@@ -65,18 +65,18 @@ const FIELDS = [
   {
     icon: Database,
     name: '데이터 · 인프라',
-    line: '오늘은 이름만 알고 갑시다',
+    line: '오늘은 이름만 알고 갑니다',
     detail: '데이터 파이프라인, 클라우드, 배포 자동화',
     quiet: true,
   },
 ]
 
-/** C7. 분야 지도 */
+/** C6. 분야 지도 */
 export function FieldMapSlide() {
   return (
     <SlideLayout>
       <SlideKicker>분야 지도</SlideKicker>
-      <SlideHeadline>선택지는 이 정도입니다</SlideHeadline>
+      <SlideHeadline>선택지는 이 정도예요</SlideHeadline>
 
       <div className="grid gap-5 lg:grid-cols-4">
         {FIELDS.map((field, index) => (
@@ -102,7 +102,7 @@ export function FieldMapSlide() {
         ))}
       </div>
 
-      <SlideBody>기술 스택 말고, 하루가 어떻게 흘러가는지로 보겠습니다.</SlideBody>
+      <SlideBody>기술 스택 말고 하루가 어떻게 흘러가는지로 볼게요.</SlideBody>
     </SlideLayout>
   )
 }
@@ -136,11 +136,11 @@ function DayList({ items, tone }: { items: string[]; tone: 'accent' | 'quiet' })
   )
 }
 
-/** C8. FE의 하루 vs BE의 하루 */
+/** C7. FE의 하루 vs BE의 하루 */
 export function DayInLifeSlide() {
   return (
     <SlideLayout>
-      <SlideHeadline>어느 쪽 하루가 더 끌리나요?</SlideHeadline>
+      <SlideHeadline>어느 쪽 하루가 더 끌려요?</SlideHeadline>
 
       <CompareGrid>
         <Panel tone="raised" pad="lg" className="flex flex-col gap-6">
@@ -160,7 +160,7 @@ export function DayInLifeSlide() {
         </Panel>
       </CompareGrid>
 
-      <SlideNote>여러분이 상상한 하루와 어느 쪽이 가까운가요?</SlideNote>
+      <SlideNote>상상했던 개발자의 하루랑, 어느 쪽이 더 가까워요?</SlideNote>
     </SlideLayout>
   )
 }
@@ -168,27 +168,27 @@ export function DayInLifeSlide() {
 const TALKING_POINTS = [
   {
     head: '처음 6개월은 어느 길이든 겹친다',
-    body: 'HTTP, git, 자료구조 기초, 하나의 언어 제대로 — 지금 결정이 평생 결정이 아닙니다',
+    body: 'HTTP, git, 자료구조 기초, 언어 하나 제대로. 지금 고른 게 평생 결정이 아니에요',
   },
   {
     head: '시장 얘기 정면 돌파',
-    body: '채용 공고는 지금의 수요지, 여러분 졸업 시점의 수요가 아닙니다',
+    body: '채용 공고는 지금의 수요예요. 졸업할 때의 수요가 아니고요',
   },
   {
     head: '포트폴리오',
-    body: '클론 코딩 나열보다 "어떤 문제를 왜 이렇게 풀었나" 서사 1~2개',
+    body: '클론 코딩을 늘어놓는 것보다, 어떤 문제를 왜 그렇게 풀었는지 이야기 하나가 더 셉니다',
   },
   {
     head: '전환 비용은 생각보다 낮다',
-    body: '겹치는 근육 — 디버깅, 코드 읽기, 커뮤니케이션',
+    body: '겹치는 근육이 큽니다. 디버깅, 코드 읽기, 커뮤니케이션',
   },
   {
     head: 'AI 시대에 신입에게 남는 것',
-    body: '코드 생산은 싸졌고, 읽고 판단하는 능력이 병목입니다 → 2부로',
+    body: '코드 생산은 싸졌고 읽고 판단하는 능력이 병목이에요. 여기서 2부로 넘어갑니다',
   },
 ]
 
-/** C9. 커리어 패스 토크 — 화면 없이 구두 진행 */
+/** C8. 커리어 패스 토크 — 화면 접고 말로 */
 export function CareerTalkSlide() {
   const [notes, setNotes] = useState(false)
 
@@ -197,14 +197,14 @@ export function CareerTalkSlide() {
       <div className="flex flex-col items-center gap-8 text-center">
         <SlideKicker>20분 · 커리어 패스 토크</SlideKicker>
         <SlideHeadline size="hero">
-          여기서부터는 화면 말고, <Mark>저를 보세요</Mark>
+          여기서부터는 화면 접고 <Mark>얘기만 할게요</Mark>
         </SlideHeadline>
         <button
           type="button"
           onClick={() => setNotes((value) => !value)}
           className="rounded-full bg-surface-raised px-8 py-4 text-deck-caption font-semibold text-content-secondary shadow-raised transition duration-200 ease-deck hover:bg-surface-highlight hover:text-content-primary"
         >
-          {notes ? '스피커 노트 접기' : '스피커 노트 펼치기 (강사용)'}
+          {notes ? '노트 접기' : '말할 거리 펼치기 (강사용)'}
         </button>
       </div>
 
@@ -228,20 +228,18 @@ export function CareerTalkSlide() {
   )
 }
 
-/** C10. 휴식 */
+/** C9. 휴식 */
 export function BreakSlide() {
   return (
     <SlideLayout>
       <div className="flex flex-col items-center gap-10 text-center">
         <SlideKicker>휴식</SlideKicker>
-        <CountdownTimer seconds={300} autoStart caption="다시 모이기까지" />
-        <p className="text-deck-lead font-semibold text-content-primary">
-          2부는 손을 씁니다. 노트북 켜두고 오세요.
-        </p>
+        <CountdownTimer seconds={300} autoStart caption="다시 시작까지" />
+        <p className="text-deck-lead font-semibold text-content-primary">2부는 손을 씁니다. 노트북 켜두고 오세요.</p>
       </div>
 
       <SlideNote tone="quiet">
-        다음은 <Mark>PART 2 · AI 시대 개발 공부법</Mark>
+        이어서 <Mark>PART 2 · AI 시대 개발 공부법</Mark>
       </SlideNote>
     </SlideLayout>
   )

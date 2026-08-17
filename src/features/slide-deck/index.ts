@@ -2,7 +2,6 @@ export type { DeckDef, DeckShortcut, SlideDef, SlideProps } from './model/types'
 export { CheckRow } from './ui/CheckRow'
 export { CountdownTimer } from './ui/CountdownTimer'
 export { DeckShell } from './ui/DeckShell'
-export { QrSlot } from './ui/QrSlot'
 export {
   Chip,
   CompareGrid,

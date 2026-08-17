@@ -8,7 +8,6 @@ import {
   Mark,
   Panel,
   PanelLabel,
-  QrSlot,
   SlideBody,
   SlideHeadline,
   SlideKicker,
@@ -18,7 +17,7 @@ import {
 import { useIdeas } from '../model/ideas'
 import { MenuRoulette } from '../widgets/MenuRoulette'
 
-/** S0. 대기 화면 — 참가자 입장 중 */
+/** S0. 시작 전 화면 */
 export function StandbySlide() {
   const [checks, setChecks] = useState([false, false, false])
   const toggle = (index: number) =>
@@ -28,32 +27,32 @@ export function StandbySlide() {
     <SlideLayout>
       <div className="grid items-center gap-12 lg:grid-cols-9">
         <div className="flex flex-col gap-7 lg:col-span-5">
-          <SlideKicker>곧 시작합니다 · 14:00</SlideKicker>
+          <SlideKicker>오늘 수업</SlideKicker>
           <h1 className="animate-rise-1 text-deck-hero font-bold tracking-tight text-balance text-content-strong">
             바이브코딩
             <br />
             말로 만드는 <Mark>나의 첫 웹 앱</Mark>
           </h1>
-          <SlideBody>자리에 앉으셨다면, 오른쪽 세 가지만 미리 준비해 주세요.</SlideBody>
+          <SlideBody>시작하기 전에 옆의 세 가지만 확인할게요.</SlideBody>
         </div>
 
         <Panel tone="raised" pad="lg" className="animate-rise-2 flex flex-col gap-4 lg:col-span-4">
-          <PanelLabel>시작 전 준비</PanelLabel>
-          <CheckRow checked={checks[0]} onToggle={() => toggle(0)} hint="SSID: workshop · PW: vibe2024">
-            와이파이 연결
+          <PanelLabel>시작 전 확인</PanelLabel>
+          <CheckRow checked={checks[0]} onToggle={() => toggle(0)} hint="영상이 끊기면 바로 말해주세요">
+            인터넷 연결
           </CheckRow>
-          <CheckRow checked={checks[1]} onToggle={() => toggle(1)} hint="로그인까지 마쳐 주세요">
+          <CheckRow checked={checks[1]} onToggle={() => toggle(1)} hint="로그인까지 되어 있어야 해요">
             Claude 로그인
           </CheckRow>
-          <CheckRow checked={checks[2]} onToggle={() => toggle(2)} hint="다른 프로그램은 닫아두면 좋아요">
+          <CheckRow checked={checks[2]} onToggle={() => toggle(2)} hint="다른 창은 닫아두면 편해요">
             크롬 브라우저 열기
           </CheckRow>
         </Panel>
       </div>
 
       <div className="animate-rise-3 flex items-center justify-between gap-8 rounded-panel bg-surface-raised px-10 py-6 shadow-raised">
-        <QrSlot label="사전 안내 문서" caption="준비물 · 오늘 순서 · 자주 묻는 질문" />
-        <p className="text-deck-caption text-content-muted">문제가 있으면 손을 들어 주세요 🙋</p>
+        <p className="text-deck-body text-content-secondary">막히는 지점이 생기면 그때그때 끊고 물어봐도 돼요.</p>
+        <p className="text-deck-caption text-content-muted">오늘 2시간, 만드는 데 대부분을 씁니다</p>
       </div>
     </SlideLayout>
   )
@@ -67,14 +66,14 @@ export function PromiseSlide() {
         <div className="flex flex-col gap-8 lg:col-span-5">
           <SlideKicker>오늘의 약속</SlideKicker>
           <SlideHeadline size="hero">
-            2시간 뒤, 여러분은
+            2시간 뒤엔
             <br />
-            <Mark>직접 만든 웹 앱</Mark>을 갖고 돌아갑니다
+            <Mark>직접 만든 웹 앱</Mark>이 하나 생겨요
           </SlideHeadline>
           <SlideBody>코드는 한 줄도 직접 쓰지 않습니다.</SlideBody>
           <div className="animate-rise-3 flex flex-wrap gap-3">
-            <Chip>👉 오른쪽 룰렛, 지금 눌러보세요</Chip>
-            <Chip tone="accent">실습 결과물 예시</Chip>
+            <Chip>오른쪽 룰렛, 지금 한번 눌러보세요</Chip>
+            <Chip tone="accent">오늘 만들 결과물 예시</Chip>
           </div>
         </div>
 
@@ -86,7 +85,7 @@ export function PromiseSlide() {
   )
 }
 
-/** S2. 질문 — 여러분은 뭘 만들고 싶으세요? */
+/** S2. 질문 — 뭘 만들고 싶은지 */
 export function IdeaWallSlide() {
   const { ideas, add, remove } = useIdeas()
   const [draft, setDraft] = useState('')
@@ -99,8 +98,8 @@ export function IdeaWallSlide() {
   return (
     <SlideLayout align="top">
       <div className="flex flex-col gap-6 pt-8">
-        <SlideKicker>아이스브레이킹</SlideKicker>
-        <SlideHeadline>만들고 싶었던 것, 자동화하고 싶었던 일이 있나요?</SlideHeadline>
+        <SlideKicker>먼저 물어볼 것</SlideKicker>
+        <SlideHeadline>만들고 싶었던 것, 자동화하고 싶었던 일이 있어요?</SlideHeadline>
       </div>
 
       <div className="animate-rise-2 flex items-center gap-4">
@@ -125,7 +124,7 @@ export function IdeaWallSlide() {
 
       {ideas.length === 0 ? (
         <Panel tone="sunken" pad="lg" className="grid place-items-center">
-          <p className="text-deck-body text-content-muted">여기에 여러분의 아이디어가 쌓입니다</p>
+          <p className="text-deck-body text-content-muted">여기에 아이디어가 쌓여요</p>
         </Panel>
       ) : (
         <ul className="grid grid-cols-2 gap-5 xl:grid-cols-3">
@@ -192,9 +191,7 @@ export function DefinitionSlide() {
         </Panel>
       </CompareGrid>
 
-      <SlideNote>
-        여러분의 역할 = 개발자가 아니라, 잘 시키는 클라이언트
-      </SlideNote>
+      <SlideNote>오늘 내 역할 = 개발자가 아니라 잘 시키는 클라이언트</SlideNote>
     </SlideLayout>
   )
 }
@@ -209,7 +206,7 @@ const JOURNEY = [
 export function JourneySlide() {
   return (
     <SlideLayout>
-      <SlideKicker>오늘의 여정</SlideKicker>
+      <SlideKicker>오늘 순서</SlideKicker>
       <SlideHeadline>두 시간, 이렇게 갑니다</SlideHeadline>
 
       <ol className="grid items-stretch gap-6 lg:grid-cols-8">

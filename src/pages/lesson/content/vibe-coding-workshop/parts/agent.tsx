@@ -41,7 +41,7 @@ export function ChatbotVsAgentSlide() {
           <p className="text-deck-lead font-bold text-content-strong">
             주방에서 직접 <Mark>요리해주는</Mark> 셰프
           </p>
-          <p className="text-deck-body text-content-secondary">내 주문을 듣고, 만들고, 맛까지 보고 내옵니다.</p>
+          <p className="text-deck-body text-content-secondary">내 주문을 듣고 만들고 맛까지 보고 내옵니다.</p>
           <Chip tone="accent">코드 작성 + 실행 + 오류 수정까지 스스로</Chip>
         </Panel>
       </CompareGrid>
@@ -153,7 +153,7 @@ const LIMITS = [
   },
   {
     title: 'AI는 독심술사가 아님',
-    line: '머릿속 그림을 말로 꺼내는 게 여러분의 스킬',
+    line: '머릿속 그림을 말로 꺼내는 게 오늘 배울 기술',
     detail: '오늘 배우는 건 결국 이 한 가지입니다.',
   },
 ]

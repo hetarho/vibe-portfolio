@@ -22,7 +22,7 @@ function write(list: string[]) {
 }
 
 /**
- * S2에서 받아 적은 참가자 아이디어를 S16(주제 선택)에서 다시 꺼내 쓰기 위해
+ * S2에서 받아 적은 아이디어를 S16(주제 선택)에서 다시 꺼내 쓰기 위해
  * localStorage에 보관한다. 슬라이드는 활성화될 때만 마운트되므로 마운트 시점에 읽는다.
  */
 export function useIdeas() {

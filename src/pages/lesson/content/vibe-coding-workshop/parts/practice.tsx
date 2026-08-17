@@ -25,24 +25,24 @@ export function PracticeReadySlide() {
   return (
     <SlideLayout>
       <SlideKicker>PART 2 시작</SlideKicker>
-      <SlideHeadline>출발선을 맞춥니다</SlideHeadline>
+      <SlideHeadline>이제 직접 만들어봅시다</SlideHeadline>
 
       <div className="flex flex-col gap-4">
-        <CheckRow checked={checks[0]} onToggle={() => toggle(0)} hint="로그인까지 되어 있어야 합니다">
-          도구 접속 &amp; 로그인 완료
+        <CheckRow checked={checks[0]} onToggle={() => toggle(0)} hint="로그인까지 되어 있어야 해요">
+          도구 접속 &amp; 로그인
         </CheckRow>
-        <CheckRow checked={checks[1]} onToggle={() => toggle(1)} hint="기존 대화는 닫아주세요">
+        <CheckRow checked={checks[1]} onToggle={() => toggle(1)} hint="쓰던 대화는 닫아주세요">
           새 대화창 열기
         </CheckRow>
-        <CheckRow checked={checks[2]} onToggle={() => toggle(2)} hint="안 되는 분이 계신지 눈으로 확인">
-          손 들어 확인
+        <CheckRow checked={checks[2]} onToggle={() => toggle(2)} hint="같이 보면서 진행할게요">
+          화면 공유 켜기
         </CheckRow>
       </div>
 
       <SlideNote>
         <span className="inline-flex items-center gap-3">
           <Hand size={30} />
-          문제가 있으면 노트북을 살짝 들어주세요
+          안 되는 게 있으면 그 자리에서 바로 말해주세요
         </span>
       </SlideNote>
     </SlideLayout>

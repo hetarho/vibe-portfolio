@@ -5,7 +5,6 @@ import {
   CountdownTimer,
   cx,
   Panel,
-  QrSlot,
   SlideBody,
   SlideHeadline,
   SlideKicker,
@@ -100,8 +99,8 @@ export function SummarySlide() {
   return (
     <SlideLayout>
       <div className="flex flex-wrap items-center justify-between gap-6">
-        <SlideHeadline>오늘의 3줄</SlideHeadline>
-        <Chip tone="accent">자랑하실 분? 🙌</Chip>
+        <SlideHeadline>오늘 남길 3줄</SlideHeadline>
+        <Chip tone="accent">만든 거 같이 한번 볼까요</Chip>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-3">
@@ -173,15 +172,17 @@ export function ClosingSlide() {
         ))}
       </ol>
 
-      <Panel tone="sunken" pad="lg" className="flex flex-wrap items-center justify-around gap-8">
-        <QrSlot label="오늘 자료 · 프롬프트 모음" caption="집에 가서 다시 해보실 분" />
-        <QrSlot label="피드백 설문" caption="2분이면 끝납니다" />
+      <Panel tone="sunken" pad="lg" className="flex flex-wrap items-center justify-between gap-8">
+        <p className="text-deck-body text-content-secondary">
+          오늘 쓴 프롬프트 모음은 수업 끝나고 정리해서 보낼게요.
+        </p>
+        <p className="text-deck-caption text-content-muted">다음 시간엔 만든 걸 인터넷에 올려봅니다</p>
       </Panel>
 
       <SlideNote>
         <span className="inline-flex items-center gap-3">
           <PartyPopper size={30} />
-          여러분은 오늘 <span className="underline decoration-4 underline-offset-8">첫 앱</span>을 만든 사람입니다 👏
+          오늘 <span className="underline decoration-4 underline-offset-8">첫 앱</span>을 만들었어요 👏
         </span>
       </SlideNote>
     </SlideLayout>

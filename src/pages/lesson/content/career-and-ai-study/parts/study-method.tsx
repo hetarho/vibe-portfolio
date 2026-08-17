@@ -65,7 +65,7 @@ export function AiTrapSlide() {
         </Panel>
       </div>
 
-      <SlideBody>결과물은 싸졌고, 판단은 여전히 비쌉니다.</SlideBody>
+      <SlideBody>결과물은 싸졌고 판단은 여전히 비쌉니다.</SlideBody>
     </SlideLayout>
   )
 }
@@ -73,7 +73,7 @@ export function AiTrapSlide() {
 const CONDITIONS = [
   { icon: ListOrdered, text: '모르는 게 갑자기 튀어나오지 않는 순서' },
   { icon: Hammer, text: '읽기만 하지 않고 개념마다 손으로 침' },
-  { icon: FileQuestion, text: '누군가 근거를 갖고 채점하고, 설명을 요구함' },
+  { icon: FileQuestion, text: '누군가 근거를 갖고 채점하고 설명을 요구함' },
 ]
 
 /** C13. 공부의 목표 재정의 */
@@ -113,7 +113,7 @@ export function RedefineSlide() {
         ))}
       </ol>
 
-      <SlideBody>이 세 조건을 문서 하나로 강제한 게, 지금 보여드릴 튜터 프롬프트입니다.</SlideBody>
+      <SlideBody>이 세 조건을 문서 하나로 강제한 게 지금 보여드릴 튜터 프롬프트입니다.</SlideBody>
     </SlideLayout>
   )
 }
