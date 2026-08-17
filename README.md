@@ -11,23 +11,50 @@ pnpm dev
 
 프로덕션 빌드는 `pnpm build`, 타입 검사는 `pnpm lint`로 확인할 수 있습니다.
 
+## 라우팅
+
+TanStack Router(코드 기반 라우트, `src/app/router.tsx`)를 사용합니다.
+
+| 경로 | 화면 |
+|---|---|
+| `/` | 브랜드 스튜디오 |
+| `/shop` | 라이프 숍 |
+| `/quiz` | 취향 퀴즈 |
+| `/lesson` | 강의 선택 (비공개) |
+| `/lesson/:lessonId?s=1` | 강의 발표 모드 (비공개) |
+
+`/lesson` 이하는 포트폴리오 내비게이션 어디에도 연결되어 있지 않고 `noindex`가 붙습니다.
+주소를 직접 입력해야만 들어갈 수 있습니다.
+
+> 정적 호스팅에 올릴 때는 모든 경로를 `index.html`로 되돌리는 SPA fallback 설정이 필요합니다.
+
 ## 구조
 
 ```text
 src/
-├── app/                  # 앱 진입점, 글로벌 Tailwind 스타일
-├── pages/                # studio, shop, quiz 페이지 조합
+├── app/                  # 앱 진입점, 라우터, 글로벌 Tailwind 스타일
+├── pages/                # studio, shop, quiz + lesson(강의)
+│   └── lesson/           # DESIGN.md · 강의 목록 · 슬라이드 콘텐츠
 ├── widgets/              # 포트폴리오 공통 헤더
-├── features/             # 장바구니, 성향 테스트
+├── features/             # 장바구니, 성향 테스트, 슬라이드 덱 엔진
 ├── entities/             # 상품 타입, 목데이터, UI
 └── shared/               # 공통 내비게이션 모델
 ```
 
 FSD의 상위 레이어가 하위 레이어를 참조하는 의존 방향을 따릅니다. 각 세그먼트의 `index.ts`를 public API로 사용합니다.
 
+## 강의 화면 (`/lesson`)
+
+강사가 빔프로젝터에 띄워놓고 진행하는 프레젠테이션형 화면입니다.
+
+- 조작: `←` `→` `Space` 이동, `P` 프롬프트 공식으로 점프, `O` 전체 목록, `F` 전체화면
+- 현재 화면 번호가 `?s=` 로 주소에 남아 새로고침해도 위치를 유지합니다
+- 디자인 규칙과 체크리스트: [src/pages/lesson/DESIGN.md](src/pages/lesson/DESIGN.md)
+- 새 강의 추가: `src/pages/lesson/content/`에 덱을 만들고 `model/registry.ts`에 한 줄 추가
+
 ## 포함된 인터랙션
 
-- 해시 기반 프로젝트 전환 및 반응형 모바일 메뉴
+- TanStack Router 기반 프로젝트 전환 및 반응형 모바일 메뉴
 - 회사 소개 프로젝트 스크롤, 문의 모달
 - 쇼핑몰 카테고리/검색/찜/장바구니 담기와 삭제
 - 4문항 성향 테스트, 결과 분기, 재시작과 링크 복사

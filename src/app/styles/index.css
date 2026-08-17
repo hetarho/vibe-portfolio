@@ -1,6 +1,9 @@
 @import "tailwindcss";
 
 @theme {
+  /* ─────────────────────────────────────────────────────────
+     레거시: 포트폴리오 예시 사이트 3종(studio/shop/quiz) 전용
+     ───────────────────────────────────────────────────────── */
   --color-ink: #151612;
   --color-paper: #f2f0e9;
   --color-coral: #ff5e45;
@@ -8,6 +11,104 @@
   --color-purple: #7255f7;
   --font-sans: "Pretendard Variable", Pretendard, "Noto Sans KR", Arial, sans-serif;
   --font-display: "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+
+  /* ═════════════════════════════════════════════════════════
+     강의(lesson) 디자인 시스템 — 자세한 규칙은 src/pages/lesson/DESIGN.md
+     ═════════════════════════════════════════════════════════ */
+
+  /* ── Primary: 짙은 웜 그레이 ───────────────────────────── */
+  --color-primary-50: #f6f4f1;
+  --color-primary-100: #ebe7e1;
+  --color-primary-200: #d8d2c9;
+  --color-primary-300: #bdb5a9;
+  --color-primary-400: #9c9387;
+  --color-primary-500: #7f766a;
+  --color-primary-600: #665e54;
+  --color-primary-700: #514a42;
+  --color-primary-800: #3b3631;
+  --color-primary-900: #2b2724;
+  --color-primary-950: #1c1a17;
+  --color-primary: var(--color-primary-900);
+
+  /* ── Surface: 깊이 4계층 + 보조 2계층 (아래로 갈수록 앞으로 나옴) ── */
+  --color-surface-sunken: #141311;    /* 1. 파인 면 — 트랙, 인풋, 진행률 배경 */
+  --color-surface-base: #1c1a17;      /* 2. 바탕 면 — 화면 기본 배경 */
+  --color-surface-raised: #262320;    /* 3. 떠오른 면 — 카드, 패널 */
+  --color-surface-overlay: #322e2a;   /* 4. 덮는 면 — 모달, 카드 위의 카드 */
+  --color-surface-highlight: #3f3a34; /* 보조 — hover / 선택된 면 */
+  --color-surface-inverse: #f6f4f1;   /* 보조 — 밝게 반전된 면 */
+
+  /* ── Content: 면 위 글자 4단계 ─────────────────────────── */
+  --color-content-strong: #fbf9f6;    /* 헤드라인 */
+  --color-content-primary: #e9e4dc;   /* 본문 */
+  --color-content-secondary: #b6ada1; /* 보조 설명 */
+  --color-content-muted: #837a6e;     /* 캡션, 비활성 */
+  --color-content-inverse: #1c1a17;   /* 밝은 면 위 글자 */
+
+  /* ── Line: 면으로 부족할 때만 쓰는 최소한의 선 ─────────── */
+  --color-line-subtle: #2c2925;
+  --color-line-default: #3a3630;
+  --color-line-strong: #55504a;
+
+  /* ── Accent: 포인트 컬러 1개 (키워드 강조 전용) ────────── */
+  --color-accent: #d8ff4a;
+  --color-accent-strong: #c3ef1c;
+  --color-accent-soft: #39421a;       /* accent 계열 어두운 면 */
+  --color-accent-contrast: #1b1f08;   /* accent 면 위 글자 */
+
+  /* ── Semantic: 상태 표현 (면 + 글자 쌍) ────────────────── */
+  --color-positive: #7fd7a4;
+  --color-positive-soft: #1f3529;
+  --color-caution: #f2c14e;
+  --color-caution-soft: #3b3018;
+  --color-critical: #ff7a66;
+  --color-critical-soft: #3d221d;
+  --color-info: #86b8f0;
+  --color-info-soft: #1e2c3d;
+
+  /* ── Container: 무대 폭 ────────────────────────────────── */
+  --container-stage: 96rem;
+  --container-column: 60rem;
+
+  /* ── Radius: 부드러운 곡선 ─────────────────────────────── */
+  --radius-control: 0.875rem; /* 버튼, 칩 */
+  --radius-card: 1.5rem;      /* 카드 */
+  --radius-panel: 2rem;       /* 패널, 큰 블록 */
+  --radius-stage: 2.75rem;    /* 화면 단위 무대 */
+
+  /* ── Deck typography: 강의장 맨 뒷자리 기준 (본문 28px 이상) ── */
+  --text-deck-meta: 1rem;
+  --text-deck-meta--line-height: 1.4;
+  --text-deck-caption: 1.375rem;
+  --text-deck-caption--line-height: 1.5;
+  --text-deck-body: clamp(1.75rem, 1.9vw, 2.125rem);
+  --text-deck-body--line-height: 1.55;
+  --text-deck-lead: clamp(2.125rem, 2.5vw, 2.875rem);
+  --text-deck-lead--line-height: 1.4;
+  --text-deck-title: clamp(2.75rem, 4vw, 4.25rem);
+  --text-deck-title--line-height: 1.2;
+  --text-deck-hero: clamp(3.5rem, 6vw, 6.5rem);
+  --text-deck-hero--line-height: 1.08;
+  --text-deck-numeric: clamp(5rem, 11vw, 11rem);
+  --text-deck-numeric--line-height: 1;
+
+  /* ── Depth: 선 대신 그림자로 층을 구분 ─────────────────── */
+  --shadow-raised: 0 2px 6px oklch(0% 0 0 / 0.28), 0 12px 28px oklch(0% 0 0 / 0.22);
+  --shadow-overlay: 0 8px 20px oklch(0% 0 0 / 0.34), 0 32px 64px oklch(0% 0 0 / 0.34);
+  --shadow-lifted: 0 18px 40px oklch(0% 0 0 / 0.38);
+  --inset-shadow-sunken: inset 0 2px 5px oklch(0% 0 0 / 0.4);
+
+  /* ── Motion: 하나의 이징, 정해진 등장 리듬 ─────────────── */
+  --ease-deck: cubic-bezier(0.22, 1, 0.36, 1);
+  --animate-rise: rise 0.5s var(--ease-deck) both;
+  --animate-rise-1: rise 0.5s var(--ease-deck) 0.07s both;
+  --animate-rise-2: rise 0.5s var(--ease-deck) 0.14s both;
+  --animate-rise-3: rise 0.5s var(--ease-deck) 0.21s both;
+  --animate-rise-4: rise 0.5s var(--ease-deck) 0.28s both;
+  --animate-rise-5: rise 0.5s var(--ease-deck) 0.35s both;
+  --animate-fade: fade 0.45s var(--ease-deck) both;
+  --animate-pop: pop 0.4s var(--ease-deck) both;
+  --animate-breathe: breathe 3.6s var(--ease-deck) infinite;
 }
 
 @layer base {
@@ -49,6 +150,27 @@
 
 @keyframes marquee {
   to { transform: translateX(-50%); }
+}
+
+/* 강의 덱 공통 모션 */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(1.25rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pop {
+  from { opacity: 0; transform: scale(0.94); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.04); }
 }
 
 @layer components {
