@@ -1,23 +1,25 @@
 import { Menu, X } from 'lucide-react'
 import { useState } from 'react'
-import { pageInfo, type Page } from '@/shared/model/navigation'
+import { pageInfo, pageOrder, type Page } from '@/shared/model/navigation'
 
 type Props = {
   page: Page
   onChange: (page: Page) => void
+  /** 로고를 누르면 포트폴리오 목록(/vibe-portfolio)으로 돌아간다 */
+  onHome: () => void
 }
 
-export function PortfolioHeader({ page, onChange }: Props) {
+export function PortfolioHeader({ page, onChange, onHome }: Props) {
   const [open, setOpen] = useState(false)
 
   return (
     <header className={`portfolio-header header-${page}`}>
-      <button className="portfolio-logo" onClick={() => onChange('studio')} aria-label="Vibe portfolio 홈">
+      <button className="portfolio-logo" onClick={onHome} aria-label="포트폴리오 목록으로">
         VIBE<span>®</span>
       </button>
 
       <nav className={open ? 'portfolio-nav open' : 'portfolio-nav'} aria-label="포트폴리오 프로젝트">
-        {(Object.keys(pageInfo) as Page[]).map((key) => (
+        {pageOrder.map((key) => (
           <button
             key={key}
             className={page === key ? 'active' : ''}

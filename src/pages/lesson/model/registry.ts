@@ -15,10 +15,7 @@ export type Lesson = {
   deck: DeckDef
 }
 
-/**
- * 강의 목록. 새 강의를 추가하려면 content/ 아래에 덱을 만들고 이 배열에 한 줄 추가한다.
- * 이 목록은 포트폴리오 내비게이션 어디에도 연결하지 않는다 (URL 직접 입력 전용).
- */
+/** 강의 목록. 새 강의를 추가하려면 content/ 아래에 덱을 만들고 이 배열에 한 줄 추가한다. */
 export const lessons: Lesson[] = [
   {
     id: 'vibe-coding-workshop',

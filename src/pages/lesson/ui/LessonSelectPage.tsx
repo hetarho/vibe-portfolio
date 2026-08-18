@@ -1,16 +1,25 @@
-import { ArrowRight, Clock, Presentation, Users } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Clock, Presentation, Users } from 'lucide-react'
 import { lessons } from '../model/registry'
 
 type Props = {
   onOpen: (lessonId: string) => void
+  onBack: () => void
 }
 
-/** 강의 선택 화면 — URL을 직접 입력해야만 도달하는 진입점 */
-export function LessonSelectPage({ onOpen }: Props) {
+/** 강의 선택 화면 */
+export function LessonSelectPage({ onOpen, onBack }: Props) {
   return (
     <div className="min-h-dvh w-full bg-surface-base font-sans break-keep text-content-primary">
       <div className="mx-auto flex max-w-stage flex-col gap-12 px-12 py-20">
         <header className="animate-rise flex flex-col gap-5">
+          <button
+            type="button"
+            onClick={onBack}
+            className="flex w-fit items-center gap-2 text-deck-meta font-medium text-content-muted transition hover:text-content-primary"
+          >
+            <ArrowLeft size={18} />
+            vibe.haeram
+          </button>
           <p className="flex items-center gap-3 text-deck-caption font-semibold tracking-widest text-content-muted uppercase">
             <span className="size-3 rounded-full bg-accent" aria-hidden />
             Lesson
@@ -69,10 +78,6 @@ export function LessonSelectPage({ onOpen }: Props) {
             </li>
           ))}
         </ul>
-
-        <footer className="rounded-panel bg-surface-sunken px-10 py-7 text-deck-caption text-content-muted inset-shadow-sunken">
-          이 페이지는 포트폴리오 내비게이션 어디에도 연결되어 있지 않습니다. 주소를 직접 입력해야 들어올 수 있습니다.
-        </footer>
       </div>
     </div>
   )

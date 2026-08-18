@@ -1,10 +1,12 @@
 import { createRootRoute, createRoute, createRouter, Outlet, useNavigate } from '@tanstack/react-router'
 import { useEffect } from 'react'
+import { HomePage } from '@/pages/home'
 import { LessonDeckPage, LessonSelectPage } from '@/pages/lesson'
+import { PortfolioIndexPage } from '@/pages/portfolio-index'
 import { QuizPage } from '@/pages/quiz'
 import { ShopPage } from '@/pages/shop'
 import { StudioPage } from '@/pages/studio'
-import { pageInfo, type Page } from '@/shared/model/navigation'
+import { pageInfo, portfolioRootPath, type Page } from '@/shared/model/navigation'
 import { PortfolioLayout } from './PortfolioLayout'
 
 const rootRoute = createRootRoute({
@@ -15,27 +17,68 @@ const rootRoute = createRootRoute({
 function NotFoundPage() {
   const navigate = useNavigate()
   return (
-    <div className="grid min-h-dvh place-items-center bg-paper px-5 text-center font-sans text-ink">
+    <div className="grid min-h-dvh place-items-center bg-surface-base px-5 text-center font-sans text-content-primary">
       <div className="flex flex-col items-center gap-6">
-        <p className="text-5xl font-black tracking-tight">404</p>
-        <p className="text-sm opacity-60">주소를 다시 확인해 주세요.</p>
+        <p className="text-5xl font-black tracking-tight text-content-strong">404</p>
+        <p className="text-sm text-content-muted">주소를 다시 확인해 주세요.</p>
         <button
           type="button"
           onClick={() => void navigate({ to: '/' })}
-          className="rounded-full bg-ink px-7 py-3 text-sm font-semibold text-white"
+          className="rounded-full bg-accent px-7 py-3 text-sm font-semibold text-accent-contrast"
         >
-          포트폴리오로 돌아가기
+          첫 화면으로
         </button>
       </div>
     </div>
   )
 }
 
-/* ── 외부 공개용 포트폴리오 ───────────────────────────────── */
+/* ── 첫 화면: 포트폴리오와 강의 중 하나를 고른다 ───────────── */
+
+function HomeRoute() {
+  const navigate = useNavigate()
+  return (
+    <HomePage
+      onOpenPortfolio={() => void navigate({ to: portfolioRootPath })}
+      onOpenLesson={() => void navigate({ to: '/lesson' })}
+    />
+  )
+}
+
+const homeRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/',
+  component: HomeRoute,
+})
+
+/* ── 바이브코딩 포트폴리오: 목록 + 사이트 3종 ──────────────── */
 
 const portfolioRoute = createRoute({
   getParentRoute: () => rootRoute,
-  id: 'portfolio',
+  path: 'vibe-portfolio',
+  component: () => <Outlet />,
+})
+
+function PortfolioIndexRoute() {
+  const navigate = useNavigate()
+  return (
+    <PortfolioIndexPage
+      onOpen={(page) => void navigate({ to: pageInfo[page].path })}
+      onBack={() => void navigate({ to: '/' })}
+    />
+  )
+}
+
+const portfolioIndexRoute = createRoute({
+  getParentRoute: () => portfolioRoute,
+  path: '/',
+  component: PortfolioIndexRoute,
+})
+
+/** 사이트 3종만 공통 헤더를 쓴다 (목록 화면은 헤더 없이 단독) */
+const portfolioSiteRoute = createRoute({
+  getParentRoute: () => portfolioRoute,
+  id: 'portfolio-site',
   component: PortfolioLayout,
 })
 
@@ -49,24 +92,24 @@ function StudioRoute() {
 }
 
 const studioRoute = createRoute({
-  getParentRoute: () => portfolioRoute,
-  path: '/',
+  getParentRoute: () => portfolioSiteRoute,
+  path: 'studio',
   component: StudioRoute,
 })
 
 const shopRoute = createRoute({
-  getParentRoute: () => portfolioRoute,
+  getParentRoute: () => portfolioSiteRoute,
   path: 'shop',
   component: ShopPage,
 })
 
 const quizRoute = createRoute({
-  getParentRoute: () => portfolioRoute,
+  getParentRoute: () => portfolioSiteRoute,
   path: 'quiz',
   component: QuizPage,
 })
 
-/* ── 강의: 어디에서도 링크하지 않는다. 주소를 직접 입력해야 들어온다 ── */
+/* ── 강의 ─────────────────────────────────────────────────── */
 
 function LessonLayout() {
   useEffect(() => {
@@ -93,6 +136,7 @@ function LessonSelectRoute() {
   return (
     <LessonSelectPage
       onOpen={(lessonId) => void navigate({ to: '/lesson/$lessonId', params: { lessonId }, search: { s: 1 } })}
+      onBack={() => void navigate({ to: '/' })}
     />
   )
 }
@@ -132,7 +176,11 @@ const lessonDeckRoute = createRoute({
 })
 
 const routeTree = rootRoute.addChildren([
-  portfolioRoute.addChildren([studioRoute, shopRoute, quizRoute]),
+  homeRoute,
+  portfolioRoute.addChildren([
+    portfolioIndexRoute,
+    portfolioSiteRoute.addChildren([studioRoute, shopRoute, quizRoute]),
+  ]),
   lessonRoute.addChildren([lessonIndexRoute, lessonDeckRoute]),
 ])
 

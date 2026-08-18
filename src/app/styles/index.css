@@ -2,15 +2,22 @@
 
 @theme {
   /* ─────────────────────────────────────────────────────────
-     레거시: 포트폴리오 예시 사이트 3종(studio/shop/quiz) 전용
+     전역 기본 글꼴 — Wanted Sans Variable
+     실물 파일은 public/fonts/wanted-sans/ (index.html에서 로드)
      ───────────────────────────────────────────────────────── */
+  --font-sans: "Wanted Sans Variable", "Wanted Sans", Pretendard, "Noto Sans KR", system-ui, sans-serif;
+
+  /* ─────────────────────────────────────────────────────────
+     레거시: 포트폴리오 예시 사이트 3종(studio/shop/quiz) 전용
+     font-display(=Arial Narrow)는 그 사이트들의 압축 헤드라인 전용이라
+     기본 글꼴 교체 대상에서 제외한다.
+     ───────────────────────────────────────────────────────── */
+  --font-display: "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
   --color-ink: #151612;
   --color-paper: #f2f0e9;
   --color-coral: #ff5e45;
   --color-shop: #f3eee4;
   --color-purple: #7255f7;
-  --font-sans: "Pretendard Variable", Pretendard, "Noto Sans KR", Arial, sans-serif;
-  --font-display: "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
 
   /* ═════════════════════════════════════════════════════════
      강의(lesson) 디자인 시스템 — 자세한 규칙은 src/pages/lesson/DESIGN.md
