@@ -49,7 +49,7 @@ export function AiTrapSlide() {
       </div>
       <SlideHeadline>AI한테 시키면 결과물은 나와요. 그런데</SlideHeadline>
 
-      <div className="grid gap-6 lg:grid-cols-9">
+      <div className="grid gap-4 md:gap-6 lg:grid-cols-9">
         <Panel tone="sunken" pad="lg" className="animate-rise-1 flex flex-col gap-4 lg:col-span-4">
           <PanelLabel>남는 것</PanelLabel>
           <p className="text-deck-lead font-bold text-content-secondary">결과물</p>
@@ -104,7 +104,7 @@ export function RedefineSlide() {
           >
             <div className="flex items-center gap-4">
               <condition.icon size={34} className="text-accent" />
-              <span className="grid size-12 place-items-center rounded-full bg-surface-sunken text-deck-caption font-bold text-content-secondary">
+              <span className="grid size-9 place-items-center rounded-full bg-surface-sunken text-deck-caption font-bold text-content-secondary md:size-12">
                 {index + 1}
               </span>
             </div>

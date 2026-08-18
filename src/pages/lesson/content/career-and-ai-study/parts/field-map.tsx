@@ -23,7 +23,7 @@ export function ResultTalkSlide() {
         <SlideHeadline>결과, 같이 뜯어봐요</SlideHeadline>
       </div>
 
-      <div className="grid items-center gap-8 lg:grid-cols-9">
+      <div className="grid items-center gap-5 md:gap-8 lg:grid-cols-9">
         <div className="flex flex-col gap-5 lg:col-span-5">
           <Panel tone="raised" pad="lg">
             <p className="text-deck-lead font-bold text-content-strong">첫 지원은 FE와 BE 중 어디예요?</p>
@@ -120,13 +120,13 @@ function DayList({ items, tone }: { items: string[]; tone: 'accent' | 'quiet' })
         <li
           key={item}
           className={cx(
-            'flex items-center gap-5 rounded-card px-7 py-6',
+            'flex items-center gap-5 rounded-card px-4 py-3 md:px-7 md:py-6',
             tone === 'accent' ? 'bg-surface-overlay' : 'bg-surface-base',
           )}
         >
           <span
             className={cx(
-              'grid size-12 shrink-0 place-items-center rounded-full text-deck-caption font-bold',
+              'grid size-9 shrink-0 place-items-center rounded-full text-deck-caption font-bold md:size-12',
               tone === 'accent' ? 'bg-accent text-accent-contrast' : 'bg-surface-highlight text-content-primary',
             )}
           >
@@ -146,7 +146,7 @@ export function DayInLifeSlide() {
       <SlideHeadline>FE와 BE, 첫 지원은 어디로?</SlideHeadline>
 
       <CompareGrid>
-        <Panel tone="raised" pad="lg" className="flex flex-col gap-6">
+        <Panel tone="raised" pad="lg" className="flex flex-col gap-4 md:gap-6">
           <div className="flex items-center gap-4">
             <Eye size={34} className="text-accent" />
             <PanelLabel tone="accent">FE의 하루</PanelLabel>
@@ -154,7 +154,7 @@ export function DayInLifeSlide() {
           <DayList items={FE_DAY} tone="accent" />
         </Panel>
 
-        <Panel tone="sunken" pad="lg" className="flex flex-col gap-6">
+        <Panel tone="sunken" pad="lg" className="flex flex-col gap-4 md:gap-6">
           <div className="flex items-center gap-4">
             <Server size={34} className="text-content-muted" />
             <PanelLabel>BE의 하루</PanelLabel>
@@ -212,7 +212,7 @@ export function CareerTalkSlide() {
 
   return (
     <SlideLayout>
-      <div className="flex flex-col items-center gap-8 text-center">
+      <div className="flex flex-col items-center gap-5 text-center md:gap-8">
         <SlideKicker>시장 진입 다음의 성장 경로</SlideKicker>
         <SlideHeadline size="hero">
           한쪽으로 들어가 <Mark>제품 전체로 넓혀요</Mark>
@@ -220,7 +220,7 @@ export function CareerTalkSlide() {
         <button
           type="button"
           onClick={() => setNotes((value) => !value)}
-          className="rounded-full bg-surface-raised px-8 py-4 text-deck-caption font-semibold text-content-secondary shadow-raised transition duration-200 ease-deck hover:bg-surface-highlight hover:text-content-primary"
+          className="rounded-full bg-surface-raised px-4 py-4 text-deck-caption font-semibold text-content-secondary shadow-raised transition duration-200 ease-deck md:px-8 hover:bg-surface-highlight hover:text-content-primary"
         >
           {notes ? '노트 접기' : '말할 거리 펼치기'}
         </button>
@@ -232,7 +232,7 @@ export function CareerTalkSlide() {
             <li
               key={point.head}
               className={cx(
-                'flex flex-col gap-2 rounded-card bg-surface-raised p-7 shadow-raised',
+                'flex flex-col gap-2 rounded-card bg-surface-raised p-4 shadow-raised md:p-7',
                 index === TALKING_POINTS.length - 1 && 'lg:col-span-2',
               )}
             >
@@ -250,7 +250,7 @@ export function CareerTalkSlide() {
 export function BreakSlide() {
   return (
     <SlideLayout>
-      <div className="flex flex-col items-center gap-10 text-center">
+      <div className="flex flex-col items-center gap-5 text-center md:gap-10">
         <SlideKicker>휴식</SlideKicker>
         <CountdownTimer seconds={300} autoStart caption="다시 시작까지" />
         <p className="max-w-4xl text-deck-lead font-semibold text-content-primary">

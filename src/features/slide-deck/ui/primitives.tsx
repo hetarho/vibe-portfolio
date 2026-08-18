@@ -15,7 +15,9 @@ export function SlideLayout({ children, align = 'center' }: SlideLayoutProps) {
   return (
     <section
       className={cx(
-        'mx-auto flex h-full w-full max-w-stage flex-col gap-8',
+        // min-h-full: 내용이 화면보다 길어지는 모바일에서 h-full이면
+        // 가운데 정렬 때문에 위쪽이 스크롤로 닿지 않는 곳으로 밀려난다.
+        'mx-auto flex min-h-full w-full max-w-stage flex-col gap-5 py-2 md:gap-8 md:py-0',
         align === 'center' ? 'justify-center' : 'justify-start',
       )}
     >
@@ -26,8 +28,8 @@ export function SlideLayout({ children, align = 'center' }: SlideLayoutProps) {
 
 export function SlideKicker({ children }: { children: ReactNode }) {
   return (
-    <p className="animate-rise flex items-center gap-3 text-deck-caption font-semibold tracking-widest text-content-muted uppercase">
-      <span className="size-3 rounded-full bg-accent" aria-hidden />
+    <p className="animate-rise flex items-center gap-2 text-deck-caption font-semibold tracking-widest text-content-muted uppercase md:gap-3">
+      <span className="size-2 rounded-full bg-accent md:size-3" aria-hidden />
       {children}
     </p>
   )
@@ -66,7 +68,7 @@ export function SlideNote({ children, tone = 'accent' }: { children: ReactNode; 
   return (
     <p
       className={cx(
-        'animate-rise-4 rounded-panel px-10 py-6 text-center text-deck-body font-semibold',
+        'animate-rise-4 rounded-panel px-5 py-4 text-center text-deck-body font-semibold md:px-10 md:py-6',
         tone === 'accent'
           ? 'bg-accent text-accent-contrast shadow-lifted'
           : 'bg-surface-raised text-content-primary shadow-raised',
@@ -92,10 +94,11 @@ const panelTones = {
   inverse: 'bg-surface-inverse text-content-inverse shadow-lifted',
 } as const
 
+// 모바일에서는 한 단계 촘촘하게 — 데스크톱 값이 그대로 오면 카드 안 여백이 글자보다 넓다.
 const panelPads = {
-  sm: 'p-6',
-  md: 'p-8',
-  lg: 'p-10',
+  sm: 'p-4 md:p-6',
+  md: 'p-5 md:p-8',
+  lg: 'p-5 md:p-10',
 } as const
 
 type PanelProps = {
@@ -130,7 +133,7 @@ export function Chip({ children, tone = 'quiet' }: { children: ReactNode; tone?:
   return (
     <span
       className={cx(
-        'inline-flex items-center gap-2 rounded-full px-5 py-2 text-deck-caption font-semibold',
+        'inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-deck-caption font-semibold md:px-5 md:py-2',
         tone === 'accent' ? 'bg-accent text-accent-contrast' : 'bg-surface-highlight text-content-primary',
       )}
     >
@@ -141,5 +144,5 @@ export function Chip({ children, tone = 'quiet' }: { children: ReactNode; tone?:
 
 /** 좌우 대비 비교용 2단 그리드 */
 export function CompareGrid({ children }: { children: ReactNode }) {
-  return <div className="grid flex-1 grid-cols-1 items-stretch gap-8 lg:grid-cols-2">{children}</div>
+  return <div className="grid flex-1 grid-cols-1 items-stretch gap-4 md:gap-8 lg:grid-cols-2">{children}</div>
 }

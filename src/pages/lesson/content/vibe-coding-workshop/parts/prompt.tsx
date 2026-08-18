@@ -43,7 +43,7 @@ export function PromptFormulaSlide() {
     <SlideLayout align="top">
       <div className="flex flex-col gap-5 pt-6">
         <SlideKicker>오늘의 핵심 공식</SlideKicker>
-        <p className="animate-rise-1 flex flex-wrap items-center gap-4 rounded-panel bg-accent px-10 py-8 text-deck-lead font-bold text-accent-contrast shadow-lifted">
+        <p className="animate-rise-1 flex flex-wrap items-center gap-4 rounded-panel bg-accent px-5 py-4 text-deck-lead font-bold text-accent-contrast shadow-lifted md:px-10 md:py-8">
           <span>[무엇을] 만들어줘</span>
           <span className="opacity-60">+</span>
           <span>[기능 1·2·3]</span>
@@ -52,7 +52,7 @@ export function PromptFormulaSlide() {
         </p>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-9">
+      <div className="grid gap-4 md:gap-6 lg:grid-cols-9">
         <div className="flex flex-col gap-4 lg:col-span-4">
           <Panel tone="sunken" pad="md" className="flex flex-col gap-3">
             <div className="flex items-center gap-3">
@@ -86,20 +86,20 @@ export function PromptFormulaSlide() {
                   value={values[field.key]}
                   onChange={(event) => setValues((prev) => ({ ...prev, [field.key]: event.target.value }))}
                   placeholder={field.placeholder}
-                  className="min-w-0 flex-1 rounded-control bg-surface-sunken px-6 py-4 text-deck-caption text-content-strong placeholder:text-content-muted inset-shadow-sunken focus:outline-none"
+                  className="w-0 flex-1 rounded-control bg-surface-sunken px-6 py-4 text-deck-caption text-content-strong placeholder:text-content-muted inset-shadow-sunken focus:outline-none"
                 />
               </label>
             ))}
           </div>
 
-          <div className="flex items-start justify-between gap-5 rounded-card bg-surface-overlay p-7 shadow-overlay">
+          <div className="flex items-start justify-between gap-5 rounded-card bg-surface-overlay p-4 shadow-overlay md:p-7">
             <p className="text-deck-body font-semibold text-content-strong">{sentence}</p>
             <button
               type="button"
               onClick={copy}
               aria-label="완성 문장 복사"
               className={cx(
-                'grid size-14 shrink-0 place-items-center rounded-control transition duration-200 ease-deck',
+                'grid size-10 shrink-0 place-items-center rounded-control transition duration-200 ease-deck md:size-14',
                 copied ? 'bg-accent text-accent-contrast' : 'bg-surface-highlight text-content-secondary hover:text-content-primary',
               )}
             >
@@ -122,8 +122,8 @@ export function LiveDemoSlide() {
 
   return (
     <SlideLayout>
-      <div className="grid items-center gap-10 lg:grid-cols-9">
-        <div className="flex flex-col gap-7 lg:col-span-5">
+      <div className="grid items-center gap-5 md:gap-10 lg:grid-cols-9">
+        <div className="flex flex-col gap-4 md:gap-7 lg:col-span-5">
           <SlideKicker>라이브 데모</SlideKicker>
           <SlideHeadline>지금부터 1분, 실시간으로 만들어보겠습니다</SlideHeadline>
 
@@ -139,7 +139,7 @@ export function LiveDemoSlide() {
             <button
               type="button"
               onClick={() => setBackup((value) => !value)}
-              className="flex items-center gap-3 rounded-full bg-surface-raised px-7 py-3 text-deck-caption font-semibold text-content-secondary shadow-raised transition duration-200 ease-deck hover:bg-surface-highlight hover:text-content-primary"
+              className="flex items-center gap-3 rounded-full bg-surface-raised px-4 py-3 text-deck-caption font-semibold text-content-secondary shadow-raised transition duration-200 ease-deck md:px-7 hover:bg-surface-highlight hover:text-content-primary"
             >
               <Play size={24} />
               {backup ? '미리보기 닫기' : '완성본 미리보기'}
@@ -171,13 +171,13 @@ export function LiveDemoSlide() {
 export function BreakSlide() {
   return (
     <SlideLayout>
-      <div className="flex flex-col items-center gap-10 text-center">
+      <div className="flex flex-col items-center gap-5 text-center md:gap-10">
         <SlideKicker>휴식</SlideKicker>
         <CountdownTimer seconds={300} autoStart caption="다시 모이기까지" />
         <p className="text-deck-lead font-semibold text-content-primary">
           돌아오시면 바로 만듭니다. 노트북 로그인 상태 확인해 주세요!
         </p>
-        <p className="rounded-panel bg-surface-raised px-10 py-6 text-deck-body font-semibold text-content-secondary shadow-raised">
+        <p className="rounded-panel bg-surface-raised px-5 py-3 text-deck-body font-semibold text-content-secondary shadow-raised md:px-10 md:py-6">
           다음은 <Mark>PART 2 · 직접 만들기</Mark>
         </p>
       </div>

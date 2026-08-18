@@ -22,7 +22,7 @@ export function ChatbotVsAgentSlide() {
       </SlideHeadline>
 
       <CompareGrid>
-        <Panel tone="sunken" pad="lg" className="flex flex-col gap-7">
+        <Panel tone="sunken" pad="lg" className="flex flex-col gap-4 md:gap-7">
           <div className="flex items-center gap-4">
             <MessageCircle size={38} className="text-content-muted" />
             <PanelLabel>챗봇</PanelLabel>
@@ -33,7 +33,7 @@ export function ChatbotVsAgentSlide() {
           <p className="text-deck-body text-content-muted">방법은 친절하게 설명해 줍니다. 요리는 내가 합니다.</p>
         </Panel>
 
-        <Panel tone="raised" pad="lg" className="flex flex-col gap-7">
+        <Panel tone="raised" pad="lg" className="flex flex-col gap-4 md:gap-7">
           <div className="flex items-center gap-4">
             <ChefHat size={38} className="text-accent" />
             <PanelLabel tone="accent">에이전트</PanelLabel>
@@ -64,7 +64,7 @@ export function AgentFlowSlide() {
 
   return (
     <SlideLayout>
-      <div className="flex flex-wrap items-end justify-between gap-6">
+      <div className="flex flex-wrap items-end justify-between gap-4 md:gap-6">
         <div className="flex flex-col gap-4">
           <SlideKicker>기다리는 시간에 무슨 일이 일어나나</SlideKicker>
           <SlideHeadline>에이전트는 이 순서로 일합니다</SlideHeadline>
@@ -75,7 +75,7 @@ export function AgentFlowSlide() {
             type="button"
             onClick={() => setRevealed((value) => Math.min(value + 1, FLOW.length + 1))}
             disabled={done}
-            className="rounded-full bg-accent px-8 py-4 text-deck-caption font-bold text-accent-contrast shadow-lifted transition duration-200 ease-deck hover:bg-accent-strong disabled:opacity-40"
+            className="rounded-full bg-accent px-4 py-4 text-deck-caption font-bold text-accent-contrast shadow-lifted transition duration-200 ease-deck md:px-8 hover:bg-accent-strong disabled:opacity-40"
           >
             다음 단계
           </button>
@@ -83,7 +83,7 @@ export function AgentFlowSlide() {
             type="button"
             onClick={() => setRevealed(1)}
             aria-label="처음부터"
-            className="grid size-14 place-items-center rounded-full bg-surface-raised text-content-secondary shadow-raised transition duration-200 ease-deck hover:bg-surface-highlight hover:text-content-primary"
+            className="grid size-10 place-items-center rounded-full bg-surface-raised text-content-secondary shadow-raised transition duration-200 ease-deck md:size-14 hover:bg-surface-highlight hover:text-content-primary"
           >
             <RotateCcw size={24} />
           </button>
@@ -97,13 +97,13 @@ export function AgentFlowSlide() {
             <li
               key={step.label}
               className={cx(
-                'flex flex-col gap-4 rounded-panel p-8 transition duration-500 ease-deck',
+                'flex flex-col gap-4 rounded-panel p-5 transition duration-500 ease-deck md:p-8',
                 on ? 'bg-surface-raised shadow-raised' : 'bg-surface-sunken inset-shadow-sunken',
               )}
             >
               <span
                 className={cx(
-                  'grid size-14 place-items-center rounded-full text-deck-caption font-bold transition duration-300 ease-deck',
+                  'grid size-10 place-items-center rounded-full text-deck-caption font-bold transition duration-300 ease-deck md:size-14',
                   on ? 'bg-accent text-accent-contrast' : 'bg-surface-highlight text-content-muted',
                 )}
               >
@@ -120,15 +120,15 @@ export function AgentFlowSlide() {
         })}
       </ol>
 
-      <div className="flex flex-wrap items-center justify-between gap-6">
-        <p className="flex items-center gap-4 rounded-panel bg-surface-raised px-8 py-5 text-deck-caption font-semibold text-content-secondary shadow-raised">
+      <div className="flex flex-wrap items-center justify-between gap-4 md:gap-6">
+        <p className="flex items-center gap-4 rounded-panel bg-surface-raised px-4 py-3 text-deck-caption font-semibold text-content-secondary shadow-raised md:px-8 md:py-5">
           <RefreshCw size={28} className="text-accent" />
           4 → 5 반복: 오류가 나면 스스로 되돌아가 고칩니다
         </p>
 
         <p
           className={cx(
-            'flex items-center gap-4 rounded-panel px-8 py-5 text-deck-body font-bold transition duration-500 ease-deck',
+            'flex items-center gap-4 rounded-panel px-4 py-3 text-deck-body font-bold transition duration-500 ease-deck md:px-8 md:py-5',
             done ? 'animate-pop bg-accent text-accent-contrast shadow-lifted' : 'bg-surface-sunken text-content-muted',
           )}
         >
@@ -165,7 +165,7 @@ export function LimitsSlide() {
       <SlideKicker>미리 맞는 예방주사</SlideKicker>
       <SlideHeadline>이건 알고 시작합시다</SlideHeadline>
 
-      <div className="grid gap-6 lg:grid-cols-3">
+      <div className="grid gap-4 md:gap-6 lg:grid-cols-3">
         {LIMITS.map((limit, index) => (
           <Panel
             key={limit.title}
@@ -178,7 +178,7 @@ export function LimitsSlide() {
               index === 2 && 'animate-rise-3',
             )}
           >
-            <span className="grid size-14 place-items-center rounded-full bg-surface-sunken text-deck-caption font-bold text-content-secondary inset-shadow-sunken">
+            <span className="grid size-10 place-items-center rounded-full bg-surface-sunken text-deck-caption font-bold text-content-secondary inset-shadow-sunken md:size-14">
               {index + 1}
             </span>
             <p className="text-deck-body font-semibold text-content-secondary">{limit.title}</p>

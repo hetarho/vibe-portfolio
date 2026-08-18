@@ -9,8 +9,8 @@ type Props = {
 /** 강의 선택 화면 */
 export function LessonSelectPage({ onOpen, onBack }: Props) {
   return (
-    <div className="min-h-dvh w-full bg-surface-base font-sans break-keep text-content-primary">
-      <div className="mx-auto flex max-w-stage flex-col gap-12 px-12 py-20">
+    <div data-deck className="min-h-dvh w-full bg-surface-base font-sans break-keep text-content-primary">
+      <div className="mx-auto flex max-w-stage flex-col gap-6 px-5 py-10 md:gap-12 md:px-12 md:py-20">
         <header className="animate-rise flex flex-col gap-5">
           <button
             type="button"
@@ -30,15 +30,15 @@ export function LessonSelectPage({ onOpen, onBack }: Props) {
           </p>
         </header>
 
-        <ul className="grid gap-6 lg:grid-cols-2">
+        <ul className="grid gap-4 md:gap-6 lg:grid-cols-2">
           {lessons.map((lesson, index) => (
             <li key={lesson.id} className={index === 0 ? 'animate-rise-1' : 'animate-rise-2'}>
               <button
                 type="button"
                 onClick={() => onOpen(lesson.id)}
-                className="group flex h-full w-full flex-col gap-7 rounded-stage bg-surface-raised p-12 text-left shadow-raised transition duration-300 ease-deck hover:-translate-y-2 hover:bg-surface-overlay hover:shadow-overlay"
+                className="group flex h-full w-full flex-col gap-4 rounded-stage bg-surface-raised p-6 text-left shadow-raised transition duration-300 ease-deck md:gap-7 md:p-12 hover:-translate-y-2 hover:bg-surface-overlay hover:shadow-overlay"
               >
-                <span className="grid size-16 place-items-center rounded-panel bg-accent text-accent-contrast">
+                <span className="grid size-12 place-items-center rounded-panel bg-accent text-accent-contrast md:size-16">
                   <Presentation size={34} />
                 </span>
 
@@ -59,7 +59,7 @@ export function LessonSelectPage({ onOpen, onBack }: Props) {
                 </span>
 
                 <span className="mt-auto flex flex-wrap items-center justify-between gap-5 pt-2">
-                  <span className="flex flex-wrap items-center gap-6 text-deck-caption text-content-muted">
+                  <span className="flex flex-wrap items-center gap-4 text-deck-caption text-content-muted md:gap-6">
                     <span className="flex items-center gap-2">
                       <Clock size={22} />
                       {lesson.duration}
@@ -69,7 +69,7 @@ export function LessonSelectPage({ onOpen, onBack }: Props) {
                       {lesson.audience}
                     </span>
                   </span>
-                  <span className="flex items-center gap-3 rounded-full bg-surface-highlight px-7 py-3 text-deck-caption font-bold text-content-primary transition duration-300 ease-deck group-hover:bg-accent group-hover:text-accent-contrast">
+                  <span className="flex items-center gap-3 rounded-full bg-surface-highlight px-4 py-3 text-deck-caption font-bold text-content-primary transition duration-300 ease-deck md:px-7 group-hover:bg-accent group-hover:text-accent-contrast">
                     시작하기
                     <ArrowRight size={24} />
                   </span>

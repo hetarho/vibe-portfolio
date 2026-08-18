@@ -12,7 +12,7 @@ type Props = {
 export function SlideOverview({ slides, index, onSelect, onClose }: Props) {
   return (
     <div className="fixed inset-0 z-50 flex flex-col bg-surface-sunken/95 backdrop-blur-sm">
-      <div className="flex shrink-0 items-center justify-between px-12 pt-10 pb-6">
+      <div className="flex shrink-0 items-center justify-between px-5 pt-10 pb-6 md:px-12">
         <div>
           <p className="text-deck-meta tracking-widest text-content-muted uppercase">전체 화면 목록</p>
           <p className="text-deck-lead font-bold text-content-strong">어디로 갈까요?</p>
@@ -27,7 +27,7 @@ export function SlideOverview({ slides, index, onSelect, onClose }: Props) {
         </button>
       </div>
 
-      <div className="min-h-0 flex-1 overflow-y-auto px-12 pb-12">
+      <div className="min-h-0 flex-1 overflow-y-auto px-5 pb-12 md:px-12">
         <ul className="mx-auto grid max-w-stage grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4">
           {slides.map((slide, slideIndex) => {
             const current = slideIndex === index
@@ -37,7 +37,7 @@ export function SlideOverview({ slides, index, onSelect, onClose }: Props) {
                   type="button"
                   onClick={() => onSelect(slideIndex)}
                   className={cx(
-                    'flex h-full w-full flex-col gap-2 rounded-card p-6 text-left transition duration-200 ease-deck',
+                    'flex h-full w-full flex-col gap-2 rounded-card p-4 text-left transition duration-200 ease-deck md:p-6',
                     current
                       ? 'bg-accent text-accent-contrast shadow-lifted'
                       : 'bg-surface-raised text-content-primary shadow-raised hover:bg-surface-highlight',

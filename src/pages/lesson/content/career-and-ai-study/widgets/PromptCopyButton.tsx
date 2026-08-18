@@ -25,7 +25,7 @@ export function PromptCopyButton({ size = 'lg' }: Props) {
       onClick={copy}
       className={cx(
         'flex items-center justify-center gap-4 rounded-panel font-bold transition duration-200 ease-deck',
-        size === 'lg' ? 'px-12 py-8 text-deck-lead' : 'px-8 py-5 text-deck-body',
+        size === 'lg' ? 'px-5 py-4 text-deck-lead md:px-12 md:py-8' : 'px-4 py-3 text-deck-body md:px-8 md:py-5',
         copied
           ? 'bg-positive text-content-inverse shadow-lifted'
           : 'bg-accent text-accent-contrast shadow-lifted hover:bg-accent-strong',

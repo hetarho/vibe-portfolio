@@ -25,8 +25,8 @@ export function StandbySlide() {
 
   return (
     <SlideLayout>
-      <div className="grid items-center gap-12 lg:grid-cols-9">
-        <div className="flex flex-col gap-7 lg:col-span-5">
+      <div className="grid items-center gap-6 md:gap-12 lg:grid-cols-9">
+        <div className="flex flex-col gap-4 md:gap-7 lg:col-span-5">
           <SlideKicker>오늘 수업</SlideKicker>
           <h1 className="animate-rise-1 text-deck-hero font-bold tracking-tight text-balance text-content-strong">
             바이브코딩
@@ -50,7 +50,7 @@ export function StandbySlide() {
         </Panel>
       </div>
 
-      <div className="animate-rise-3 flex items-center justify-between gap-8 rounded-panel bg-surface-raised px-10 py-6 shadow-raised">
+      <div className="animate-rise-3 flex flex-col gap-2 rounded-panel bg-surface-raised px-5 py-3 shadow-raised md:flex-row md:items-center md:justify-between md:gap-8 md:px-10 md:py-6">
         <p className="text-deck-body text-content-secondary">막히는 지점이 생기면 그때그때 끊고 물어봐도 돼요.</p>
         <p className="text-deck-caption text-content-muted">오늘 2시간, 만드는 데 대부분을 씁니다</p>
       </div>
@@ -62,8 +62,8 @@ export function StandbySlide() {
 export function PromiseSlide() {
   return (
     <SlideLayout>
-      <div className="grid items-center gap-12 lg:grid-cols-9">
-        <div className="flex flex-col gap-8 lg:col-span-5">
+      <div className="grid items-center gap-6 md:gap-12 lg:grid-cols-9">
+        <div className="flex flex-col gap-5 md:gap-8 lg:col-span-5">
           <SlideKicker>오늘의 약속</SlideKicker>
           <SlideHeadline size="hero">
             2시간 뒤엔
@@ -97,7 +97,7 @@ export function IdeaWallSlide() {
 
   return (
     <SlideLayout align="top">
-      <div className="flex flex-col gap-6 pt-8">
+      <div className="flex flex-col gap-4 pt-8 md:gap-6">
         <SlideKicker>먼저 물어볼 것</SlideKicker>
         <SlideHeadline>만들고 싶었던 것, 자동화하고 싶었던 일이 있어요?</SlideHeadline>
       </div>
@@ -110,12 +110,12 @@ export function IdeaWallSlide() {
             if (event.key === 'Enter') submit()
           }}
           placeholder="예) 매주 쓰는 회의록 정리를 자동으로"
-          className="min-w-0 flex-1 rounded-panel bg-surface-sunken px-9 py-7 text-deck-body text-content-strong placeholder:text-content-muted inset-shadow-sunken focus:outline-none"
+          className="w-0 flex-1 rounded-panel bg-surface-sunken px-4 py-4 text-deck-body text-content-strong placeholder:text-content-muted inset-shadow-sunken md:px-9 md:py-7 focus:outline-none"
         />
         <button
           type="button"
           onClick={submit}
-          className="flex items-center gap-3 rounded-panel bg-accent px-9 py-7 text-deck-body font-bold text-accent-contrast shadow-lifted transition duration-200 ease-deck hover:bg-accent-strong"
+          className="flex items-center gap-3 rounded-panel bg-accent px-4 py-4 text-deck-body font-bold text-accent-contrast shadow-lifted transition duration-200 ease-deck md:px-9 md:py-7 hover:bg-accent-strong"
         >
           <Plus size={30} />
           붙이기
@@ -131,7 +131,7 @@ export function IdeaWallSlide() {
           {ideas.map((idea, index) => (
             <li
               key={`${idea}-${index}`}
-              className="animate-pop flex items-start justify-between gap-4 rounded-card bg-surface-overlay p-7 shadow-overlay"
+              className="animate-pop flex items-start justify-between gap-4 rounded-card bg-surface-overlay p-4 shadow-overlay md:p-7"
             >
               <span className="text-deck-caption font-semibold text-content-strong">{idea}</span>
               <button
@@ -161,9 +161,9 @@ export function DefinitionSlide() {
       </SlideHeadline>
 
       <CompareGrid>
-        <Panel tone="sunken" pad="lg" className="flex flex-col gap-6">
+        <Panel tone="sunken" pad="lg" className="flex flex-col gap-4 md:gap-6">
           <PanelLabel>예전 방식</PanelLabel>
-          <div className="flex flex-1 flex-col justify-center gap-3 rounded-card bg-surface-base p-7">
+          <div className="flex flex-1 flex-col justify-center gap-3 rounded-card bg-surface-base p-4 md:p-7">
             {CODE_LINES.map((width, index) => (
               <span key={width + index} className={cx('block h-3 rounded-full bg-content-muted/40', width)} />
             ))}
@@ -174,13 +174,13 @@ export function DefinitionSlide() {
           </p>
         </Panel>
 
-        <Panel tone="raised" pad="lg" className="flex flex-col gap-6">
+        <Panel tone="raised" pad="lg" className="flex flex-col gap-4 md:gap-6">
           <PanelLabel tone="accent">바이브코딩</PanelLabel>
           <div className="flex flex-1 flex-col justify-center gap-4">
-            <p className="w-4/5 rounded-card rounded-bl-control bg-accent px-7 py-5 text-deck-body font-semibold text-accent-contrast">
+            <p className="w-4/5 rounded-card rounded-bl-control bg-accent px-4 py-3 text-deck-body font-semibold text-accent-contrast md:px-7 md:py-5">
               점심 메뉴 룰렛 만들어줘
             </p>
-            <p className="ml-auto w-4/5 rounded-card rounded-br-control bg-surface-overlay px-7 py-5 text-deck-body text-content-primary">
+            <p className="ml-auto w-4/5 rounded-card rounded-br-control bg-surface-overlay px-4 py-3 text-deck-body text-content-primary md:px-7 md:py-5">
               네, 만들어 드릴게요 ✨
             </p>
           </div>
@@ -209,7 +209,7 @@ export function JourneySlide() {
       <SlideKicker>오늘 순서</SlideKicker>
       <SlideHeadline>두 시간, 이렇게 갑니다</SlideHeadline>
 
-      <ol className="grid items-stretch gap-6 lg:grid-cols-8">
+      <ol className="grid items-stretch gap-4 md:gap-6 lg:grid-cols-8">
         {JOURNEY.map((step, index) => (
           <li
             key={step.label}

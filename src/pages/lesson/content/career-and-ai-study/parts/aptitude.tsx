@@ -53,7 +53,7 @@ export function AptitudeTestSlide() {
 
     return (
       <SlideLayout>
-        <div className="flex flex-wrap items-center justify-between gap-6">
+        <div className="flex flex-wrap items-center justify-between gap-4 md:gap-6">
           <SlideKicker>내 결과</SlideKicker>
           <button
             type="button"
@@ -61,21 +61,21 @@ export function AptitudeTestSlide() {
               reset()
               setCurrent(0)
             }}
-            className="flex items-center gap-3 rounded-full bg-surface-raised px-7 py-3 text-deck-caption font-semibold text-content-secondary shadow-raised transition duration-200 ease-deck hover:bg-surface-highlight hover:text-content-primary"
+            className="flex items-center gap-3 rounded-full bg-surface-raised px-4 py-3 text-deck-caption font-semibold text-content-secondary shadow-raised transition duration-200 ease-deck md:px-7 hover:bg-surface-highlight hover:text-content-primary"
           >
             <RotateCcw size={24} />
             다시 하기
           </button>
         </div>
 
-        <div className="grid items-stretch gap-6 lg:grid-cols-9">
+        <div className="grid items-stretch gap-4 md:gap-6 lg:grid-cols-9">
           <Panel tone="accent" pad="lg" className="animate-pop flex flex-col gap-5 lg:col-span-5">
             <PanelLabel tone="inverse">{info.label}</PanelLabel>
             <p className="text-deck-title font-bold">{info.line}</p>
             <p className="text-deck-body font-semibold opacity-80">{info.detail}</p>
           </Panel>
 
-          <Panel tone="raised" pad="lg" className="flex flex-col justify-center gap-6 lg:col-span-4">
+          <Panel tone="raised" pad="lg" className="flex flex-col justify-center gap-4 md:gap-6 lg:col-span-4">
             <div className="flex items-baseline justify-between">
               <p className="text-deck-body font-bold text-content-strong">A(화면) {result.aCount}</p>
               <p className="text-deck-body font-bold text-content-secondary">{bCount} B(구조)</p>
@@ -116,7 +116,7 @@ export function AptitudeTestSlide() {
 
   return (
     <SlideLayout>
-      <div className="flex flex-wrap items-center justify-between gap-6">
+      <div className="flex flex-wrap items-center justify-between gap-4 md:gap-6">
         <SlideKicker>
           {question.axis === 'tendency' ? '직무 축 · 화면 vs 구조' : '플랫폼 축 · 웹 vs 앱'}
         </SlideKicker>
@@ -129,7 +129,7 @@ export function AptitudeTestSlide() {
             onClick={() => setCurrent((value) => Math.max(value - 1, 0))}
             disabled={current === 0}
             aria-label="이전 문항"
-            className="grid size-14 place-items-center rounded-full bg-surface-raised text-content-secondary shadow-raised transition duration-200 ease-deck hover:bg-surface-highlight hover:text-content-primary disabled:opacity-30"
+            className="grid size-10 place-items-center rounded-full bg-surface-raised text-content-secondary shadow-raised transition duration-200 ease-deck md:size-14 hover:bg-surface-highlight hover:text-content-primary disabled:opacity-30"
           >
             <Undo2 size={24} />
           </button>
@@ -152,7 +152,7 @@ export function AptitudeTestSlide() {
         {question.no}번 · 더 가까운 쪽을 고르세요
       </p>
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid gap-4 md:gap-6 lg:grid-cols-2">
         {(['A', 'B'] as const).map((choice) => {
           const picked = answers[current] === choice
           return (
@@ -161,7 +161,7 @@ export function AptitudeTestSlide() {
               type="button"
               onClick={() => choose(choice)}
               className={cx(
-                'flex min-h-64 flex-col gap-6 rounded-panel p-10 text-left transition duration-300 ease-deck hover:-translate-y-2',
+                'flex min-h-0 flex-col gap-4 rounded-panel p-5 text-left transition duration-300 ease-deck md:min-h-64 md:gap-6 md:p-10 hover:-translate-y-2',
                 picked
                   ? 'bg-accent text-accent-contrast shadow-lifted'
                   : 'bg-surface-raised text-content-primary shadow-raised hover:bg-surface-overlay',
@@ -169,7 +169,7 @@ export function AptitudeTestSlide() {
             >
               <span
                 className={cx(
-                  'grid size-16 place-items-center rounded-full text-deck-body font-bold',
+                  'grid size-12 place-items-center rounded-full text-deck-body font-bold md:size-16',
                   picked ? 'bg-accent-contrast/15 text-accent-contrast' : 'bg-surface-sunken text-content-secondary',
                 )}
               >
@@ -200,7 +200,7 @@ export function AptitudeGuideSlide() {
 
   return (
     <SlideLayout>
-      <div className="flex flex-wrap items-center justify-between gap-6">
+      <div className="flex flex-wrap items-center justify-between gap-4 md:gap-6">
         <SlideHeadline>이렇게 읽으면 돼요</SlideHeadline>
         {result ? <Chip tone="accent">내 결과 · {TRACK_INFO[result.track].label}</Chip> : null}
       </div>

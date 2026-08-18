@@ -41,11 +41,11 @@ export function RepoMapSlide() {
         <SlideHeadline>지금 이런 폴더가 만들어지고 있어요</SlideHeadline>
       </div>
 
-      <div className="grid items-stretch gap-6 lg:grid-cols-9">
+      <div className="grid items-stretch gap-4 md:gap-6 lg:grid-cols-9">
         <Panel tone="sunken" pad="lg" className="animate-rise-1 flex flex-col gap-3 lg:col-span-5">
           <PanelLabel>{'<프로젝트 이름>/'}</PanelLabel>
           {TREE.map((item) => (
-            <div key={item.name} className="flex items-baseline justify-between gap-6">
+            <div key={item.name} className="flex items-baseline justify-between gap-4 md:gap-6">
               <span
                 className={cx(
                   'font-mono text-deck-caption',
@@ -100,8 +100,8 @@ export function ViewerSlide() {
         <SlideHeadline>레슨은 채팅 말고 브라우저에서 읽어요</SlideHeadline>
       </div>
 
-      <div className="grid items-stretch gap-6 lg:grid-cols-9">
-        <Panel tone="sunken" pad="lg" className="animate-rise-1 flex flex-col justify-center gap-6 lg:col-span-4">
+      <div className="grid items-stretch gap-4 md:gap-6 lg:grid-cols-9">
+        <Panel tone="sunken" pad="lg" className="animate-rise-1 flex flex-col justify-center gap-4 md:gap-6 lg:col-span-4">
           <PanelLabel>레포 루트에서 한 줄</PanelLabel>
           <p className="font-mono text-deck-lead font-bold text-accent">$ pnpm dev</p>
           <div className="flex items-center gap-3 text-deck-caption text-content-secondary">
@@ -148,7 +148,7 @@ export function SessionLoopSlide() {
       <SlideKicker>다음 주부터</SlideKicker>
       <SlideHeadline>세션을 여는 방법은 한 가지예요</SlideHeadline>
 
-      <div className="grid items-stretch gap-6 lg:grid-cols-9">
+      <div className="grid items-stretch gap-4 md:gap-6 lg:grid-cols-9">
         <Panel tone="raised" pad="lg" className="animate-rise-1 flex flex-col gap-4 lg:col-span-4">
           <PanelLabel tone="accent">폴더에서 도구를 열면</PanelLabel>
           {AGENTS.map((agent) => (
@@ -169,13 +169,13 @@ export function SessionLoopSlide() {
               tone={index === 1 ? 'accentSoft' : 'sunken'}
               pad="md"
               className={cx(
-                'flex flex-1 items-center gap-6',
+                'flex flex-1 items-center gap-4 md:gap-6',
                 index === 0 && 'animate-rise-2',
                 index === 1 && 'animate-rise-3',
                 index === 2 && 'animate-rise-4',
               )}
             >
-              <span className="grid size-14 shrink-0 place-items-center rounded-full bg-surface-raised text-deck-caption font-bold text-content-primary">
+              <span className="grid size-10 shrink-0 place-items-center rounded-full bg-surface-raised text-deck-caption font-bold text-content-primary md:size-14">
                 {mode.tag}
               </span>
               <span className="flex flex-col gap-1">

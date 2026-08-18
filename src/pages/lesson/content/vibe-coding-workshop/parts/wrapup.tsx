@@ -35,18 +35,18 @@ export function MissionSlide() {
 
   return (
     <SlideLayout align="top">
-      <div className="flex flex-wrap items-end justify-between gap-6 pt-6">
+      <div className="flex flex-wrap items-end justify-between gap-4 pt-6 md:gap-6">
         <div className="flex flex-col gap-4">
           <SlideKicker>실습 2 · 10분</SlideKicker>
           <SlideHeadline>미션: 딱 2가지만 업그레이드하세요</SlideHeadline>
         </div>
 
-        <div className="flex items-center gap-6">
+        <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
           <CountdownTimer seconds={600} caption="남은 시간" size="md" />
           <button
             type="button"
             onClick={drawRandom}
-            className="flex items-center gap-3 rounded-full bg-accent px-8 py-4 text-deck-caption font-bold text-accent-contrast shadow-lifted transition duration-200 ease-deck hover:bg-accent-strong"
+            className="flex items-center gap-3 rounded-full bg-accent px-4 py-4 text-deck-caption font-bold text-accent-contrast shadow-lifted transition duration-200 ease-deck md:px-8 hover:bg-accent-strong"
           >
             <Dices size={26} />
             랜덤 뽑기
@@ -67,12 +67,12 @@ export function MissionSlide() {
                   open && 'rotate-y-180',
                 )}
               >
-                <span className="col-start-1 row-start-1 flex flex-col items-center justify-center gap-3 rounded-card bg-surface-raised p-7 shadow-raised backface-hidden">
+                <span className="col-start-1 row-start-1 flex flex-col items-center justify-center gap-3 rounded-card bg-surface-raised p-4 shadow-raised backface-hidden md:p-7">
                   <span className="text-deck-lead font-bold text-content-muted">?</span>
                   <span className="text-deck-caption text-content-muted">미션 {index + 1}</span>
                 </span>
 
-                <span className="col-start-1 row-start-1 flex rotate-y-180 flex-col items-center justify-center gap-3 rounded-card bg-accent p-7 text-accent-contrast shadow-lifted backface-hidden">
+                <span className="col-start-1 row-start-1 flex rotate-y-180 flex-col items-center justify-center gap-3 rounded-card bg-accent p-4 text-accent-contrast shadow-lifted backface-hidden md:p-7">
                   <span className="text-deck-lead">{mission.emoji}</span>
                   <span className="text-deck-body font-bold">{mission.name}</span>
                   <span className="text-deck-caption opacity-80">{mission.how}</span>
@@ -98,12 +98,12 @@ const SUMMARY = [
 export function SummarySlide() {
   return (
     <SlideLayout>
-      <div className="flex flex-wrap items-center justify-between gap-6">
+      <div className="flex flex-wrap items-center justify-between gap-4 md:gap-6">
         <SlideHeadline>오늘 남길 3줄</SlideHeadline>
         <Chip tone="accent">만든 거 같이 한번 볼까요</Chip>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-3">
+      <div className="grid gap-4 md:gap-6 lg:grid-cols-3">
         {SUMMARY.map((item, index) => (
           <Panel
             key={item.head}
@@ -118,7 +118,7 @@ export function SummarySlide() {
           >
             <span
               className={cx(
-                'grid size-14 place-items-center rounded-full text-deck-caption font-bold',
+                'grid size-10 place-items-center rounded-full text-deck-caption font-bold md:size-14',
                 index === 2 ? 'bg-accent-contrast/15 text-accent-contrast' : 'bg-surface-sunken text-content-secondary',
               )}
             >
@@ -172,7 +172,7 @@ export function ClosingSlide() {
         ))}
       </ol>
 
-      <Panel tone="sunken" pad="lg" className="flex flex-wrap items-center justify-between gap-8">
+      <Panel tone="sunken" pad="lg" className="flex flex-wrap items-center justify-between gap-5 md:gap-8">
         <p className="text-deck-body text-content-secondary">
           오늘 쓴 프롬프트 모음은 수업 끝나고 정리해서 보낼게요.
         </p>

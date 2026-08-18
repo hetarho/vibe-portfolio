@@ -125,14 +125,14 @@ export function LiveDemoSlide() {
 
   return (
     <SlideLayout>
-      <div className="flex flex-wrap items-end justify-between gap-6">
+      <div className="flex flex-wrap items-end justify-between gap-4 md:gap-6">
         <div className="flex flex-col gap-4">
           <SlideKicker>미리 만들어둔 레포로</SlideKicker>
           <SlideHeadline>다 만들어지면 이런 화면이에요</SlideHeadline>
         </div>
       </div>
 
-      <div className="grid items-stretch gap-6 lg:grid-cols-9">
+      <div className="grid items-stretch gap-4 md:gap-6 lg:grid-cols-9">
         <ol className="flex flex-col gap-3 lg:col-span-4">
           {DEMO_STEPS.map((item, index) => {
             const active = index === step
@@ -142,7 +142,7 @@ export function LiveDemoSlide() {
                   type="button"
                   onClick={() => setStep(index)}
                   className={cx(
-                    'flex w-full items-center gap-5 rounded-card p-6 text-left transition duration-300 ease-deck',
+                    'flex w-full items-center gap-5 rounded-card p-4 text-left transition duration-300 ease-deck md:p-6',
                     active
                       ? 'bg-accent text-accent-contrast shadow-lifted'
                       : 'bg-surface-raised text-content-secondary shadow-raised hover:bg-surface-overlay',
@@ -150,7 +150,7 @@ export function LiveDemoSlide() {
                 >
                   <span
                     className={cx(
-                      'grid size-12 shrink-0 place-items-center rounded-full text-deck-caption font-bold',
+                      'grid size-9 shrink-0 place-items-center rounded-full text-deck-caption font-bold md:size-12',
                       active ? 'bg-accent-contrast/15 text-accent-contrast' : 'bg-surface-sunken text-content-primary',
                     )}
                   >
@@ -166,7 +166,7 @@ export function LiveDemoSlide() {
         <Panel tone="sunken" pad="lg" className="flex flex-col gap-5 lg:col-span-5">
           <PanelLabel>이럴 때 이런 게 나와요</PanelLabel>
           <p className="font-mono text-deck-caption text-accent">$ {current.command}</p>
-          <div className="flex flex-col gap-3 rounded-card bg-surface-base p-7">
+          <div className="flex flex-col gap-3 rounded-card bg-surface-base p-4 md:p-7">
             {current.lines.map((line) => (
               <p key={line.text} className={cx('font-mono text-deck-caption', LINE_TONE[line.tone])}>
                 {line.text}

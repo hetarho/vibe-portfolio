@@ -17,13 +17,13 @@ export function CheckRow({ checked, onToggle, children, hint }: Props) {
       onClick={onToggle}
       aria-pressed={checked}
       className={cx(
-        'flex w-full items-center gap-6 rounded-card p-6 text-left transition duration-300 ease-deck',
+        'flex w-full items-center gap-4 rounded-card p-4 text-left transition duration-300 ease-deck md:gap-6 md:p-6',
         checked ? 'bg-accent-soft' : 'bg-surface-overlay hover:bg-surface-highlight',
       )}
     >
       <span
         className={cx(
-          'grid size-14 shrink-0 place-items-center rounded-control transition duration-300 ease-deck',
+          'grid size-10 shrink-0 place-items-center rounded-control transition duration-300 ease-deck md:size-14',
           checked ? 'bg-accent text-accent-contrast' : 'bg-surface-sunken text-content-muted inset-shadow-sunken',
         )}
       >

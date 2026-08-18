@@ -32,7 +32,7 @@ export function SiteVsAppSlide() {
       <SlideHeadline>웹사이트와 웹 앱, 뭐가 다를까요?</SlideHeadline>
 
       <CompareGrid>
-        <Panel tone="sunken" pad="lg" className="flex flex-col gap-6">
+        <Panel tone="sunken" pad="lg" className="flex flex-col gap-4 md:gap-6">
           <div className="flex items-center gap-4">
             <BookOpen size={34} className="text-content-muted" />
             <PanelLabel>웹사이트 — 읽는 것</PanelLabel>
@@ -41,7 +41,7 @@ export function SiteVsAppSlide() {
             {READ_ONLY.map((item) => (
               <li
                 key={item.name}
-                className="group rounded-card bg-surface-base px-8 py-6 transition duration-300 ease-deck hover:bg-surface-raised"
+                className="group rounded-card bg-surface-base px-4 py-3 transition duration-300 ease-deck md:px-8 md:py-6 hover:bg-surface-raised"
               >
                 <p className="text-deck-body font-semibold text-content-primary">{item.name}</p>
                 <p className="max-h-0 overflow-hidden text-deck-caption text-content-muted opacity-0 transition-all duration-300 ease-deck group-hover:max-h-24 group-hover:opacity-100">
@@ -53,7 +53,7 @@ export function SiteVsAppSlide() {
           <p className="text-deck-body font-bold text-content-secondary">보기만 함</p>
         </Panel>
 
-        <Panel tone="raised" pad="lg" className="flex flex-col gap-6">
+        <Panel tone="raised" pad="lg" className="flex flex-col gap-4 md:gap-6">
           <div className="flex items-center gap-4">
             <MousePointerClick size={34} className="text-accent" />
             <PanelLabel tone="accent">웹 앱 — 쓰는 것</PanelLabel>
@@ -62,7 +62,7 @@ export function SiteVsAppSlide() {
             {INTERACTIVE.map((item) => (
               <li
                 key={item.name}
-                className="group rounded-card bg-surface-overlay px-8 py-6 transition duration-300 ease-deck hover:bg-surface-highlight"
+                className="group rounded-card bg-surface-overlay px-4 py-3 transition duration-300 ease-deck md:px-8 md:py-6 hover:bg-surface-highlight"
               >
                 <p className="text-deck-body font-semibold text-content-strong">{item.name}</p>
                 <p className="max-h-0 overflow-hidden text-deck-caption text-content-secondary opacity-0 transition-all duration-300 ease-deck group-hover:max-h-24 group-hover:opacity-100">
@@ -93,7 +93,7 @@ function ToggleRow({ title, role, on, locked, lockedLabel, onToggle }: ToggleRow
   return (
     <div
       className={cx(
-        'flex items-center justify-between gap-6 rounded-card p-7 transition duration-300 ease-deck',
+        'flex items-center justify-between gap-4 rounded-card p-4 transition duration-300 ease-deck md:gap-6 md:p-7',
         on ? 'bg-surface-overlay' : 'bg-surface-sunken inset-shadow-sunken',
       )}
     >
@@ -139,16 +139,16 @@ export function IngredientsSlide() {
         <SlideHeadline>스위치를 꺼 보면 바로 알 수 있습니다</SlideHeadline>
       </div>
 
-      <div className="grid items-stretch gap-8 lg:grid-cols-9">
+      <div className="grid items-stretch gap-5 md:gap-8 lg:grid-cols-9">
         <div className="lg:col-span-5">
           {css ? (
-            <Panel tone="raised" pad="lg" className="flex h-full flex-col items-center justify-center gap-7">
+            <Panel tone="raised" pad="lg" className="flex h-full flex-col items-center justify-center gap-4 md:gap-7">
               <PanelLabel tone="accent">카운터 앱</PanelLabel>
               <p className="text-deck-numeric font-bold tabular-nums text-content-strong">{count}</p>
               <button
                 type="button"
                 onClick={() => js && setCount((value) => value + 1)}
-                className="rounded-control bg-accent px-12 py-6 text-deck-body font-bold text-accent-contrast shadow-lifted transition duration-200 ease-deck hover:bg-accent-strong"
+                className="rounded-control bg-accent px-5 py-3 text-deck-body font-bold text-accent-contrast shadow-lifted transition duration-200 ease-deck md:px-12 md:py-6 hover:bg-accent-strong"
               >
                 +1 누르기
               </button>
@@ -158,7 +158,7 @@ export function IngredientsSlide() {
             </Panel>
           ) : (
             /* CSS를 끈 상태 — 일부러 못생기게 보여주는 것이 목적이라 이 블록만 디자인 규칙의 예외다. */
-            <div className="flex h-full flex-col justify-center gap-2 bg-surface-inverse p-6 font-serif text-content-inverse">
+            <div className="flex h-full flex-col justify-center gap-2 bg-surface-inverse p-4 font-serif text-content-inverse md:p-6">
               <p className="text-deck-caption underline">카운터 앱</p>
               <p className="text-deck-body">{count}</p>
               <button
@@ -205,8 +205,8 @@ const CONTEXT_MENU = ['뒤로 가기', '새로고침', '다른 이름으로 저�
 export function ViewSourceSlide() {
   return (
     <SlideLayout>
-      <div className="grid items-center gap-12 lg:grid-cols-9">
-        <div className="flex flex-col gap-8 lg:col-span-5">
+      <div className="grid items-center gap-6 md:gap-12 lg:grid-cols-9">
+        <div className="flex flex-col gap-5 md:gap-8 lg:col-span-5">
           <SlideKicker>직접 확인해 봅시다</SlideKicker>
           <SlideHeadline size="hero">지금 보고 계신 이 화면도 코드입니다</SlideHeadline>
           <SlideBody>마우스 우클릭 → 페이지 소스 보기</SlideBody>
@@ -219,7 +219,7 @@ export function ViewSourceSlide() {
               <p
                 key={item}
                 className={cx(
-                  'rounded-control px-7 py-4 text-deck-caption transition duration-300 ease-deck',
+                  'rounded-control px-4 py-4 text-deck-caption transition duration-300 ease-deck md:px-7',
                   highlighted ? 'animate-breathe bg-accent font-bold text-accent-contrast' : 'text-content-secondary',
                 )}
               >
@@ -242,7 +242,7 @@ export function FrontBackSlide() {
       <SlideHeadline>식당으로 비유하면</SlideHeadline>
 
       <CompareGrid>
-        <Panel tone="raised" pad="lg" className="flex flex-col gap-6">
+        <Panel tone="raised" pad="lg" className="flex flex-col gap-4 md:gap-6">
           <div className="flex items-center gap-4">
             <Utensils size={34} className="text-accent" />
             <PanelLabel tone="accent">홀 — 프론트엔드</PanelLabel>
@@ -251,7 +251,7 @@ export function FrontBackSlide() {
           <p className="text-deck-body text-content-secondary">테이블, 메뉴판, 인테리어. 눌리고 보이는 모든 것.</p>
         </Panel>
 
-        <Panel tone="sunken" pad="lg" className="flex flex-col gap-6">
+        <Panel tone="sunken" pad="lg" className="flex flex-col gap-4 md:gap-6">
           <div className="flex items-center gap-4">
             <ChefHat size={34} className="text-content-muted" />
             <PanelLabel>주방 — 백엔드</PanelLabel>

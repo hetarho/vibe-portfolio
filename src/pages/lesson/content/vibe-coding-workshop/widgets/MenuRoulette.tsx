@@ -45,12 +45,12 @@ export function MenuRoulette() {
   }
 
   return (
-    <div className="flex flex-col gap-5 rounded-panel bg-surface-overlay p-8 shadow-overlay">
+    <div className="flex flex-col gap-5 rounded-panel bg-surface-overlay p-5 shadow-overlay md:p-8">
       <p className="text-deck-caption font-semibold tracking-widest text-content-muted uppercase">점심 메뉴 룰렛</p>
 
       <div
         className={cx(
-          'grid min-h-40 place-items-center rounded-card px-8 py-6 text-center transition duration-300 ease-deck',
+          'grid min-h-40 place-items-center rounded-card px-4 py-3 text-center transition duration-300 ease-deck md:px-8 md:py-6',
           picked ? 'bg-accent text-accent-contrast' : 'bg-surface-sunken text-content-strong inset-shadow-sunken',
         )}
       >
@@ -63,13 +63,14 @@ export function MenuRoulette() {
         type="button"
         onClick={spin}
         disabled={spinning}
-        className="flex items-center justify-center gap-3 rounded-control bg-accent px-8 py-5 text-deck-body font-bold text-accent-contrast transition duration-200 ease-deck hover:bg-accent-strong disabled:opacity-50"
+        className="flex items-center justify-center gap-3 rounded-control bg-accent px-4 py-3 text-deck-body font-bold text-accent-contrast transition duration-200 ease-deck md:px-8 md:py-5 hover:bg-accent-strong disabled:opacity-50"
       >
         <Shuffle size={28} />
         {spinning ? '두구두구…' : '돌리기'}
       </button>
 
       <div className="flex items-center gap-3">
+        {/* w-0: 인풋 기본 폭(size 속성)이 min-content로 잡혀서, 좁은 화면에서 부모 칸을 밖으로 밀어낸다 */}
         <input
           value={draft}
           onChange={(event) => setDraft(event.target.value)}
@@ -77,13 +78,13 @@ export function MenuRoulette() {
             if (event.key === 'Enter') addMenu()
           }}
           placeholder="메뉴 추가"
-          className="min-w-0 flex-1 rounded-control bg-surface-sunken px-6 py-4 text-deck-caption text-content-primary placeholder:text-content-muted inset-shadow-sunken focus:outline-none"
+          className="w-0 flex-1 rounded-control bg-surface-sunken px-6 py-4 text-deck-caption text-content-primary placeholder:text-content-muted inset-shadow-sunken focus:outline-none"
         />
         <button
           type="button"
           onClick={addMenu}
           aria-label="메뉴 추가"
-          className="grid size-14 shrink-0 place-items-center rounded-control bg-surface-highlight text-content-primary transition duration-200 ease-deck hover:bg-accent hover:text-accent-contrast"
+          className="grid size-10 shrink-0 place-items-center rounded-control bg-surface-highlight text-content-primary transition duration-200 ease-deck md:size-14 hover:bg-accent hover:text-accent-contrast"
         >
           <Plus size={26} />
         </button>

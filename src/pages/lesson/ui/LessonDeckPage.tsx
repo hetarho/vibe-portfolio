@@ -15,14 +15,14 @@ export function LessonDeckPage({ lessonId, slideNumber, onSlideChange, onExit }:
 
   if (!lesson) {
     return (
-      <div className="grid min-h-dvh w-full place-items-center bg-surface-base px-12 font-sans">
-        <div className="flex flex-col items-center gap-7 rounded-stage bg-surface-raised p-16 text-center shadow-raised">
+      <div className="grid min-h-dvh w-full place-items-center bg-surface-base px-5 font-sans md:px-12">
+        <div className="flex flex-col items-center gap-4 rounded-stage bg-surface-raised p-8 text-center shadow-raised md:gap-7 md:p-16">
           <p className="text-deck-title font-bold text-content-strong">없는 강의입니다</p>
           <p className="text-deck-body text-content-secondary">주소를 다시 확인해 주세요 — {lessonId}</p>
           <button
             type="button"
             onClick={onExit}
-            className="flex items-center gap-3 rounded-full bg-accent px-8 py-4 text-deck-caption font-bold text-accent-contrast shadow-lifted transition duration-200 ease-deck hover:bg-accent-strong"
+            className="flex items-center gap-3 rounded-full bg-accent px-4 py-4 text-deck-caption font-bold text-accent-contrast shadow-lifted transition duration-200 ease-deck md:px-8 hover:bg-accent-strong"
           >
             <ArrowLeft size={24} />
             강의 목록으로

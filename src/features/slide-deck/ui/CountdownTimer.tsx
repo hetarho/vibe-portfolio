@@ -62,7 +62,7 @@ export function CountdownTimer({ seconds, autoStart = false, caption, size = 'lg
           type="button"
           onClick={() => setRunning((value) => !value)}
           disabled={done}
-          className="flex items-center gap-3 rounded-full bg-surface-highlight px-7 py-3 text-deck-caption font-semibold text-content-primary transition duration-200 ease-deck hover:bg-accent hover:text-accent-contrast disabled:opacity-40"
+          className="flex items-center gap-3 rounded-full bg-surface-highlight px-4 py-3 text-deck-caption font-semibold text-content-primary transition duration-200 ease-deck md:px-7 hover:bg-accent hover:text-accent-contrast disabled:opacity-40"
         >
           {running ? <Pause size={22} /> : <Play size={22} />}
           {running ? '일시정지' : '시작'}
@@ -73,7 +73,7 @@ export function CountdownTimer({ seconds, autoStart = false, caption, size = 'lg
             setRemaining(seconds)
             setRunning(false)
           }}
-          className="flex items-center gap-3 rounded-full bg-surface-raised px-7 py-3 text-deck-caption font-semibold text-content-secondary transition duration-200 ease-deck hover:bg-surface-highlight hover:text-content-primary"
+          className="flex items-center gap-3 rounded-full bg-surface-raised px-4 py-3 text-deck-caption font-semibold text-content-secondary transition duration-200 ease-deck md:px-7 hover:bg-surface-highlight hover:text-content-primary"
         >
           <RotateCcw size={22} />
           리셋

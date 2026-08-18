@@ -22,8 +22,8 @@ export function StandbySlide() {
 
   return (
     <SlideLayout>
-      <div className="grid items-center gap-12 lg:grid-cols-9">
-        <div className="flex flex-col gap-7 lg:col-span-5">
+      <div className="grid items-center gap-6 md:gap-12 lg:grid-cols-9">
+        <div className="flex flex-col gap-4 md:gap-7 lg:col-span-5">
           <SlideKicker>오늘 수업</SlideKicker>
           <h1 className="animate-rise-1 text-deck-hero font-bold tracking-tight text-balance text-content-strong">
             진로 찾기 &amp;
@@ -52,7 +52,7 @@ export function StandbySlide() {
 
       <div className="animate-rise-3 grid gap-5 lg:grid-cols-2">
         <Panel tone="sunken" pad="md" className="flex items-center gap-5">
-          <span className="grid size-14 shrink-0 place-items-center rounded-full bg-surface-highlight text-deck-caption font-bold text-content-primary">
+          <span className="grid size-10 shrink-0 place-items-center rounded-full bg-surface-highlight text-deck-caption font-bold text-content-primary md:size-14">
             1
           </span>
           <p className="text-deck-caption text-content-secondary">
@@ -60,7 +60,7 @@ export function StandbySlide() {
           </p>
         </Panel>
         <Panel tone="sunken" pad="md" className="flex items-center gap-5">
-          <span className="grid size-14 shrink-0 place-items-center rounded-full bg-surface-highlight text-deck-caption font-bold text-content-primary">
+          <span className="grid size-10 shrink-0 place-items-center rounded-full bg-surface-highlight text-deck-caption font-bold text-content-primary md:size-14">
             2
           </span>
           <p className="text-deck-caption text-content-secondary">
@@ -228,7 +228,7 @@ export function ProductEngineerSlide() {
       <SlideHeadline size="hero">프로덕트 엔지니어</SlideHeadline>
 
       <CompareGrid>
-        <Panel tone="sunken" pad="lg" className="flex flex-col gap-6">
+        <Panel tone="sunken" pad="lg" className="flex flex-col gap-4 md:gap-6">
           <PanelLabel>기능 구현에 머문 기준</PanelLabel>
           <ul className="flex flex-1 flex-col gap-4">
             {PE_BEFORE.map((item) => (
@@ -239,7 +239,7 @@ export function ProductEngineerSlide() {
           </ul>
         </Panel>
 
-        <Panel tone="raised" pad="lg" className="animate-rise-2 flex flex-col gap-6">
+        <Panel tone="raised" pad="lg" className="animate-rise-2 flex flex-col gap-4 md:gap-6">
           <PanelLabel tone="accent">우리가 키울 기준</PanelLabel>
           <ul className="flex flex-1 flex-col gap-4">
             {PE_AFTER.map((item) => (
@@ -293,7 +293,7 @@ export function FrameSlide() {
           >
             <span
               className={cx(
-                'flex-1 rounded-card px-7 py-6 text-deck-caption font-bold',
+                'flex-1 rounded-card px-4 py-3 text-deck-caption font-bold md:px-7 md:py-6',
                 index === CHAIN.length - 1
                   ? 'bg-accent text-accent-contrast shadow-lifted'
                   : 'bg-surface-raised text-content-primary shadow-raised',

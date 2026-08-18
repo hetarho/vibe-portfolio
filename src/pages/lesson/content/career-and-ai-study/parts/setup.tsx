@@ -35,7 +35,7 @@ export function SetupGuideSlide() {
 
   return (
     <SlideLayout align="top">
-      <div className="flex flex-wrap items-end justify-between gap-6 pt-6">
+      <div className="flex flex-wrap items-end justify-between gap-4 pt-6 md:gap-6">
         <div className="flex flex-col gap-4">
           <SlideKicker>세팅은 세 번 끊겨요</SlideKicker>
           <SlideHeadline>중간에 멈추면 정상이에요</SlideHeadline>
@@ -85,7 +85,7 @@ export function WarningSlide() {
         <SlideHeadline>두 가지만 꼭 지켜주세요</SlideHeadline>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid gap-4 md:gap-6 lg:grid-cols-2">
         <Panel tone="raised" pad="lg" className="animate-rise-1 flex flex-col gap-5">
           <div className="flex items-center gap-4">
             <CircleAlert size={34} className="text-critical" />
@@ -97,7 +97,7 @@ export function WarningSlide() {
           <p className="text-deck-caption text-content-secondary">
             어차피 이해도 체크에서 걸리고, 걸리면 다음 레슨이 안 열려요.
           </p>
-          <p className="mt-auto rounded-card bg-critical-soft px-7 py-5 text-deck-body font-bold text-content-strong">
+          <p className="mt-auto rounded-card bg-critical-soft px-4 py-3 text-deck-body font-bold text-content-strong md:px-7 md:py-5">
             면접장에는 AI를 못 데려가요
           </p>
         </Panel>
@@ -113,7 +113,7 @@ export function WarningSlide() {
           <p className="text-deck-caption text-content-secondary">
             &ldquo;이거 안 배웠는데요&rdquo; 한마디면 돼요.
           </p>
-          <p className="mt-auto rounded-card bg-accent-soft px-7 py-5 text-deck-body font-bold text-content-strong">
+          <p className="mt-auto rounded-card bg-accent-soft px-4 py-3 text-deck-body font-bold text-content-strong md:px-7 md:py-5">
             그 지적이 시스템을 단단하게 해요
           </p>
         </Panel>
@@ -139,7 +139,7 @@ export function SummarySlide() {
     <SlideLayout>
       <SlideHeadline>오늘 남길 2줄</SlideHeadline>
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid gap-4 md:gap-6 lg:grid-cols-2">
         {TWO_LINES.map((line, index) => (
           <Panel
             key={line.head}
@@ -149,7 +149,7 @@ export function SummarySlide() {
           >
             <span
               className={cx(
-                'grid size-14 place-items-center rounded-full text-deck-caption font-bold',
+                'grid size-10 place-items-center rounded-full text-deck-caption font-bold md:size-14',
                 index === 1 ? 'bg-accent-contrast/15 text-accent-contrast' : 'bg-surface-sunken text-content-secondary',
               )}
             >
@@ -175,7 +175,7 @@ export function AssignmentSlide() {
         세팅 끝내고 <Mark>첫 레슨(L01)</Mark>까지 열어보기
       </SlideHeadline>
 
-      <div className="grid items-stretch gap-6 lg:grid-cols-9">
+      <div className="grid items-stretch gap-4 md:gap-6 lg:grid-cols-9">
         <Panel tone="raised" pad="lg" className="flex flex-col gap-5 lg:col-span-5">
           <div className="flex items-center gap-4">
             <MessageSquareText size={34} className="text-accent" />
@@ -219,7 +219,7 @@ export function PrepChecklistSlide() {
 
   return (
     <SlideLayout align="top">
-      <div className="flex flex-wrap items-center justify-between gap-6 pt-6">
+      <div className="flex flex-wrap items-center justify-between gap-4 pt-6 md:gap-6">
         <SlideHeadline>수업 전 준비</SlideHeadline>
         <Chip>강사용</Chip>
       </div>

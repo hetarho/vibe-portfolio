@@ -114,9 +114,9 @@ function TopicModal({ topic, onClose }: { topic: (typeof TOPICS)[number]; onClos
   }
 
   return (
-    <div className="fixed inset-0 z-40 grid place-items-center bg-surface-sunken/90 p-12 backdrop-blur-sm">
-      <div className="animate-pop flex w-full max-w-column flex-col gap-7 rounded-stage bg-surface-overlay p-12 shadow-overlay">
-        <div className="flex items-start justify-between gap-6">
+    <div className="fixed inset-0 z-40 grid place-items-center bg-surface-sunken/90 p-6 backdrop-blur-sm md:p-12">
+      <div className="animate-pop flex w-full max-w-column flex-col gap-4 rounded-stage bg-surface-overlay p-6 shadow-overlay md:gap-7 md:p-12">
+        <div className="flex items-start justify-between gap-4 md:gap-6">
           <div className="flex items-center gap-5">
             <span className="text-deck-title">{topic.emoji}</span>
             <div>
@@ -128,20 +128,20 @@ function TopicModal({ topic, onClose }: { topic: (typeof TOPICS)[number]; onClos
             type="button"
             onClick={onClose}
             aria-label="닫기"
-            className="grid size-14 shrink-0 place-items-center rounded-control bg-surface-highlight text-content-secondary transition duration-200 ease-deck hover:text-content-primary"
+            className="grid size-10 shrink-0 place-items-center rounded-control bg-surface-highlight text-content-secondary transition duration-200 ease-deck md:size-14 hover:text-content-primary"
           >
             <X size={26} />
           </button>
         </div>
 
-        <p className="rounded-card bg-surface-sunken p-8 text-deck-body text-content-strong inset-shadow-sunken">
+        <p className="rounded-card bg-surface-sunken p-5 text-deck-body text-content-strong inset-shadow-sunken md:p-8">
           {topic.prompt}
         </p>
 
         <button
           type="button"
           onClick={copy}
-          className="flex items-center justify-center gap-3 rounded-control bg-accent px-8 py-5 text-deck-body font-bold text-accent-contrast shadow-lifted transition duration-200 ease-deck hover:bg-accent-strong"
+          className="flex items-center justify-center gap-3 rounded-control bg-accent px-4 py-3 text-deck-body font-bold text-accent-contrast shadow-lifted transition duration-200 ease-deck md:px-8 md:py-5 hover:bg-accent-strong"
         >
           <Copy size={26} />
           {copied ? '복사했습니다' : '프롬프트 복사'}
@@ -169,7 +169,7 @@ export function TopicPickerSlide() {
             <button
               type="button"
               onClick={() => setOpenTopic(topic)}
-              className="flex h-full w-full flex-col gap-4 rounded-card bg-surface-raised p-8 text-left shadow-raised transition duration-300 ease-deck hover:-translate-y-2 hover:bg-surface-overlay"
+              className="flex h-full w-full flex-col gap-4 rounded-card bg-surface-raised p-5 text-left shadow-raised transition duration-300 ease-deck md:p-8 hover:-translate-y-2 hover:bg-surface-overlay"
             >
               <span className="text-deck-lead">{topic.emoji}</span>
               <span className="text-deck-body font-bold text-content-strong">{topic.name}</span>
@@ -216,7 +216,7 @@ export function PracticeBoardSlide() {
 
   return (
     <SlideLayout>
-      <div className="grid items-stretch gap-6 lg:grid-cols-12">
+      <div className="grid items-stretch gap-4 md:gap-6 lg:grid-cols-12">
         <ol className="flex flex-col gap-3 lg:col-span-5">
           {PRACTICE_STEPS.map((item, index) => {
             const active = index === step
@@ -227,7 +227,7 @@ export function PracticeBoardSlide() {
                   type="button"
                   onClick={() => setStep(index)}
                   className={cx(
-                    'flex w-full items-center gap-5 rounded-card p-6 text-left transition duration-300 ease-deck',
+                    'flex w-full items-center gap-5 rounded-card p-4 text-left transition duration-300 ease-deck md:p-6',
                     active
                       ? 'bg-accent text-accent-contrast shadow-lifted'
                       : passed
@@ -237,7 +237,7 @@ export function PracticeBoardSlide() {
                 >
                   <span
                     className={cx(
-                      'grid size-12 shrink-0 place-items-center rounded-full text-deck-caption font-bold',
+                      'grid size-9 shrink-0 place-items-center rounded-full text-deck-caption font-bold md:size-12',
                       active ? 'bg-accent-contrast/15 text-accent-contrast' : 'bg-surface-highlight text-content-primary',
                     )}
                   >
@@ -251,7 +251,7 @@ export function PracticeBoardSlide() {
           })}
         </ol>
 
-        <Panel tone="raised" pad="lg" className="flex flex-col items-center justify-center gap-6 lg:col-span-4">
+        <Panel tone="raised" pad="lg" className="flex flex-col items-center justify-center gap-4 md:gap-6 lg:col-span-4">
           <CountdownTimer key={step} seconds={current.seconds} caption={`${step + 1}단계 남은 시간`} size="md" />
         </Panel>
 
@@ -302,7 +302,7 @@ export function TroubleshootSlide() {
             )}
           >
             <PanelLabel>{item.situation}</PanelLabel>
-            <p className="rounded-card bg-surface-overlay p-6 text-deck-body font-semibold text-content-strong shadow-overlay">
+            <p className="rounded-card bg-surface-overlay p-4 text-deck-body font-semibold text-content-strong shadow-overlay md:p-6">
               {item.answer}
             </p>
           </Panel>

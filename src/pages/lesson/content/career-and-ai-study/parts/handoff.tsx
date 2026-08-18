@@ -23,8 +23,8 @@ const RUN_STEPS = [
 export function RunNowSlide() {
   return (
     <SlideLayout>
-      <div className="grid items-center gap-12 lg:grid-cols-9">
-        <div className="flex flex-col gap-7 lg:col-span-5">
+      <div className="grid items-center gap-6 md:gap-12 lg:grid-cols-9">
+        <div className="flex flex-col gap-4 md:gap-7 lg:col-span-5">
           <SlideKicker>PART 2 시작</SlideKicker>
           <SlideHeadline>
             먼저 <Mark>돌려놓고</Mark> 시작할게요
@@ -48,7 +48,7 @@ export function RunNowSlide() {
                 index === 2 && 'animate-rise-3',
               )}
             >
-              <span className="grid size-12 shrink-0 place-items-center rounded-full bg-surface-raised text-deck-caption font-bold text-content-primary">
+              <span className="grid size-9 shrink-0 place-items-center rounded-full bg-surface-raised text-deck-caption font-bold text-content-primary md:size-12">
                 {index + 1}
               </span>
               <span className="flex flex-col gap-1">
