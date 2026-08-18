@@ -11,7 +11,7 @@ import {
   SlideLayout,
   SlideNote,
 } from '@/features/slide-deck'
-import { PromptCopyButton } from '../widgets/PromptCopyButton'
+import { PromptCopyButton } from '../../shared'
 
 const RUN_STEPS = [
   { head: '빈 폴더를 하나 만들고', body: '거기서 코딩 CLI를 열어요' },

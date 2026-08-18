@@ -13,7 +13,7 @@ import {
   SlideLayout,
   SlideNote,
 } from '@/features/slide-deck'
-import { PromptCopyButton } from '../widgets/PromptCopyButton'
+import { PromptCopyButton } from '../../shared'
 
 const STAGES = [
   { tag: 'S1', head: '문서와 도구', body: '커리큘럼 · 어휘 원장 · 채점 기준 · 검사기' },
@@ -35,7 +35,7 @@ export function SetupGuideSlide() {
 
   return (
     <SlideLayout align="top">
-      <div className="flex flex-wrap items-end justify-between gap-4 pt-6 md:gap-6">
+      <div className="flex flex-wrap items-end justify-between gap-4 md:gap-6">
         <div className="flex flex-col gap-4">
           <SlideKicker>세팅은 세 번 끊겨요</SlideKicker>
           <SlideHeadline>중간에 멈추면 정상이에요</SlideHeadline>
@@ -48,7 +48,7 @@ export function SetupGuideSlide() {
           <Panel
             key={stage.tag}
             tone={index === 2 ? 'accentSoft' : 'raised'}
-            pad="lg"
+            pad="md"
             className={cx(
               'flex flex-col gap-3',
               index === 0 && 'animate-rise-1',

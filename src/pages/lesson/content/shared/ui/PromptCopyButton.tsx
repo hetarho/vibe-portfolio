@@ -7,10 +7,15 @@ export { tutorPrompt }
 
 type Props = {
   size?: 'lg' | 'md'
+  /** 덱마다 부르는 이름이 달라서 라벨만 바꿔 쓴다 */
+  label?: string
 }
 
-/** 튜터 프롬프트 전문을 클립보드로 넘긴다 */
-export function PromptCopyButton({ size = 'lg' }: Props) {
+/**
+ * 학습 레포 튜터 프롬프트 전문을 클립보드로 넘긴다.
+ * 프롬프트 본문은 model/tutor-prompt.md 한 곳에만 있고 모든 덱이 이 버튼으로 공유한다.
+ */
+export function PromptCopyButton({ size = 'lg', label = '튜터 프롬프트 복사' }: Props) {
   const [copied, setCopied] = useState(false)
 
   const copy = () => {
@@ -31,8 +36,8 @@ export function PromptCopyButton({ size = 'lg' }: Props) {
           : 'bg-accent text-accent-contrast shadow-lifted hover:bg-accent-strong',
       )}
     >
-      {copied ? <Check size={34} strokeWidth={3} /> : <Copy size={34} />}
-      {copied ? '복사했어요' : '튜터 프롬프트 복사'}
+      {copied ? <Check className="size-7 md:size-9" strokeWidth={3} /> : <Copy className="size-7 md:size-9" />}
+      {copied ? '복사했어요' : label}
     </button>
   )
 }
