@@ -1,4 +1,4 @@
-import { ArrowRight, Check, ChefHat, MessageCircle, RotateCcw, RefreshCw } from 'lucide-react'
+import { ArrowRight, Check, ChefHat, Eye, FilePlus2, MessageCircle, RotateCcw, RefreshCw, ShieldCheck, Terminal } from 'lucide-react'
 import { useState } from 'react'
 import {
   Chip,
@@ -136,6 +136,60 @@ export function AgentFlowSlide() {
           완성
         </p>
       </div>
+    </SlideLayout>
+  )
+}
+
+const AGENT_ACTIONS = [
+  { icon: FilePlus2, head: '파일을 만들고 고쳐요', body: '내가 만든 폴더 안에 index.html 같은 파일이 실제로 생깁니다' },
+  { icon: Terminal, head: '터미널 명령을 실행해요', body: '설치하고, 앱을 띄우고, 안 되면 다시 실행해 봅니다' },
+  { icon: Eye, head: '결과를 읽고 판단해요', body: '오류 메시지를 보고 어디가 틀렸는지 스스로 찾습니다' },
+]
+
+/** V17. 에이전트가 내 컴퓨터에서 실제로 하는 일 — 승인 규칙까지 */
+export function AgentOnMyComputerSlide() {
+  return (
+    <SlideLayout>
+      <div className="flex flex-col gap-4 md:gap-6">
+        <SlideKicker>남의 서버가 아니라 내 컴퓨터</SlideKicker>
+        <SlideHeadline>
+          에이전트는 <Mark>내 폴더 안에서</Mark> 손을 씁니다
+        </SlideHeadline>
+      </div>
+
+      <div className="grid gap-4 md:gap-6 lg:grid-cols-3">
+        {AGENT_ACTIONS.map((action, index) => (
+          <Panel
+            key={action.head}
+            tone="raised"
+            pad="lg"
+            className={cx(
+              'flex flex-col gap-4',
+              index === 0 && 'animate-rise-1',
+              index === 1 && 'animate-rise-2',
+              index === 2 && 'animate-rise-3',
+            )}
+          >
+            <action.icon className="size-8 text-accent md:size-10" />
+            <p className="text-deck-body font-bold text-content-strong">{action.head}</p>
+            <p className="mt-auto text-deck-caption text-content-secondary">{action.body}</p>
+          </Panel>
+        ))}
+      </div>
+
+      <Panel tone="accentSoft" pad="lg" className="animate-rise-4 flex flex-col gap-4 md:gap-5">
+        <div className="flex items-center gap-4">
+          <ShieldCheck className="size-6 text-accent md:size-8" />
+          <PanelLabel tone="accent">&ldquo;이거 해도 돼요?&rdquo; 하고 물어볼 때</PanelLabel>
+        </div>
+        <div className="flex flex-wrap gap-3">
+          <Chip tone="accent">만들기 · 고치기 · 띄우기 → 허용</Chip>
+          <Chip>지우기 · 내 폴더 밖 건드리기 → 잠깐, 무슨 소린지 물어보기</Chip>
+        </div>
+        <p className="text-deck-caption text-content-secondary">
+          오늘 만든 폴더 안에서만 움직이니까, 잘못돼도 그 폴더만 다시 만들면 됩니다.
+        </p>
+      </Panel>
     </SlideLayout>
   )
 }

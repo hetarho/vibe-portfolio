@@ -1,6 +1,7 @@
 import { Dices, Globe, PartyPopper, Rocket, Save } from 'lucide-react'
 import { useState } from 'react'
 import {
+  CheckRow,
   Chip,
   CountdownTimer,
   cx,
@@ -54,7 +55,12 @@ export function MissionSlide() {
         </div>
       </div>
 
-      <ul className="grid gap-5 lg:grid-cols-3">
+      {/*
+        3D 뒤집기 카드는 앞면이 h-52 박스보다 위아래로 몇 px씩 더 그려져서
+        gap-5를 주면 행 간격이 5px밖에 안 남는다(열 간격은 그대로 14px).
+        그래서 행 간격만 따로, 열보다 넉넉하게 잡는다.
+      */}
+      <ul className="grid gap-x-5 gap-y-7 md:gap-y-10 lg:grid-cols-3">
         {MISSIONS.map((mission, index) => {
           const open = flipped.includes(index)
           return (
@@ -89,8 +95,8 @@ export function MissionSlide() {
 }
 
 const SUMMARY = [
-  { head: '웹 앱', body: '내용 + 디자인 + 기능', tail: '직접 쓸 필요 없음' },
-  { head: '프롬프트', body: '무엇을 + 기능 + 느낌', tail: '이 공식 하나면 충분' },
+  { head: '개발', body: '순서를 빠짐없이 적는 일', tail: '그 적는 일을 AI가 합니다' },
+  { head: '프롬프트', body: '무엇을 + 기능 + 느낌', tail: '+ 띄우고 주소 알려줘' },
   { head: '바이브코딩', body: '대화하며 고쳐나가는 것', tail: '오늘 제일 중요한 문장' },
 ]
 
@@ -100,7 +106,7 @@ export function SummarySlide() {
     <SlideLayout>
       <div className="flex flex-wrap items-center justify-between gap-4 md:gap-6">
         <SlideHeadline>오늘 남길 3줄</SlideHeadline>
-        <Chip tone="accent">만든 거 같이 한번 볼까요</Chip>
+        <Chip tone="accent">띄워둔 화면 같이 한번 볼까요</Chip>
       </div>
 
       <div className="grid gap-4 md:gap-6 lg:grid-cols-3">
@@ -141,9 +147,9 @@ export function SummarySlide() {
 }
 
 const ROADMAP = [
-  { icon: Globe, label: '배포', detail: '링크로 공유하기' },
+  { icon: Globe, label: '인터넷에 올리기', detail: 'localhost 말고 남에게 보낼 수 있는 주소로' },
   { icon: Save, label: '데이터 저장', detail: '껐다 켜도 남아 있게' },
-  { icon: Rocket, label: '나만의 진짜 프로젝트', detail: '내 일에 쓰는 도구로' },
+  { icon: Rocket, label: '나만의 진짜 도구', detail: '내 일에서 매주 쓰는 것으로' },
 ]
 
 /** S21. 다음 단계 & 마침 */
@@ -174,17 +180,51 @@ export function ClosingSlide() {
 
       <Panel tone="sunken" pad="lg" className="flex flex-wrap items-center justify-between gap-5 md:gap-8">
         <p className="text-deck-body text-content-secondary">
-          오늘 쓴 프롬프트 모음은 수업 끝나고 정리해서 보낼게요.
+          오늘 쓴 프롬프트와 명령 세 줄은 수업 끝나고 정리해서 보낼게요.
         </p>
-        <p className="text-deck-caption text-content-muted">다음 시간엔 만든 걸 인터넷에 올려봅니다</p>
+        <p className="text-deck-caption text-content-muted">공부용 프롬프트는 아까 복사한 그것 그대로예요</p>
       </Panel>
 
       <SlideNote>
         <span className="inline-flex items-center gap-3">
           <PartyPopper size={30} />
-          오늘 <span className="underline decoration-4 underline-offset-8">첫 앱</span>을 만들었어요 👏
+          오늘 <span className="underline decoration-4 underline-offset-8">첫 앱</span>을 직접 띄웠어요 👏
         </span>
       </SlideNote>
+    </SlideLayout>
+  )
+}
+
+const PREP = [
+  { head: '사전 설치 확인', hint: '일주일 전 공지 · 코딩 에이전트 CLI + Node.js, 로그인까지' },
+  { head: '학생 노트북에서 터미널 한 번 열어보기', hint: '윈도우/맥이 다르니 여는 법을 미리 확인' },
+  { head: '데모용 완성 앱 준비', hint: '네트워크가 죽어도 보여줄 것 — 룰렛 미리보기로 대체 가능' },
+  { head: '작업 폴더 위치 정해두기', hint: '바탕화면처럼 학생이 눈으로 찾을 수 있는 곳' },
+  { head: '공부용 프롬프트 전달 경로', hint: '수업 후 링크로도 한 번 더 보내기' },
+]
+
+/** V34. 강사용 — 수업 전 준비 (학생에게 보여주는 화면 아님) */
+export function PrepChecklistSlide() {
+  const [checks, setChecks] = useState(() => PREP.map(() => false))
+  const toggle = (index: number) =>
+    setChecks((list) => list.map((value, itemIndex) => (itemIndex === index ? !value : value)))
+
+  return (
+    <SlideLayout>
+      <div className="flex flex-wrap items-center justify-between gap-4 md:gap-6">
+        <SlideHeadline>수업 전 준비</SlideHeadline>
+        <Chip>강사용</Chip>
+      </div>
+
+      <div className="flex flex-col gap-4">
+        {PREP.map((item, index) => (
+          <CheckRow key={item.head} checked={checks[index]} onToggle={() => toggle(index)} hint={item.hint}>
+            {item.head}
+          </CheckRow>
+        ))}
+      </div>
+
+      <SlideBody>설치가 안 되어 있으면 PART 2가 통째로 무너져요. 이것부터 확인하세요.</SlideBody>
     </SlideLayout>
   )
 }

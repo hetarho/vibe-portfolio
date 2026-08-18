@@ -31,7 +31,7 @@ export function PromptFormulaSlide() {
   const what = values.what || '할 일 목록 웹 앱'
   const features = values.features || '추가 · 완료 체크 · 삭제'
   const mood = values.mood || '파스텔 톤의 둥근 디자인'
-  const sentence = `${what} 만들어줘. ${features}가 되고, ${mood}으로.`
+  const sentence = `${what} 만들어줘. ${features}가 되고, ${mood}으로. 다 만들면 내 컴퓨터에서 열어볼 수 있게 띄우고 주소를 알려줘.`
 
   const copy = () => {
     void navigator.clipboard?.writeText(sentence)
@@ -41,7 +41,7 @@ export function PromptFormulaSlide() {
 
   return (
     <SlideLayout align="top">
-      <div className="flex flex-col gap-5 pt-6">
+      <div className="flex flex-col gap-4">
         <SlideKicker>오늘의 핵심 공식</SlideKicker>
         <p className="animate-rise-1 flex flex-wrap items-center gap-4 rounded-panel bg-accent px-5 py-4 text-deck-lead font-bold text-accent-contrast shadow-lifted md:px-10 md:py-8">
           <span>[무엇을] 만들어줘</span>
@@ -49,6 +49,9 @@ export function PromptFormulaSlide() {
           <span>[기능 1·2·3]</span>
           <span className="opacity-60">+</span>
           <span>[디자인 느낌]</span>
+        </p>
+        <p className="animate-rise-2 text-deck-body font-semibold text-content-secondary">
+          오늘은 뒤에 한 줄 더 — <Mark>&ldquo;다 만들면 내 컴퓨터에서 띄우고 주소를 알려줘&rdquo;</Mark>
         </p>
       </div>
 
@@ -125,23 +128,24 @@ export function LiveDemoSlide() {
       <div className="grid items-center gap-5 md:gap-10 lg:grid-cols-9">
         <div className="flex flex-col gap-4 md:gap-7 lg:col-span-5">
           <SlideKicker>라이브 데모</SlideKicker>
-          <SlideHeadline>지금부터 1분, 실시간으로 만들어보겠습니다</SlideHeadline>
+          <SlideHeadline>지금부터 1분, 만들어서 띄우는 걸 다 보여드릴게요</SlideHeadline>
 
           <Panel tone="accentSoft" pad="lg" className="animate-rise-2">
             <p className="text-deck-body font-semibold text-content-strong">
               점심 메뉴 룰렛 만들어줘. 메뉴를 추가할 수 있고, 돌리면 두구두구 애니메이션 후 하나가 뽑혀. 귀엽고
-              알록달록하게
+              알록달록하게. 다 만들면 내 컴퓨터에서 열어볼 수 있게 띄우고 주소를 알려줘.
             </p>
           </Panel>
 
           <div className="flex flex-wrap items-center gap-4">
             <Chip>수정 요청도 보여드립니다 → &ldquo;버튼 더 크게, 주황색으로&rdquo;</Chip>
+            <Chip tone="accent">터미널 → 브라우저 순서로 보세요</Chip>
             <button
               type="button"
               onClick={() => setBackup((value) => !value)}
               className="flex items-center gap-3 rounded-full bg-surface-raised px-4 py-3 text-deck-caption font-semibold text-content-secondary shadow-raised transition duration-200 ease-deck md:px-7 hover:bg-surface-highlight hover:text-content-primary"
             >
-              <Play size={24} />
+              <Play className="size-5 md:size-6" />
               {backup ? '미리보기 닫기' : '완성본 미리보기'}
             </button>
           </div>
@@ -155,7 +159,7 @@ export function LiveDemoSlide() {
           ) : (
             <Panel tone="sunken" pad="lg" className="grid min-h-80 place-items-center text-center">
               <p className="text-deck-body text-content-muted">
-                이 자리에 실제 에이전트 화면을 나란히 띄웁니다
+                이 자리에 터미널과 브라우저를 나란히 띄웁니다
                 <br />
                 <span className="text-deck-caption">네트워크가 불안하면 &lsquo;완성본 미리보기&rsquo;로 대체</span>
               </p>
@@ -175,7 +179,7 @@ export function BreakSlide() {
         <SlideKicker>휴식</SlideKicker>
         <CountdownTimer seconds={300} autoStart caption="다시 모이기까지" />
         <p className="text-deck-lead font-semibold text-content-primary">
-          돌아오시면 바로 만듭니다. 노트북 로그인 상태 확인해 주세요!
+          돌아오시면 바로 만듭니다. 터미널 열어두고 로그인 상태만 확인해 주세요!
         </p>
         <p className="rounded-panel bg-surface-raised px-5 py-3 text-deck-body font-semibold text-content-secondary shadow-raised md:px-10 md:py-6">
           다음은 <Mark>PART 2 · 직접 만들기</Mark>

@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 
-const STORAGE_KEY = 'lesson:vibe-coding-workshop:ideas'
+const STORAGE_KEY = 'lesson:vibe-coding-first-app:ideas'
 
 function read(): string[] {
   try {

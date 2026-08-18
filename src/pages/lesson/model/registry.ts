@@ -1,6 +1,6 @@
 import type { DeckDef } from '@/features/slide-deck'
 import { careerAndAiStudyDeck } from '../content/career-and-ai-study'
-import { vibeCodingWorkshopDeck } from '../content/vibe-coding-workshop'
+import { vibeCodingFirstAppDeck } from '../content/vibe-coding-first-app'
 
 export type Lesson = {
   /** URL에 쓰이는 값 — /lesson/{id} */
@@ -18,13 +18,19 @@ export type Lesson = {
 /** 강의 목록. 새 강의를 추가하려면 content/ 아래에 덱을 만들고 이 배열에 한 줄 추가한다. */
 export const lessons: Lesson[] = [
   {
-    id: 'vibe-coding-workshop',
-    title: '바이브코딩 워크숍',
-    subtitle: '말로 만드는 나의 첫 웹 앱',
-    audience: '1대1 · 코드를 처음 만지는 학생',
-    duration: '2시간 · 22화면',
-    outline: ['웹 앱이란 무엇인가', 'AI 에이전트의 작동 방식', '프롬프트 공식', '직접 만들고 고치기'],
-    deck: vibeCodingWorkshopDeck,
+    id: 'vibe-coding-first-app',
+    title: '바이브코딩 첫 수업',
+    subtitle: '말로 만들어 내 컴퓨터에서 띄우는 첫 웹 앱',
+    audience: '1대1 · 개발을 한 번도 안 해본 분',
+    duration: '2시간 · 35화면',
+    outline: [
+      '개발이란 무엇인가',
+      '터미널과 localhost',
+      'AI 에이전트와 프롬프트 공식',
+      '직접 만들어 로컬에서 띄우기',
+      '혼자 공부하는 법',
+    ],
+    deck: vibeCodingFirstAppDeck,
   },
   {
     id: 'career-and-ai-study',

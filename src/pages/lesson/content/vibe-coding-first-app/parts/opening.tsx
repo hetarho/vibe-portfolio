@@ -33,7 +33,7 @@ export function StandbySlide() {
             <br />
             말로 만드는 <Mark>나의 첫 웹 앱</Mark>
           </h1>
-          <SlideBody>시작하기 전에 옆의 세 가지만 확인할게요.</SlideBody>
+          <SlideBody>개발을 한 번도 안 해봤다는 걸 전제로 시작합니다.</SlideBody>
         </div>
 
         <Panel tone="raised" pad="lg" className="animate-rise-2 flex flex-col gap-4 lg:col-span-4">
@@ -41,11 +41,11 @@ export function StandbySlide() {
           <CheckRow checked={checks[0]} onToggle={() => toggle(0)} hint="영상이 끊기면 바로 말해주세요">
             인터넷 연결
           </CheckRow>
-          <CheckRow checked={checks[1]} onToggle={() => toggle(1)} hint="로그인까지 되어 있어야 해요">
-            Claude 로그인
+          <CheckRow checked={checks[1]} onToggle={() => toggle(1)} hint="설치와 로그인까지 되어 있어야 해요">
+            AI 코딩 도구 로그인
           </CheckRow>
-          <CheckRow checked={checks[2]} onToggle={() => toggle(2)} hint="다른 창은 닫아두면 편해요">
-            크롬 브라우저 열기
+          <CheckRow checked={checks[2]} onToggle={() => toggle(2)} hint="검은 창이 열리면 준비 끝이에요">
+            터미널 열어보기
           </CheckRow>
         </Panel>
       </div>
@@ -68,7 +68,7 @@ export function PromiseSlide() {
           <SlideHeadline size="hero">
             2시간 뒤엔
             <br />
-            <Mark>직접 만든 웹 앱</Mark>이 하나 생겨요
+            <Mark>내 컴퓨터에서</Mark> 내 앱이 돌아갑니다
           </SlideHeadline>
           <SlideBody>코드는 한 줄도 직접 쓰지 않습니다.</SlideBody>
           <div className="animate-rise-3 flex flex-wrap gap-3">
@@ -197,9 +197,16 @@ export function DefinitionSlide() {
 }
 
 const JOURNEY = [
-  { label: '개념', time: '60분', keywords: ['웹 앱', 'AI 에이전트', '프롬프트'], span: 'lg:col-span-3', current: true },
+  {
+    label: '기초',
+    time: '50분',
+    keywords: ['개발이란', '웹 앱', '터미널', 'AI 에이전트'],
+    span: 'lg:col-span-3',
+    current: true,
+  },
   { label: '휴식', time: '5분', keywords: ['숨 고르기'], span: 'lg:col-span-2', current: false },
-  { label: '실습', time: '55분', keywords: ['만들기', '고치기'], span: 'lg:col-span-3', current: false },
+  { label: '만들기', time: '50분', keywords: ['띄우기', '고치기'], span: 'lg:col-span-2', current: false },
+  { label: '공부법', time: '15분', keywords: ['혼자 하는 법'], span: 'lg:col-span-2', current: false },
 ]
 
 /** S4. 오늘의 여정 */
@@ -209,16 +216,17 @@ export function JourneySlide() {
       <SlideKicker>오늘 순서</SlideKicker>
       <SlideHeadline>두 시간, 이렇게 갑니다</SlideHeadline>
 
-      <ol className="grid items-stretch gap-4 md:gap-6 lg:grid-cols-8">
+      <ol className="grid items-stretch gap-4 md:gap-6 lg:grid-cols-9">
         {JOURNEY.map((step, index) => (
           <li
             key={step.label}
             className={cx(
-              'flex flex-col gap-5 rounded-panel p-9 transition duration-300 ease-deck',
+              'flex flex-col gap-5 rounded-panel p-5 transition duration-300 ease-deck md:p-9',
               step.span,
               index === 0 && 'animate-rise-1',
               index === 1 && 'animate-rise-2',
               index === 2 && 'animate-rise-3',
+              index === 3 && 'animate-rise-4',
               step.current ? 'bg-accent text-accent-contrast shadow-lifted' : 'bg-surface-raised shadow-raised',
             )}
           >

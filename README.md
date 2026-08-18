@@ -40,6 +40,7 @@ src/
 ├── app/                  # 앱 진입점, 라우터, 글로벌 Tailwind 스타일
 ├── pages/                # home(첫 화면), portfolio-index(목록), studio, shop, quiz, lesson
 │   └── lesson/           # DESIGN.md · 강의 목록 · 슬라이드 콘텐츠
+│       └── content/      # 덱별 폴더 + shared/(덱들이 공유하는 프롬프트·버튼)
 ├── widgets/              # 포트폴리오 공통 헤더
 ├── features/             # 장바구니, 성향 테스트, 슬라이드 덱 엔진
 ├── entities/             # 상품 타입, 목데이터, UI
@@ -52,10 +53,21 @@ FSD의 상위 레이어가 하위 레이어를 참조하는 의존 방향을 따
 
 강사가 빔프로젝터에 띄워놓고 진행하는 프레젠테이션형 화면입니다.
 
-- 조작: `←` `→` `Space` 이동, `P` 프롬프트 공식으로 점프, `O` 전체 목록, `F` 전체화면
+- 조작: `←` `→` `Space` 이동, `O` 전체 목록, `F` 전체화면, 덱별 단축키는 하단에 표시
 - 현재 화면 번호가 `?s=` 로 주소에 남아 새로고침해도 위치를 유지합니다
 - 디자인 규칙과 체크리스트: [src/pages/lesson/DESIGN.md](src/pages/lesson/DESIGN.md)
 - 새 강의 추가: `src/pages/lesson/content/`에 덱을 만들고 `model/registry.ts`에 한 줄 추가
+
+### 들어 있는 강의
+
+| 강의 | 대상 | 도착점 |
+|---|---|---|
+| `vibe-coding-first-app` | 개발을 한 번도 안 해본 일반인 | 에이전트와 만든 앱을 로컬(`localhost`)에서 직접 띄우기 |
+| `career-and-ai-study` | 진로 미정인 개발 지망 대학생 | 기본기 학습 레포 세팅 |
+
+두 강의 모두 마지막에 **같은 학습 튜터 프롬프트**를 복사해 간다.
+프롬프트 본문은 [src/pages/lesson/content/shared/model/tutor-prompt.md](src/pages/lesson/content/shared/model/tutor-prompt.md)
+한 곳에만 있고, 두 덱이 `content/shared`의 `PromptCopyButton`으로 함께 쓴다. 사본을 만들지 않는다.
 
 ## 포함된 인터랙션
 

@@ -25,14 +25,14 @@ export function PracticeReadySlide() {
   return (
     <SlideLayout>
       <SlideKicker>PART 2 시작</SlideKicker>
-      <SlideHeadline>이제 직접 만들어봅시다</SlideHeadline>
+      <SlideHeadline>이제 내 컴퓨터에서 직접 만들어봅니다</SlideHeadline>
 
       <div className="flex flex-col gap-4">
-        <CheckRow checked={checks[0]} onToggle={() => toggle(0)} hint="로그인까지 되어 있어야 해요">
-          도구 접속 &amp; 로그인
+        <CheckRow checked={checks[0]} onToggle={() => toggle(0)} hint="검은 창이 열려 있으면 됩니다">
+          터미널 열기
         </CheckRow>
-        <CheckRow checked={checks[1]} onToggle={() => toggle(1)} hint="쓰던 대화는 닫아주세요">
-          새 대화창 열기
+        <CheckRow checked={checks[1]} onToggle={() => toggle(1)} hint="브라우저는 옆에 나란히 두세요">
+          브라우저 창 하나 비워두기
         </CheckRow>
         <CheckRow checked={checks[2]} onToggle={() => toggle(2)} hint="같이 보면서 진행할게요">
           화면 공유 켜기
@@ -56,7 +56,7 @@ const TOPICS = [
     summary: '나를 소개하는 한 장짜리 페이지',
     level: 1,
     prompt:
-      '자기소개 웹 페이지 만들어줘. 이름과 한 줄 소개, 좋아하는 것 3가지, 연락처 버튼이 있고, 스크롤하면 부드럽게 나타나는 미니멀한 디자인으로.',
+      '자기소개 웹 페이지 만들어줘. 이름과 한 줄 소개, 좋아하는 것 3가지, 연락처 버튼이 있고, 스크롤하면 부드럽게 나타나는 미니멀한 디자인으로. 다 만들면 내 컴퓨터에서 열어볼 수 있게 띄우고 주소를 알려줘.',
   },
   {
     emoji: '✅',
@@ -64,7 +64,7 @@ const TOPICS = [
     summary: '할 일을 적고 지우는 앱',
     level: 2,
     prompt:
-      '할 일 목록 웹 앱 만들어줘. 추가·완료 체크·삭제가 되고, 남은 개수가 위에 보여. 파스텔 톤의 둥근 디자인으로.',
+      '할 일 목록 웹 앱 만들어줘. 추가·완료 체크·삭제가 되고, 남은 개수가 위에 보여. 파스텔 톤의 둥근 디자인으로. 다 만들면 내 컴퓨터에서 열어볼 수 있게 띄우고 주소를 알려줘.',
   },
   {
     emoji: '🎡',
@@ -72,7 +72,7 @@ const TOPICS = [
     summary: '오늘 뭐 먹지를 끝내주는 앱',
     level: 2,
     prompt:
-      '점심 메뉴 룰렛 만들어줘. 메뉴를 추가할 수 있고, 돌리면 두구두구 애니메이션 후 하나가 뽑혀. 귀엽고 알록달록하게.',
+      '점심 메뉴 룰렛 만들어줘. 메뉴를 추가할 수 있고, 돌리면 두구두구 애니메이션 후 하나가 뽑혀. 귀엽고 알록달록하게. 다 만들면 내 컴퓨터에서 열어볼 수 있게 띄우고 주소를 알려줘.',
   },
   {
     emoji: '📅',
@@ -80,7 +80,7 @@ const TOPICS = [
     summary: '그날까지 며칠 남았는지',
     level: 2,
     prompt:
-      '디데이 카운터 웹 앱 만들어줘. 날짜와 이름을 등록하면 남은 날짜가 큰 숫자로 보이고, 여러 개를 등록할 수 있어. 차분한 다크 톤으로.',
+      '디데이 카운터 웹 앱 만들어줘. 날짜와 이름을 등록하면 남은 날짜가 큰 숫자로 보이고, 여러 개를 등록할 수 있어. 차분한 다크 톤으로. 다 만들면 내 컴퓨터에서 열어볼 수 있게 띄우고 주소를 알려줘.',
   },
   {
     emoji: '⚖️',
@@ -88,7 +88,7 @@ const TOPICS = [
     summary: '둘 중 하나 고르기',
     level: 3,
     prompt:
-      '밸런스 게임 웹 앱 만들어줘. 질문 10개가 하나씩 나오고, 둘 중 하나를 고르면 다음 질문으로 넘어가. 마지막에 내 선택을 정리해서 보여줘. 대비가 강한 팝한 디자인으로.',
+      '밸런스 게임 웹 앱 만들어줘. 질문 10개가 하나씩 나오고, 둘 중 하나를 고르면 다음 질문으로 넘어가. 마지막에 내 선택을 정리해서 보여줘. 대비가 강한 팝한 디자인으로. 다 만들면 내 컴퓨터에서 열어볼 수 있게 띄우고 주소를 알려줘.',
   },
 ]
 
@@ -194,7 +194,7 @@ export function TopicPickerSlide() {
       ) : null}
 
       <SlideBody>
-        아까 적어주신 아이디어로 해도 좋아요 — 단, <Mark>로그인·결제</Mark>가 필요한 건 다음 시간에!
+        아까 적어주신 아이디어로 해도 좋아요 — 단, <Mark>로그인·결제</Mark>처럼 주방(서버)이 필요한 건 다음에!
       </SlideBody>
 
       {openTopic ? <TopicModal topic={openTopic} onClose={() => setOpenTopic(null)} /> : null}
@@ -204,8 +204,9 @@ export function TopicPickerSlide() {
 
 const PRACTICE_STEPS = [
   { label: '프롬프트 쓰기', minutes: 5, seconds: 300 },
-  { label: '입력하고 기다리기', minutes: 5, seconds: 300 },
-  { label: '결과 보고 불만 목록 만들기', minutes: 10, seconds: 600 },
+  { label: '입력하고 기다리기 · 승인하기', minutes: 5, seconds: 300 },
+  { label: '브라우저에서 열어보기', minutes: 5, seconds: 300 },
+  { label: '불만 목록 만들기', minutes: 5, seconds: 300 },
   { label: '수정 요청', minutes: 10, seconds: 600 },
 ]
 
@@ -260,6 +261,7 @@ export function PracticeBoardSlide() {
           <p className="text-deck-body font-bold text-content-strong">무엇을</p>
           <p className="text-deck-body font-bold text-content-strong">+ 기능</p>
           <p className="text-deck-body font-bold text-content-strong">+ 느낌</p>
+          <p className="text-deck-caption font-semibold text-content-secondary">+ 띄우고 주소 알려줘</p>
           <p className="mt-auto text-deck-caption text-content-secondary">P 키를 누르면 전체 화면으로 봅니다</p>
         </Panel>
       </div>
@@ -274,6 +276,8 @@ export function PracticeBoardSlide() {
 const TROUBLES = [
   { situation: '결과가 이상해요', answer: '○○ 부분이 이상해. 다시 만들어줘' },
   { situation: '오류가 떠요', answer: '오류 메시지를 복사해서 그대로 붙여넣기' },
+  { situation: '주소가 안 열려요', answer: '주소창이 안 열려. 다시 띄워줘' },
+  { situation: '터미널이 멈춘 것 같아요', answer: '띄워둔 상태라 원래 안 끝나요. 그게 정상' },
   { situation: '뭘 시킬지 모르겠어요', answer: '화면에서 제일 마음에 안 드는 것 하나만 말하기' },
   { situation: '기능을 많이 넣고 싶어요', answer: '한 번에 하나씩!' },
 ]
@@ -287,22 +291,23 @@ export function TroubleshootSlide() {
         <SlideHeadline>막혔을 때, 이렇게 말하세요</SlideHeadline>
       </div>
 
-      <div className="grid gap-5 lg:grid-cols-2">
+      <div className="grid gap-4 md:gap-5 lg:grid-cols-3">
         {TROUBLES.map((item, index) => (
           <Panel
             key={item.situation}
             tone="raised"
-            pad="lg"
+            pad="md"
             className={cx(
-              'flex flex-col gap-4',
+              'flex flex-col gap-3',
               index === 0 && 'animate-rise-1',
               index === 1 && 'animate-rise-2',
               index === 2 && 'animate-rise-3',
               index === 3 && 'animate-rise-4',
+              index >= 4 && 'animate-rise-5',
             )}
           >
             <PanelLabel>{item.situation}</PanelLabel>
-            <p className="rounded-card bg-surface-overlay p-4 text-deck-body font-semibold text-content-strong shadow-overlay md:p-6">
+            <p className="rounded-card bg-surface-overlay p-4 text-deck-caption font-semibold text-content-strong shadow-overlay md:p-6">
               {item.answer}
             </p>
           </Panel>
