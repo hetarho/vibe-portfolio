@@ -76,7 +76,7 @@ export function SetupGuideSlide() {
   )
 }
 
-/** C17. 반드시 짚고 갈 경고 2가지 */
+/** C23. 반드시 짚고 갈 경고 2가지 */
 export function WarningSlide() {
   return (
     <SlideLayout>
@@ -124,16 +124,16 @@ export function WarningSlide() {
 
 const TWO_LINES = [
   {
-    head: '방향',
-    body: '시장 말고, 뭘 고칠 때 시간이 훅 갔는지로 정해요',
+    head: '진로',
+    body: 'FE나 BE로 시작해, 기획과 UX를 보며 제품을 끝까지 구현하는 프로덕트 엔지니어가 돼요',
   },
   {
-    head: 'AI 시대의 공부',
-    body: 'AI한테 시키지 말고 AI한테 배워요. 손은 내가 움직여요',
+    head: '공부',
+    body: '학습 프로젝트로 개발 기본기를 쌓고, 그 위에서 구현 범위를 넓혀요',
   },
 ]
 
-/** C18. 마무리 — 오늘의 2줄 */
+/** C24. 마무리 — 오늘의 2줄 */
 export function SummarySlide() {
   return (
     <SlideLayout>
@@ -166,7 +166,7 @@ export function SummarySlide() {
   )
 }
 
-/** C19. 다음 수업까지 할 것 */
+/** C25. 다음 수업까지 할 것 */
 export function AssignmentSlide() {
   return (
     <SlideLayout>
@@ -211,7 +211,7 @@ const PREP = [
   { head: '사전 설치 공지', hint: '일주일 전 · LLM 계정, 코딩 CLI, git, python3, node, pnpm' },
 ]
 
-/** C20. 강사용 — 수업 전 준비 (학생에게 보여주는 화면 아님) */
+/** C26. 강사용 — 수업 전 준비 (학생에게 보여주는 화면 아님) */
 export function PrepChecklistSlide() {
   const [checks, setChecks] = useState(() => PREP.map(() => false))
   const toggle = (index: number) =>

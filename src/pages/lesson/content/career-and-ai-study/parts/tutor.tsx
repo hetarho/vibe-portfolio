@@ -35,12 +35,12 @@ const DESIGN_POINTS = [
   },
 ]
 
-/** C14. 튜터 프롬프트 소개 */
+/** C19. 튜터 프롬프트 소개 */
 export function TutorPromptSlide() {
   return (
     <SlideLayout>
       <SlideKicker>튜터 프롬프트</SlideKicker>
-      <SlideHeadline>그래서 이런 장치를 걸어놨어요</SlideHeadline>
+      <SlideHeadline>기본기를 놓치지 않게 만든 장치예요</SlideHeadline>
 
       <div className="grid gap-5 lg:grid-cols-2">
         {DESIGN_POINTS.map((point, index) => (
@@ -63,7 +63,7 @@ export function TutorPromptSlide() {
         ))}
       </div>
 
-      <SlideNote>AI를 코드 생성기 말고 전담 과외 선생으로 계약하는 문서예요</SlideNote>
+      <SlideNote>AI와 함께 공부해도 내 손에 기본기가 남도록 만든 문서예요</SlideNote>
     </SlideLayout>
   )
 }
@@ -118,7 +118,7 @@ const LINE_TONE = {
   positive: 'text-positive',
 }
 
-/** C15. 라이브 데모 — 미리 만들어둔 레포로 시연 */
+/** C21. 라이브 데모 — 미리 만들어둔 레포로 시연 */
 export function LiveDemoSlide() {
   const [step, setStep] = useState(0)
   const current = DEMO_STEPS[step]

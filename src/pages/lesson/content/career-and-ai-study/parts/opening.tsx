@@ -56,7 +56,7 @@ export function StandbySlide() {
             1
           </span>
           <p className="text-deck-caption text-content-secondary">
-            오늘 가져갈 것 ① 내 성향으로 잡은 <span className="text-content-strong">방향</span>
+            오늘 가져갈 것 ① 시장에 들어갈 <span className="text-content-strong">첫 역할</span>
           </p>
         </Panel>
         <Panel tone="sunken" pad="md" className="flex items-center gap-5">
@@ -64,7 +64,7 @@ export function StandbySlide() {
             2
           </span>
           <p className="text-deck-caption text-content-secondary">
-            오늘 가져갈 것 ② 혼자 굴릴 수 있는 <span className="text-content-strong">학습 레포</span>
+            오늘 가져갈 것 ② 기본기를 쌓을 <span className="text-content-strong">학습 레포</span>
           </p>
         </Panel>
       </div>
@@ -136,7 +136,8 @@ export function WorriesSlide() {
       </p>
 
       <SlideBody>
-        걱정의 모양은 다른데 뿌리는 하나예요. <Mark>판단 기준이 내 것이 아니라서.</Mark>
+        걱정의 모양은 달라도 질문은 하나예요.{' '}
+        <Mark>어떤 역할로 시장에 들어가고, 어디까지 성장할 것인가.</Mark>
       </SlideBody>
     </SlideLayout>
   )
@@ -146,13 +147,13 @@ const SHIFT = [
   {
     head: '신입 공고 vs 신입 지원',
     stat: '0.8% vs 29.5%',
-    body: '개발 공고 중 신입은 0.8%, 지원자 중 신입은 29.5%. 신입 자리만 사라진 거예요',
+    body: '개발 공고 중 신입은 0.8%, 지원자 중 신입은 29.5%. 열린 자리가 지원자 비중에 비해 아주 적어요',
     tone: 'sunken' as const,
   },
   {
     head: '5~10년차 공고 비중',
     stat: '39.7%',
-    body: '공고의 39.7%가 5~10년차예요. 주니어가 맡던 디버깅·테스트·간단한 기능이 하필 AI가 제일 잘하는 일이었거든요',
+    body: '공고의 39.7%가 5~10년차예요. 기업은 복잡한 일을 바로 맡길 수 있는 경력자를 더 많이 찾고 있어요',
     tone: 'sunken' as const,
   },
   {
@@ -200,20 +201,20 @@ export function MarketShiftSlide() {
         서베이」 (기업 153곳)
       </p>
 
-      <SlideNote>사라진 건 개발자 자리가 아니라, 시키는 대로 코드만 치는 자리예요</SlideNote>
+      <SlideNote>신입에게 필요한 건 시키는 대로 코드만 치는 능력보다, 문제를 판단하고 구현하는 힘이에요</SlideNote>
     </SlideLayout>
   )
 }
 
 const PE_BEFORE = [
-  '시키는 대로 기능을 만들어요',
-  '코드 잘 치면 잘하는 개발자예요',
-  '기획·디자인·개발이 따로 놀아요',
+  '요구받은 기능만 만들어요',
+  '내 코드 범위만 책임져요',
+  '기획과 디자인은 내 일이 아니라고 봐요',
 ]
 const PE_AFTER = [
-  '문제부터 잡고 들어가요',
-  '아이디어부터 배포까지 직접 끌고 가요',
-  '기능 말고 성과로 평가받아요',
+  '사용자 문제와 요구사항부터 이해해요',
+  '기획 의도와 UX를 함께 보고 구현해요',
+  '아이디어부터 배포까지 직접 책임져요',
 ]
 
 /** C3. 개편의 결과 — 프로덕트 엔지니어 */
@@ -222,13 +223,13 @@ export function ProductEngineerSlide() {
     <SlideLayout>
       <div className="flex items-center gap-5">
         <Search size={44} className="text-accent" />
-        <SlideKicker>이따 이 단어로 검색해봐요</SlideKicker>
+        <SlideKicker>신입 때부터 목표로 둘 역할</SlideKicker>
       </div>
       <SlideHeadline size="hero">프로덕트 엔지니어</SlideHeadline>
 
       <CompareGrid>
         <Panel tone="sunken" pad="lg" className="flex flex-col gap-6">
-          <PanelLabel>지금까지의 기준</PanelLabel>
+          <PanelLabel>기능 구현에 머문 기준</PanelLabel>
           <ul className="flex flex-1 flex-col gap-4">
             {PE_BEFORE.map((item) => (
               <li key={item} className="text-deck-body text-content-secondary line-through decoration-content-muted">
@@ -239,7 +240,7 @@ export function ProductEngineerSlide() {
         </Panel>
 
         <Panel tone="raised" pad="lg" className="animate-rise-2 flex flex-col gap-6">
-          <PanelLabel tone="accent">요즘 뜨는 기준</PanelLabel>
+          <PanelLabel tone="accent">우리가 키울 기준</PanelLabel>
           <ul className="flex flex-1 flex-col gap-4">
             {PE_AFTER.map((item) => (
               <li key={item} className="text-deck-body font-semibold text-content-strong">
@@ -251,29 +252,29 @@ export function ProductEngineerSlide() {
       </CompareGrid>
 
       <SlideBody>
-        코드는 AI가 짜줘도 <Mark>뭘 만들지는 못 정해줘요.</Mark>
+        신입 때는 FE나 BE로 시작해도, 최종 목표는 <Mark>제품을 끝까지 구현하는 개발자</Mark>예요.
       </SlideBody>
     </SlideLayout>
   )
 }
 
-const CHAIN = ['성향에 맞아요', '오래 해요', '실력이 쌓여요', '어디서든 뽑혀요']
+const CHAIN = ['FE·BE 중 하나 선택', '주력 기술 기본기', '제품 구현 범위 확장', '프로덕트 엔지니어']
 
-/** C4. 오늘의 프레임 — 시장은 참고, 기준은 내 성향 */
+/** C4. 오늘의 프레임 — FE·BE는 입구, 목표는 프로덕트 엔지니어 */
 export function FrameSlide() {
   return (
     <SlideLayout>
       <div className="flex items-center gap-5">
         <Compass size={44} className="text-accent" />
-        <SlideHeadline size="hero">
-          시장은 <span className="text-content-secondary">참고만</span>, 기준은 <Mark>내 성향</Mark>
+        <SlideHeadline>
+          입구는 <span className="text-content-secondary">FE·BE</span>, 목표는 <Mark>프로덕트 엔지니어</Mark>
         </SlideHeadline>
       </div>
 
       <Panel tone="sunken" pad="lg" className="animate-rise-2">
         <p className="text-deck-body text-content-secondary">
-          시장은 <span className="text-content-strong">2~4년</span>마다 또 바뀌어요. 그때마다 방향을 갈아엎을 순
-          없잖아요.
+          국내 신입 채용은 역할이 FE와 BE로 나뉘는 경우가 많아요. 처음부터 풀스택을 내세우기보다{' '}
+          <span className="text-content-strong">하나로 깊이를 먼저 보여주는 편</span>이 현실적이에요.
         </p>
       </Panel>
 
@@ -305,8 +306,9 @@ export function FrameSlide() {
         ))}
       </ol>
 
-      <SlideBody>그래서 오늘은 시장 얘기 말고 성향부터 봐요.</SlideBody>
+      <SlideBody>
+        성향 검사는 평생 할 일을 정하는 시험이 아니에요. <Mark>어느 역할부터 준비할지</Mark> 좁히는 도구예요.
+      </SlideBody>
     </SlideLayout>
   )
 }
-

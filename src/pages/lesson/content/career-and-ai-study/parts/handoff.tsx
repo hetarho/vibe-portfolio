@@ -15,7 +15,7 @@ import { PromptCopyButton } from '../widgets/PromptCopyButton'
 
 const RUN_STEPS = [
   { head: '빈 폴더를 하나 만들고', body: '거기서 코딩 CLI를 열어요' },
-  { head: '복사한 프롬프트를 붙여넣고', body: '맨 끝 학습 대상 칸을 내 걸로 바꿔요' },
+  { head: '복사한 프롬프트를 붙여넣고', body: '맨 끝에 첫 역할에 필요한 기술을 적어요' },
   { head: '물어보는 것에 답해요', body: '답이 끝나면 알아서 만들기 시작해요' },
 ]
 
@@ -29,7 +29,7 @@ export function RunNowSlide() {
           <SlideHeadline>
             먼저 <Mark>돌려놓고</Mark> 시작할게요
           </SlideHeadline>
-          <SlideBody>세팅되는 동안 앞으로 어떻게 공부할지 설명할게요.</SlideBody>
+          <SlideBody>선택한 기술의 기본기를 쌓을 학습 프로젝트부터 만들어요.</SlideBody>
           <PromptCopyButton />
         </div>
 
@@ -66,8 +66,8 @@ export function RunNowSlide() {
 }
 
 const ASKS = [
-  { q: '뭘 배우고 싶어요?', a: '언어든 프레임워크든. 1부에서 나온 방향으로' },
-  { q: '어디까지 가고 싶어요?', a: '읽을 수 있으면 / 혼자 짤 수 있게 / 설계까지' },
+  { q: '뭘 배우고 싶어요?', a: '첫 지원 직무에 필요한 언어나 프레임워크부터' },
+  { q: '어디까지 가고 싶어요?', a: '기능 구현 / 문제 진단·수정 / 설계까지' },
   { q: '한 번에 얼마나 해요?', a: '레슨 하나의 크기가 여기서 정해져요' },
   { q: '편한 언어 있어요?', a: '앞으로 비유를 그 언어로 들어줘요' },
   { q: '어떤 AI 도구 써요?', a: '세션 여는 방법이 도구마다 달라서 물어봐요' },

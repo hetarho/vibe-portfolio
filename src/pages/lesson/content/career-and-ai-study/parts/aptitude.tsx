@@ -19,7 +19,7 @@ function firstUnanswered(answers: Array<Choice | null>) {
   return index === -1 ? QUESTIONS.length : index
 }
 
-/** C4. ⭐ 개발 성향 체크 — 13문항 A/B */
+/** C5. ⭐ 첫 역할 체크 — 13문항 A/B */
 export function AptitudeTestSlide() {
   const { answers, answer, reset, result } = useAptitude()
   const [current, setCurrent] = useState(() => firstUnanswered(answers))
@@ -102,10 +102,10 @@ export function AptitudeTestSlide() {
         </div>
 
         {result.track === 'frontend' && result.platform === 'app' ? (
-          <SlideNote>FE 성향 + 앱 선호 → 모바일 앱 개발도 후보에 넣어보세요</SlideNote>
+          <SlideNote>화면 쪽 답변이 많다면 앱 개발은 나중에 넓힐 후보로 남겨두세요</SlideNote>
         ) : (
           <SlideNote tone="quiet">
-            3번(뿌듯함)과 6번(파고들고 싶은 문제)에 뭐라고 답했는지 다시 보세요 — 거기가 제일 중요해요
+            3번과 6번 답을 다시 보세요 — FE와 BE 중 어디부터 깊게 팔지 고르는 참고가 돼요
           </SlideNote>
         )}
       </SlideLayout>
@@ -118,7 +118,7 @@ export function AptitudeTestSlide() {
     <SlideLayout>
       <div className="flex flex-wrap items-center justify-between gap-6">
         <SlideKicker>
-          {question.axis === 'tendency' ? '1부 · 성향 축 (화면 vs 구조)' : '2부 · 플랫폼 축 (웹 vs 앱)'}
+          {question.axis === 'tendency' ? '직무 축 · 화면 vs 구조' : '플랫폼 축 · 웹 vs 앱'}
         </SlideKicker>
         <div className="flex items-center gap-4">
           <span className="text-deck-caption font-semibold tabular-nums text-content-muted">
@@ -189,12 +189,12 @@ export function AptitudeTestSlide() {
 }
 
 const SCORING = [
-  { range: 'A 7개 이상', verdict: 'FE 성향 뚜렷', tone: 'accent' as const },
-  { range: 'B 7개 이상', verdict: 'BE 성향 뚜렷', tone: 'raised' as const },
-  { range: '5 ± 1개', verdict: '데이터 부족 → 풀스택형 출발', tone: 'raised' as const },
+  { range: 'A 7개 이상', verdict: 'FE부터 준비', tone: 'accent' as const },
+  { range: 'B 7개 이상', verdict: 'BE부터 준비', tone: 'raised' as const },
+  { range: '5 ± 1개', verdict: '둘 다 가능 → 한쪽부터 준비', tone: 'raised' as const },
 ]
 
-/** C5. 채점 · 해석 가이드 */
+/** C6. 채점 · 해석 가이드 */
 export function AptitudeGuideSlide() {
   const { result } = useAptitude()
 
@@ -227,17 +227,15 @@ export function AptitudeGuideSlide() {
       </div>
 
       <Panel tone="sunken" pad="lg" className="flex flex-col gap-3">
-        <PanelLabel>플랫폼(W/P)은 참고만</PanelLabel>
+        <PanelLabel>플랫폼(W/P)은 보조 기준</PanelLabel>
         <p className="text-deck-body text-content-secondary">
-          FE 성향 + P가 나왔다면 모바일 앱 개발도 후보에 넣으세요.
+          FE 쪽으로 시작한 뒤 웹과 앱 중 구현 범위를 넓힐 방향을 고르는 데 써요.
         </p>
       </Panel>
 
-      <SlideNote>
-        3번과 6번을 다시 보세요 — 뭘 고칠 때 시간 가는 줄 몰랐는지
-      </SlideNote>
+      <SlideNote>이 결과는 첫 지원 분야를 좁히는 참고 자료예요</SlideNote>
 
-      <SlideBody>풀스택형이 나왔다고 실패한 게 아니에요. 처음 6개월 기초는 어차피 겹쳐요.</SlideBody>
+      <SlideBody>FE·BE 중 하나로 기본기를 쌓고, 제품을 만들며 구현 범위를 넓혀가요.</SlideBody>
     </SlideLayout>
   )
 }

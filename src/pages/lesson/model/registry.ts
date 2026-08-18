@@ -32,10 +32,15 @@ export const lessons: Lesson[] = [
   {
     id: 'career-and-ai-study',
     title: '진로 찾기 & AI 시대 개발 공부법',
-    subtitle: '성향으로 방향을 정하고, 혼자 굴릴 학습 레포까지',
+    subtitle: 'FE·BE 진입 전략부터 기본기 학습 레포까지',
     audience: '1대1 · 진로 미정인 개발 지망 대학생',
-    duration: '2시간 · 21화면',
-    outline: ['개발 성향 체크 13문항', '분야 지도와 하루 일과', '왜 공부법이 달라져야 하나', '튜터 프롬프트 세팅'],
+    duration: '2시간 · 27화면',
+    outline: [
+      'FE·BE 시장 진입 전략',
+      '프로덕트 엔지니어라는 목표',
+      '개발 기본기가 먼저인 이유',
+      '학습 프로젝트 프롬프트 세팅',
+    ],
     deck: careerAndAiStudyDeck,
   },
 ]

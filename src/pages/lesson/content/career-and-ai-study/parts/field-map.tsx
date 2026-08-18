@@ -14,7 +14,7 @@ import {
   SlideNote,
 } from '@/features/slide-deck'
 
-/** C5. 결과 같이 뜯어보기 */
+/** C7. 결과 같이 뜯어보기 */
 export function ResultTalkSlide() {
   return (
     <SlideLayout>
@@ -26,10 +26,10 @@ export function ResultTalkSlide() {
       <div className="grid items-center gap-8 lg:grid-cols-9">
         <div className="flex flex-col gap-5 lg:col-span-5">
           <Panel tone="raised" pad="lg">
-            <p className="text-deck-lead font-bold text-content-strong">이 결과, 납득이 가요?</p>
+            <p className="text-deck-lead font-bold text-content-strong">첫 지원은 FE와 BE 중 어디예요?</p>
           </Panel>
           <Panel tone="raised" pad="lg">
-            <p className="text-deck-lead font-bold text-content-strong">고르기 망설였던 문항은 뭐였어요?</p>
+            <p className="text-deck-lead font-bold text-content-strong">그 역할을 위해 먼저 보완할 건 뭐예요?</p>
           </Panel>
         </div>
 
@@ -38,7 +38,7 @@ export function ResultTalkSlide() {
         </Panel>
       </div>
 
-      <SlideNote tone="quiet">망설인 문항이 진짜 정보예요. 거기에 답이 숨어 있어요</SlideNote>
+      <SlideNote tone="quiet">결과보다 중요한 건 첫 역할을 하나 정하고 준비를 시작하는 거예요</SlideNote>
     </SlideLayout>
   )
 }
@@ -59,8 +59,9 @@ const FIELDS = [
   {
     icon: Smartphone,
     name: '모바일 앱',
-    line: '폰 기능까지 쓰는 앱이요',
+    line: '나중에 넓힐 화면 영역',
     detail: '네이티브 UI · 푸시 · 센서 · 스토어 배포',
+    quiet: true,
   },
   {
     icon: Database,
@@ -71,12 +72,12 @@ const FIELDS = [
   },
 ]
 
-/** C6. 분야 지도 */
+/** C8. 분야 지도 */
 export function FieldMapSlide() {
   return (
     <SlideLayout>
       <SlideKicker>분야 지도</SlideKicker>
-      <SlideHeadline>선택지는 이 정도예요</SlideHeadline>
+      <SlideHeadline>신입 시장의 입구부터 볼게요</SlideHeadline>
 
       <div className="grid gap-5 lg:grid-cols-4">
         {FIELDS.map((field, index) => (
@@ -102,7 +103,9 @@ export function FieldMapSlide() {
         ))}
       </div>
 
-      <SlideBody>기술 스택 말고 하루가 어떻게 흘러가는지로 볼게요.</SlideBody>
+      <SlideBody>
+        국내 채용은 역할이 나뉘어 있어요. 오늘은 <Mark>FE와 BE 중 어디로 먼저 들어갈지</Mark> 좁혀요.
+      </SlideBody>
     </SlideLayout>
   )
 }
@@ -136,11 +139,11 @@ function DayList({ items, tone }: { items: string[]; tone: 'accent' | 'quiet' })
   )
 }
 
-/** C7. FE의 하루 vs BE의 하루 */
+/** C9. FE의 하루 vs BE의 하루 */
 export function DayInLifeSlide() {
   return (
     <SlideLayout>
-      <SlideHeadline>어느 쪽 하루가 더 끌려요?</SlideHeadline>
+      <SlideHeadline>FE와 BE, 첫 지원은 어디로?</SlideHeadline>
 
       <CompareGrid>
         <Panel tone="raised" pad="lg" className="flex flex-col gap-6">
@@ -175,44 +178,44 @@ export function DayInLifeSlide() {
         </p>
       </Panel>
 
-      <SlideNote>상상했던 개발자의 하루랑, 어느 쪽이 더 가까워요?</SlideNote>
+      <SlideNote>지금 고르는 것은 최종 직함이 아니라 첫 지원 직무예요</SlideNote>
     </SlideLayout>
   )
 }
 
 const TALKING_POINTS = [
   {
-    head: '처음 6개월은 어느 길이든 겹쳐요',
-    body: 'HTTP · git · 자료구조 · 언어 하나. 지금 고른 게 평생 가는 결정이 아니에요',
+    head: '첫 취업은 역할을 좁혀야 해요',
+    body: '여러 영역을 얕게 훑기보다 FE나 BE 하나로 기본기와 깊이를 먼저 보여줘요',
   },
   {
-    head: '시장 얘기 한 번 더',
-    body: '공고는 BE가 1.5배 많은데 지원도 그만큼 몰려요. 그리고 채용 공고는 지금 수요지 졸업할 때 수요가 아니에요',
+    head: '처음 6개월 기본기는 겹쳐요',
+    body: 'HTTP · git · 자료구조 · 언어 하나. 어느 입구를 골라도 이 기초부터 탄탄히 쌓아요',
   },
   {
-    head: '포트폴리오',
-    body: '클론 코딩 여러 개보다, 문제 하나를 왜 그렇게 풀었는지가 훨씬 세게 먹혀요',
+    head: '포트폴리오는 제품으로 말해요',
+    body: '클론 여러 개보다 문제를 왜 골랐고, UX와 구조를 어떻게 판단했는지 보여줘요',
   },
   {
-    head: '전환 비용은 생각보다 낮아요',
-    body: '겹치는 근육이 커요. 디버깅 · 코드 읽기 · 커뮤니케이션',
+    head: '제품을 만들며 경계를 넓혀요',
+    body: 'FE는 API·데이터를, BE는 사용자 흐름·화면을 익히며 제품 전체로 범위를 넓혀요',
   },
   {
-    head: 'AI 시대에 신입에게 남는 것',
-    body: '코드 뽑는 건 싸졌고 이제 읽고 판단하는 게 병목이에요. 여기서 2부로 넘어가요',
+    head: '목표는 프로덕트 엔지니어',
+    body: '기획과 UX 관점에서 문제를 정하고, 필요한 영역을 직접 구현해 배포까지 책임져요',
   },
 ]
 
-/** C8. 커리어 패스 토크 — 화면 접고 말로 */
+/** C10. 커리어 패스 토크 — 화면 접고 말로 */
 export function CareerTalkSlide() {
   const [notes, setNotes] = useState(false)
 
   return (
     <SlideLayout>
       <div className="flex flex-col items-center gap-8 text-center">
-        <SlideKicker>커리어 얘기</SlideKicker>
+        <SlideKicker>시장 진입 다음의 성장 경로</SlideKicker>
         <SlideHeadline size="hero">
-          여기서부터는 화면 접고 <Mark>얘기만 할게요</Mark>
+          한쪽으로 들어가 <Mark>제품 전체로 넓혀요</Mark>
         </SlideHeadline>
         <button
           type="button"
@@ -243,18 +246,20 @@ export function CareerTalkSlide() {
   )
 }
 
-/** C9. 휴식 */
+/** C11. 휴식 */
 export function BreakSlide() {
   return (
     <SlideLayout>
       <div className="flex flex-col items-center gap-10 text-center">
         <SlideKicker>휴식</SlideKicker>
         <CountdownTimer seconds={300} autoStart caption="다시 시작까지" />
-        <p className="text-deck-lead font-semibold text-content-primary">2부는 손을 써요. 노트북은 켜둔 채로 쉬어요.</p>
+        <p className="max-w-4xl text-deck-lead font-semibold text-content-primary">
+          제품 전체를 구현하려면 먼저 한 영역의 기본기가 단단해야 해요. 2부에서 그 훈련 구조를 만들어요.
+        </p>
       </div>
 
       <SlideNote tone="quiet">
-        이어서 <Mark>PART 2 · AI 시대 개발 공부법</Mark>
+        노트북은 켜둔 채로 쉬어요 · 이어서 <Mark>PART 2 · AI 시대 개발 공부법</Mark>
       </SlideNote>
     </SlideLayout>
   )

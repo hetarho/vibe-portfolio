@@ -12,7 +12,7 @@ import {
   SlideNote,
 } from '@/features/slide-deck'
 
-/** C11. 문제 제기 1 — 튜토리얼 지옥 */
+/** C14. 문제 제기 1 — 튜토리얼 지옥 */
 export function TutorialHellSlide() {
   return (
     <SlideLayout>
@@ -39,7 +39,7 @@ export function TutorialHellSlide() {
   )
 }
 
-/** C12. 문제 제기 2 — AI 시대의 함정 */
+/** C15. 문제 제기 2 — AI 시대의 함정 */
 export function AiTrapSlide() {
   return (
     <SlideLayout>
@@ -76,16 +76,16 @@ const CONDITIONS = [
   { icon: FileQuestion, text: '채점은 근거를 대고, 설명까지 요구해요' },
 ]
 
-/** C13. 공부의 목표 재정의 */
+/** C16. 프로덕트 엔지니어로 가기 위한 기본기 전략 */
 export function RedefineSlide() {
   return (
     <SlideLayout>
-      <SlideKicker>그래서 목표를 다시 잡아요</SlideKicker>
+      <SlideKicker>프로덕트 엔지니어로 가는 첫 전략</SlideKicker>
 
       <div className="animate-rise-1 flex flex-col gap-4">
-        <p className="text-deck-lead font-semibold text-content-muted line-through">코드를 치는 사람</p>
+        <p className="text-deck-lead font-semibold text-content-muted line-through">결과물부터 빠르게 늘리기</p>
         <p className="text-deck-title font-bold text-content-strong">
-          실무 코드를 <Mark>완벽히 이해하며 읽는 사람</Mark>
+          코드를 읽고, 직접 구현하고, <Mark>근거를 설명하는 기본기</Mark>
         </p>
       </div>
 
@@ -113,7 +113,9 @@ export function RedefineSlide() {
         ))}
       </ol>
 
-      <SlideBody>이 세 조건을 문서 하나로 못 박은 게 지금 돌아가고 있는 그 프롬프트예요.</SlideBody>
+      <SlideBody>
+        2부의 프롬프트는 제품의 여러 영역을 구현하는 데 필요한 <Mark>기본기를 쌓는 학습 전략</Mark>이에요.
+      </SlideBody>
     </SlideLayout>
   )
 }

@@ -110,19 +110,19 @@ export type AptitudeResult = {
 
 export const TRACK_INFO: Record<Track, { label: string; line: string; detail: string }> = {
   frontend: {
-    label: 'FE 성향 뚜렷',
-    line: '화면과 사용자 경험 쪽',
-    detail: '눈에 보이는 결과에서 동기를 얻는 편이에요. 프론트엔드부터 파보세요.',
+    label: 'FE로 먼저 시작',
+    line: '화면과 사용자 흐름부터',
+    detail: '답변이 화면과 사용자 흐름 쪽에 더 가까워요. 첫 지원 직무는 프론트엔드로 좁혀 준비해보세요.',
   },
   backend: {
-    label: 'BE 성향 뚜렷',
-    line: '구조와 데이터 쪽',
-    detail: '보이지 않는 곳의 규칙과 성능에 반응해요. 백엔드부터 파보세요.',
+    label: 'BE로 먼저 시작',
+    line: '데이터와 규칙부터',
+    detail: '답변이 데이터와 규칙 쪽에 더 가까워요. 첫 지원 직무는 백엔드로 좁혀 준비해보세요.',
   },
   fullstack: {
-    label: '아직 데이터 부족 · 풀스택형 출발',
-    line: '둘 다 찍먹해보고 결정',
-    detail: '처음 6개월 기초는 어차피 겹쳐요. 해보고 정하는 게 제일 빨라요.',
+    label: 'FE·BE 모두 가능',
+    line: '취업 준비는 하나부터',
+    detail: '답변이 한쪽으로 치우치지 않았어요. 그래도 한쪽을 골라 기본기와 깊이를 먼저 보여주세요.',
   },
 }
 
@@ -160,7 +160,7 @@ function write(answers: Array<Choice | null>) {
 }
 
 /**
- * 성향 체크 응답. 결과 해석 화면(다음 슬라이드)에서 다시 꺼내 쓰기 위해
+ * 첫 역할 체크 응답. 결과 해석 화면(다음 슬라이드)에서 다시 꺼내 쓰기 위해
  * localStorage에 보관한다.
  */
 export function useAptitude() {
