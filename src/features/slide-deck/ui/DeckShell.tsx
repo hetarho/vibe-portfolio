@@ -101,7 +101,12 @@ export function DeckShell({ deck, lessonTitle, index, onIndexChange, onExit }: P
       </header>
 
       <main className="min-h-0 flex-1 overflow-y-auto px-5 md:px-12">
-        <div key={slide.id} className="min-h-full animate-fade">
+        {/*
+          flex + min-h-full: 안쪽 section(SlideLayout)이 부모 높이를 물려받게 하는 통로.
+          section의 min-h-full은 부모 높이가 auto면 0으로 풀려 justify-center가 죽는다.
+          이 div를 flex 컨테이너로 만들어 stretch로 높이를 넘겨줘야 세로 가운데 정렬이 산다.
+        */}
+        <div key={slide.id} className="flex min-h-full animate-fade flex-col">
           <SlideComponent active />
         </div>
       </main>

@@ -15,9 +15,11 @@ export function SlideLayout({ children, align = 'center' }: SlideLayoutProps) {
   return (
     <section
       className={cx(
-        // min-h-full: 내용이 화면보다 길어지는 모바일에서 h-full이면
-        // 가운데 정렬 때문에 위쪽이 스크롤로 닿지 않는 곳으로 밀려난다.
-        'mx-auto flex min-h-full w-full max-w-stage flex-col gap-5 py-2 md:gap-8 md:py-0',
+        // grow: 부모(DeckShell의 flex 래퍼) 높이만큼 늘어나야 justify-center가 산다.
+        //   min-h-full은 부모 높이가 auto로 풀리는 구간이 있어 혼자서는 못 믿는다.
+        // h-full을 쓰지 않는 이유: 내용이 화면보다 길어지는 모바일에서
+        //   가운데 정렬 때문에 위쪽이 스크롤로 닿지 않는 곳으로 밀려난다.
+        'mx-auto flex w-full max-w-stage grow flex-col gap-5 py-2 md:gap-8 md:py-0',
         align === 'center' ? 'justify-center' : 'justify-start',
       )}
     >

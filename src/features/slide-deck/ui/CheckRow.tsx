@@ -17,17 +17,19 @@ export function CheckRow({ checked, onToggle, children, hint }: Props) {
       onClick={onToggle}
       aria-pressed={checked}
       className={cx(
-        'flex w-full items-center gap-4 rounded-card p-4 text-left transition duration-300 ease-deck md:gap-6 md:p-6',
+        // 체크리스트 화면은 행이 4~5개 쌓여서 여백이 그대로면 세로를 통째로 넘긴다.
+        // 글자 크기는 그대로 두고 패딩·체크박스 상자만 한 단계 좁게 잡는다.
+        'flex w-full items-center gap-4 rounded-card p-4 text-left transition duration-300 ease-deck md:gap-5 md:p-5',
         checked ? 'bg-accent-soft' : 'bg-surface-overlay hover:bg-surface-highlight',
       )}
     >
       <span
         className={cx(
-          'grid size-10 shrink-0 place-items-center rounded-control transition duration-300 ease-deck md:size-14',
+          'grid size-10 shrink-0 place-items-center rounded-control transition duration-300 ease-deck md:size-12',
           checked ? 'bg-accent text-accent-contrast' : 'bg-surface-sunken text-content-muted inset-shadow-sunken',
         )}
       >
-        <Check size={30} strokeWidth={3} />
+        <Check className="size-6 md:size-7" strokeWidth={3} />
       </span>
       <span className="flex flex-col gap-1">
         <span

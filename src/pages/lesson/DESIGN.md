@@ -70,9 +70,49 @@
 
 포인트 컬러(`accent`)는 한 화면에 한 덩어리만. 키워드 강조 외의 용도로 쓰지 않는다.
 
+> `accent` 면 위에 `Mark`를 얹지 않는다 — `Mark`는 `text-accent`라서 글자가 배경에 먹혀 사라진다.
+> 강조가 필요한 문장을 띠로 두려면 `SlideNote tone="quiet"`를 쓴다.
+
+> `flex-col` 패널 안에 `Chip`을 바로 넣으면 `items-stretch`를 물려받아 폭을 다 먹는다.
+> `<div className="flex">`로 한 겹 감싼다.
+
 ---
 
-## 4. 모바일 대응
+## 4. 덱 사이에 공유하는 자산
+
+두 개 이상의 덱이 **똑같은 것**을 보여줘야 하면 `content/shared/`에 두고 양쪽에서 가져다 쓴다.
+사본을 만들면 한쪽만 고쳐지는 순간 수업에서 다른 걸 나눠주게 된다.
+
+- 학습 튜터 프롬프트: `content/shared/model/tutor-prompt.md` — **본문은 이 파일 하나뿐이다.**
+- 복사 버튼: `content/shared/ui/PromptCopyButton.tsx` — 라벨만 `label` prop으로 덱마다 바꾼다.
+- 덱 하나만 쓰는 것은 그 덱 폴더(`widgets/`, `model/`)에 둔다.
+
+---
+
+## 5. 노트북(세로가 짧은 화면) 대응
+
+`@theme`의 덱 타이포는 **폭(vw)만 보고** 커진다. 그래서 1440x780, 1728x1040처럼
+가로는 넉넉하고 세로가 모자란 노트북에서는 글자가 빔프로젝터 크기 그대로 와서
+슬라이드마다 스크롤이 생긴다. 대응은 [index.css](../../app/styles/index.css)의
+`@media (min-width: 64rem) and (max-height: 66rem)` 블록 **한 곳**에서만 한다.
+
+- **타이포**는 `--text-deck-*`를 세로(`vh`) 기준 clamp로 다시 잡는다.
+  창이 낮아질수록 매끄럽게 줄어들고, 1080p 풀스크린(세로 1080px)은 이 구간에 들어오지
+  않아 강의장 배율이 그대로 유지된다.
+- **간격**은 덱 루트(`[data-deck]`)에서 `--spacing`을 `0.25rem → 0.175rem`으로 내린다.
+  Tailwind spacing 유틸리티는 전부 `calc(var(--spacing) * n)`이라
+  기준값 하나로 `p-*` `gap-*` `size-*`가 한꺼번에 좁아진다. **컴포넌트는 손대지 않는다.**
+- **아이콘**은 모바일과 같은 이유로 `[data-deck] svg`에 상한(2rem)을 둔다.
+- 이 구간을 더 좁혀야 하면 컴포넌트에 `pt-6` 같은 임의 오프셋을 넣는 대신
+  위 두 토큰을 조정하거나, 그 화면의 `Panel pad`를 한 단계 낮춘다.
+
+> 세로 가운데 정렬은 `SlideLayout`의 `grow` + `DeckShell` 래퍼의 `flex min-h-full flex-col`
+> 조합으로 산다. `min-h-full`만 걸면 부모 높이가 auto로 풀리는 구간에서 0이 되어
+> `justify-center`가 죽고, 내용이 화면 위쪽에 붙는다.
+
+---
+
+## 6. 모바일 대응
 
 강의장 빔프로젝터가 1순위지만, 수강생이 자기 폰으로 같은 주소를 여는 경우가 있다.
 `@theme`의 덱 타이포는 "본문 28px 이상" 기준이라 폰에 그대로 오면 한 줄에 대여섯 글자만
@@ -92,5 +132,6 @@
     부모 칸을 화면 밖으로 밀어낸다.
   - 좌우로 붙인 텍스트 두 덩어리는 `flex-col ... md:flex-row md:justify-between`으로 쌓는다.
   - 헤더 파트명처럼 길이를 예측할 수 없는 한 줄은 `min-w-0` + `truncate`.
-- **세로는 잘리지 않고 스크롤되게**: `SlideLayout`은 `h-full`이 아니라 `min-h-full`이다.
+- **세로는 잘리지 않고 스크롤되게**: `SlideLayout`은 `h-full`이 아니라 `grow`다.
   `h-full` + `justify-center`는 내용이 화면보다 길 때 위쪽이 스크롤로 닿지 않는 곳으로 밀려난다.
+  `grow`는 짧은 화면에서는 남는 높이를 채워 가운데 정렬을 살리고, 내용이 길어지면 그대로 늘어난다.
