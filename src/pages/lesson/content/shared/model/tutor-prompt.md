@@ -538,7 +538,7 @@ framework nothing to do. The composition is two files:
 - `web/serve.mjs` — `node:http` serving repo files plus one listing endpoint like
   `/api/lessons`. ~50 lines.
 - `web/viewer.html` — parser + renderer + sidebar + (for visual domains) a preview iframe, all
-  in one file. ~150 lines.
+  in one file. ~150 lines plus the ~40-line style block below.
 
 At most 0–2 dependencies, **only packages without build scripts** (marked alone covers markdown;
 or hand-render the subset this lesson format needs — headings, paragraphs, lists, tables, code —
@@ -546,6 +546,38 @@ in ~40 lines). If `pnpm install` fails or a bundler becomes necessary, **the des
 Syntax highlighting is not needed to start — `<pre><code>` with base styling suffices; a
 highlighter is on the "later" list. Style polish, refactors, features not in this spec are banned
 at bootstrap (improvements happen later in a separate session per §8).
+
+**Visual baseline — copy these rules, do not design them.** "Do not polish" is not "ship it
+unstyled." Left with no rules at all the viewer comes out incoherent — square corners next to
+round ones, a hairline border around everything, half a dozen unrelated grays — and that costs
+more attention than the styling would have. The fix is not more effort; it is a fixed baseline
+that removes the question. One `<style>` block, roughly 40 lines, decided once:
+
+- **Tokens only.** Declare ~12 custom properties on `:root` at the top of the block — three or
+  four surface layers, two text weights, one line color, one accent, a radius scale, one easing
+  — and **use no color or radius literal below that point.** Need a new value? Add a token; do
+  not inline it. Any responsive adjustment is a redefinition of those tokens inside one media
+  query, never an override sprinkled across rules.
+- **Depth comes from surfaces, not borders.** To separate two regions, switch the background
+  layer first (`sunken` → `base` → `raised` → `overlay`), reach for a shadow second, and a
+  border only as a last resort — kept faint when unavoidable. **Two adjacent regions must never
+  sit on the same layer.** This is how the containers should read: a raised surface with a left
+  accent rule, not a boxed outline.
+- **Measure beats screen width.** Body text 16–18px at line-height ~1.6, with **the prose column
+  capped near 70 characters and centered.** A lesson rendered edge-to-edge on a wide monitor is
+  the most common way this viewer becomes unreadable. Code blocks are the exception — let them
+  exceed the measure and scroll on their own axis rather than wrapping.
+- **No square corners.** Every card, container, code block, and sidebar item gets a radius, and
+  a nested element takes one step smaller than its parent.
+- **One accent.** A single accent color, spent on keyword emphasis, the active sidebar item, and
+  the container rules — nothing else. Never place accent-colored text on an accent-colored fill;
+  it disappears into its own background.
+- **Motion is near zero.** No entrance animation. The only transitions are hover/active states
+  at ≤200ms on one easing, and they honor `prefers-reduced-motion`. A reading UI that animates
+  as you scroll is a defect, not a feature.
+- Pick one palette — light or dark — and commit to it. Theme switching is on the deferred list
+  below. If the style block grows well past ~40 lines you have stopped setting a baseline and
+  started polishing; put the rest on the "later" list and move on.
 
 - **Startup contract**: `pnpm dev` alone from the repo root (preceded by one `pnpm install` only
   if dependencies were used). Port goes in the README.
@@ -757,6 +789,8 @@ next session — no exceptions for the rest.)
 - [ ] Base containers and code blocks render correctly **with a sample markdown**; unknown
       containers fall back without breaking (L01's actual render is checked in the L01 section)
 - [ ] The viewer has no build tools or frameworks, ≤ 2 dependencies, all without build scripts
+- [ ] The visual baseline holds: no color or radius literal outside `:root`, adjacent regions on
+      different surface layers, no square corners, prose column capped near 70 characters
 - [ ] For visual domains, the fixture preview panel works
 - [ ] `study-status.mjs`'s environment check includes the viewer-port check
 
