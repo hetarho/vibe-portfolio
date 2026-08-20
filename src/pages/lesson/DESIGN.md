@@ -3,7 +3,9 @@
 `/lesson` 이하 모든 화면에 적용된다. 강의장 빔프로젝터에 띄워놓고 강사가 말로 진행하는
 프레젠테이션형 화면이므로, "맨 뒷자리에서 읽히는가"가 모든 판단의 기준이다.
 
-토큰 정의는 [src/app/styles/index.css](../../app/styles/index.css)의 `@theme` 블록에 있다.
+토큰 정의는 [src/app/styles/theme.css](../../app/styles/theme.css)의 `@theme` 블록에 있다.
+(`@theme`은 유틸리티 클래스를 만들어내므로 전역 한 곳에 모아 둔다.)
+화면 크기별로 덱 토큰을 다시 잡는 규칙은 [styles.css](./styles.css)에 있다.
 
 ---
 
@@ -85,7 +87,8 @@
 
 - 학습 튜터 프롬프트: `content/shared/model/tutor-prompt.md` — **본문은 이 파일 하나뿐이다.**
 - 복사 버튼: `content/shared/ui/PromptCopyButton.tsx` — 라벨만 `label` prop으로 덱마다 바꾼다.
-- 덱 하나만 쓰는 것은 그 덱 폴더(`widgets/`, `model/`)에 둔다.
+- 덱 하나만 쓰는 것은 그 덱 폴더(`ui/`, `model/`)에 둔다.
+- 두 덱이 함께 쓰는 것은 `content/shared/`, 플레이어와 프리미티브는 `deck/`이 공개한다.
 
 ---
 
@@ -93,7 +96,7 @@
 
 `@theme`의 덱 타이포는 **폭(vw)만 보고** 커진다. 그래서 1440x780, 1728x1040처럼
 가로는 넉넉하고 세로가 모자란 노트북에서는 글자가 빔프로젝터 크기 그대로 와서
-슬라이드마다 스크롤이 생긴다. 대응은 [index.css](../../app/styles/index.css)의
+슬라이드마다 스크롤이 생긴다. 대응은 [styles.css](./styles.css)의
 `@media (min-width: 64rem) and (max-height: 66rem)` 블록 **한 곳**에서만 한다.
 
 - **타이포**는 `--text-deck-*`를 세로(`vh`) 기준 clamp로 다시 잡는다.
@@ -119,7 +122,7 @@
 들어가서 헤드라인이 5줄이 된다. 그래서 대응은 **토큰 값 재정의 + 크롬 레이아웃 전환** 두 곳에서만 한다.
 
 - **글자 크기는 컴포넌트에서 건드리지 않는다.**
-  [index.css](../../app/styles/index.css)의 `@theme` 아래에 폭별 블록이 있다.
+  [styles.css](./styles.css)에 폭별 블록이 있다.
   모바일(`max-width: 47.9375rem`)과 태블릿(`48rem ~ 63.9375rem`)에서 `--text-deck-*`를 다시 잡는다.
   새 화면을 만들 때는 그냥 `text-deck-body` 같은 토큰만 쓰면 세 구간이 자동으로 맞는다.
 - **간격은 `모바일값 md:데스크톱값` 쌍으로 쓴다.** 예) `p-5 md:p-10`, `gap-5 md:gap-8`.

@@ -37,17 +37,27 @@ TanStack Router(코드 기반 라우트, `src/app/router.tsx`)를 사용합니�
 
 ```text
 src/
-├── app/                  # 앱 진입점, 라우터, 글로벌 Tailwind 스타일
-├── pages/                # home(첫 화면), portfolio-index(목록), studio, shop, quiz, lesson
-│   └── lesson/           # DESIGN.md · 강의 목록 · 슬라이드 콘텐츠
+├── app/                  # 앱 진입점, 라우터, 공통 레이아웃, 전역 토큰과 reset
+│   └── styles/           # index.css(진입) · theme.css(토큰) · base.css(reset·공통 모션)
+├── pages/                # 작품·화면별 수직 슬라이스 — 각자 model/ui/styles.css를 소유
+│   ├── studio/ shop/ quiz/   # 작품 3종 (상품·장바구니·퀴즈 문항 포함)
+│   ├── home/ portfolio-index/
+│   └── lesson/           # DESIGN.md · 강의 목록
+│       ├── deck/         # 덱 플레이어와 슬라이드 프리미티브 (lesson 내부 전용)
 │       └── content/      # 덱별 폴더 + shared/(덱들이 공유하는 프롬프트·버튼)
-├── widgets/              # 포트폴리오 공통 헤더
-├── features/             # 장바구니, 성향 테스트, 슬라이드 덱 엔진
-├── entities/             # 상품 타입, 목데이터, UI
-└── shared/               # 공통 내비게이션 모델
+├── widgets/              # 포트폴리오 공통 헤더 (작품 3종이 함께 쓴다)
+└── shared/               # config/portfolio.ts — 여러 라우트가 쓰는 경로·식별자
 ```
 
-FSD의 상위 레이어가 하위 레이어를 참조하는 의존 방향을 따릅니다. 각 세그먼트의 `index.ts`를 public API로 사용합니다.
+FSD의 상위 레이어가 하위 레이어를 참조하는 의존 방향을 따릅니다. 다른 슬라이스는 최상위
+`index.ts`만 통해 씁니다 — 내부 `model`/`ui`로 바로 들어가지 않습니다.
+
+`entities/`와 `features/`는 두지 않습니다. 한 페이지에서만 쓰는 데이터·상태·UI는 그 페이지가
+소유하고, 실제로 두 슬라이스 이상이 쓰거나 독립적인 상태·API·수명주기가 생길 때만 밖으로
+꺼냅니다. "나중에 쓸 수도 있음"은 추출 근거로 보지 않습니다.
+
+스타일도 같은 규칙입니다. 전역 토큰과 reset만 `app/styles`에 있고, 작품·헤더·강의 전용 CSS는
+각 슬라이스의 `styles.css`가 소유하며 진입 컴포넌트가 직접 import합니다.
 
 ## 강의 화면 (`/lesson`)
 
@@ -57,6 +67,7 @@ FSD의 상위 레이어가 하위 레이어를 참조하는 의존 방향을 따
 - 현재 화면 번호가 `?s=` 로 주소에 남아 새로고침해도 위치를 유지합니다
 - 디자인 규칙과 체크리스트: [src/pages/lesson/DESIGN.md](src/pages/lesson/DESIGN.md)
 - 새 강의 추가: `src/pages/lesson/content/`에 덱을 만들고 `model/registry.ts`에 한 줄 추가
+  — `src/pages/lesson` 밖의 파일은 건드리지 않습니다. 슬라이드 프리미티브는 `lesson/deck`이 공개합니다
 
 ### 들어 있는 강의
 
