@@ -1,5 +1,5 @@
 import { Outlet, useNavigate, useRouterState } from '@tanstack/react-router'
-import { getPageFromPath, pageInfo, portfolioRootPath, type Page } from '@/shared/model/navigation'
+import { getPageFromPath, pageInfo, portfolioRootPath, type PortfolioPageId } from '@/shared/config/portfolio'
 import { PortfolioHeader } from '@/widgets/portfolio-header'
 
 /** 포트폴리오 사이트 3종의 공통 레이아웃 (헤더 + 페이지) */
@@ -8,7 +8,7 @@ export function PortfolioLayout() {
   const navigate = useNavigate()
   const page = getPageFromPath(pathname)
 
-  const changePage = (nextPage: Page) => {
+  const changePage = (nextPage: PortfolioPageId) => {
     void navigate({ to: pageInfo[nextPage].path })
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }

@@ -1,10 +1,10 @@
 import { Menu, X } from 'lucide-react'
 import { useState } from 'react'
-import { pageInfo, pageOrder, type Page } from '@/shared/model/navigation'
+import { pageInfo, pageOrder, type PortfolioPageId } from '@/shared/config/portfolio'
 
 type Props = {
-  page: Page
-  onChange: (page: Page) => void
+  page: PortfolioPageId
+  onChange: (page: PortfolioPageId) => void
   /** 로고를 누르면 포트폴리오 목록(/vibe-portfolio)으로 돌아간다 */
   onHome: () => void
 }

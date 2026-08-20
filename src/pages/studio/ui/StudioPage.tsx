@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { ArrowDown, ArrowRight, X } from 'lucide-react'
-import type { Page } from '@/shared/model/navigation'
 
-export function StudioPage({ onNavigate }: { onNavigate: (page: Page) => void }) {
+/** onNext — 푸터의 NEXT PROJECT. 다음 작품으로 넘기는 것만 라우터에 맡긴다 */
+export function StudioPage({ onNext }: { onNext: () => void }) {
   const [showContact, setShowContact] = useState(false)
 
   return (
@@ -73,7 +73,7 @@ export function StudioPage({ onNavigate }: { onNavigate: (page: Page) => void })
         <b>VIBE®</b>
         <span>SEOUL, KOREA<br />37.5665° N, 126.9780° E</span>
         <span>INSTAGRAM &nbsp; BEHANCE<br />© 2026 VIBE STUDIO</span>
-        <button onClick={() => onNavigate('shop')}>NEXT PROJECT <ArrowRight size={16} /></button>
+        <button onClick={onNext}>NEXT PROJECT <ArrowRight size={16} /></button>
       </footer>
 
       {showContact && (

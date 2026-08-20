@@ -6,7 +6,7 @@ import { PortfolioIndexPage } from '@/pages/portfolio-index'
 import { QuizPage } from '@/pages/quiz'
 import { ShopPage } from '@/pages/shop'
 import { StudioPage } from '@/pages/studio'
-import { pageInfo, portfolioRootPath, type Page } from '@/shared/model/navigation'
+import { pageInfo, portfolioRootPath } from '@/shared/config/portfolio'
 import { PortfolioLayout } from './PortfolioLayout'
 
 const rootRoute = createRootRoute({
@@ -84,11 +84,11 @@ const portfolioSiteRoute = createRoute({
 
 function StudioRoute() {
   const navigate = useNavigate()
-  const onNavigate = (page: Page) => {
-    void navigate({ to: pageInfo[page].path })
+  const openShop = () => {
+    void navigate({ to: pageInfo.shop.path })
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
-  return <StudioPage onNavigate={onNavigate} />
+  return <StudioPage onNext={openShop} />
 }
 
 const studioRoute = createRoute({

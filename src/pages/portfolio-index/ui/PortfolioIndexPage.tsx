@@ -1,11 +1,12 @@
 import { ArrowLeft, ArrowUpRight } from 'lucide-react'
-import { pageInfo, pageOrder, type Page } from '@/shared/model/navigation'
+import { pageInfo, pageOrder, type PortfolioPageId } from '@/shared/config/portfolio'
+import { projectCards } from '../model/projects'
 
 /** Tailwind가 클래스명을 정적으로 훑기 때문에 등장 지연은 문자열 그대로 적어둔다 */
 const riseDelay = ['animate-rise-1', 'animate-rise-2', 'animate-rise-3']
 
 type Props = {
-  onOpen: (page: Page) => void
+  onOpen: (page: PortfolioPageId) => void
   onBack: () => void
 }
 
@@ -34,7 +35,8 @@ export function PortfolioIndexPage({ onOpen, onBack }: Props) {
 
         <ul className="m-0 flex list-none flex-col gap-4 p-0">
           {pageOrder.map((key, index) => {
-            const project = pageInfo[key]
+            const page = pageInfo[key]
+            const card = projectCards[key]
             return (
               <li key={key} className={riseDelay[index]}>
                 <button
@@ -45,17 +47,17 @@ export function PortfolioIndexPage({ onOpen, onBack }: Props) {
                   <span
                     aria-hidden
                     className="hidden size-20 shrink-0 rounded-panel ring-1 ring-line-default sm:block"
-                    style={{ backgroundColor: project.swatch }}
+                    style={{ backgroundColor: card.swatch }}
                   />
 
                   <span className="flex min-w-0 flex-1 flex-col gap-2">
-                    <span className="font-mono text-xs tracking-[0.16em] text-content-muted">{project.number}</span>
+                    <span className="font-mono text-xs tracking-[0.16em] text-content-muted">{page.number}</span>
                     <span className="text-xl font-semibold tracking-tight text-content-strong sm:text-2xl">
-                      {project.label}
+                      {page.label}
                     </span>
-                    <span className="text-sm text-content-secondary sm:text-base">{project.summary}</span>
+                    <span className="text-sm text-content-secondary sm:text-base">{card.summary}</span>
                     <span className="mt-2 flex flex-wrap gap-2">
-                      {project.stack.map((item) => (
+                      {card.stack.map((item) => (
                         <span
                           key={item}
                           className="rounded-full bg-surface-sunken px-3 py-1 text-xs text-content-secondary"
