@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { ArrowDown, ArrowRight, Heart, Plus, Search, ShoppingBag, X } from 'lucide-react'
-import { ProductArt, products } from '@/entities/product'
-import { CartDrawer } from '@/features/cart'
+import { products } from '../model/products'
+import { CartDrawer } from './CartDrawer'
+import { ProductArt } from './ProductArt'
 
 export function ShopPage() {
   const [category, setCategory] = useState('전체')

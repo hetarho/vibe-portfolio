@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react'
-import type { Product } from '../model/types'
+import type { Product } from '../model/product'
 
 export function ProductArt({ product }: { product: Product }) {
   return (

@@ -1,5 +1,6 @@
 import { ArrowRight, Minus, ShoppingBag, X } from 'lucide-react'
-import { ProductArt, type Product } from '@/entities/product'
+import type { Product } from '../model/product'
+import { ProductArt } from './ProductArt'
 
 type Props = {
   products: Product[]

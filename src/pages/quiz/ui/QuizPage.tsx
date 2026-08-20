@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { ArrowLeft, ArrowRight, Check, RotateCcw, Sparkles } from 'lucide-react'
-import { quizQuestions, type QuizValue } from '@/features/mood-test'
+import { quizQuestions, type QuizValue } from '../model/questions'
 
 export function QuizPage() {
   const [started, setStarted] = useState(false)
