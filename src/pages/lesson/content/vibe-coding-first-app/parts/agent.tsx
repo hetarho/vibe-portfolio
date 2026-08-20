@@ -11,7 +11,7 @@ import {
   SlideHeadline,
   SlideKicker,
   SlideLayout,
-} from '@/features/slide-deck'
+} from '../../../deck'
 
 /** S9. 챗봇 vs 에이전트 */
 export function ChatbotVsAgentSlide() {

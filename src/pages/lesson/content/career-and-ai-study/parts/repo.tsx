@@ -10,7 +10,7 @@ import {
   SlideKicker,
   SlideLayout,
   SlideNote,
-} from '@/features/slide-deck'
+} from '../../../deck'
 
 /** 튜터 프롬프트가 만드는 산출물 목록(프롬프트 §5)을 학생이 볼 순서로 정리한 것 */
 const TREE = [

@@ -1,5 +1,5 @@
 import { ArrowLeft } from 'lucide-react'
-import { DeckShell } from '@/features/slide-deck'
+import { DeckShell } from '../deck'
 import { findLesson } from '../model/registry'
 
 type Props = {

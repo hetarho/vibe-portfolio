@@ -11,7 +11,7 @@ import {
   SlideKicker,
   SlideLayout,
   SlideNote,
-} from '@/features/slide-deck'
+} from '../../../deck'
 
 const READ_ONLY = [
   { name: '뉴스', why: '기사를 읽기만 합니다' },

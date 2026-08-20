@@ -12,8 +12,8 @@ import {
   SlideKicker,
   SlideLayout,
   SlideNote,
-} from '@/features/slide-deck'
-import { MenuRoulette } from '../widgets/MenuRoulette'
+} from '../../../deck'
+import { MenuRoulette } from '../ui/MenuRoulette'
 
 const BUILDER_FIELDS = [
   { key: 'what', label: '무엇을', placeholder: '할 일 목록 웹 앱' },

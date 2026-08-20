@@ -12,7 +12,7 @@ import {
   SlideKicker,
   SlideLayout,
   SlideNote,
-} from '@/features/slide-deck'
+} from '../../../deck'
 
 /** C7. 결과 같이 뜯어보기 */
 export function ResultTalkSlide() {

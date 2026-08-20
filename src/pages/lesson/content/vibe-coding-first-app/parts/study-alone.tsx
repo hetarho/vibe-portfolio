@@ -11,7 +11,7 @@ import {
   SlideKicker,
   SlideLayout,
   SlideNote,
-} from '@/features/slide-deck'
+} from '../../../deck'
 import { PromptCopyButton } from '../../shared'
 
 /** V29. 오늘 방식의 한계 — 왜 공부가 필요해지나 */

@@ -1,6 +1,6 @@
 import { Check, Copy } from 'lucide-react'
 import { useState } from 'react'
-import { cx } from '@/features/slide-deck'
+import { cx } from '../../../deck'
 import tutorPrompt from '../model/tutor-prompt.md?raw'
 
 export { tutorPrompt }

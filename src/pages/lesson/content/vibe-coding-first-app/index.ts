@@ -1,4 +1,4 @@
-import type { DeckDef } from '@/features/slide-deck'
+import type { DeckDef } from '../../deck'
 import { DefinitionSlide, IdeaWallSlide, JourneySlide, PromiseSlide, StandbySlide } from './parts/opening'
 import { CodeIsTextSlide, LanguagesSlide, WhatIsDevSlide } from './parts/basics'
 import { FrontBackSlide, IngredientsSlide, SiteVsAppSlide, ViewSourceSlide } from './parts/webapp'

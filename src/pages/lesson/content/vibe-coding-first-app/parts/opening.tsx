@@ -13,9 +13,9 @@ import {
   SlideKicker,
   SlideLayout,
   SlideNote,
-} from '@/features/slide-deck'
+} from '../../../deck'
 import { useIdeas } from '../model/ideas'
-import { MenuRoulette } from '../widgets/MenuRoulette'
+import { MenuRoulette } from '../ui/MenuRoulette'
 
 /** S0. 시작 전 화면 */
 export function StandbySlide() {

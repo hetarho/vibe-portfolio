@@ -10,7 +10,7 @@ import {
   SlideKicker,
   SlideLayout,
   SlideNote,
-} from '@/features/slide-deck'
+} from '../../../deck'
 
 /** C14. 문제 제기 1 — 튜토리얼 지옥 */
 export function TutorialHellSlide() {

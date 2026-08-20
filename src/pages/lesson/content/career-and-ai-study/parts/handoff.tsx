@@ -10,7 +10,7 @@ import {
   SlideKicker,
   SlideLayout,
   SlideNote,
-} from '@/features/slide-deck'
+} from '../../../deck'
 import { PromptCopyButton } from '../../shared'
 
 const RUN_STEPS = [

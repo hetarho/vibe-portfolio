@@ -1,4 +1,4 @@
-import type { DeckDef } from '@/features/slide-deck'
+import type { DeckDef } from '../deck'
 import { careerAndAiStudyDeck } from '../content/career-and-ai-study'
 import { vibeCodingFirstAppDeck } from '../content/vibe-coding-first-app'
 

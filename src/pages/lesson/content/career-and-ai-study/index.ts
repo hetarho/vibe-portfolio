@@ -1,4 +1,4 @@
-import type { DeckDef } from '@/features/slide-deck'
+import type { DeckDef } from '../../deck'
 import { FrameSlide, MarketShiftSlide, ProductEngineerSlide, StandbySlide, WorriesSlide } from './parts/opening'
 import { AptitudeGuideSlide, AptitudeTestSlide } from './parts/aptitude'
 import { BreakSlide, CareerTalkSlide, DayInLifeSlide, FieldMapSlide, ResultTalkSlide } from './parts/field-map'

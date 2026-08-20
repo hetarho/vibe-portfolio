@@ -12,7 +12,7 @@ import {
   SlideKicker,
   SlideLayout,
   SlideNote,
-} from '@/features/slide-deck'
+} from '../../../deck'
 
 /** C0. 시작 전 — 설치 확인 */
 export function StandbySlide() {

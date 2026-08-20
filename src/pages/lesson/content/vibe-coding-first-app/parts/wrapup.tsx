@@ -11,7 +11,7 @@ import {
   SlideKicker,
   SlideLayout,
   SlideNote,
-} from '@/features/slide-deck'
+} from '../../../deck'
 
 const MISSIONS = [
   { emoji: '🌙', name: '다크모드', how: '"어두운 테마도 만들어줘"' },

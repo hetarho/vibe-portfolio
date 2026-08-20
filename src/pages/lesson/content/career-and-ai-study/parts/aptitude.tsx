@@ -11,7 +11,7 @@ import {
   SlideKicker,
   SlideLayout,
   SlideNote,
-} from '@/features/slide-deck'
+} from '../../../deck'
 import { QUESTIONS, TENDENCY_COUNT, TRACK_INFO, useAptitude, type Choice } from '../model/aptitude'
 
 function firstUnanswered(answers: Array<Choice | null>) {

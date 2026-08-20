@@ -13,7 +13,7 @@ import {
   SlideKicker,
   SlideLayout,
   SlideNote,
-} from '@/features/slide-deck'
+} from '../../../deck'
 import { useIdeas } from '../model/ideas'
 
 /** S15. 실습 준비 체크리스트 */

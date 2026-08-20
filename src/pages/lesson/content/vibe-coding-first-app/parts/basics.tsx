@@ -12,7 +12,7 @@ import {
   SlideKicker,
   SlideLayout,
   SlideNote,
-} from '@/features/slide-deck'
+} from '../../../deck'
 
 const RAMEN_STEPS = [
   '냄비에 물 550ml를 넣는다',

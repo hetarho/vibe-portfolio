@@ -12,7 +12,7 @@ import {
   SlideKicker,
   SlideLayout,
   SlideNote,
-} from '@/features/slide-deck'
+} from '../../../deck'
 
 const TERMINAL_DEMOS = [
   {

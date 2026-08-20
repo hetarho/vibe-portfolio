@@ -1,6 +1,6 @@
 import { Plus, Shuffle } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
-import { cx } from '@/features/slide-deck'
+import { cx } from '../../../deck'
 
 const DEFAULT_MENUS = ['김치찌개', '마라탕', '돈까스', '냉면', '제육볶음', '초밥']
 
