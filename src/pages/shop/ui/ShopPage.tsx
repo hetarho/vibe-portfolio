@@ -3,6 +3,7 @@ import { ArrowDown, ArrowRight, Heart, Plus, Search, ShoppingBag, X } from 'luci
 import { products } from '../model/products'
 import { CartDrawer } from './CartDrawer'
 import { ProductArt } from './ProductArt'
+import '../styles.css'
 
 export function ShopPage() {
   const [category, setCategory] = useState('전체')

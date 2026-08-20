@@ -1,0 +1,62 @@
+/* reset과 여러 페이지가 함께 쓰는 모션 */
+@layer base {
+  * {
+    @apply box-border;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply m-0 min-w-80 bg-paper font-sans text-ink antialiased;
+  }
+
+  button,
+  input,
+  textarea {
+    font: inherit;
+  }
+
+  button {
+    @apply cursor-pointer border-0 bg-transparent;
+  }
+
+  img {
+    @apply block max-w-full;
+  }
+}
+
+/* Shop 마퀴와 Quiz 티커가 함께 쓴다 */
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+
+/* 강의 덱 공통 모션 */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(1.25rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pop {
+  from { opacity: 0; transform: scale(0.94); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.04); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

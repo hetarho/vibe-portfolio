@@ -1,0 +1,256 @@
+/* Studio 작품 전용 스타일 — app/styles/index.css에서 셀렉터·선언을 그대로 옮겨왔다 */
+@reference "../../app/styles/index.css";
+
+/* Tailwind가 선언하는 레이어 순서를 이 파일에도 적어둔다.
+   페이지 CSS는 컴포넌트에서 import되므로 번들에서 전역 CSS보다 앞에 놓일 수 있고,
+   그때 순서를 적어두지 않으면 components가 base보다 뒤로 밀린다. */
+@layer theme, base, components, utilities;
+
+@layer components {
+  .studio-page {
+    @apply overflow-hidden bg-[#11120f] text-[#f3f0e7];
+  }
+
+  .studio-hero {
+    @apply relative flex min-h-[calc(100svh-72px)] flex-col justify-between overflow-hidden px-[5vw] pb-[6vh] pt-[9vh];
+  }
+
+  .studio-kicker {
+    @apply relative z-10 flex items-center gap-3 text-[11px] font-medium tracking-[0.18em];
+  }
+
+  .studio-kicker span {
+    @apply h-2 w-2 rounded-full bg-coral;
+  }
+
+  .studio-hero h1 {
+    @apply relative z-10 m-0 font-display text-[clamp(4rem,11.7vw,10rem)] font-black leading-[0.76] tracking-[-0.075em];
+  }
+
+  .studio-hero h1 em,
+  .work-heading h2 em,
+  .studio-cta h2 em {
+    @apply font-serif font-normal italic text-coral;
+  }
+
+  .hero-bottom {
+    @apply relative z-10 flex items-end justify-between;
+  }
+
+  .hero-bottom p {
+    @apply m-0 text-[13px] leading-[1.8] text-white/60;
+  }
+
+  .round-arrow {
+    @apply grid h-14 w-14 place-items-center rounded-full border border-white/40 text-white transition hover:bg-white hover:text-black;
+  }
+
+  .hero-grid {
+    @apply pointer-events-none absolute inset-0 opacity-[0.08];
+    background-image: linear-gradient(to right, #fff 1px, transparent 1px), linear-gradient(to bottom, #fff 1px, transparent 1px);
+    background-size: 9vw 9vw;
+  }
+
+  .orb {
+    @apply absolute rounded-full blur-[2px];
+    mix-blend-mode: screen;
+  }
+
+  .orb-one {
+    @apply right-[7%] top-[18%] h-[30vw] w-[30vw];
+    background: radial-gradient(circle at 35% 35%, #ffe5c7 0, #fb6c4a 20%, #65296b 48%, transparent 72%);
+    box-shadow: inset -30px -20px 60px #100d11;
+    animation: float 7s ease-in-out infinite;
+  }
+
+  .orb-two {
+    @apply bottom-[-16vw] left-[34%] h-[26vw] w-[26vw] opacity-60;
+    background: radial-gradient(circle at 60% 30%, #e6c5ff, #5452dd 35%, transparent 70%);
+  }
+
+  .studio-intro {
+    @apply grid grid-cols-[1fr_2fr_1fr] gap-12 bg-[#efede5] px-[5vw] py-36 text-ink;
+  }
+
+  .section-index {
+    @apply font-mono text-[10px] tracking-[0.12em] opacity-60;
+  }
+
+  .studio-intro > p {
+    @apply m-0 text-[clamp(2rem,4vw,4.2rem)] font-semibold leading-[1.18] tracking-[-0.055em];
+  }
+
+  .studio-intro > p em {
+    @apply font-serif font-normal italic text-coral;
+  }
+
+  .studio-stats {
+    @apply flex flex-col justify-end gap-7;
+  }
+
+  .studio-stats div {
+    @apply flex items-baseline justify-between border-b border-black/20 pb-3;
+  }
+
+  .studio-stats strong {
+    @apply text-4xl tracking-[-0.05em];
+  }
+
+  .studio-stats span {
+    @apply font-mono text-[9px];
+  }
+
+  .studio-work {
+    @apply bg-[#efede5] px-[5vw] pb-40 text-ink;
+  }
+
+  .work-heading {
+    @apply grid grid-cols-[1fr_2fr_1fr] items-end gap-12 border-t border-black/25 py-16;
+  }
+
+  .work-heading h2 {
+    @apply m-0 font-display text-[clamp(4rem,8vw,8.5rem)] font-black leading-[0.8] tracking-[-0.075em];
+  }
+
+  .work-heading > span {
+    @apply justify-self-end font-mono text-[10px];
+  }
+
+  .project-grid {
+    @apply grid grid-cols-12 gap-x-8 gap-y-28;
+  }
+
+  .project-card {
+    @apply m-0;
+  }
+
+  .project-large { @apply col-span-8; }
+  .project-small { @apply col-span-4 mt-36; }
+  .project-wide { @apply col-span-10 col-start-3; }
+
+  .project-visual {
+    @apply relative flex aspect-[4/3] items-center justify-center overflow-hidden;
+  }
+
+  .project-card:hover .project-visual > * {
+    transform: scale(1.05);
+  }
+
+  .visual-a { @apply bg-[#b9ff3e]; }
+  .visual-a b { @apply relative z-10 font-serif text-[9vw] font-normal italic tracking-[-0.09em] text-[#262d1c]; }
+
+  .bloom {
+    @apply absolute h-[58%] w-[58%] transition-transform duration-700;
+    background: repeating-conic-gradient(from 20deg, #5b35ee 0deg 18deg, #ff724e 18deg 36deg);
+    border-radius: 50%;
+    filter: blur(2px);
+  }
+
+  .visual-b {
+    @apply bg-[#cca88f];
+    background-image: linear-gradient(120deg, transparent 55%, rgba(255,255,255,.22) 56%);
+  }
+
+  .visual-b .arch {
+    @apply absolute bottom-0 h-[78%] w-[58%] rounded-t-full bg-[#6d2c23] transition-transform duration-700;
+  }
+
+  .visual-b b { @apply relative z-10 text-4xl font-light tracking-[0.3em] text-[#ffe7d4]; }
+
+  .visual-c { @apply aspect-[16/8] bg-[#bed3ee]; }
+  .visual-c b { @apply absolute bottom-8 left-8 z-10 text-5xl font-black tracking-[-0.06em]; }
+
+  .chrome-ball {
+    @apply h-[48%] w-[24%] rounded-full transition-transform duration-700;
+    background: radial-gradient(circle at 35% 25%, white 2%, #ffa48d 18%, #7372ba 40%, #20202a 62%, #fff 67%, #7789aa 75%);
+    box-shadow: 0 35px 45px rgba(28, 45, 73, .28);
+  }
+
+  .project-caption {
+    @apply mt-3 flex justify-between border-t border-black/40 pt-3 font-mono text-[9px];
+  }
+
+  .studio-services {
+    @apply bg-[#11120f] px-[5vw] py-28;
+  }
+
+  .studio-services > .section-index { @apply mb-12; }
+
+  .service-row {
+    @apply grid grid-cols-[70px_1fr_40px] items-center border-t border-white/20 py-7 transition-colors hover:text-coral;
+  }
+
+  .service-row:last-child { @apply border-b; }
+  .service-row > span { @apply font-mono text-[10px] opacity-50; }
+  .service-row h3 { @apply m-0 text-[clamp(2.3rem,5vw,5rem)] font-medium tracking-[-0.055em]; }
+
+  .studio-cta {
+    @apply flex min-h-[80vh] flex-col items-center justify-center bg-coral px-5 py-28 text-center text-ink;
+  }
+
+  .studio-cta > p { @apply font-mono text-[10px] tracking-[0.2em]; }
+  .studio-cta h2 { @apply my-10 font-display text-[clamp(4rem,9vw,9rem)] font-black leading-[0.78] tracking-[-0.075em]; }
+  .studio-cta h2 em { @apply text-[#fff2db]; }
+  .studio-cta button { @apply flex items-center gap-4 rounded-full bg-ink px-8 py-4 text-[13px] font-semibold text-white transition hover:gap-7; }
+
+  .studio-footer {
+    @apply grid grid-cols-4 items-end gap-8 bg-[#11120f] px-[5vw] py-16;
+  }
+
+  .studio-footer b { @apply text-5xl tracking-[-0.08em]; }
+  .studio-footer span { @apply font-mono text-[9px] leading-[1.7] text-white/55; }
+  .studio-footer button { @apply flex items-center justify-end gap-3 text-[10px] font-semibold text-white; }
+
+  .modal-backdrop {
+    @apply fixed inset-0 z-[100] flex justify-end bg-black/55;
+    backdrop-filter: blur(8px);
+  }
+
+  .contact-modal {
+    @apply relative m-auto flex w-[min(92vw,560px)] flex-col bg-[#efede5] p-12 text-ink shadow-2xl;
+  }
+
+  .modal-close { @apply absolute right-5 top-5; }
+  .contact-modal > span { @apply mb-8 font-mono text-[10px] tracking-[0.2em]; }
+  .contact-modal h3 { @apply mb-8 mt-0 text-5xl leading-tight tracking-[-0.06em]; }
+  .contact-modal input,
+  .contact-modal textarea { @apply border-0 border-b border-black/25 bg-transparent px-0 py-4 outline-none focus:border-coral; }
+  .contact-modal textarea { @apply min-h-28 resize-none; }
+  .contact-modal .modal-submit { @apply mt-8 flex items-center justify-center gap-3 bg-ink px-6 py-4 text-white; }
+}
+
+@media (max-width: 900px) {
+  .studio-intro,
+  .work-heading { @apply grid-cols-1; }
+  .studio-intro { @apply py-24; }
+  .studio-stats { @apply mt-10; }
+  .work-heading { @apply gap-8; }
+  .work-heading > span { @apply justify-self-start; }
+  .project-large,
+  .project-small,
+  .project-wide { @apply col-span-12 col-start-1 mt-0; }
+  .studio-footer { @apply grid-cols-2; }
+}
+
+@media (max-width: 600px) {
+  .studio-hero { @apply min-h-[calc(100svh-64px)] px-5 pb-8 pt-16; }
+  .studio-hero h1 { @apply text-[19vw] leading-[.82]; }
+  .orb-one { @apply right-[-18%] top-[27%] h-[70vw] w-[70vw]; }
+  .orb-two { @apply hidden; }
+  .hero-bottom p { @apply text-[11px]; }
+  .round-arrow { @apply h-12 w-12; }
+  .studio-intro,
+  .studio-work,
+  .studio-services { @apply px-5; }
+  .studio-intro > p { @apply text-[2.25rem]; }
+  .studio-intro > p br { @apply hidden; }
+  .work-heading h2 { @apply text-[20vw]; }
+  .project-grid { @apply gap-y-16; }
+  .project-visual { @apply aspect-square; }
+  .visual-c { @apply aspect-square; }
+  .visual-a b { @apply text-[18vw]; }
+  .studio-cta h2 { @apply text-[18vw]; }
+  .studio-footer { @apply grid-cols-1 px-5; }
+  .contact-modal { @apply p-7; }
+  .contact-modal h3 { @apply text-4xl; }
+}

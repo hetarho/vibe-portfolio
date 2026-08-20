@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { ArrowDown, ArrowRight, X } from 'lucide-react'
+import '../styles.css'
 
 /** onNext — 푸터의 NEXT PROJECT. 다음 작품으로 넘기는 것만 라우터에 맡긴다 */
 export function StudioPage({ onNext }: { onNext: () => void }) {

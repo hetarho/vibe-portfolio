@@ -1,6 +1,7 @@
 import { Menu, X } from 'lucide-react'
 import { useState } from 'react'
 import { pageInfo, pageOrder, type PortfolioPageId } from '@/shared/config/portfolio'
+import '../styles.css'
 
 type Props = {
   page: PortfolioPageId

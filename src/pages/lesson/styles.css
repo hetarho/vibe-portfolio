@@ -1,0 +1,85 @@
+/* 강의 덱 전용 스타일.
+   덱 타이포 토큰 자체는 유틸리티(text-deck-*)를 만들어내야 해서 app/styles/theme.css에 있고,
+   여기에는 화면 크기별로 그 토큰을 다시 잡는 규칙과 덱 안에서만 적용할 상한을 둔다. */
+/* ═════════════════════════════════════════════════════════
+   덱 타이포 — 화면 폭별 재조정
+   위 @theme 값은 "강의장 빔프로젝터 맨 뒷자리" 기준(본문 28px 이상)이다.
+   손에 든 화면에 그 배율이 그대로 오면 한 줄에 대여섯 글자만 들어가서
+   헤드라인이 5줄이 되고 카드가 화면을 넘긴다.
+   그래서 토큰 값만 폭에 맞춰 다시 잡는다 — 컴포넌트는 그대로 둔다.
+   (뷰포트 단위·clamp는 토큰 정의 안에서만 쓴다는 규칙 그대로)
+   ───────────────────────────────────────────────────────── */
+
+/* 노트북 — 폭은 데스크톱이지만 세로가 짧은 화면(창 높이 66rem=1056px 이하)
+   위 @theme 값은 폭(vw)만 보고 커지기 때문에 1440x780 같은 노트북에서는
+   글자는 빔프로젝터 크기 그대로인데 세로만 모자라서 슬라이드마다 스크롤이 생긴다.
+   그래서 이 구간에서는 (1) 덱 타이포를 세로(vh)에 맞춰 다시 잡고
+   (2) 덱 안쪽 Tailwind spacing 기준값을 한 단계 좁힌다.
+   두 가지 다 토큰만 바꾸는 것이라 컴포넌트는 그대로 둔다. */
+@media (min-width: 64rem) and (max-height: 66rem) {
+  :root {
+    --text-deck-meta: 0.875rem;
+    --text-deck-caption: 1.0625rem;
+    --text-deck-caption--line-height: 1.45;
+    --text-deck-body: clamp(1.25rem, 2.5vh, 1.625rem);
+    --text-deck-body--line-height: 1.5;
+    --text-deck-lead: clamp(1.5rem, 3.3vh, 2.125rem);
+    --text-deck-lead--line-height: 1.35;
+    --text-deck-title: clamp(2.25rem, 5.4vh, 3.25rem);
+    --text-deck-title--line-height: 1.15;
+    --text-deck-hero: clamp(2.75rem, 7.7vh, 4.5rem);
+    --text-deck-hero--line-height: 1.05;
+    --text-deck-numeric: clamp(4rem, 13.5vh, 8rem);
+  }
+
+  /* Tailwind spacing 유틸리티는 모두 calc(var(--spacing) * n)이라
+     덱 루트에서 기준값만 줄이면 p-*, gap-*, size-*가 한꺼번에 좁아진다.
+     0.25rem → 0.175rem (0.7배): p-10=40px → 28px, gap-8=32px → 22px */
+  [data-deck] {
+    --spacing: 0.175rem;
+  }
+
+  /* size={44}처럼 픽셀이 박힌 lucide 아이콘도 같은 비율로 눌러준다
+     (모바일 블록과 동일한 이유 — 토큰으로 안 잡히는 값이라 덱 안에서만 상한) */
+  [data-deck] svg {
+    max-width: 2rem;
+    max-height: 2rem;
+  }
+}
+
+/* 태블릿 / 좁은 창 — lg(64rem) 미만이라 이미 1단 레이아웃 */
+@media (min-width: 48rem) and (max-width: 63.9375rem) {
+  :root {
+    --text-deck-meta: 0.875rem;
+    --text-deck-caption: 1.125rem;
+    --text-deck-body: 1.5rem;
+    --text-deck-lead: 1.875rem;
+    --text-deck-title: 2.5rem;
+    --text-deck-hero: 3.25rem;
+    --text-deck-numeric: clamp(4rem, 11vw, 7rem);
+  }
+}
+
+/* 모바일 */
+@media (max-width: 47.9375rem) {
+  :root {
+    --text-deck-meta: 0.75rem;
+    --text-deck-caption: 0.9375rem;
+    --text-deck-body: clamp(1rem, 4vw, 1.375rem);
+    --text-deck-body--line-height: 1.6;
+    --text-deck-lead: clamp(1.25rem, 5vw, 1.75rem);
+    --text-deck-lead--line-height: 1.45;
+    --text-deck-title: clamp(1.625rem, 6.8vw, 2.5rem);
+    --text-deck-title--line-height: 1.25;
+    --text-deck-hero: clamp(2rem, 9vw, 3.25rem);
+    --text-deck-hero--line-height: 1.15;
+    --text-deck-numeric: clamp(3.5rem, 18vw, 6rem);
+  }
+
+  /* lucide 아이콘 크기는 컴포넌트에 픽셀로 박혀 있어(size={44}) 토큰으로 잡히지 않는다.
+     모바일에서는 아이콘이 글자보다 커지므로 덱 안에서만 상한을 둔다. */
+  [data-deck] svg {
+    max-width: 1.75rem;
+    max-height: 1.75rem;
+  }
+}
