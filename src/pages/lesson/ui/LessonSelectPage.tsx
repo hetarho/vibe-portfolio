@@ -1,6 +1,9 @@
 import { ArrowLeft, ArrowRight, Clock, Presentation, Users } from 'lucide-react'
 import { lessons } from '../model/registry'
 
+/** 카드 등장 순서 — 강의가 늘어나도 마지막 값으로 눌러 붙는다 */
+const RISE = ['animate-rise-1', 'animate-rise-2', 'animate-rise-3', 'animate-rise-4', 'animate-rise-5']
+
 type Props = {
   onOpen: (lessonId: string) => void
   onBack: () => void
@@ -32,7 +35,7 @@ export function LessonSelectPage({ onOpen, onBack }: Props) {
 
         <ul className="grid gap-4 md:gap-6 lg:grid-cols-2">
           {lessons.map((lesson, index) => (
-            <li key={lesson.id} className={index === 0 ? 'animate-rise-1' : 'animate-rise-2'}>
+            <li key={lesson.id} className={RISE[Math.min(index, RISE.length - 1)]}>
               <button
                 type="button"
                 onClick={() => onOpen(lesson.id)}

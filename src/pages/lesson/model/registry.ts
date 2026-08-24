@@ -1,5 +1,6 @@
 import type { DeckDef } from '../deck'
 import { careerAndAiStudyDeck } from '../content/career-and-ai-study'
+import { codeReadingForPmDeck } from '../content/code-reading-for-pm'
 import { vibeCodingFirstAppDeck } from '../content/vibe-coding-first-app'
 
 export type Lesson = {
@@ -45,6 +46,20 @@ export const lessons: Lesson[] = [
       '학습 프로젝트 프롬프트 세팅',
     ],
     deck: careerAndAiStudyDeck,
+  },
+  {
+    id: 'code-reading-for-pm',
+    title: 'PM을 위한 코드 읽기',
+    subtitle: '쓰지 않아도 읽고 판단하는 2시간',
+    audience: '1대1 · 미국 거주 대학생 · PM 지망',
+    duration: '2시간 · 29화면 · 이후 6주 자습',
+    outline: [
+      '읽기와 쓰기는 다른 능력',
+      '함수 두 개 · 조건과 반복',
+      '실제 레포에서 PR diff 읽기',
+      '3문장 요약과 6주 자습 커리큘럼',
+    ],
+    deck: codeReadingForPmDeck,
   },
 ]
 
