@@ -162,25 +162,70 @@ export const DIFF_STEPS = [
 
 export type TraceLine = {
   code: string
+  source: 'error' | 'product' | 'framework' | 'context'
+}
+
+export type ErrorReadingGuide = {
   label: string
   read: string
 }
 
-/** R14. 같은 함수에서 터진 에러 */
+/** R13. 같은 함수에서 터진 에러 — 실제 콘솔처럼 제품 코드와 React 내부 호출이 섞여 있다 */
 export const STACK_TRACE: TraceLine[] = [
   {
     code: "TypeError: Cannot read properties of undefined (reading 'total')",
-    label: '① 무엇이 없었나',
-    read: 'cart가 아직 없는 상태에서 cart.total을 읽으려다 멈췄어요. “없는 걸 읽었다”가 가장 흔한 에러예요.',
+    source: 'error',
   },
   {
     code: '    at getShippingFee (src/checkout/shipping.js:4:22)',
-    label: '② 어디서 멈췄나',
-    read: 'shipping.js 4번째 줄 — 아까 한 줄씩 읽은 그 함수예요. 파일과 줄 번호는 항상 여기에 있어요.',
+    source: 'product',
+  },
+  {
+    code: '    at useShippingFee (src/checkout/useShippingFee.js:12:10)',
+    source: 'product',
+  },
+  {
+    code: '    at CheckoutSummary (src/checkout/CheckoutSummary.jsx:41:7)',
+    source: 'product',
+  },
+  {
+    code: '    at react-stack-bottom-frame (react-dom-client.js:23863:20)',
+    source: 'framework',
+  },
+  {
+    code: '    at renderWithHooks (react-dom-client.js:5529:22)',
+    source: 'framework',
+  },
+  {
+    code: 'Component stack:',
+    source: 'context',
+  },
+  {
+    code: '    at CheckoutSummary (src/checkout/CheckoutSummary.jsx:38:3)',
+    source: 'product',
   },
   {
     code: '    at CheckoutPage (src/pages/CheckoutPage.jsx:88:19)',
-    label: '③ 누가 불렀나',
-    read: '결제 화면이 이 함수를 불렀어요. 재현 경로는 “결제 화면 진입”이라는 뜻이에요.',
+    source: 'product',
+  },
+  {
+    code: '    at App (src/App.jsx:17:5)',
+    source: 'product',
+  },
+]
+
+/** R13. 줄 번호가 아니라 역할로 찾는 세 가지 읽기 기준 */
+export const ERROR_READING_GUIDE: ErrorReadingGuide[] = [
+  {
+    label: '① 첫 줄 · 무슨 에러인가',
+    read: 'cart가 없는 상태에서 cart.total을 읽으려다 멈췄어요. 먼저 에러의 종류와 대상을 봐요.',
+  },
+  {
+    label: '② 첫 번째 우리 코드 · 어디인가',
+    read: 'src/가 처음 나오는 shipping.js 4번째 줄이 실제로 멈춘 곳이에요. 파일과 줄 번호가 보이면 여기부터 찾아가요.',
+  },
+  {
+    label: '③ 다음 우리 코드 · 어떤 경로인가',
+    read: 'useShippingFee와 CheckoutSummary를 거쳐 왔어요. 아래 컴포넌트 스택에서는 결제 화면까지 이어지는 경로도 보여요.',
   },
 ]

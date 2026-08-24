@@ -13,7 +13,13 @@ import {
   SlideLayout,
   SlideNote,
 } from '../../../deck'
-import { DIFF_STEPS, SHIPPING_DIFF, STACK_TRACE, type DiffLine } from '../model/code-samples'
+import {
+  DIFF_STEPS,
+  ERROR_READING_GUIDE,
+  SHIPPING_DIFF,
+  STACK_TRACE,
+  type DiffLine,
+} from '../model/code-samples'
 
 const TERMS = [
   {
@@ -38,7 +44,7 @@ const TERMS = [
   },
 ]
 
-/** R9. 용어 4개 — 영어 그대로 쓰는 이유까지 */
+/** R10. 용어 4개 — 영어 그대로 쓰는 이유까지 */
 export function RepoTermsSlide() {
   return (
     <SlideLayout>
@@ -75,7 +81,7 @@ export function RepoTermsSlide() {
   )
 }
 
-/** R10. ⭐ diff 읽는 순서 4단계 */
+/** R11. ⭐ diff 읽는 순서 4단계 */
 export function DiffSlide() {
   const [step, setStep] = useState(0)
   const current = DIFF_STEPS[step]
@@ -181,7 +187,7 @@ const PR_TABS = [
 
 const PR_STATES = ['Draft', 'Open', 'Approved', 'Merged']
 
-/** R11. PR 화면에서 PM이 보는 곳 */
+/** R12. PR 화면에서 PM이 보는 곳 */
 export function PullRequestSlide() {
   return (
     <SlideLayout>
@@ -262,7 +268,7 @@ const LAYERS = [
   },
 ]
 
-/** R12. 버그가 어디서 났나 — 3층 감각 */
+/** R13. 버그가 어디서 났나 — 3층 감각 */
 export function ThreeLayersSlide() {
   return (
     <SlideLayout>
@@ -301,22 +307,25 @@ export function ThreeLayersSlide() {
   )
 }
 
-/** R13. 에러 메시지에서 세 줄만 */
+/** R14. 에러 메시지에서 먼저 볼 세 가지 */
 export function ErrorLogSlide() {
   return (
     <SlideLayout>
       <div className="flex items-center gap-4 md:gap-5">
         <ScrollText className="size-8 text-critical md:size-11" />
-        <SlideHeadline>에러는 앞에서 세 줄만 읽어요</SlideHeadline>
+        <SlideHeadline>에러에서 먼저 볼 건 세 가지예요</SlideHeadline>
       </div>
 
       <Panel tone="sunken" pad="md" className="flex flex-col gap-1 overflow-x-auto">
         {STACK_TRACE.map((line, index) => (
           <p
-            key={line.code}
+            key={`${line.code}-${index}`}
             className={cx(
               'px-3 py-2 font-mono text-deck-caption whitespace-pre md:px-4',
-              index === 0 ? 'text-critical' : 'text-content-secondary',
+              line.source === 'error' && 'font-bold text-critical',
+              line.source === 'product' && 'font-semibold text-accent',
+              line.source === 'framework' && 'text-content-muted opacity-60',
+              line.source === 'context' && 'pt-4 font-bold text-content-secondary',
             )}
           >
             {line.code}
@@ -325,9 +334,9 @@ export function ErrorLogSlide() {
       </Panel>
 
       <div className="grid gap-4 md:gap-6 lg:grid-cols-3">
-        {STACK_TRACE.map((line, index) => (
+        {ERROR_READING_GUIDE.map((item, index) => (
           <Panel
-            key={line.label}
+            key={item.label}
             tone={index === 1 ? 'accentSoft' : 'raised'}
             pad="lg"
             className={cx(
@@ -337,20 +346,20 @@ export function ErrorLogSlide() {
               index === 2 && 'animate-rise-3',
             )}
           >
-            <PanelLabel tone={index === 1 ? 'accent' : 'muted'}>{line.label}</PanelLabel>
-            <p className="text-deck-caption text-content-secondary">{line.read}</p>
+            <PanelLabel tone={index === 1 ? 'accent' : 'muted'}>{item.label}</PanelLabel>
+            <p className="text-deck-caption text-content-secondary">{item.read}</p>
           </Panel>
         ))}
       </div>
 
       <SlideNote>
-        이 메시지 + 재현 절차 + 몇 번 중 몇 번 — 세 줄을 붙이면 &ldquo;안 돼요&rdquo;가 티켓이 돼요
+        react-dom 같은 줄은 건너뛰고 우리 파일을 찾으세요 · 공유할 때는 로그 전체를 붙여 주세요
       </SlideNote>
     </SlideLayout>
   )
 }
 
-/** R14. 휴식 */
+/** R15. 휴식 */
 export function BreakSlide() {
   return (
     <SlideLayout>
