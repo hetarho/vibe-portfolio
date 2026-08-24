@@ -45,12 +45,12 @@ export const PRACTICE_FILES = [
     href: 'https://github.com/calcom/cal.diy/blob/main/packages/lib/timeFormat.ts',
   },
   {
-    repo: 'pretty-bytes',
-    file: 'index.js',
-    lines: '174줄',
-    decides: '1500바이트를 1.5 kB로 쓸까, 1.46 KiB로 쓸까',
-    practice: '옵션 기본값과 조건 체인 · 함수 하나가 파일 전부인 경우',
-    href: 'https://github.com/sindresorhus/pretty-bytes/blob/main/index.js',
+    repo: 'Cal.com',
+    file: 'packages/lib/currencyConversions.ts',
+    lines: '71줄',
+    decides: '10,000원을 10000으로 저장할까, 1000000으로 저장할까',
+    practice: '목록에 있는 통화만 예외 · 나머지는 100을 곱하는 기본 규칙',
+    href: 'https://github.com/calcom/cal.diy/blob/main/packages/lib/currencyConversions.ts',
   },
 ]
 

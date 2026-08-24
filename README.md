@@ -86,7 +86,7 @@ FSD의 상위 레이어가 하위 레이어를 참조하는 의존 방향을 따
 - `code-reading-for-pm`은 자기만 쓰는 코치 프롬프트라 그 덱 폴더
   ([content/code-reading-for-pm/model/coach-prompt.md](src/pages/lesson/content/code-reading-for-pm/model/coach-prompt.md))에 두고 `text`로 넘깁니다.
 
-`code-reading-for-pm`은 강사가 **2주만** 함께하고 3주차부터 학생이 혼자 돌리는 구조입니다.
+`code-reading-for-pm`은 강사와 **오늘 2시간만** 함께하고, 수업 후 1주차부터 학생이 혼자 돌리는 구조입니다.
 그래서 마지막 두 화면이 숙제가 아니라 **6주 자습 커리큘럼**이고, 같은 주차 계획이
 [model/curriculum.ts](src/pages/lesson/content/code-reading-for-pm/model/curriculum.ts)와
 코치 프롬프트 §2 양쪽에 있습니다 — 한쪽만 고치면 수업과 프롬프트가 어긋납니다.
@@ -94,8 +94,10 @@ FSD의 상위 레이어가 하위 레이어를 참조하는 의존 방향을 따
 - **PART 1**은 배송비 계산 함수 하나를 계속 물고 갑니다: 조건 읽기 → 그 함수가 쓰는 합계 함수의
   반복문 → 같은 함수의 PR diff → 같은 함수에서 터진 스택 트레이스. 예제는
   [model/code-samples.ts](src/pages/lesson/content/code-reading-for-pm/model/code-samples.ts) 한 곳에 있습니다.
-- **PART 2**는 예제를 버리고 실제 레포를 링크로 열어 같은 순서로 읽습니다(Cal.com `weekstart.ts`·
-  `timeFormat.ts`, `sindresorhus/pretty-bytes`). APM 공고 링크까지 포함한 바깥 링크는
+- **PART 2**는 예제를 버리고 실제 레포를 링크로 열어 같은 순서로 읽습니다. 읽을 파일 세 개는 모두
+  Cal.com `packages/lib`(`weekstart.ts` · `timeFormat.ts` · `currencyConversions.ts`)에 두어 같은
+  폴더를 세 번 보게 하고, diff는 Cal.com PR이나 `sindresorhus/pretty-bytes` 커밋에서 고릅니다.
+  APM 공고 링크까지 포함한 바깥 링크는
   [model/links.ts](src/pages/lesson/content/code-reading-for-pm/model/links.ts)에 모여 있고,
   강의장에서 그대로 눌러 열기 때문에 **수업 전 링크 점검이 강사용 체크리스트에 들어 있습니다.**
 
