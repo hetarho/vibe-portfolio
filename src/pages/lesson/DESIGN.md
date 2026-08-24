@@ -78,6 +78,10 @@
 > `flex-col` 패널 안에 `Chip`을 바로 넣으면 `items-stretch`를 물려받아 폭을 다 먹는다.
 > `<div className="flex">`로 한 겹 감싼다.
 
+> 코드를 그대로 보여주는 화면은 담는 면에 `overflow-x-auto`, 줄에 `whitespace-pre`를 준다.
+> 줄에 배경(선택 상태, diff의 `+`/`-`)이 있으면 `w-fit min-w-full`까지 붙인다 —
+> `items-stretch` 폭에 맞춰 잘려서, 가로로 스크롤하면 배경 없는 글자만 남는다.
+
 ---
 
 ## 4. 덱 사이에 공유하는 자산
@@ -86,8 +90,12 @@
 사본을 만들면 한쪽만 고쳐지는 순간 수업에서 다른 걸 나눠주게 된다.
 
 - 학습 튜터 프롬프트: `content/shared/model/tutor-prompt.md` — **본문은 이 파일 하나뿐이다.**
-- 복사 버튼: `content/shared/ui/PromptCopyButton.tsx` — 라벨만 `label` prop으로 덱마다 바꾼다.
-- 덱 하나만 쓰는 것은 그 덱 폴더(`ui/`, `model/`)에 둔다.
+  `vibe-coding-first-app`과 `career-and-ai-study`가 이걸 함께 쓴다.
+- 복사 버튼: `content/shared/ui/PromptCopyButton.tsx` — **버튼 구현은 이것 하나뿐이다.**
+  `label`로 이름을, `text`로 본문을 바꿔 끼운다. `text`를 안 주면 위 튜터 프롬프트가 나간다.
+- 덱 하나만 쓰는 것은 그 덱 폴더(`ui/`, `model/`)에 둔다. 프롬프트도 마찬가지다 —
+  `code-reading-for-pm/model/coach-prompt.md`처럼 덱 안에 두고 `text`로 넘긴다.
+  버튼을 복사해서 새로 만들지 않는다.
 - 두 덱이 함께 쓰는 것은 `content/shared/`, 플레이어와 프리미티브는 `deck/`이 공개한다.
 
 ---
