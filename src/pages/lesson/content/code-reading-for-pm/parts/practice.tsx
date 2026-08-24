@@ -224,7 +224,7 @@ export function CoachPromptSlide() {
       </div>
 
       <p className="text-deck-meta text-content-muted">
-        오늘 배운 5단계 · 3문장 틀 · 3~8주차 커리큘럼이 프롬프트 안에 들어 있어요 · 용어는 영어, 설명은 한국어로 나와요
+        오늘 배운 5단계 · 3문장 틀 · 자습 1~6주차 커리큘럼이 프롬프트 안에 들어 있어요 · 용어는 영어, 설명은 한국어로 나와요
       </p>
     </SlideLayout>
   )

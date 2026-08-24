@@ -12,7 +12,7 @@ import {
   SlideLayout,
   SlideNote,
 } from '../../../deck'
-import { SOLO_LOOP, TOGETHER, WEEKS } from '../model/curriculum'
+import { HANDOFF_STEPS, SOLO_LOOP, WEEKS } from '../model/curriculum'
 
 const SUMMARY = [
   { head: '문법', body: '값 · 조건 · 반복 · 호출', tail: '나머지는 이름으로 추측하고 넘어가요' },
@@ -76,22 +76,22 @@ export function SummarySlide() {
   )
 }
 
-/** R26. 같이 2주, 그다음은 혼자 */
+/** R26. 오늘 2시간, 그다음은 혼자 */
 export function HandoffSlide() {
   return (
     <SlideLayout>
       <div className="flex items-center gap-4 md:gap-5">
         <NotebookPen className="size-8 text-accent md:size-11" />
         <SlideHeadline>
-          같이 2주, 그다음은 <Mark>혼자</Mark>
+          오늘 2시간, 그다음은 <Mark>혼자</Mark>
         </SlideHeadline>
       </div>
 
       <ol className="grid gap-4 md:gap-6 lg:grid-cols-3">
-        {TOGETHER.map((item, index) => (
+        {HANDOFF_STEPS.map((item, index) => (
           <Panel
             key={item.when}
-            tone={item.mine ? 'accentSoft' : 'raised'}
+            tone={item.accent ? 'accentSoft' : 'raised'}
             pad="lg"
             className={cx(
               'flex flex-col gap-3',
@@ -100,7 +100,7 @@ export function HandoffSlide() {
               index === 2 && 'animate-rise-3',
             )}
           >
-            <PanelLabel tone={item.mine ? 'accent' : 'muted'}>{item.when}</PanelLabel>
+            <PanelLabel tone={item.accent ? 'accent' : 'muted'}>{item.when}</PanelLabel>
             <p className="text-deck-body font-bold text-content-strong">{item.what}</p>
             <p className="mt-auto text-deck-caption text-content-secondary">{item.detail}</p>
           </Panel>
@@ -108,7 +108,7 @@ export function HandoffSlide() {
       </ol>
 
       <Panel tone="sunken" pad="lg" className="flex flex-col gap-4">
-        <PanelLabel>3주차부터 매주 돌리는 루프</PanelLabel>
+        <PanelLabel>1주차부터 매주 돌리는 루프</PanelLabel>
         <div className="flex flex-col gap-4 lg:grid lg:grid-cols-3">
           {SOLO_LOOP.map((item) => (
             <div key={item.step} className="flex items-start gap-4">
@@ -125,13 +125,13 @@ export function HandoffSlide() {
       </Panel>
 
       <SlideNote tone="quiet">
-        2주차에 확인할 건 하나예요 — <Mark>혼자서도 이 루프가 돌아가는지</Mark>
+        오늘 끝나기 전에 확인할 건 하나예요 — <Mark>혼자서도 이 루프를 시작할 수 있는지</Mark>
       </SlideNote>
     </SlideLayout>
   )
 }
 
-/** R27. 혼자 돌리는 3~8주차 커리큘럼 */
+/** R27. 수업 후 혼자 돌리는 1~6주차 커리큘럼 */
 export function CurriculumSlide() {
   return (
     <SlideLayout>
@@ -189,7 +189,7 @@ const PREP = [
   { head: '실습용 PR 하나 미리 골라두기', hint: 'Cal.com 머지된 PR 중 Files changed 30줄 이하 · 숫자나 조건이 바뀐 것' },
   { head: '학생 LLM 계정 확인', hint: '수업 전날 한 번 더 · PART 2가 여기서 무너져요. GitHub는 로그인 없이 읽어요' },
   { head: '3문장 요약 예시 미리 작성', hint: '학생 답과 비교해서 보여줄 모범 답안' },
-  { head: '2주차 날짜 잡고 끝내기', hint: '같이 하는 건 2주뿐이라, 오늘 안 잡으면 그대로 끝나요' },
+  { head: '자습 1주차 시작일 정하기', hint: '오늘 날짜를 정해 두지 않으면 첫 과제가 계속 밀려요' },
   { head: '오프라인 대비', hint: '네트워크가 죽으면 이 덱의 함수·diff 화면으로 그대로 진행 가능' },
 ]
 
