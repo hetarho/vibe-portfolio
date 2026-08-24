@@ -120,27 +120,33 @@ const SPOTS = [
   {
     order: '②',
     what: '조건',
-    look: 'if · && · || · >= · ! · continue',
+    look: 'if · && · || · >= · !',
     why: '제품 규칙은 전부 여기 있어요. && 는 “둘 다”, || 는 “하나라도”, ! 는 “아닌 경우”',
   },
   {
     order: '③',
+    what: '반복',
+    look: 'for · .map( · .filter( · continue',
+    why: '무엇을 하나씩 도는지, 그중 무엇을 건너뛰는지 봐요. 건너뛰는 것이 있으면 그게 정책이에요',
+  },
+  {
+    order: '④',
     what: '호출',
     look: '이 함수를 누가 부르나',
     why: '부르는 곳이 20군데면 고칠 때 20군데를 확인해야 해요. 그게 일정과 위험의 크기예요',
   },
 ]
 
-/** R6. 읽을 때 눈이 가야 할 3곳 */
-export function ThreeSpotsSlide() {
+/** R6. 읽을 때 눈이 가야 할 4곳 — 앞 화면의 4가지가 그대로 눈이 갈 곳이 된다 */
+export function FourSpotsSlide() {
   return (
     <SlideLayout>
       <div className="flex items-center gap-4 md:gap-5">
         <Eye className="size-8 text-accent md:size-11" />
-        <SlideHeadline>눈이 가야 할 곳은 3군데예요</SlideHeadline>
+        <SlideHeadline>눈이 가야 할 곳은 4군데예요</SlideHeadline>
       </div>
 
-      <div className="grid gap-4 md:gap-6 lg:grid-cols-3">
+      <div className="grid gap-4 md:gap-6 lg:grid-cols-2">
         {SPOTS.map((spot, index) => (
           <Panel
             key={spot.what}
@@ -151,6 +157,7 @@ export function ThreeSpotsSlide() {
               index === 0 && 'animate-rise-1',
               index === 1 && 'animate-rise-2',
               index === 2 && 'animate-rise-3',
+              index === 3 && 'animate-rise-4',
             )}
           >
             <PanelLabel tone={index === 1 ? 'accent' : 'muted'}>

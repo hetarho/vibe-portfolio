@@ -2,10 +2,10 @@ import type { DeckDef } from '../../deck'
 import { JobDescriptionSlide, JourneySlide, ReadVsWriteSlide, StandbySlide, WhyReadSlide } from './parts/opening'
 import {
   FourPiecesSlide,
+  FourSpotsSlide,
   PolicyInCodeSlide,
   ReadLineByLineSlide,
   ReadLoopSlide,
-  ThreeSpotsSlide,
 } from './parts/reading'
 import {
   BreakSlide,
@@ -59,7 +59,7 @@ export const codeReadingForPmDeck: DeckDef = {
     { id: 'R3', part: PART.opening, title: 'APM 공고의 문구 + 공고 링크', component: JobDescriptionSlide },
     { id: 'R4', part: PART.opening, title: '오늘의 도착점', component: JourneySlide },
     { id: 'R5', part: PART.syntax, title: '⭐ 코드는 결국 4가지', component: FourPiecesSlide },
-    { id: 'R6', part: PART.syntax, title: '눈이 가야 할 3곳', component: ThreeSpotsSlide },
+    { id: 'R6', part: PART.syntax, title: '눈이 가야 할 4곳', component: FourSpotsSlide },
     { id: 'R7', part: PART.read, title: '⭐ 함수 ① 조건 읽기', component: ReadLineByLineSlide },
     { id: 'R8', part: PART.read, title: '⭐ 함수 ② 반복문 읽기', component: ReadLoopSlide },
     { id: 'R9', part: PART.read, title: '제품 규칙은 조건과 순서에 산다', component: PolicyInCodeSlide },
