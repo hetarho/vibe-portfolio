@@ -19,7 +19,7 @@ import {
 
 /** R0. 시작 전 — 준비 확인 */
 export function StandbySlide() {
-  const [checks, setChecks] = useState([false, false, false, false])
+  const [checks, setChecks] = useState([false, false])
   const toggle = (index: number) =>
     setChecks((list) => list.map((value, itemIndex) => (itemIndex === index ? !value : value)))
 
@@ -33,23 +33,20 @@ export function StandbySlide() {
             <br />
             <Mark>읽을 수는 있게</Mark>
           </h1>
-          <SlideBody>2부는 실제 코드를 같이 열어요. 시작 전에 네 가지만 확인할게요.</SlideBody>
+          <SlideBody>2부는 실제 코드를 같이 열어요. 시작 전에 두 가지만 확인할게요.</SlideBody>
         </div>
 
         <Panel tone="raised" pad="lg" className="animate-rise-2 flex flex-col gap-4 lg:col-span-4">
           <PanelLabel>준비 확인</PanelLabel>
-          <CheckRow checked={checks[0]} onToggle={() => toggle(0)} hint="로그인까지 · 오늘 레포를 열어봐요">
-            GitHub 계정
-          </CheckRow>
-          <CheckRow checked={checks[1]} onToggle={() => toggle(1)} hint="ChatGPT·Claude 아무거나 · 코드 붙여넣기용">
+          <CheckRow checked={checks[0]} onToggle={() => toggle(0)} hint="ChatGPT·Claude 아무거나 · 코드 붙여넣기용">
             LLM 계정
           </CheckRow>
-          <CheckRow checked={checks[2]} onToggle={() => toggle(2)} hint="이 화면과 GitHub를 나란히 띄워요">
-            브라우저 창 두 개
-          </CheckRow>
-          <CheckRow checked={checks[3]} onToggle={() => toggle(3)} hint="오늘 읽은 걸 세 문장으로 적어요">
+          <CheckRow checked={checks[1]} onToggle={() => toggle(1)} hint="오늘 읽은 걸 세 문장으로 적어요">
             메모할 곳
           </CheckRow>
+          <p className="text-deck-meta text-content-muted">
+            GitHub는 로그인 없이 읽어요 — 계정은 오늘 쓰지 않습니다
+          </p>
         </Panel>
       </div>
 

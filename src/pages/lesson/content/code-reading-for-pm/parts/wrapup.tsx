@@ -20,7 +20,7 @@ const SUMMARY = [
   { head: '읽고 나서', body: '무엇이 · 왜 · 위험은', tail: '세 문장으로 말할 수 있으면 읽은 거예요' },
 ]
 
-/** R24. 오늘 남길 3줄 */
+/** R25. 오늘 남길 3줄 */
 export function SummarySlide() {
   return (
     <SlideLayout>
@@ -187,13 +187,13 @@ const PREP = [
   { head: '커피챗 피드백 원문 확인', hint: '학생이 실제로 들은 문장으로 2번째 화면을 시작하면 훨씬 붙어요' },
   { head: '덱의 바깥 링크 8개 열어보기', hint: 'APM 공고 3개 + 실습 파일 3개 + diff 목록 2개 · 죽은 링크가 있으면 수업이 멈춘다' },
   { head: '실습용 PR 하나 미리 골라두기', hint: 'Cal.com 머지된 PR 중 Files changed 30줄 이하 · 숫자나 조건이 바뀐 것' },
-  { head: '학생 GitHub 계정 · LLM 계정 확인', hint: '수업 전날 한 번 더 · PART 2가 여기서 무너져요' },
+  { head: '학생 LLM 계정 확인', hint: '수업 전날 한 번 더 · PART 2가 여기서 무너져요. GitHub는 로그인 없이 읽어요' },
   { head: '3문장 요약 예시 미리 작성', hint: '학생 답과 비교해서 보여줄 모범 답안' },
   { head: '2주차 날짜 잡고 끝내기', hint: '같이 하는 건 2주뿐이라, 오늘 안 잡으면 그대로 끝나요' },
   { head: '오프라인 대비', hint: '네트워크가 죽으면 이 덱의 함수·diff 화면으로 그대로 진행 가능' },
 ]
 
-/** R26. 강사용 — 수업 전 준비 (학생에게 보여주는 화면 아님) */
+/** R28. 강사용 — 수업 전 준비 (학생에게 보여주는 화면 아님) */
 export function PrepChecklistSlide() {
   const [checks, setChecks] = useState(() => PREP.map(() => false))
   const toggle = (index: number) =>
