@@ -93,7 +93,7 @@ const STEPS = [
   { head: '그 화면이 부르는 함수 하나 열기', hint: '아까처럼 이름 · 조건 · 반복 · 호출만 보며 한 줄씩' },
 ]
 
-/** R16. ⭐ 읽는 순서 5단계 + 실습 타이머 */
+/** R17. ⭐ 읽는 순서 5단계 + 실습 타이머 */
 export function ReadingOrderSlide() {
   const [checks, setChecks] = useState(() => STEPS.map(() => false))
   const toggle = (index: number) =>
@@ -146,7 +146,7 @@ const AI_QUESTIONS = [
   },
 ]
 
-/** R17. AI에게 읽히는 법 */
+/** R18. AI에게 읽히는 법 */
 export function AskAiSlide() {
   return (
     <SlideLayout>
@@ -191,7 +191,7 @@ const COACH_DOES = [
   { head: '코드는 안 써줘요', detail: '대신 써 달라고 하면 거절하고 읽기 과제로 바꿔요' },
 ]
 
-/** R18. ⭐ 코치 프롬프트 복사 */
+/** R19. ⭐ 코치 프롬프트 복사 */
 export function CoachPromptSlide() {
   return (
     <SlideLayout>
@@ -236,7 +236,7 @@ const THREE = [
   { no: '위험은', ask: '누가 다르게 대우받고, 배포 전에 뭘 확인하나', need: '“누가”가 없으면 미달' },
 ]
 
-/** R19. ⭐ 3문장으로 말하기 */
+/** R20. ⭐ 3문장으로 말하기 */
 export function SummaryDrillSlide() {
   return (
     <SlideLayout>
@@ -290,7 +290,7 @@ const DONT = [
   { head: '코드만 보고 일정을 혼자 정하지 않아요', why: '읽은 건 근거고, 추정은 개발자와 같이 하는 거예요' },
 ]
 
-/** R20. PM이 하지 않는 것 */
+/** R21. PM이 하지 않는 것 */
 export function BoundariesSlide() {
   return (
     <SlideLayout>

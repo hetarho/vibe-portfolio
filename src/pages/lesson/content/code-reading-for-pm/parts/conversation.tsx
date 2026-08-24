@@ -31,7 +31,7 @@ const UPGRADES = [
   },
 ]
 
-/** R21. ⭐ 질문 업그레이드 */
+/** R22. ⭐ 질문 업그레이드 */
 export function BetterQuestionsSlide() {
   return (
     <SlideLayout>
@@ -82,7 +82,7 @@ const EXACT = [
 ]
 const MISSING = ['경계값 · >= 인가 > 인가', '예외 · 비회원, 대형 상품', '기본값 · 아무 조건도 안 맞을 때']
 
-/** R22. 코드가 될 수 있는 스펙 */
+/** R23. 코드가 될 수 있는 스펙 */
 export function SpecWritingSlide() {
   return (
     <SlideLayout>
@@ -146,7 +146,7 @@ const COSTS = [
   },
 ]
 
-/** R23. "왜 오래 걸려요?"의 답은 코드에 있다 */
+/** R24. "왜 오래 걸려요?"의 답은 코드에 있다 */
 export function EstimateSlide() {
   return (
     <SlideLayout>
