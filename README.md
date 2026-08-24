@@ -77,27 +77,27 @@ FSD의 상위 레이어가 하위 레이어를 참조하는 의존 방향을 따
 | `career-and-ai-study` | 진로 미정인 개발 지망 대학생 | 기본기 학습 레포 세팅 |
 | `code-reading-for-pm` | 미국 거주 · PM 지망 대학생 | 실제 레포의 PR 하나를 읽고 "무엇이·왜·위험은" 3문장으로 요약 |
 
-세 강의 모두 마지막에 **복사해 가는 프롬프트**로 끝난다. 복사 버튼은
+세 강의 모두 마지막에 **복사해 가는 프롬프트**로 끝납니다. 복사 버튼은
 [`content/shared/ui/PromptCopyButton.tsx`](src/pages/lesson/content/shared/ui/PromptCopyButton.tsx) 하나뿐이고,
-`label`과 `text`만 덱마다 바꿔 끼운다.
+`label`과 `text`만 덱마다 바꿔 끼웁니다.
 
-- 앞의 두 강의는 **같은 학습 튜터 프롬프트**를 쓴다 — 본문은
-  [content/shared/model/tutor-prompt.md](src/pages/lesson/content/shared/model/tutor-prompt.md) 한 곳에만 있다(버튼의 기본값).
+- 앞의 두 강의는 **같은 학습 튜터 프롬프트**를 씁니다 — 본문은
+  [content/shared/model/tutor-prompt.md](src/pages/lesson/content/shared/model/tutor-prompt.md) 한 곳에만 있습니다(버튼의 기본값).
 - `code-reading-for-pm`은 자기만 쓰는 코치 프롬프트라 그 덱 폴더
-  ([content/code-reading-for-pm/model/coach-prompt.md](src/pages/lesson/content/code-reading-for-pm/model/coach-prompt.md))에 두고 `text`로 넘긴다.
+  ([content/code-reading-for-pm/model/coach-prompt.md](src/pages/lesson/content/code-reading-for-pm/model/coach-prompt.md))에 두고 `text`로 넘깁니다.
 
-`code-reading-for-pm`은 강사가 **2주만** 함께하고 3주차부터 학생이 혼자 돌리는 구조다.
+`code-reading-for-pm`은 강사가 **2주만** 함께하고 3주차부터 학생이 혼자 돌리는 구조입니다.
 그래서 마지막 두 화면이 숙제가 아니라 **6주 자습 커리큘럼**이고, 같은 주차 계획이
 [model/curriculum.ts](src/pages/lesson/content/code-reading-for-pm/model/curriculum.ts)와
-코치 프롬프트 §2 양쪽에 있다 — 한쪽만 고치면 수업과 프롬프트가 어긋난다.
+코치 프롬프트 §2 양쪽에 있습니다 — 한쪽만 고치면 수업과 프롬프트가 어긋납니다.
 
-- **PART 1**은 배송비 계산 함수 하나를 계속 물고 간다: 조건 읽기 → 그 함수가 쓰는 합계 함수의
+- **PART 1**은 배송비 계산 함수 하나를 계속 물고 갑니다: 조건 읽기 → 그 함수가 쓰는 합계 함수의
   반복문 → 같은 함수의 PR diff → 같은 함수에서 터진 스택 트레이스. 예제는
-  [model/code-samples.ts](src/pages/lesson/content/code-reading-for-pm/model/code-samples.ts) 한 곳에 있다.
-- **PART 2**는 예제를 버리고 실제 레포를 링크로 열어 같은 순서로 읽는다(Cal.com `weekstart.ts`·
+  [model/code-samples.ts](src/pages/lesson/content/code-reading-for-pm/model/code-samples.ts) 한 곳에 있습니다.
+- **PART 2**는 예제를 버리고 실제 레포를 링크로 열어 같은 순서로 읽습니다(Cal.com `weekstart.ts`·
   `timeFormat.ts`, `sindresorhus/pretty-bytes`). APM 공고 링크까지 포함한 바깥 링크는
   [model/links.ts](src/pages/lesson/content/code-reading-for-pm/model/links.ts)에 모여 있고,
-  강의장에서 그대로 눌러 열기 때문에 **수업 전 링크 점검이 강사용 체크리스트에 들어 있다.**
+  강의장에서 그대로 눌러 열기 때문에 **수업 전 링크 점검이 강사용 체크리스트에 들어 있습니다.**
 
 ## 포함된 인터랙션
 

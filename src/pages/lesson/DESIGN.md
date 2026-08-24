@@ -96,7 +96,7 @@
 - 덱 하나만 쓰는 것은 그 덱 폴더(`ui/`, `model/`)에 둔다. 프롬프트도 마찬가지다 —
   `code-reading-for-pm/model/coach-prompt.md`처럼 덱 안에 두고 `text`로 넘긴다.
   버튼을 복사해서 새로 만들지 않는다.
-- 두 덱이 함께 쓰는 것은 `content/shared/`, 플레이어와 프리미티브는 `deck/`이 공개한다.
+- 여러 덱이 함께 쓰는 것은 `content/shared/`, 플레이어와 프리미티브는 `deck/`이 공개한다.
 
 ---
 
