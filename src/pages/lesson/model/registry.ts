@@ -1,6 +1,7 @@
 import type { DeckDef } from '../deck'
 import { careerAndAiStudyDeck } from '../content/career-and-ai-study'
 import { codeReadingForPmDeck } from '../content/code-reading-for-pm'
+import { gitReadingForFounderDeck } from '../content/git-reading-for-founder'
 import { vibeCodingFirstAppDeck } from '../content/vibe-coding-first-app'
 
 export type Lesson = {
@@ -60,6 +61,22 @@ export const lessons: Lesson[] = [
       '3문장 요약과 6주 자습 커리큘럼',
     ],
     deck: codeReadingForPmDeck,
+  },
+  {
+    id: 'git-reading-for-founder',
+    title: '창업자를 위한 Git/GitHub 읽기',
+    subtitle: '내 코드가 어디까지 갔는지 스스로 판단하는 실전 수업',
+    audience: '1대1 · AI로 웹서비스를 운영하는 비개발자 창업자',
+    duration: '2시간 40분 · 39화면 · 전체 2회 중 1회차',
+    outline: [
+      '코드가 사는 세 곳 — 내 컴퓨터·GitHub·배포',
+      'status·log·remote 출력 해석',
+      '여러 컴퓨터 중 어디가 최신인지 판단',
+      'Branches·PR에서 main 반영 여부 검토',
+      'Actions·Deployments 성공/실패 읽기',
+      '"반영이 안 돼요" 6단계 진단과 안전한 복구',
+    ],
+    deck: gitReadingForFounderDeck,
   },
 ]
 
