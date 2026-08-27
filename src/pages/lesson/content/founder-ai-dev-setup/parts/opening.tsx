@@ -1,4 +1,4 @@
-import { Bot, Boxes, CircleCheck, Cloud, Code2, GitBranch, Laptop, Play, Wrench } from 'lucide-react'
+import { Bot, Boxes, Cloud, Code2, Laptop, Megaphone, Network } from 'lucide-react'
 import { Fragment, useState } from 'react'
 import {
   CheckRow,
@@ -18,7 +18,7 @@ const READY = [
   { head: '전원 · 인터넷 · 2시간', hint: '충전기를 연결하고 Windows 업데이트의 재시작 예약부터 확인' },
   { head: 'Windows 관리자 암호', hint: '필요할 때 본인이 직접 입력 — 강사에게 공유하지 않기' },
   { head: 'GitHub · Claude 로그인', hint: '휴대폰 2단계 인증과 복구 수단 확인' },
-  { head: '현재 서비스 폴더 하나', hint: '가장 자주 고치는 서비스와 GitHub 주소를 함께 준비' },
+  { head: '사업 소개 자료', hint: '홈페이지 · 미국에서 만나고 싶은 고객 · 반복 업무를 대화로 설명할 준비' },
 ]
 
 /** W0. 시작 전 · 준비 확인 */
@@ -51,7 +51,7 @@ export function StandbySlide() {
       </div>
 
       <SlideNote tone="quiet">
-        끝날 때 남는 것 · <Mark>실행되는 서비스 1개 + 새 PC용 프롬프트 1개 + 다음 6회 로드맵</Mark>
+        끝날 때 남는 것 · <Mark>세팅 보고서 + 자동화 블루프린트 + 다음 6회 로드맵</Mark>
       </SlideNote>
     </SlideLayout>
   )
@@ -97,10 +97,10 @@ export function WhySetupSlide() {
 }
 
 const PROOFS = [
-  { icon: Code2, label: '열린다', detail: '`code .`로 올바른 폴더가 열린다' },
-  { icon: Play, label: '실행된다', detail: 'Node 또는 Python 서비스가 로컬에서 뜬다' },
-  { icon: GitBranch, label: '연결된다', detail: 'GitHub 로그인과 push 경로를 확인한다' },
-  { icon: CircleCheck, label: '진단된다', detail: 'Claude 점검과 테스트 결과가 초록이다' },
+  { icon: Laptop, label: '준비된다', detail: 'VS Code·Claude·기본 도구가 버전으로 답한다' },
+  { icon: Code2, label: '그려진다', detail: '코딩 에이전트의 역할·흐름·승인선을 정한다' },
+  { icon: Megaphone, label: '열어둔다', detail: '미국 마케팅 채널과 자동화 후보를 넓게 본다' },
+  { icon: Network, label: '비교한다', detail: '관리형 Cloud·VPS·Hermes의 도입 조건을 안다' },
 ]
 
 /** W2. 오늘의 완료 조건 */
@@ -133,7 +133,7 @@ export function FinishLineSlide() {
         ))}
       </div>
 
-      <SlideBody>하나라도 빨갛다면 숨기지 않고 설정 보고서의 ‘남은 문제’에 적어둡니다.</SlideBody>
+      <SlideBody>프로젝트를 실행하지 않아도, 다음 미팅에서 무엇부터 만들지 설명할 수 있으면 완료입니다.</SlideBody>
     </SlideLayout>
   )
 }
@@ -183,8 +183,10 @@ const JOURNEY = [
   { time: '0–20분', name: '사람이 두 개 설치', detail: 'VS Code · Claude Code · 로그인' },
   { time: '20–50분', name: '프롬프트 한 번 실행', detail: 'Claude가 Git · Node · Python 등을 자동 설치' },
   { time: '50–55분', name: '휴식', detail: '설치 뒤 VS Code와 터미널 다시 열기' },
-  { time: '55–90분', name: '실제 서비스 연결', detail: '프로젝트 열기 · 실행 · 테스트 · GitHub 로그인' },
-  { time: '90–120분', name: '사용법과 로드맵', detail: 'VS Code · 에러 대응 · 원격 지원 · 6회 미팅' },
+  { time: '55–70분', name: '블루프린트와 후보', detail: '목표 · 반복 업무 · 승인선 · 첫 후보 기준' },
+  { time: '70–90분', name: 'AI 코딩 조직', detail: '역할 · 작업 흐름 · 다중 에이전트 단계' },
+  { time: '90–105분', name: '미국 마케팅', detail: '채널 · 에이전트 역할 · 자동화 후보 · 측정' },
+  { time: '105–120분', name: '상시 실행과 로드맵', detail: 'Cloud Routines · VPS · Hermes · 다음 6회' },
 ]
 
 /** W4. 120분 여정 */
@@ -212,7 +214,7 @@ export function JourneySlide() {
       </ol>
 
       <SlideNote tone="quiet">
-        설치가 길어지면 항목을 줄입니다 · <Mark>실제 서비스가 한 번 뜨는 것</Mark>은 줄이지 않습니다
+        2부에서는 계정을 연결하거나 자동화를 켜지 않습니다 · <Mark>가능성·우선순위·승인선만 설계</Mark>
       </SlideNote>
     </SlideLayout>
   )
