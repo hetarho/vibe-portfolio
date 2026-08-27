@@ -1,6 +1,7 @@
 import type { DeckDef } from '../deck'
 import { careerAndAiStudyDeck } from '../content/career-and-ai-study'
 import { codeReadingForPmDeck } from '../content/code-reading-for-pm'
+import { founderAiDevSetupDeck } from '../content/founder-ai-dev-setup'
 import { gitReadingForFounderDeck } from '../content/git-reading-for-founder'
 import { vibeCodingFirstAppDeck } from '../content/vibe-coding-first-app'
 
@@ -77,6 +78,21 @@ export const lessons: Lesson[] = [
       '"반영이 안 돼요" 6단계 진단과 안전한 복구',
     ],
     deck: gitReadingForFounderDeck,
+  },
+  {
+    id: 'founder-ai-dev-setup',
+    title: '창업자를 위한 AI 개발 작업실 세팅',
+    subtitle: 'Windows 한 대를 원격 지원과 멀티 에이전트의 출발점으로',
+    audience: '1대1 · Claude Code로 서비스를 운영하는 비개발자 창업자',
+    duration: '2시간 · 30화면 · Git 수업 후속편',
+    outline: [
+      '사람은 VS Code·Claude Code만 설치',
+      '한 프롬프트로 Git·Node·Python 자동 설치',
+      '실제 서비스 실행과 최종 검수',
+      '다른 PC에서도 같은 프롬프트로 재현',
+      '멀티 에이전트까지 6회 로드맵',
+    ],
+    deck: founderAiDevSetupDeck,
   },
 ]
 
