@@ -3,6 +3,7 @@ import { careerAndAiStudyDeck } from '../content/career-and-ai-study'
 import { codeReadingForPmDeck } from '../content/code-reading-for-pm'
 import { founderAiDevSetupDeck } from '../content/founder-ai-dev-setup'
 import { gitReadingForFounderDeck } from '../content/git-reading-for-founder'
+import { mvpLifecycleForFounderDeck } from '../content/mvp-lifecycle-for-founder'
 import { vibeCodingFirstAppDeck } from '../content/vibe-coding-first-app'
 
 export type Lesson = {
@@ -94,6 +95,21 @@ export const lessons: Lesson[] = [
       '작은 파일럿부터 시작하는 6회 로드맵',
     ],
     deck: founderAiDevSetupDeck,
+  },
+  {
+    id: 'mvp-lifecycle-for-founder',
+    title: '창업자를 위한 개발 생명주기와 에이전트',
+    subtitle: '기획부터 운영까지 한 바퀴를 배우고, 내 아이디어로 혼자 MVP를 만들 수 있게',
+    audience: '1대1 · MVP를 만들려는 비개발자 창업자',
+    duration: '2시간 · 37화면 · 전체 2회 중 1회차',
+    outline: [
+      '문제 한 문장 · 기능 자르기 · 가설과 숫자',
+      '화면의 4가지 상태 · 표·선·규칙 · 헌법',
+      '좋은 코드란 · 수용 기준 쓰는 법 · 유지보수 우선순위',
+      '콘솔 연동을 Claude Code에게 시키고 검증하기',
+      '내 아이디어로 혼자 할 8단계 + MVP 코치 프롬프트',
+    ],
+    deck: mvpLifecycleForFounderDeck,
   },
 ]
 

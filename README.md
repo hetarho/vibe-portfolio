@@ -76,6 +76,8 @@ FSD의 상위 레이어가 하위 레이어를 참조하는 의존 방향을 따
 | `vibe-coding-first-app` | 개발을 한 번도 안 해본 일반인 | 에이전트와 만든 앱을 로컬(`localhost`)에서 직접 띄우기 |
 | `career-and-ai-study` | 진로 미정인 개발 지망 대학생 | 기본기 학습 레포 세팅 |
 | `code-reading-for-pm` | 미국 거주 · PM 지망 대학생 | 실제 레포의 PR 하나를 읽고 "무엇이·왜·위험은" 3문장으로 요약 |
+| `git-reading-for-founder` | AI로 웹서비스를 운영하는 비개발자 창업자 | "반영이 안 돼요"를 6단계로 진단하고 안전한 복구 지시 |
+| `mvp-lifecycle-for-founder` | MVP를 만들려는 비개발자 창업자 | 기획→운영 한 바퀴를 강사의 15분 예시 레포로 깊게 배우고, 내 아이디어로 빈 폴더에서 배포까지 8단계 혼자 완주 |
 
 세 강의 모두 마지막에 **복사해 가는 프롬프트**로 끝납니다. 복사 버튼은
 [`content/shared/ui/PromptCopyButton.tsx`](src/pages/lesson/content/shared/ui/PromptCopyButton.tsx) 하나뿐이고,
