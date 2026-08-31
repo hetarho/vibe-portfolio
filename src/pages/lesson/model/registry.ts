@@ -4,6 +4,7 @@ import { codeReadingForPmDeck } from '../content/code-reading-for-pm'
 import { founderAiDevSetupDeck } from '../content/founder-ai-dev-setup'
 import { gitReadingForFounderDeck } from '../content/git-reading-for-founder'
 import { mvpLifecycleForFounderDeck } from '../content/mvp-lifecycle-for-founder'
+import { personalAiAgentsDeck } from '../content/personal-ai-agents'
 import { vibeCodingFirstAppDeck } from '../content/vibe-coding-first-app'
 
 export type Lesson = {
@@ -21,6 +22,21 @@ export type Lesson = {
 
 /** 강의 목록. 새 강의를 추가하려면 content/ 아래에 덱을 만들고 이 배열에 한 줄 추가한다. */
 export const lessons: Lesson[] = [
+  {
+    id: 'personal-ai-agents',
+    title: '내 일을 맡기는 AI 에이전트 첫 수업',
+    subtitle: 'Zonta 오리엔테이션 PPT부터 매일 쓰는 영어 코치까지',
+    audience: '1대1 · 발표 준비가 급한 비개발자 · AI 입문',
+    duration: '2시간 · 29화면',
+    outline: [
+      '에이전트란 무엇이고 사람은 무엇을 결정하는가',
+      '공식 출처 조사와 근거표 만들기',
+      'Zonta 오리엔테이션 PPT 제작·검수 실습',
+      '매일 15분 영어공부 에이전트 만들기',
+      'Zonta·영어·투자·전시기획 작업실 설계',
+    ],
+    deck: personalAiAgentsDeck,
+  },
   {
     id: 'vibe-coding-first-app',
     title: '바이브코딩 첫 수업',
