@@ -89,6 +89,10 @@
 두 개 이상의 덱이 **똑같은 것**을 보여줘야 하면 `content/shared/`에 두고 양쪽에서 가져다 쓴다.
 사본을 만들면 한쪽만 고쳐지는 순간 수업에서 다른 걸 나눠주게 된다.
 
+- AI·에이전트 개념 화면: `content/shared/ui/ai.tsx` · `content/shared/ui/agent.tsx`. **개념 설명 화면은 이 여섯 장이 원본이다.**
+  V2 체계부터 수강생에게 AI/에이전트 개념이 필요하면 `AiWhat/AiProsCons/AiInPractice`,
+  `AgentWhat/AgentLoop/AgentInPractice`를 덱의 `slides` 배열에 그대로 끼워 넣는다.
+  특정 수강생·직군 이야기는 여기 넣지 않는다. 맞춤 이야기는 각 덱의 화면에서 한다.
 - 학습 튜터 프롬프트: `content/shared/model/tutor-prompt.md` — **본문은 이 파일 하나뿐이다.**
   `vibe-coding-first-app`과 `career-and-ai-study`가 이걸 함께 쓴다.
 - 복사 버튼: `content/shared/ui/PromptCopyButton.tsx` — **버튼 구현은 이것 하나뿐이다.**

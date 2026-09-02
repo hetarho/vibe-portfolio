@@ -41,8 +41,20 @@ export function LessonSelectPage({ onOpen, onBack }: Props) {
                 onClick={() => onOpen(lesson.id)}
                 className="group flex h-full w-full flex-col gap-4 rounded-stage bg-surface-raised p-6 text-left shadow-raised transition duration-300 ease-deck md:gap-7 md:p-12 hover:-translate-y-2 hover:bg-surface-overlay hover:shadow-overlay"
               >
-                <span className="grid size-12 place-items-center rounded-panel bg-accent text-accent-contrast md:size-16">
-                  <Presentation size={34} />
+                <span className="flex items-start justify-between gap-4">
+                  <span className="grid size-12 place-items-center rounded-panel bg-accent text-accent-contrast md:size-16">
+                    <Presentation size={34} />
+                  </span>
+                  {/* 강의 체계 버전. V2(공통 개념 파트 체계)만 강조색, 지난 체계는 조용하게 */}
+                  <span
+                    className={
+                      lesson.version === 'V2'
+                        ? 'rounded-full bg-accent px-4 py-2 text-deck-caption font-bold text-accent-contrast'
+                        : 'rounded-full bg-surface-sunken px-4 py-2 text-deck-caption font-bold text-content-muted'
+                    }
+                  >
+                    {lesson.version}
+                  </span>
                 </span>
 
                 <span className="flex flex-col gap-3">

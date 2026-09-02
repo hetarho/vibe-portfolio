@@ -1,4 +1,5 @@
 import type { DeckDef } from '../deck'
+import { agentBasicsForResearcherDeck } from '../content/agent-basics-for-researcher'
 import { careerAndAiStudyDeck } from '../content/career-and-ai-study'
 import { codeReadingForPmDeck } from '../content/code-reading-for-pm'
 import { founderAiDevSetupDeck } from '../content/founder-ai-dev-setup'
@@ -10,6 +11,12 @@ import { vibeCodingFirstAppDeck } from '../content/vibe-coding-first-app'
 export type Lesson = {
   /** URL에 쓰이는 값 — /lesson/{id} */
   id: string
+  /**
+   * 강의 체계 버전.
+   * V1: 초기의 덱별 개별 제작 체계. V2: 공통 개념 화면(content/shared의 AI·에이전트 파트)을
+   * 조립해 쓰는 체계. 새 강의는 V2로 만든다.
+   */
+  version: 'V1' | 'V2'
   title: string
   subtitle: string
   /** 누구를 위한 수업인지 */
@@ -23,7 +30,24 @@ export type Lesson = {
 /** 강의 목록. 새 강의를 추가하려면 content/ 아래에 덱을 만들고 이 배열에 한 줄 추가한다. */
 export const lessons: Lesson[] = [
   {
+    id: 'agent-basics-for-researcher',
+    version: 'V2',
+    title: '연구자를 위한 AI 에이전트 기초',
+    subtitle: 'AI·에이전트 개념부터, 원하는 여섯 가지의 구현 지도까지',
+    audience: '1대1 · 임상미생물학 대학원생 · AI 입문',
+    duration: '2시간 30분 · 23화면 · 기초 1회차',
+    outline: [
+      'AI란 · 개념부터 실무 사용까지',
+      '에이전트란 · 챗봇과의 차이와 일하는 방식',
+      '수강생이 원하는 것 여섯 가지 확인',
+      '각각의 구현 방법과 AI/에이전트 판정',
+      '판정대로 해보는 간단 실습과 서비스 추천',
+    ],
+    deck: agentBasicsForResearcherDeck,
+  },
+  {
     id: 'personal-ai-agents',
+    version: 'V1',
     title: '내 일을 맡기는 AI 에이전트 첫 수업',
     subtitle: 'Zonta 오리엔테이션 PPT부터 매일 쓰는 영어 코치까지',
     audience: '1대1 · 발표 준비가 급한 비개발자 · AI 입문',
@@ -39,6 +63,7 @@ export const lessons: Lesson[] = [
   },
   {
     id: 'vibe-coding-first-app',
+    version: 'V1',
     title: '바이브코딩 첫 수업',
     subtitle: '말로 만들어 내 컴퓨터에서 띄우는 첫 웹 앱',
     audience: '1대1 · 개발을 한 번도 안 해본 분',
@@ -54,6 +79,7 @@ export const lessons: Lesson[] = [
   },
   {
     id: 'career-and-ai-study',
+    version: 'V1',
     title: '진로 찾기 & AI 시대 개발 공부법',
     subtitle: 'FE·BE 진입 전략부터 기본기 학습 레포까지',
     audience: '1대1 · 진로 미정인 개발 지망 대학생',
@@ -68,6 +94,7 @@ export const lessons: Lesson[] = [
   },
   {
     id: 'code-reading-for-pm',
+    version: 'V1',
     title: 'PM을 위한 코드 읽기',
     subtitle: '쓰지 않아도 읽고 판단하는 2시간',
     audience: '1대1 · 미국 거주 대학생 · PM 지망',
@@ -82,6 +109,7 @@ export const lessons: Lesson[] = [
   },
   {
     id: 'git-reading-for-founder',
+    version: 'V1',
     title: '창업자를 위한 Git/GitHub 읽기',
     subtitle: '내 코드가 어디까지 갔는지 스스로 판단하는 실전 수업',
     audience: '1대1 · AI로 웹서비스를 운영하는 비개발자 창업자',
@@ -98,6 +126,7 @@ export const lessons: Lesson[] = [
   },
   {
     id: 'founder-ai-dev-setup',
+    version: 'V1',
     title: '창업자를 위한 AI 개발 작업실 세팅',
     subtitle: 'Windows 세팅부터 코딩·미국 마케팅·상시 에이전트의 청사진까지',
     audience: '1대1 · Claude Code로 서비스를 운영하는 비개발자 창업자',
@@ -114,6 +143,7 @@ export const lessons: Lesson[] = [
   },
   {
     id: 'mvp-lifecycle-for-founder',
+    version: 'V1',
     title: '창업자를 위한 개발 생명주기와 에이전트',
     subtitle: '기획부터 운영까지 한 바퀴를 배우고, 내 아이디어로 혼자 MVP를 만들 수 있게',
     audience: '1대1 · MVP를 만들려는 비개발자 창업자',
