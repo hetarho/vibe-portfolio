@@ -1,169 +1,93 @@
-/* Shop 작품 (상품 목록 + 장바구니) 전용 스타일 — app/styles/index.css에서 셀렉터·선언을 그대로 옮겨왔다 */
+/* OHAU 숍 전용 스타일. 토큰은 app/styles/theme.css의 shop-* */
 @reference "../../app/styles/index.css";
 
-/* Tailwind가 선언하는 레이어 순서를 이 파일에도 적어둔다.
-   페이지 CSS는 컴포넌트에서 import되므로 번들에서 전역 CSS보다 앞에 놓일 수 있고,
-   그때 순서를 적어두지 않으면 components가 base보다 뒤로 밀린다. */
 @layer theme, base, components, utilities;
 
 @layer components {
-  .cart-backdrop {
-    @apply fixed inset-0 z-[100] flex justify-end bg-black/55;
-    backdrop-filter: blur(8px);
+  /* 부드러운 세리프 헤드라인 (Fraunces, 광학 사이즈 최대) */
+  .shop-display {
+    font-family: var(--font-fraunces);
+    font-weight: 400;
+    letter-spacing: -0.025em;
+    line-height: 1.02;
+    font-variation-settings: "opsz" 144, "SOFT" 40;
   }
 
-  .shop-page { @apply overflow-hidden bg-shop text-[#1b1d18]; }
-  .shop-hero { @apply px-[5vw] pb-[7vw]; }
-
-  .shop-nav {
-    @apply flex h-24 items-center justify-between border-b border-black/15;
+  .shop-display em,
+  .shop-italic {
+    font-family: var(--font-fraunces);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--color-shop-accent);
   }
 
-  .shop-nav > span { @apply font-serif text-3xl font-bold tracking-[-0.06em]; }
-  .shop-nav nav { @apply flex gap-10; }
-  .shop-nav nav button { @apply text-[11px] font-semibold tracking-[0.16em]; }
-  .shop-nav > div { @apply flex items-center gap-4; }
-  .bag-button { @apply relative; }
-  .bag-button span { @apply absolute -right-2 -top-2 grid h-4 w-4 place-items-center rounded-full bg-[#c66143] text-[8px] text-white; }
-
-  .search-bar {
-    @apply absolute left-[5vw] right-[5vw] z-20 flex h-24 items-center gap-4 border-b border-black/20 bg-shop;
+  .shop-eyebrow {
+    @apply text-[11px] font-semibold tracking-[0.2em] text-shop-muted uppercase;
   }
 
-  .search-bar input { @apply h-full flex-1 bg-transparent text-xl outline-none; }
-
-  .shop-hero-content {
-    @apply grid min-h-[670px] grid-cols-[.84fr_1.16fr] items-center gap-[7vw] pt-[5vw];
+  .shop-link {
+    @apply relative inline-flex items-center gap-1.5;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    transition: background-size 0.45s var(--ease-site);
   }
 
-  .shop-hero-content > div:first-child > span,
-  .product-heading span,
-  .story-copy > span { @apply font-mono text-[10px] tracking-[0.2em]; }
-
-  .shop-hero-content h1 {
-    @apply my-8 text-[clamp(3rem,5.4vw,6rem)] font-semibold leading-[1.08] tracking-[-0.07em];
+  .shop-link:hover,
+  .shop-link.active {
+    background-size: 100% 1px;
   }
 
-  .shop-hero-content h1 em { @apply font-serif font-normal italic text-[#a44d36]; }
-  .shop-hero-content p { @apply mb-10 text-[13px] leading-[1.9] text-black/55; }
-  .shop-hero-content > div:first-child > button,
-  .story-copy button { @apply flex items-center gap-4 border-b border-black pb-2 text-[12px] font-semibold; }
-
-  .hero-product-photo {
-    @apply relative h-[min(64vw,670px)] max-h-[670px] min-h-[480px] overflow-hidden bg-[#d5c8b7];
+  .shop-card img {
+    transition: transform 1.1s var(--ease-site);
   }
 
-  .hero-product-photo img { @apply h-full w-full object-cover transition duration-700 hover:scale-[1.03]; }
-  .photo-note { @apply absolute bottom-0 left-0 flex w-44 flex-col bg-[#b8c38d] p-6; }
-  .photo-note span { @apply font-mono text-[8px] tracking-[0.14em]; }
-  .photo-note strong { @apply my-3 font-serif text-3xl font-normal italic leading-none; }
-  .photo-note small { @apply self-end font-mono text-[8px]; }
+  .shop-card:hover img {
+    transform: scale(1.05);
+  }
 
-  .shop-marquee { @apply overflow-hidden border-y border-black/20 py-4; }
-  .shop-marquee div { @apply w-max whitespace-nowrap font-display text-2xl font-black tracking-[-0.03em]; animation: marquee 22s linear infinite; }
-  .shop-marquee span { @apply mx-8 text-[#bd5a3e]; }
+  .shop-card .shop-quick {
+    transform: translateY(0.75rem);
+    opacity: 0;
+    transition: transform 0.45s var(--ease-site), opacity 0.45s var(--ease-site);
+  }
 
-  .product-section { @apply px-[5vw] py-32; }
-  .product-heading { @apply mb-16 flex items-end justify-between; }
-  .product-heading h2 { @apply mb-0 mt-3 text-[clamp(2.5rem,4vw,4rem)] tracking-[-0.06em]; }
-  .product-heading p { @apply m-0 text-[12px] leading-[1.8] text-black/50; }
+  .shop-card:hover .shop-quick,
+  .shop-card:focus-within .shop-quick {
+    transform: none;
+    opacity: 1;
+  }
 
-  .category-row { @apply mb-8 flex items-center gap-3 border-b border-black/20 pb-4; }
-  .category-row button { @apply rounded-full border border-black/20 px-5 py-2 text-[11px] transition; }
-  .category-row button.active { @apply bg-[#1b1d18] text-white; }
-  .category-row > span { @apply ml-auto font-mono text-[9px]; }
+  .shop-enter {
+    animation: rise 0.6s var(--ease-site) both;
+  }
 
-  .product-grid { @apply grid grid-cols-3 gap-x-5 gap-y-16; }
-  .product-image { @apply relative aspect-[4/5] overflow-hidden bg-[#e7e0d5]; }
-  .product-card:hover .quick-add { @apply translate-y-0 opacity-100; }
-  .new-badge { @apply absolute left-4 top-4 z-10 rounded-full bg-[#1b1d18] px-3 py-1.5 font-mono text-[8px] tracking-wider text-white; }
-  .like { @apply absolute right-4 top-4 z-10 grid h-9 w-9 place-items-center rounded-full bg-white/70 text-transparent transition; stroke: #25251f; }
-  .like.liked { @apply text-[#ba5942]; stroke: #ba5942; }
-  .quick-add { @apply absolute bottom-4 left-4 right-4 z-10 flex translate-y-4 items-center justify-center gap-2 bg-white/90 py-3 text-[11px] font-semibold opacity-0 transition-all; backdrop-filter: blur(8px); }
-  .product-info { @apply mt-4 flex items-end justify-between; }
-  .product-info span { @apply text-[10px] text-black/45; }
-  .product-info h3 { @apply mb-0 mt-1 text-[15px] font-medium; }
-  .product-info strong { @apply text-[13px] font-medium; }
-  .product-credit { @apply mt-2 inline-block font-mono text-[8px] text-black/35 underline-offset-2 transition hover:text-black hover:underline; }
+  .shop-field {
+    @apply h-12 w-full rounded-xl border border-shop-line bg-shop-surface px-4 text-sm text-shop-ink outline-none transition placeholder:text-shop-muted/70 focus:border-shop-ink;
+  }
 
-  .product-art { @apply relative h-full w-full overflow-hidden; background: var(--product-bg); }
-  .product-art > img { @apply absolute inset-0 z-[1] h-full w-full object-cover transition-transform duration-700; }
-  .product-card:hover .product-art > img { @apply scale-[1.035]; }
-  .art-object,
-  .art-detail,
-  .art-shadow { @apply hidden; }
-  .art-shadow { @apply bottom-[18%] left-1/2 h-[8%] w-[48%] -translate-x-1/2 rounded-[50%] bg-black/15 blur-lg; }
+  .shop-button {
+    @apply inline-flex h-12 items-center justify-center gap-2 rounded-full bg-shop-ink px-6 text-sm font-semibold text-shop-bg transition hover:bg-shop-accent disabled:cursor-not-allowed disabled:opacity-40;
+  }
 
-  .art-lamp .art-object { @apply bottom-[22%] left-1/2 h-[24%] w-[31%] -translate-x-1/2 rounded-b-[45%] rounded-t-[50%]; background: var(--product-accent); box-shadow: inset 12px 6px 18px rgba(255,255,255,.18); }
-  .art-lamp .art-detail { @apply bottom-[44%] left-1/2 h-[29%] w-[3%] -translate-x-1/2 bg-[#604535]; box-shadow: 0 -36px 0 28px #ead5a8; border-radius: 50% 50% 10% 10%; }
-  .art-vase .art-object { @apply bottom-[21%] left-1/2 h-[53%] w-[36%] -translate-x-1/2 rounded-[46%_46%_38%_38%]; background: linear-gradient(90deg, var(--product-accent), #eee9df 44%, var(--product-accent)); }
-  .art-vase .art-detail { @apply bottom-[68%] left-1/2 h-[12%] w-[14%] -translate-x-1/2 rounded-sm bg-[#777064]; }
-  .art-chair .art-object { @apply bottom-[22%] left-1/2 h-[31%] w-[58%] -translate-x-1/2 rounded-[50%_50%_32%_32%]; background: var(--product-accent); box-shadow: inset 0 10px 22px rgba(255,255,255,.18); }
-  .art-chair .art-detail { @apply bottom-[45%] left-1/2 h-[31%] w-[52%] -translate-x-1/2 rounded-t-full; background: var(--product-accent); box-shadow: -76px 104px 0 -35px #4a3e2e, 76px 104px 0 -35px #4a3e2e; }
-  .art-cup .art-object { @apply bottom-[25%] left-[34%] h-[35%] w-[33%] rounded-b-[42%] bg-[#eee8df]; box-shadow: inset -12px 0 18px rgba(80,50,30,.15), 65px 16px 0 -7px #b49c87; }
-  .art-cup .art-detail { @apply bottom-[36%] left-[57%] h-[18%] w-[17%] rounded-full border-[10px] border-[#eee8df]; }
-  .art-tray .art-object { @apply bottom-[28%] left-1/2 h-[29%] w-[66%] -translate-x-1/2 rounded-[50%]; background: radial-gradient(ellipse, #d7ba93 0 52%, var(--product-accent) 54% 64%, #b98d5f 66%); transform: translateX(-50%) rotate(-8deg); box-shadow: 15px 18px 25px rgba(70,40,20,.18); }
-  .art-fabric .art-object { @apply bottom-[18%] left-1/2 h-[58%] w-[54%] -translate-x-1/2 rotate-[-8deg] rounded-sm; background: repeating-linear-gradient(90deg, var(--product-accent) 0 3px, #cdd1cb 3px 9px); box-shadow: 16px 20px 20px rgba(0,0,0,.14); }
-  .art-fabric .art-detail { @apply bottom-[16%] left-[27%] h-[8%] w-[48%]; background: repeating-linear-gradient(90deg, #606662 0 2px, transparent 2px 8px); }
+  .shop-button-ghost {
+    @apply inline-flex h-12 items-center justify-center gap-2 rounded-full border border-shop-line px-6 text-sm font-semibold text-shop-ink transition hover:border-shop-ink;
+  }
 
-  .shop-story { @apply grid grid-cols-2 bg-[#d5cbb7]; }
-  .story-visual { @apply relative flex min-h-[650px] items-center justify-center overflow-hidden bg-[#273f37] text-[#efe9d9]; }
-  .story-visual::after { content: ''; @apply absolute inset-0 bg-[#1b362c]/30; mix-blend-mode: multiply; }
-  .story-visual > img { @apply absolute inset-0 h-full w-full object-cover; }
-  .story-visual > span { @apply relative z-10 font-serif text-[14rem] italic; }
-  .story-visual > p { @apply absolute bottom-8 left-8 z-10 font-serif text-xl italic leading-tight; }
-  .story-visual > a { @apply absolute bottom-8 right-8 z-10 font-mono text-[8px] text-white/65 underline-offset-2 hover:underline; }
-  .story-copy { @apply flex flex-col items-start justify-center px-[10vw]; }
-  .story-copy h2 { @apply my-7 text-[clamp(2.7rem,4.5vw,5rem)] leading-[1.08] tracking-[-0.07em]; }
-  .story-copy p { @apply mb-10 max-w-md text-[13px] leading-[2] text-black/55; }
+  /* 드로어 등장 */
+  @keyframes shop-slide-in {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+  }
 
-  .shop-footer { @apply grid grid-cols-[1fr_1fr_1fr_auto] items-end gap-8 bg-[#1c211b] px-[5vw] py-16 text-[#efe9dc]; }
-  .shop-footer b { @apply font-serif text-5xl tracking-[-0.06em]; }
-  .shop-footer p { @apply m-0 text-[12px] text-white/50; }
-  .shop-footer div { @apply flex gap-6 text-[10px]; }
-  .shop-footer small { @apply font-mono text-[8px] text-white/50; }
+  .shop-drawer {
+    animation: shop-slide-in 0.5s var(--ease-site) both;
+  }
 
-  .cart-drawer { @apply flex h-full w-[min(92vw,480px)] flex-col bg-[#f4efe6] p-8 text-ink shadow-2xl; }
-  .cart-title { @apply flex items-center justify-between border-b border-black/20 pb-6; }
-  .cart-title h2 { @apply m-0 text-2xl; }
-  .cart-title h2 span { @apply align-top text-xs text-black/50; }
-  .empty-cart { @apply m-auto flex flex-col items-center gap-5 text-black/45; }
-  .empty-cart button { @apply border-b border-black pb-1 text-ink; }
-  .cart-items { @apply flex-1 overflow-y-auto py-5; }
-  .cart-item { @apply grid grid-cols-[86px_1fr_30px] items-center gap-4 border-b border-black/10 py-4; }
-  .cart-item .product-art { @apply h-[105px]; }
-  .cart-item > div > span { @apply text-[9px] text-black/40; }
-  .cart-item h3 { @apply mb-3 mt-1 text-sm font-medium; }
-  .cart-item strong { @apply text-xs; }
-  .cart-summary { @apply border-t border-black/20 pt-6; }
-  .cart-summary > div { @apply flex justify-between text-lg; }
-  .cart-summary small { @apply mt-2 block text-[10px] text-black/45; }
-  .cart-summary > button { @apply mt-6 flex w-full items-center justify-center gap-3 bg-[#1b1d18] py-4 text-sm text-white; }
-}
-
-@media (max-width: 900px) {
-  .shop-hero-content { @apply grid-cols-1 pt-16; }
-  .shop-hero-content > div:first-child { @apply py-8; }
-  .product-grid { @apply grid-cols-2; }
-  .shop-story { @apply grid-cols-1; }
-  .story-copy { @apply min-h-[520px] px-[8vw]; }
-  .shop-footer { @apply grid-cols-2; }
-}
-
-@media (max-width: 600px) {
-  .shop-hero { @apply px-5 pb-16; }
-  .shop-nav nav { @apply hidden; }
-  .shop-hero-content { @apply min-h-0 gap-6; }
-  .shop-hero-content h1 { @apply text-[13vw]; }
-  .hero-product-photo { @apply h-[115vw] min-h-0; }
-  .product-section { @apply px-5 py-20; }
-  .product-heading { @apply items-start; }
-  .product-heading p { @apply hidden; }
-  .category-row { @apply gap-2 overflow-x-auto; }
-  .category-row button { @apply shrink-0 px-4; }
-  .product-grid { @apply grid-cols-1; }
-  .quick-add { @apply translate-y-0 opacity-100; }
-  .story-visual { @apply min-h-[480px]; }
-  .story-visual > span { @apply text-[10rem]; }
-  .shop-footer { @apply grid-cols-1 px-5; }
+  /* 얇은 종이 결 */
+  .shop-paper {
+    background-image: radial-gradient(color-mix(in oklab, var(--color-shop-ink) 5%, transparent) 0.5px, transparent 0.5px);
+    background-size: 6px 6px;
+  }
 }

@@ -1,0 +1,107 @@
+/* HAVN 스테이 전용 스타일. 토큰은 app/styles/theme.css의 stay-* */
+@reference "../../app/styles/index.css";
+
+@layer theme, base, components, utilities;
+
+@layer components {
+  /* 가늘고 긴 세리프 헤드라인 */
+  .stay-display {
+    font-family: var(--font-cormorant);
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    line-height: 1;
+  }
+
+  .stay-display em,
+  .stay-italic {
+    font-family: var(--font-cormorant);
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  .stay-eyebrow {
+    @apply text-[11px] font-medium tracking-[0.26em] text-stay-muted uppercase;
+  }
+
+  .stay-link {
+    @apply relative inline-flex items-center gap-1.5;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    transition: background-size 0.5s var(--ease-site);
+  }
+
+  .stay-link:hover,
+  .stay-link.active {
+    background-size: 100% 1px;
+  }
+
+  .stay-card img {
+    transition: transform 1.4s var(--ease-site);
+  }
+
+  .stay-card:hover img {
+    transform: scale(1.04);
+  }
+
+  .stay-enter {
+    animation: fade 0.7s var(--ease-site) both;
+  }
+
+  .stay-button {
+    @apply inline-flex h-12 items-center justify-center gap-2 rounded-full bg-stay-ink px-6 text-sm font-medium tracking-wide text-stay-bg transition hover:bg-stay-moss disabled:cursor-not-allowed disabled:opacity-40;
+  }
+
+  .stay-button-light {
+    @apply inline-flex h-12 items-center justify-center gap-2 rounded-full bg-stay-bg px-6 text-sm font-medium tracking-wide text-stay-ink transition hover:bg-white;
+  }
+
+  .stay-button-ghost {
+    @apply inline-flex h-12 items-center justify-center gap-2 rounded-full border border-stay-line px-6 text-sm font-medium tracking-wide text-stay-ink transition hover:border-stay-ink;
+  }
+
+  .stay-field {
+    @apply h-12 w-full rounded-xl border border-stay-line bg-stay-surface px-4 text-sm text-stay-ink outline-none transition placeholder:text-stay-muted/70 focus:border-stay-ink;
+  }
+
+  /* 사진 위 글자가 읽히도록 아래에서 올라오는 그늘 */
+  .stay-shade {
+    background: linear-gradient(to top, rgba(12, 16, 14, 0.75) 0%, rgba(12, 16, 14, 0.25) 45%, rgba(12, 16, 14, 0) 100%);
+  }
+
+  /* 가로로 흐르는 경험 스트립: 스크롤바를 숨긴다 */
+  .stay-strip {
+    scrollbar-width: none;
+    scroll-snap-type: x mandatory;
+  }
+
+  .stay-strip::-webkit-scrollbar {
+    display: none;
+  }
+
+  .stay-strip > * {
+    scroll-snap-align: start;
+  }
+
+  /* 달력 날짜 셀 */
+  .stay-day {
+    @apply grid aspect-square place-items-center rounded-full text-sm text-stay-ink transition;
+  }
+
+  .stay-day:not(:disabled):hover {
+    @apply bg-stay-sunken;
+  }
+
+  .stay-day:disabled {
+    @apply cursor-not-allowed text-stay-line;
+  }
+
+  .stay-day.is-edge {
+    @apply bg-stay-ink text-stay-bg;
+  }
+
+  .stay-day.is-between {
+    @apply rounded-none bg-stay-moss-soft;
+  }
+}

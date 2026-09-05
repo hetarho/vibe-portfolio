@@ -1,1 +1,7 @@
-export { StudioPage } from './ui/StudioPage'
+export { StudioAboutPage } from './ui/StudioAboutPage'
+export { StudioContactPage } from './ui/StudioContactPage'
+export { StudioHomePage } from './ui/StudioHomePage'
+export { StudioJournalDetailPage, StudioJournalPage } from './ui/StudioJournalPage'
+export { StudioLayout } from './ui/StudioLayout'
+export { StudioWorkDetailPage } from './ui/StudioWorkDetailPage'
+export { StudioWorkPage } from './ui/StudioWorkPage'

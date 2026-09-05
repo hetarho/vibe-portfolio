@@ -7,16 +7,52 @@
   --font-sans: "Wanted Sans Variable", "Wanted Sans", Pretendard, "Noto Sans KR", system-ui, sans-serif;
 
   /* ─────────────────────────────────────────────────────────
-     레거시: 포트폴리오 예시 사이트 3종(studio/shop/quiz) 전용
-     font-display(=Arial Narrow)는 그 사이트들의 압축 헤드라인 전용이라
-     기본 글꼴 교체 대상에서 제외한다.
+     포트폴리오 사이트 3종(studio/shop/stay) 전용 토큰
+     각 사이트는 자기 접두사 토큰만 쓴다. 글꼴 실물은 index.html의 Google Fonts.
      ───────────────────────────────────────────────────────── */
-  --font-display: "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
   --color-ink: #151612;
   --color-paper: #f2f0e9;
-  --color-coral: #ff5e45;
-  --color-shop: #f3eee4;
-  --color-purple: #7255f7;
+
+  --font-grotesk: "Bricolage Grotesque", "Wanted Sans Variable", system-ui, sans-serif;
+  --font-editorial: "Instrument Serif", "Cormorant Garamond", Georgia, serif;
+  --font-fraunces: "Fraunces", "Cormorant Garamond", Georgia, serif;
+  --font-cormorant: "Cormorant Garamond", "Fraunces", Georgia, serif;
+
+  /* 01 MORROW: 검은 무대 위 한 점의 주홍 */
+  --color-studio-bg: #0b0b0a;
+  --color-studio-surface: #141412;
+  --color-studio-raised: #1d1d1a;
+  --color-studio-ink: #f1eee6;
+  --color-studio-muted: #8d897f;
+  --color-studio-line: #262622;
+  --color-studio-accent: #ff5a2d;
+
+  /* 02 OHAU: 따뜻한 종이와 테라코타 */
+  --color-shop-bg: #f4efe6;
+  --color-shop-surface: #fbf8f2;
+  --color-shop-sunken: #ebe4d8;
+  --color-shop-ink: #1e1c18;
+  --color-shop-muted: #7a7368;
+  --color-shop-line: #ddd5c8;
+  --color-shop-accent: #b8552f;
+  --color-shop-deep: #2a2521;
+
+  /* 03 HAVN: 뼛빛 바탕과 깊은 이끼색 */
+  --color-stay-bg: #f1ece4;
+  --color-stay-surface: #f8f5ef;
+  --color-stay-sunken: #e6dfd3;
+  --color-stay-ink: #191d1b;
+  --color-stay-muted: #6e746f;
+  --color-stay-line: #d9d2c5;
+  --color-stay-moss: #2f4a3f;
+  --color-stay-moss-soft: #dfe6df;
+  --color-stay-sand: #c9b79a;
+  --color-stay-deep: #131916;
+
+  --ease-site: cubic-bezier(0.22, 1, 0.36, 1);
+  --animate-kenburns: kenburns 18s var(--ease-site) both;
+  --animate-marquee: marquee 28s linear infinite;
+  --animate-marquee-slow: marquee 48s linear infinite;
 
   /* ═════════════════════════════════════════════════════════
      강의(lesson) 디자인 시스템 — 자세한 규칙은 src/pages/lesson/DESIGN.md

@@ -3,9 +3,36 @@ import { useEffect } from 'react'
 import { HomePage } from '@/pages/home'
 import { LessonDeckPage, LessonSelectPage } from '@/pages/lesson'
 import { PortfolioIndexPage } from '@/pages/portfolio-index'
-import { QuizPage } from '@/pages/quiz'
-import { ShopPage } from '@/pages/shop'
-import { StudioPage } from '@/pages/studio'
+import {
+  ShopAboutPage,
+  ShopCheckoutPage,
+  ShopCollectionPage,
+  ShopHomePage,
+  ShopJournalDetailPage,
+  ShopJournalPage,
+  ShopLayout,
+  ShopProductPage,
+} from '@/pages/shop'
+import {
+  StayBookPage,
+  StayDiningPage,
+  StayExperiencesPage,
+  StayHomePage,
+  StayLayout,
+  StayRoomDetailPage,
+  StayRoomsPage,
+  StayStoryPage,
+} from '@/pages/stay'
+import {
+  StudioAboutPage,
+  StudioContactPage,
+  StudioHomePage,
+  StudioJournalDetailPage,
+  StudioJournalPage,
+  StudioLayout,
+  StudioWorkDetailPage,
+  StudioWorkPage,
+} from '@/pages/studio'
 import { pageInfo, portfolioRootPath } from '@/shared/config/portfolio'
 import { PortfolioLayout } from './PortfolioLayout'
 
@@ -75,39 +102,80 @@ const portfolioIndexRoute = createRoute({
   component: PortfolioIndexRoute,
 })
 
-/** 사이트 3종만 공통 헤더를 쓴다 (목록 화면은 헤더 없이 단독) */
+/** 사이트 3종은 공통 레이아웃(작품 스위처)을 쓴다. 목록 화면은 단독 */
 const portfolioSiteRoute = createRoute({
   getParentRoute: () => portfolioRoute,
   id: 'portfolio-site',
   component: PortfolioLayout,
 })
 
-function StudioRoute() {
-  const navigate = useNavigate()
-  const openShop = () => {
-    void navigate({ to: pageInfo.shop.path })
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
-  return <StudioPage onNext={openShop} />
-}
+/* 01 MORROW: 브랜드 스튜디오 */
 
 const studioRoute = createRoute({
   getParentRoute: () => portfolioSiteRoute,
   path: 'studio',
-  component: StudioRoute,
+  component: StudioLayout,
 })
+
+const studioHomeRoute = createRoute({ getParentRoute: () => studioRoute, path: '/', component: StudioHomePage })
+const studioWorkRoute = createRoute({ getParentRoute: () => studioRoute, path: 'work', component: StudioWorkPage })
+const studioWorkDetailRoute = createRoute({
+  getParentRoute: () => studioRoute,
+  path: 'work/$slug',
+  component: () => <StudioWorkDetailPage slug={studioWorkDetailRoute.useParams().slug} />,
+})
+const studioAboutRoute = createRoute({ getParentRoute: () => studioRoute, path: 'about', component: StudioAboutPage })
+const studioJournalRoute = createRoute({ getParentRoute: () => studioRoute, path: 'journal', component: StudioJournalPage })
+const studioJournalDetailRoute = createRoute({
+  getParentRoute: () => studioRoute,
+  path: 'journal/$slug',
+  component: () => <StudioJournalDetailPage slug={studioJournalDetailRoute.useParams().slug} />,
+})
+const studioContactRoute = createRoute({ getParentRoute: () => studioRoute, path: 'contact', component: StudioContactPage })
+
+/* 02 OHAU: 오브제 숍 */
 
 const shopRoute = createRoute({
   getParentRoute: () => portfolioSiteRoute,
   path: 'shop',
-  component: ShopPage,
+  component: ShopLayout,
 })
 
-const quizRoute = createRoute({
-  getParentRoute: () => portfolioSiteRoute,
-  path: 'quiz',
-  component: QuizPage,
+const shopHomeRoute = createRoute({ getParentRoute: () => shopRoute, path: '/', component: ShopHomePage })
+const shopCollectionRoute = createRoute({ getParentRoute: () => shopRoute, path: 'collection', component: ShopCollectionPage })
+const shopProductRoute = createRoute({
+  getParentRoute: () => shopRoute,
+  path: 'product/$id',
+  component: () => <ShopProductPage id={shopProductRoute.useParams().id} />,
 })
+const shopJournalRoute = createRoute({ getParentRoute: () => shopRoute, path: 'journal', component: ShopJournalPage })
+const shopJournalDetailRoute = createRoute({
+  getParentRoute: () => shopRoute,
+  path: 'journal/$slug',
+  component: () => <ShopJournalDetailPage slug={shopJournalDetailRoute.useParams().slug} />,
+})
+const shopAboutRoute = createRoute({ getParentRoute: () => shopRoute, path: 'about', component: ShopAboutPage })
+const shopCheckoutRoute = createRoute({ getParentRoute: () => shopRoute, path: 'checkout', component: ShopCheckoutPage })
+
+/* 03 HAVN: 스테이 */
+
+const stayRoute = createRoute({
+  getParentRoute: () => portfolioSiteRoute,
+  path: 'stay',
+  component: StayLayout,
+})
+
+const stayHomeRoute = createRoute({ getParentRoute: () => stayRoute, path: '/', component: StayHomePage })
+const stayRoomsRoute = createRoute({ getParentRoute: () => stayRoute, path: 'rooms', component: StayRoomsPage })
+const stayRoomDetailRoute = createRoute({
+  getParentRoute: () => stayRoute,
+  path: 'rooms/$slug',
+  component: () => <StayRoomDetailPage slug={stayRoomDetailRoute.useParams().slug} />,
+})
+const stayExperiencesRoute = createRoute({ getParentRoute: () => stayRoute, path: 'experiences', component: StayExperiencesPage })
+const stayDiningRoute = createRoute({ getParentRoute: () => stayRoute, path: 'dining', component: StayDiningPage })
+const stayStoryRoute = createRoute({ getParentRoute: () => stayRoute, path: 'story', component: StayStoryPage })
+const stayBookRoute = createRoute({ getParentRoute: () => stayRoute, path: 'book', component: StayBookPage })
 
 /* ── 강의 ─────────────────────────────────────────────────── */
 
@@ -179,7 +247,35 @@ const routeTree = rootRoute.addChildren([
   homeRoute,
   portfolioRoute.addChildren([
     portfolioIndexRoute,
-    portfolioSiteRoute.addChildren([studioRoute, shopRoute, quizRoute]),
+    portfolioSiteRoute.addChildren([
+      studioRoute.addChildren([
+        studioHomeRoute,
+        studioWorkRoute,
+        studioWorkDetailRoute,
+        studioAboutRoute,
+        studioJournalRoute,
+        studioJournalDetailRoute,
+        studioContactRoute,
+      ]),
+      shopRoute.addChildren([
+        shopHomeRoute,
+        shopCollectionRoute,
+        shopProductRoute,
+        shopJournalRoute,
+        shopJournalDetailRoute,
+        shopAboutRoute,
+        shopCheckoutRoute,
+      ]),
+      stayRoute.addChildren([
+        stayHomeRoute,
+        stayRoomsRoute,
+        stayRoomDetailRoute,
+        stayExperiencesRoute,
+        stayDiningRoute,
+        stayStoryRoute,
+        stayBookRoute,
+      ]),
+    ]),
   ]),
   lessonRoute.addChildren([lessonIndexRoute, lessonDeckRoute]),
 ])
