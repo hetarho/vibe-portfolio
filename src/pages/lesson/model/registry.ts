@@ -7,6 +7,7 @@ import { gitReadingForFounderDeck } from '../content/git-reading-for-founder'
 import { mvpLifecycleForFounderDeck } from '../content/mvp-lifecycle-for-founder'
 import { personalAiAgentsDeck } from '../content/personal-ai-agents'
 import { vibeCodingFirstAppDeck } from '../content/vibe-coding-first-app'
+import { codeThinkingBasicsDeck } from '../content/code-thinking-basics'
 
 export type Lesson = {
   /** URL에 쓰이는 값 — /lesson/{id} */
@@ -29,6 +30,23 @@ export type Lesson = {
 
 /** 강의 목록. 새 강의를 추가하려면 content/ 아래에 덱을 만들고 이 배열에 한 줄 추가한다. */
 export const lessons: Lesson[] = [
+  {
+    id: 'code-thinking-basics',
+    version: 'V2',
+    title: '문법을 묶는 개념과 공부법',
+    subtitle: '“프로그램은 상태를 바꾸는 절차다” 하나로 묶고, 사고 도구 넷과 하루 30분 루틴까지',
+    audience: '1대1 · 자바 기초 과정 수강생 · 기초 1회차',
+    duration: '2시간 · 24화면 · 1회차',
+    outline: [
+      '어려웠던 이유 · 재인과 재생, 그리고 묶이지 않은 조각들',
+      '이미 갖고 있는 것 · 수학적 사고는 계산이 아니다',
+      '사고방식 · 개념 하나와 도구 넷(분해·경우·불변식·작은 경우)',
+      '공부법 · 꺼내는 연습만 공부로 세는 기준',
+      '앞으로의 길 · 지금 배우는 것이 이어지는 자리',
+      '남는 시간에 도구를 문제 하나에 적용',
+    ],
+    deck: codeThinkingBasicsDeck,
+  },
   {
     id: 'agent-basics-for-researcher',
     version: 'V2',

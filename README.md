@@ -78,6 +78,7 @@ FSD의 상위 레이어가 하위 레이어를 참조하는 의존 방향을 따
 | `code-reading-for-pm` | 미국 거주 · PM 지망 대학생 | 실제 레포의 PR 하나를 읽고 "무엇이·왜·위험은" 3문장으로 요약 |
 | `git-reading-for-founder` | AI로 웹서비스를 운영하는 비개발자 창업자 | "반영이 안 돼요"를 6단계로 진단하고 안전한 복구 지시 |
 | `mvp-lifecycle-for-founder` | MVP를 만들려는 비개발자 창업자 | 기획→운영 한 바퀴를 강사의 15분 예시 레포로 깊게 배우고, 내 아이디어로 빈 폴더에서 배포까지 8단계 혼자 완주 |
+| `code-thinking-basics` | 자바 기초 과정 수강생 · 기초 1회차 | 배운 문법 전부를 개념 하나로 묶고(상태와 변화), 사고 도구 넷과 하루 30분 공부법까지 |
 
 세 강의 모두 마지막에 **복사해 가는 프롬프트**로 끝납니다. 복사 버튼은
 [`content/shared/ui/PromptCopyButton.tsx`](src/pages/lesson/content/shared/ui/PromptCopyButton.tsx) 하나뿐이고,
