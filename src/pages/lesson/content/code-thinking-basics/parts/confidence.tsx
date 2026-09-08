@@ -54,8 +54,8 @@ const NOT_NEEDED = ['암산과 빠른 계산', '공식 암기', '증명 쓰기',
 
 const NEEDED = [
   { head: '정의를 정확히 읽기', detail: '“이상”과 “초과”를 구분하는 그 정도' },
-  { head: '이름을 붙여 다루기', detail: '모르는 값에 이름을 주고 그 이름으로 말하기' },
-  { head: '경우를 빠뜨리지 않기', detail: '갈래를 다 세었는지 확인하기' },
+  { head: '이름을 붙여 다루기', detail: '모르는 값에 이름을 붙이고 그 이름으로 말하기' },
+  { head: '경우를 빠뜨리지 않기', detail: '갈래를 다 짚었는지 확인하기' },
   { head: '항상 참인 것 찾기', detail: '무엇이 변하지 않는지 아는 것' },
   { head: '작은 경우로 확인하기', detail: '하나일 때, 없을 때 넣어 보기' },
 ]
@@ -67,7 +67,7 @@ export function MathSlide() {
       <SlideKicker>PART 2 · 이미 갖고 있는 것</SlideKicker>
       <SlideHeadline>여기서 말하는 수학적 사고는 계산이 아닙니다</SlideHeadline>
       <SlideLead>
-        학교 수학에서 점수를 가르던 능력과, 프로그래밍에서 쓰는 능력이 서로 다릅니다. 그래서 예전 성적으로 예측되지 않습니다.
+        학교 수학에서 점수를 가르던 능력과, 프로그래밍에서 쓰는 능력이 서로 다릅니다. 그래서 예전 성적으로는 예측할 수 없습니다.
       </SlideLead>
 
       <CompareGrid>
@@ -93,7 +93,7 @@ export function MathSlide() {
       </CompareGrid>
 
       <SlideNote tone="quiet">
-        다섯 개 중 셋을 <Mark>3부에서 도구로</Mark> 만듭니다 · 나머지 둘은 오늘 실습에서 씁니다
+        다섯 가지 중 셋을 <Mark>3부에서 도구로</Mark> 만듭니다 · 나머지 둘은 오늘 실습에서 씁니다
       </SlideNote>
     </SlideLayout>
   )
@@ -116,7 +116,7 @@ export function StairsSlide() {
       <SlideHeadline>
         1번 다음이 곧바로 6번이면 <Mark>계단이 없습니다</Mark>
       </SlideHeadline>
-      <SlideLead>수업은 1번을 보여준 다음 6번을 요구합니다. 사이의 네 칸은 혼자 놓아야 합니다.</SlideLead>
+      <SlideLead>수업은 1번을 보여준 다음 6번을 요구합니다. 그 사이 네 칸은 혼자 놓아야 합니다.</SlideLead>
 
       <div className="grid gap-3 md:gap-4 lg:grid-cols-6">
         {STAIRS.map((step, index) => (

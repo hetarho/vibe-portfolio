@@ -11,7 +11,7 @@ export function JudgeSlide() {
     <SlideLayout align="top">
       <SlideKicker>PART 4 · 공부법</SlideKicker>
       <SlideHeadline>
-        <Mark>꺼내는 연습</Mark>만 공부로 셉니다
+        <Mark>꺼내는 연습</Mark>만 공부로 칩니다
       </SlideHeadline>
       <SlideLead>
         1부에서 두 능력이 따로 자란다고 했습니다. 그러면 공부법을 고르는 기준도 하나로 정해집니다. 꺼내는 쪽을 쓰는지만
@@ -154,7 +154,7 @@ export function LogSlide() {
             </div>
           ))}
           <p className="text-deck-caption text-content-secondary">
-            세 개를 소리 내어 답할 수 있으면 그 문제는 끝난 것입니다.
+            셋 다 소리 내어 답할 수 있으면 그 문제는 끝난 것입니다.
           </p>
         </Panel>
       </div>
@@ -190,7 +190,7 @@ export function DailySlide() {
       </div>
 
       <SlideNote tone="quiet">
-        첫 <Mark>10분</Mark>이 가장 중요합니다 · 새 것을 열기 전에 어제 것을 꺼냅니다
+        첫 <Mark>10분</Mark>이 가장 중요합니다 · 새 것에 손대기 전에 어제 것을 꺼냅니다
       </SlideNote>
     </SlideLayout>
   )

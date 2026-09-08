@@ -30,7 +30,7 @@ export function StateSlide() {
       </CompareGrid>
 
       <SlideNote tone="quiet">
-        문제를 볼 때 물을 것도 두 개뿐입니다 · <Mark>무엇을 기억하고, 그것을 어떻게 바꾸는가</Mark>
+        문제를 볼 때 물어볼 것도 두 개뿐입니다 · <Mark>무엇을 기억하고, 그것을 어떻게 바꾸는가</Mark>
       </SlideNote>
     </SlideLayout>
   )
@@ -44,7 +44,7 @@ export function UnifiedSlide() {
       <SlideHeadline>
         스물네 개가 <Mark>한 개</Mark>로 묶입니다
       </SlideHeadline>
-      <SlideLead>지금까지 배운 문법은 전부 상태를 담거나 바꾸는 방법입니다. 그것 말고 하는 일이 없습니다.</SlideLead>
+      <SlideLead>지금까지 배운 문법은 전부 상태를 담거나 바꾸는 방법입니다. 그것 말고는 하는 일이 없습니다.</SlideLead>
 
       <Panel tone="raised" pad="md" className="flex flex-col gap-2 overflow-x-auto">
         {UNIFIED.map((row, index) => (
@@ -62,7 +62,7 @@ export function UnifiedSlide() {
       </Panel>
 
       <SlideNote tone="quiet">
-        앞으로 나올 <Mark>상속과 다형성도</Mark> 이 표의 아래에 붙습니다 · 새 칸이 생기는 게 아닙니다
+        앞으로 나올 <Mark>상속과 다형성도</Mark> 이 표 아래에 붙습니다 · 새 칸이 생기는 게 아닙니다
       </SlideNote>
     </SlideLayout>
   )
@@ -77,7 +77,7 @@ export function DecomposeSlide() {
         지문에서 <Mark>명사와 동사</Mark>만 뽑습니다
       </SlideHeadline>
       <SlideLead>
-        상태는 명사로 쓰여 있고 변화는 동사로 쓰여 있습니다. 그래서 지문을 두 번 읽으면 절차가 거의 나옵니다.
+        상태는 명사로 쓰여 있고 변화는 동사로 쓰여 있습니다. 그래서 지문을 두 번 읽으면 절차가 거의 다 나옵니다.
       </SlideLead>
 
       <div className="grid items-stretch gap-4 md:gap-6 lg:grid-cols-9">
@@ -158,7 +158,7 @@ export function CasesSlide() {
 
       <CompareGrid>
         <Panel tone="sunken" pad="md" className="flex flex-col gap-3">
-          <PanelLabel>겹치는 나눔</PanelLabel>
+          <PanelLabel>겹치는 나누기</PanelLabel>
           {CASES_DEMO.wrong.map((c) => (
             <p key={c} className="text-deck-body text-content-muted">
               · {c}
@@ -167,7 +167,7 @@ export function CasesSlide() {
           <p className="text-deck-caption text-content-muted">기준이 두 개라서 한 상황이 여러 갈래에 들어갑니다.</p>
         </Panel>
         <Panel tone="raised" pad="md" className="flex flex-col gap-3">
-          <PanelLabel>겹치지 않는 나눔</PanelLabel>
+          <PanelLabel>겹치지 않는 나누기</PanelLabel>
           {CASES_DEMO.right.map((c) => (
             <p key={c} className="text-deck-body font-semibold text-content-strong">
               · {c}
@@ -207,7 +207,7 @@ export function InvariantSlide() {
           <Panel tone="sunken" pad="md" className="flex flex-col gap-2">
             <PanelLabel>{INVARIANT_DEMO.problem}</PanelLabel>
             <p className="text-deck-body font-bold text-content-strong">
-              그릇 <span className="font-mono">{INVARIANT_DEMO.bowl}</span> 의 뜻 · {INVARIANT_DEMO.meaning}
+              그릇 <span className="font-mono">{INVARIANT_DEMO.bowl}</span>의 뜻 · {INVARIANT_DEMO.meaning}
             </p>
           </Panel>
           <Panel tone="raised" pad="md" className="flex flex-col gap-2 overflow-x-auto">
@@ -260,7 +260,7 @@ export function SmallCaseSlide() {
 
       <SlideBody>
         도구가 넷이 되었습니다. 분해로 시작하고, 경우를 나누고, 그릇의 뜻을 정하고, 작은 경우로 확인합니다. 오늘 이후
-        모든 문제에 이 순서를 씁니다.
+        모든 문제를 이 순서대로 풉니다.
       </SlideBody>
     </SlideLayout>
   )

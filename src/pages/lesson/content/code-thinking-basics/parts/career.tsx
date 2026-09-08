@@ -8,7 +8,7 @@ export function PathSlide() {
       <SlideKicker>PART 5 · 앞으로의 길</SlideKicker>
       <SlideHeadline>지금 배우는 것이 어느 자리로 이어지는지</SlideHeadline>
       <SlideLead>
-        과정의 순서는 임의로 정한 것이 아닙니다. 하나의 서비스가 돌아가려면 필요한 층을 아래에서 위로 쌓는 순서입니다.
+        과정의 순서는 임의로 정한 것이 아닙니다. 서비스 하나가 돌아가려면 필요한 층을 아래에서 위로 쌓는 순서입니다.
       </SlideLead>
 
       <div className="grid gap-3 md:gap-4 lg:grid-cols-4">
@@ -69,7 +69,7 @@ export function NeedsSlide() {
       </div>
 
       <SlideBody>
-        세 개 모두 오늘 배운 것으로 만들어집니다. 절차를 정해 만들고, 그릇의 뜻을 말로 설명하고, 남의 코드를 상태와
+        세 개 모두 오늘 배운 것에서 나옵니다. 절차를 정해 만들고, 그릇의 뜻을 말로 설명하고, 남의 코드를 상태와
         변화로 읽습니다.
       </SlideBody>
     </SlideLayout>
@@ -112,7 +112,7 @@ export function AiShiftSlide() {
         ))}
       </CompareGrid>
 
-      <SlideNote>다음 회차에서 AI를 쓰는 법을 다룹니다 · 오늘 잡은 판단을 대신 맡기지 않는 선에서</SlideNote>
+      <SlideNote>오늘 마지막에 AI로 복습하는 도구를 하나 드립니다 · 판단하는 쪽을 기르는 도구입니다</SlideNote>
     </SlideLayout>
   )
 }

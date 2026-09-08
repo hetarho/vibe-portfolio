@@ -8,9 +8,9 @@
 
 /** 무엇이 재생을 훈련하는가 — 같은 시간을 써도 결과가 갈리는 판정 */
 export const STUDY_JUDGE = [
-  { act: '강의를 다시 본다', trains: false, why: '알아보는 쪽만 자란다 · 이해된 느낌이 강해서 착각하기 쉽다' },
+  { act: '강의를 다시 본다', trains: false, why: '알아보는 쪽만 자란다 · 이해했다는 느낌이 강해서 착각하기 쉽다' },
   { act: 'PPT에 형광펜을 칠한다', trains: false, why: '표시가 남을 뿐 꺼내는 연습이 아니다' },
-  { act: '코드를 보고 따라 친다', trains: false, why: '손은 익지만 스스로 떠올리는 부분이 없다' },
+  { act: '코드를 보고 따라 친다', trains: false, why: '손에는 익지만 스스로 떠올리는 부분이 없다' },
   { act: '덮고 백지에 다시 쓴다', trains: true, why: '꺼내는 그 동작 자체가 훈련이다' },
   { act: '문제를 보고 절차부터 적는다', trains: true, why: '기억에서 구조를 꺼낸다' },
   { act: '남에게 설명한다', trains: true, why: '설명이 막히는 지점이 곧 모르는 지점이다' },
@@ -46,7 +46,7 @@ export const EXPLAIN_CHECKS = [
 
 /** 하루 30분 · 요일 배분 */
 export const DAILY = [
-  { time: '10분', head: '어제 것 꺼내기', detail: '덮고 절차만 다시 쓴다 · 새 문제를 열지 않는다' },
+  { time: '10분', head: '어제 것 꺼내기', detail: '덮고 절차만 다시 쓴다 · 새 문제로 넘어가지 않는다' },
   { time: '15분', head: '오늘 문제 하나', detail: '절차를 먼저 쓰고 한 줄씩 옮긴다' },
   { time: '5분', head: '막힌 지점 세 줄', detail: '무엇을 하려다 어디서 멈췄고 무엇으로 풀렸는지' },
 ]

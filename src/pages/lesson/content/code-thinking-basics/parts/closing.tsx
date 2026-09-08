@@ -41,11 +41,11 @@ export function ApplySlide() {
   )
 }
 
-/** B24. 오늘 정리 · 이번 주 · 다음 회차 */
+/** B24. 오늘 정리 · 이번 주 */
 export function ClosingSlide() {
   return (
     <SlideLayout align="top">
-      <SlideKicker>PART 6 · 마무리</SlideKicker>
+      <SlideKicker>PART 6 · 오늘 정리</SlideKicker>
       <SlideHeadline>
         오늘 가져가는 것은 <Mark>문장 하나와 도구 넷</Mark>입니다
       </SlideHeadline>
@@ -94,8 +94,8 @@ export function ClosingSlide() {
       </div>
 
       <SlideBody>
-        다음 회차에서는 AI를 개인교사로 쓰는 법을 다룹니다. 오늘 잡은 판단을 대신 맡기지 않는 선에서, 설명하게 하고
-        채점하게 하는 방법입니다.
+        이 세 가지를 혼자 하기 어려우면 다음 파트에서 도구를 하나 드립니다. 오늘 받은 PPT를 그대로 문제집으로 바꿔
+        주는 프롬프트입니다.
       </SlideBody>
     </SlideLayout>
   )

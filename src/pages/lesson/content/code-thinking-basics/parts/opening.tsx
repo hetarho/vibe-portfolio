@@ -4,10 +4,11 @@ import { CompareGrid, Mark, Panel, PanelLabel, SlideBody, SlideHeadline, SlideKi
 const AGENDA = [
   { no: '1', head: '어려웠던 이유', detail: '능력이 아니라 구조 · 4화면' },
   { no: '2', head: '이미 갖고 있는 것', detail: '세 가지 능력과 계단 · 3화면' },
-  { no: '3', head: '사고방식', detail: '오늘의 뼈대 · 개념 하나와 도구 세 개 · 6화면' },
+  { no: '3', head: '사고방식', detail: '오늘의 뼈대 · 개념 하나와 도구 네 개 · 6화면' },
   { no: '4', head: '공부법', detail: '무엇이 공부이고 무엇이 아닌가 · 5화면' },
   { no: '5', head: '앞으로의 길', detail: '지금 배우는 것이 어디로 이어지는가 · 3화면' },
   { no: '6', head: '남는 시간 실습', detail: '배운 사고방식을 문제 하나에 · 2화면' },
+  { no: '7', head: '집에서 쓰는 도구', detail: 'PPT로 복습하는 프롬프트 · 3화면' },
 ]
 
 /** B1. 오늘 수업 목차 */
@@ -23,7 +24,7 @@ export function AgendaSlide() {
             <Mark>생각하는 순서</Mark>를 잡습니다
           </h1>
           <SlideBody>
-            진도는 수업에서 이미 나갑니다. 여기서는 그 문법들을 하나로 묶는 개념과, 혼자 공부할 때 쓰는 방법을 잡습니다.
+            진도는 수업에서 이미 나갑니다. 여기서는 그 문법을 하나로 묶는 개념과, 혼자 공부할 때 쓰는 방법을 잡습니다.
             오늘 잡아 두면 남은 과정 전체에 계속 쓰입니다.
           </SlideBody>
         </div>
@@ -65,7 +66,7 @@ export function PositionSlide() {
       <SlideHeadline>
         지금 어디까지 왔는지 <Mark>먼저 확인</Mark>합니다
       </SlideHeadline>
-      <SlideLead>코드를 배우면 두 가지 능력이 따로 자랍니다. 그리고 순서가 정해져 있습니다.</SlideLead>
+      <SlideLead>코드를 배우면 두 가지 능력이 따로 자랍니다. 순서도 정해져 있습니다.</SlideLead>
 
       <CompareGrid>
         <Panel tone="raised" pad="lg" className="flex flex-col gap-5">
@@ -96,7 +97,7 @@ export function PositionSlide() {
       </CompareGrid>
 
       <SlideNote tone="quiet">
-        이 두 능력의 간격을 <Mark>재인·재생 격차</Mark>라고 부릅니다 · 알려진 이름이 있는 정상 단계입니다
+        이 두 능력의 간격을 <Mark>재인·재생 격차</Mark>라고 부릅니다 · 이름이 붙어 있는 정상 단계입니다
       </SlideNote>
     </SlideLayout>
   )
@@ -117,7 +118,7 @@ export function NamedSlide() {
   return (
     <SlideLayout align="top">
       <SlideKicker>PART 1 · 어려웠던 이유</SlideKicker>
-      <SlideHeadline>어느 분야에서든 이 두 개를 따로 셉니다</SlideHeadline>
+      <SlideHeadline>어느 분야에서든 이 두 가지를 따로 구분합니다</SlideHeadline>
       <SlideLead>
         코딩에만 있는 일이 아닙니다. 그래서 이미 이름이 붙어 있고, 넘어가는 방법도 정리되어 있습니다.
       </SlideLead>
@@ -197,12 +198,12 @@ export function PiecesSlide() {
           <PanelLabel>지금 상태</PanelLabel>
           <p className="text-deck-lead font-bold text-content-strong">스물네 개를 스물네 개로 외우고 있다</p>
           <p className="text-deck-body text-content-secondary">
-            외울 것이 계속 늘어나기만 합니다. 진도가 빠른 게 아니라, 묶이지 않은 채로 쌓이는 것이 어려운 것입니다.
+            외울 것이 계속 늘어나기만 합니다. 진도가 빠른 게 아니라, 묶이지 않은 채로 쌓이는 것이 어렵습니다.
           </p>
         </Panel>
         <Panel tone="accentSoft" pad="lg" className="flex flex-col gap-3">
           <PanelLabel>3부에서 할 일</PanelLabel>
-          <p className="text-deck-lead font-bold text-content-strong">이 전부를 개념 하나 아래로 묶습니다</p>
+          <p className="text-deck-lead font-bold text-content-strong">이걸 전부 개념 하나 아래로 묶습니다</p>
           <p className="text-deck-body text-content-secondary">
             묶이면 외울 것이 스물네 개에서 한 개가 됩니다. 남은 과정에서 새 문법이 나와도 같은 자리에 붙습니다.
           </p>
