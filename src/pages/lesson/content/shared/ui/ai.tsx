@@ -1,4 +1,4 @@
-import { AlertTriangle, Code2, FileText, Microscope, Search, ThumbsUp } from 'lucide-react'
+import { Code2, Compass, FileText, Microscope, Search, Wrench } from 'lucide-react'
 import {
   CompareGrid,
   cx,
@@ -18,9 +18,10 @@ import {
  */
 
 const AI_FACTS = [
-  '규칙을 심은 게 아니라 사람의 글에서 배웠다. 그래서 정답표가 없다',
+  '사람이 쓴 글에서 통째로 배웠다. 그래서 정해진 정답표가 없다',
   '기능 목록이 없다. 말로 설명하는 만큼 일한다',
-  '학습 시점 이후의 일은 모른다. 검색과 자료로 보완한다',
+  '몇 해 전까지는 이게 전부였다. 채팅창 안에서 글만 주고받았다',
+  '지금은 검색하고 계산하고 파일까지 만드는 도구가 붙었다',
 ]
 
 const AI_NAMES = [
@@ -71,51 +72,58 @@ export function AiWhatSlide() {
   )
 }
 
-const AI_GOOD = [
-  '초안 만들기: 글 · 표 · 계획을 빈 화면보다 빨리',
-  '요약 · 번역 · 설명: 내 수준에 맞춘 과외',
-  '형식 바꾸기: 글을 표로, 표를 코드로',
-  '아이디어 넓히기: 반례와 빠진 것 찾아주기',
+const AI_SOLVED = [
+  {
+    before: '지어낸다',
+    after: '검색해서 읽고 출처까지 답니다. 그 출처를 열어보는 것은 여전히 사람 몫입니다',
+  },
+  { before: '계산과 개수를 틀린다', after: '직접 코드를 짜서 돌리고 결과를 가져옵니다' },
+  { before: '최신 정보를 모른다', after: '오늘 올라온 페이지도 열어서 읽습니다' },
+  { before: '글밖에 못 만든다', after: '표 · 문서 · 발표 파일을 직접 만듭니다' },
 ]
 
-const AI_RISK = [
-  '환각: 그럴듯한 거짓을 자신 있게 말한다',
-  '최신 정보와 좁은 전문 영역의 빈틈',
-  '계산과 개수 세기 실수',
-  '물을 때마다 조금씩 다른 답',
+const HUMAN_PART = [
+  { head: '무엇을 할지', body: '할 수 있는 일은 많습니다. 지금 해야 할 하나를 고르는 건 사람입니다' },
+  { head: '무엇이 완료인지', body: '어디까지 나와야 끝인지를 말해줘야 스스로 검사합니다' },
+  { head: '우리한테 맞는지', body: '사실이 맞더라도 우리 상황에 쓸 내용인지는 다른 질문입니다' },
 ]
 
-/** 공통 AI-2. 잘하는 것과 조심할 것 */
-export function AiProsConsSlide() {
+/** 공통 AI-2. 도구가 붙은 뒤 사람의 자리 */
+export function AiHumanRoleSlide() {
   return (
     <SlideLayout>
       <SlideKicker>개념 · AI란</SlideKicker>
-      <SlideHeadline>잘하는 일에 쓰고, 약점은 사람이 메웁니다</SlideHeadline>
+      <SlideHeadline>사람이 할 일은 틀린 것 찾기가 아닙니다</SlideHeadline>
 
       <CompareGrid>
         <Panel tone="raised" pad="lg" className="animate-rise-1 flex flex-col gap-4">
           <div className="flex items-center gap-4">
-            <ThumbsUp className="size-8 text-positive md:size-10" />
-            <PanelLabel>잘하는 것</PanelLabel>
+            <Wrench className="size-8 text-positive md:size-10" />
+            <PanelLabel>예전에 약점이라 부르던 것</PanelLabel>
           </div>
           <ul className="flex flex-col gap-3">
-            {AI_GOOD.map((item) => (
-              <li key={item} className="rounded-card bg-surface-sunken p-3 text-deck-caption font-semibold text-content-secondary inset-shadow-sunken md:p-4">
-                {item}
+            {AI_SOLVED.map((item) => (
+              <li
+                key={item.before}
+                className="rounded-card bg-surface-sunken p-3 inset-shadow-sunken md:p-4"
+              >
+                <p className="text-deck-caption font-semibold text-content-muted line-through">{item.before}</p>
+                <p className="text-deck-caption font-semibold text-content-primary">→ {item.after}</p>
               </li>
             ))}
           </ul>
         </Panel>
 
-        <Panel tone="raised" pad="lg" className="animate-rise-2 flex flex-col gap-4">
+        <Panel tone="accentSoft" pad="lg" className="animate-rise-2 flex flex-col gap-4">
           <div className="flex items-center gap-4">
-            <AlertTriangle className="size-8 text-caution md:size-10" />
-            <PanelLabel>조심할 것</PanelLabel>
+            <Compass className="size-8 text-accent md:size-10" />
+            <PanelLabel tone="accent">도구가 대신 못 하는 것</PanelLabel>
           </div>
           <ul className="flex flex-col gap-3">
-            {AI_RISK.map((item) => (
-              <li key={item} className="rounded-card bg-surface-sunken p-3 text-deck-caption font-semibold text-content-secondary inset-shadow-sunken md:p-4">
-                {item}
+            {HUMAN_PART.map((item) => (
+              <li key={item.head} className="rounded-card bg-surface-raised p-3 shadow-raised md:p-4">
+                <p className="text-deck-body font-bold text-content-strong">{item.head}</p>
+                <p className="text-deck-caption text-content-secondary">{item.body}</p>
               </li>
             ))}
           </ul>
@@ -123,7 +131,7 @@ export function AiProsConsSlide() {
       </CompareGrid>
 
       <SlideNote tone="quiet">
-        결론은 하나 · 중요한 것은 <Mark>반드시 사람이 검증</Mark>하고 씁니다
+        도구가 늘어날수록 · <Mark>무엇을 시킬지 정하는 일</Mark>이 더 중요해집니다
       </SlideNote>
     </SlideLayout>
   )

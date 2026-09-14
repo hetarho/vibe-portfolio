@@ -3,8 +3,8 @@ import {
   AgentInPracticeSlide,
   AgentLoopSlide,
   AgentWhatSlide,
+  AiHumanRoleSlide,
   AiInPracticeSlide,
-  AiProsConsSlide,
   AiWhatSlide,
 } from '../shared'
 import { AgendaSlide } from './parts/agenda'
@@ -51,7 +51,7 @@ export const agentBasicsForResearcherDeck: DeckDef = {
   slides: [
     { id: 'B1', part: PART.agenda, title: '오늘 수업 목차', component: AgendaSlide },
     { id: 'B2', part: PART.ai, title: '⭐ AI란 무엇인가', component: AiWhatSlide },
-    { id: 'B3', part: PART.ai, title: 'AI가 잘하는 것 · 조심할 것', component: AiProsConsSlide },
+    { id: 'B3', part: PART.ai, title: '⭐ AI와 사람의 자리', component: AiHumanRoleSlide },
     { id: 'B4', part: PART.ai, title: 'AI의 실무 사용', component: AiInPracticeSlide },
     { id: 'B5', part: PART.agent, title: '⭐ 에이전트란 무엇인가', component: AgentWhatSlide },
     { id: 'B6', part: PART.agent, title: '에이전트가 일하는 방식', component: AgentLoopSlide },
