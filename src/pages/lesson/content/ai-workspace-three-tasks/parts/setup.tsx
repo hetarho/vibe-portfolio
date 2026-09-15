@@ -1,15 +1,4 @@
-import {
-  AlertTriangle,
-  AppWindow,
-  Coffee,
-  FolderCog,
-  Globe2,
-  MousePointerClick,
-  PackageCheck,
-  PanelRight,
-  Puzzle,
-  ShieldCheck,
-} from 'lucide-react'
+import { AppWindow, Coffee, FolderKanban, Globe2, PackageCheck, Puzzle } from 'lucide-react'
 import { useState } from 'react'
 import {
   CheckRow,
@@ -26,66 +15,15 @@ import {
   SlideNote,
 } from '../../../deck'
 
-const ROOMS = [
-  {
-    icon: Globe2,
-    step: '재료가 들어오는 문',
-    head: '크롬 옆창',
-    body: '로그인해 둔 Zonta 회원 화면과 컨벤션 자료를 그대로 읽습니다',
-  },
-  {
-    icon: PanelRight,
-    step: '일이 벌어지는 책상',
-    head: 'Cowork',
-    body: '읽은 내용을 정리해 표와 문서와 PPT 파일로 만듭니다',
-  },
-  {
-    icon: FolderCog,
-    step: '결과가 쌓이는 서랍',
-    head: 'Zonta 폴더',
-    body: '근거표 · 조사보고 · PPT가 한 폴더에 남아 다음에 이어서 씁니다',
-  },
-]
-
-/** C13. 오늘 만들 작업실 */
-export function WorkshopMapSlide() {
-  return (
-    <SlideLayout>
-      <SlideKicker>작업실 세팅 · 앞으로 20분</SlideKicker>
-      <SlideHeadline>오늘 만드는 것은 방 하나입니다</SlideHeadline>
-
-      <div className="grid gap-4 md:gap-6 lg:grid-cols-3">
-        {ROOMS.map((room, index) => (
-          <Panel
-            key={room.head}
-            tone={index === 1 ? 'accentSoft' : 'raised'}
-            pad="lg"
-            className={cx('flex flex-col gap-4', `animate-rise-${index + 1}`)}
-          >
-            <room.icon className={cx('size-8 md:size-10', index === 1 ? 'text-accent' : 'text-content-muted')} />
-            <PanelLabel tone={index === 1 ? 'accent' : 'muted'}>{room.step}</PanelLabel>
-            <p className="text-deck-lead font-bold text-content-strong">{room.head}</p>
-            <p className="mt-auto text-deck-body text-content-secondary">{room.body}</p>
-          </Panel>
-        ))}
-      </div>
-
-      <SlideNote tone="quiet">
-        터미널은 열지 않습니다 · 오늘 하는 일은 전부 <Mark>앱에서 클릭</Mark>으로 끝납니다
-      </SlideNote>
-    </SlideLayout>
-  )
-}
-
 const PREPS = [
   { head: 'Claude 유료 플랜', hint: 'Cowork와 크롬 확장은 Pro 이상에서 열립니다' },
   { head: 'Claude 데스크톱 앱', hint: '클로드 코드와는 별개입니다. 이 앱을 따로 받아야 코워크가 열립니다' },
   { head: '구글 크롬', hint: '엣지 · 웨일 · 사파리에서는 확장이 동작하지 않습니다' },
-  { head: 'Zonta 폴더 하나', hint: '바탕화면에 “Zonta 2026” 같은 이름으로 새로 만듭니다' },
-  { head: '내부 자료 넣어두기', hint: '지난 발표 파일 · 회원 명단 · 지역 일정표를 그 폴더에' },
+  { head: '폴더 세 개', hint: '바탕화면에 재건축 · 오리엔테이션 · 법무상담으로 하나씩' },
+  { head: '가진 자료 넣어두기', hint: '공고문 · 지난 발표 파일 · 상담 메모를 각자 폴더에' },
 ]
 
-/** C14. 준비물 체크 */
+/** D12. 준비물 체크 */
 export function PrepCheckSlide() {
   const [checks, setChecks] = useState(() => PREPS.map(() => false))
   const toggle = (index: number) =>
@@ -120,21 +58,68 @@ export function PrepCheckSlide() {
   )
 }
 
+const PROJECTS = [
+  { name: '재건축', put: '공고문 · 분담금표 · 기한 메모', rule: '숫자에는 출처를 달고, 유리한 평형은 말하지 않는다' },
+  { name: '오리엔테이션', put: '지난 발표 파일 · 회원 명단 · 지역 일정', rule: '공식 출처와 우리 해석을 섞지 않는다' },
+  { name: '법무상담', put: '상담 메모 · 등기부 · 정관', rule: '들은 내용만 적고 법률 지식으로 채우지 않는다' },
+]
+
+/** D13. 프로젝트 세 개 만들기 */
+export function ProjectSetupSlide() {
+  return (
+    <SlideLayout>
+      <div className="flex flex-wrap items-end justify-between gap-4 md:gap-6">
+        <div className="flex flex-col gap-4">
+          <SlideKicker>작업실 세팅 · 2 / 4</SlideKicker>
+          <SlideHeadline>일마다 방을 따로 만듭니다</SlideHeadline>
+        </div>
+        <Chip tone="accent">영상의 “프로젝트”가 이것입니다</Chip>
+      </div>
+
+      <div className="grid gap-4 md:gap-6 lg:grid-cols-3">
+        {PROJECTS.map((project, index) => (
+          <Panel
+            key={project.name}
+            tone={index === 0 ? 'accentSoft' : 'raised'}
+            pad="lg"
+            className={cx('flex flex-col gap-4', `animate-rise-${index + 1}`)}
+          >
+            <FolderKanban className={cx('size-8 md:size-10', index === 0 ? 'text-accent' : 'text-content-muted')} />
+            <p className="text-deck-lead font-bold text-content-strong">{project.name}</p>
+            <div className="flex flex-col gap-1">
+              <PanelLabel>넣어둘 것</PanelLabel>
+              <p className="text-deck-caption text-content-secondary">{project.put}</p>
+            </div>
+            <div className="mt-auto flex flex-col gap-1 rounded-card bg-surface-sunken p-3 inset-shadow-sunken md:p-4">
+              <PanelLabel>이 방의 규칙</PanelLabel>
+              <p className="text-deck-caption font-semibold text-content-primary">{project.rule}</p>
+            </div>
+          </Panel>
+        ))}
+      </div>
+
+      <SlideNote tone="quiet">
+        방을 나누는 이유는 하나입니다 · <Mark>매번 상황을 다시 설명하지 않으려고</Mark>
+      </SlideNote>
+    </SlideLayout>
+  )
+}
+
 const COWORK_STEPS = [
   { head: '데스크톱 앱을 엽니다', body: '영상에서 보신 Chat · Cowork · Code 세 탭이 위쪽에 있습니다' },
-  { head: 'Cowork 탭으로 갑니다', body: '여기가 파일을 직접 만지는 자리입니다' },
-  { head: '작업 폴더를 고릅니다', body: '아까 만든 “Zonta 2026” 폴더를 지정합니다' },
+  { head: 'Cowork 탭으로 갑니다', body: '여기서 파일을 직접 열고 고칩니다' },
+  { head: '작업 폴더를 고릅니다', body: '방금 만든 재건축 폴더부터 지정합니다' },
   { head: '파일 만들기를 켭니다', body: '설정 · 기능에서 코드 실행과 파일 생성을 켭니다' },
 ]
 
-/** C15. Cowork 열기 */
+/** D14. Cowork 열기 */
 export function CoworkSetupSlide() {
   return (
     <SlideLayout>
       <div className="grid items-center gap-6 md:gap-10 lg:grid-cols-9">
         <div className="flex flex-col gap-5 lg:col-span-5">
-          <SlideKicker>작업실 세팅 · 2 / 4</SlideKicker>
-          <SlideHeadline>Cowork를 열고 폴더를 물려줍니다</SlideHeadline>
+          <SlideKicker>작업실 세팅 · 4 / 4</SlideKicker>
+          <SlideHeadline>Cowork에게 작업할 폴더를 알려줍니다</SlideHeadline>
           <div className="flex flex-col gap-3">
             {COWORK_STEPS.map((step, index) => (
               <Panel
@@ -183,7 +168,7 @@ const CHROME_STEPS = [
   { head: '권한을 허용', body: '화면을 읽고 클릭할 권한입니다. 여기서 승인 규칙도 정합니다' },
 ]
 
-/** C16. 크롬 확장 연결 */
+/** D15. 크롬 옆창 연결과 안전장치 */
 export function ChromeSetupSlide() {
   return (
     <SlideLayout>
@@ -215,7 +200,15 @@ export function ChromeSetupSlide() {
       <Panel tone="accentSoft" pad="md" className="animate-rise-5 flex flex-wrap items-center gap-4 md:gap-6">
         <Puzzle className="size-8 text-accent md:size-10" />
         <p className="text-deck-body font-semibold text-content-strong">
-          첫 시험 · Zonta 회원 페이지에 로그인한 채로 옆창을 열고 <Mark>“이 화면이 무슨 페이지인지 말해줘”</Mark>
+          설정 → Cowork → 기본 브라우저를 <Mark>크롬</Mark>으로 바꾼 뒤 · 로그인한 페이지를 열고 “이 화면이 무슨 페이지인지 말해줘”
+        </p>
+      </Panel>
+
+      <Panel tone="sunken" pad="md" className="animate-rise-5 flex flex-col gap-2">
+        <PanelLabel>내 브라우저를 빌려주는 일이니 · 규칙 셋</PanelLabel>
+        <p className="text-deck-caption text-content-secondary">
+          보내기 · 제출 · 결제 · 삭제는 반드시 먼저 묻게 둡니다 · 남이 만든 페이지에 숨은 지시가 있을 수 있습니다 ·
+          메일과 뱅킹 탭은 닫고 시작합니다
         </p>
       </Panel>
 
@@ -226,54 +219,7 @@ export function ChromeSetupSlide() {
   )
 }
 
-const GUARDS = [
-  {
-    icon: MousePointerClick,
-    head: '되돌리기 어려운 일은 승인',
-    body: '보내기 · 제출 · 결제 · 삭제는 반드시 나에게 먼저 묻게 둡니다',
-  },
-  {
-    icon: AlertTriangle,
-    head: '웹페이지에 숨은 지시를 조심',
-    body: '남이 만든 페이지에 “이렇게 해라”는 문장이 숨어 있을 수 있습니다',
-  },
-  {
-    icon: ShieldCheck,
-    head: '읽힐 탭만 열어둡니다',
-    body: '메일 · 인터넷뱅킹 같은 탭은 닫고 시작하는 편이 안전합니다',
-  },
-]
-
-/** C17. 안전장치 */
-export function SafetySlide() {
-  return (
-    <SlideLayout>
-      <SlideKicker>작업실 세팅 · 4 / 4</SlideKicker>
-      <SlideHeadline>내 브라우저를 빌려주는 일이니, 규칙 세 개</SlideHeadline>
-
-      <div className="grid gap-4 md:gap-6 lg:grid-cols-3">
-        {GUARDS.map((guard, index) => (
-          <Panel
-            key={guard.head}
-            tone={index === 1 ? 'accentSoft' : 'raised'}
-            pad="lg"
-            className={cx('flex flex-col gap-4', `animate-rise-${index + 1}`)}
-          >
-            <guard.icon className={cx('size-8 md:size-10', index === 1 ? 'text-accent' : 'text-content-muted')} />
-            <p className="text-deck-lead font-bold text-content-strong">{guard.head}</p>
-            <p className="mt-auto text-deck-body text-content-secondary">{guard.body}</p>
-          </Panel>
-        ))}
-      </div>
-
-      <SlideNote tone="quiet">
-        읽고 정리하는 일은 마음껏 시킵니다 · <Mark>바깥으로 나가는 행동</Mark>에만 손을 얹고 있으면 됩니다
-      </SlideNote>
-    </SlideLayout>
-  )
-}
-
-/** C18. 휴식 5분 */
+/** D16. 휴식 5분 */
 export function BreakSlide() {
   return (
     <SlideLayout>
@@ -284,7 +230,7 @@ export function BreakSlide() {
         <Panel tone="sunken" pad="md" className="animate-rise-3 flex flex-wrap items-center justify-center gap-4 md:gap-6">
           <Globe2 className="size-7 text-content-muted md:size-9" />
           <p className="text-deck-body text-content-secondary">
-            쉬는 동안 · Zonta 공식 사이트와 컨벤션 페이지에 로그인해서 탭으로 열어둡니다
+            쉬는 동안 · 재건축 자료를 폴더에 넣고, 조합 사이트와 Zonta 페이지에 로그인해서 탭으로 열어둡니다
           </p>
         </Panel>
       </div>

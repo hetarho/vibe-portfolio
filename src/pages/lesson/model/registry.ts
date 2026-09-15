@@ -1,6 +1,6 @@
 import type { DeckDef } from '../deck'
 import { agentBasicsForResearcherDeck } from '../content/agent-basics-for-researcher'
-import { aiWorkspaceForNgoDeck } from '../content/ai-workspace-for-ngo'
+import { aiWorkspaceThreeTasksDeck } from '../content/ai-workspace-three-tasks'
 import { careerAndAiStudyDeck } from '../content/career-and-ai-study'
 import { codeReadingForPmDeck } from '../content/code-reading-for-pm'
 import { founderAiDevSetupDeck } from '../content/founder-ai-dev-setup'
@@ -50,21 +50,23 @@ export const lessons: Lesson[] = [
     deck: codeThinkingBasicsDeck,
   },
   {
-    id: 'ai-workspace-for-ngo',
+    id: 'ai-workspace-three-tasks',
     version: 'V2',
-    title: 'AI 작업실 만들기',
-    subtitle: '로그인이 필요한 자료까지 직접 모아 발표 파일로 끝내는 2회차',
-    audience: '1대1 · NGO 오리엔테이션을 준비하는 비개발자 · 2회차',
-    duration: '2시간 · 28화면 · 2회차',
+    title: '내 일 세 가지로 도구 익히기',
+    subtitle: '설명은 짧게, 직접 쳐보면서 평형 신청 · 오리엔테이션 · 상담 정리를 끝내기',
+    audience: '1대1 · 재건축과 NGO 일이 겹친 비개발자 · 2회차',
+    duration: '2시간 · 31화면 · 2회차',
     outline: [
-      'AI란 · 에이전트란 · 공통 개념 여섯 장으로 다시 정확히',
-      '원하는 다섯 가지와 요청을 결과로 바꾸는 여섯 칸',
-      '영상에서 본 일곱 기능 중 오늘 쓸 셋 고르기 · 클로드 코드를 미루는 이유',
-      '작업실 세팅 · 로그인해 둔 화면을 읽히는 법과 안전장치',
-      '실제 한 바퀴 · 자료 수집 → 근거표 → pptx → 지역별 버전',
-      '네 개의 작업실과 10월 첫 일정까지 3주 계획',
+      'AI란 · 에이전트란 · 공통 개념 여섯 장',
+      '처음 시켜보기 · 대충 물어본 답과 여섯 가지를 얹은 답 비교',
+      '도구 다섯과 브라우저 둘 · 로그인 자료를 읽히는 쪽 고르기',
+      '작업실 세팅 · 프로젝트 셋 · 코워크 · 크롬 옆창',
+      '실습 1 · 재건축 평형 비교표와 물어볼 것 목록',
+      '실습 2 · 오리엔테이션 근거표와 발표 파일',
+      '실습 3 · 상담 정리 스킬 만들어 써보기',
+      '집에서 복습하고 막혔을 때 질문하는 법',
     ],
-    deck: aiWorkspaceForNgoDeck,
+    deck: aiWorkspaceThreeTasksDeck,
   },
   {
     id: 'agent-basics-for-researcher',
