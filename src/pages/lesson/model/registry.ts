@@ -9,6 +9,7 @@ import { mvpLifecycleForFounderDeck } from '../content/mvp-lifecycle-for-founder
 import { personalAiAgentsDeck } from '../content/personal-ai-agents'
 import { vibeCodingFirstAppDeck } from '../content/vibe-coding-first-app'
 import { codeThinkingBasicsDeck } from '../content/code-thinking-basics'
+import { javaThinkingWorkshopDeck } from '../content/java-thinking-workshop'
 
 export type Lesson = {
   /** URL에 쓰이는 값 — /lesson/{id} */
@@ -31,6 +32,22 @@ export type Lesson = {
 
 /** 강의 목록. 새 강의를 추가하려면 content/ 아래에 덱을 만들고 이 배열에 한 줄 추가한다. */
 export const lessons: Lesson[] = [
+  {
+    id: 'java-thinking-workshop',
+    version: 'V2',
+    title: 'Java 문제풀이와 개발자적 사고',
+    subtitle: 'Java 시험 10문제를 먼저 풀고, 남는 시간에는 정답이 나온 이유를 여러 방식으로 설명하기',
+    audience: '1대1 · Java 문법을 한 번 배운 초급 학습자',
+    duration: '2시간 30분 · 47화면 · 문제풀이편',
+    outline: [
+      '먼저 · 제공된 Java 시험 10문제 직접 풀기',
+      '시험 해설 · 문제 해체·모범 답안·채점 키워드',
+      '남는 시간 · 생활 문제를 코드 없이 말로 설명하기',
+      '한 정답에 도달하는 서로 다른 세 가지 사고 경로',
+      '숫자가 바뀌어도 통하는 한글 규칙 만들기',
+    ],
+    deck: javaThinkingWorkshopDeck,
+  },
   {
     id: 'code-thinking-basics',
     version: 'V2',

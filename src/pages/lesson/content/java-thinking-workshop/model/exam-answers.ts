@@ -1,0 +1,195 @@
+export type ExamAnswer = {
+  no: number
+  area: string
+  level: '하급' | '중급' | '상급'
+  points: number
+  title: string
+  question: string
+  promptLines?: string[]
+  approach: string
+  answer: string[]
+  code?: string[]
+  grading: string[]
+  trap: string
+}
+
+/** 사용자가 제공한 Java 10문제의 모범 답안과 채점 포인트. */
+export const EXAM_ANSWERS: ExamAnswer[] = [
+  {
+    no: 1,
+    area: 'Java · 심화',
+    level: '중급',
+    points: 11,
+    title: '함수형 인터페이스와 @FunctionalInterface',
+    question: '함수형 인터페이스와 @FunctionalInterface 어노테이션의 정의를 각각 서술하시오.',
+    approach: '“각각”이므로 두 정의를 분리한다. 인터페이스는 구조와 용도, 어노테이션은 검사 기능과 의도를 쓴다.',
+    answer: [
+      '함수형 인터페이스는 추상 메서드를 정확히 하나만 가지는 인터페이스다.',
+      '람다식 또는 메서드 참조의 대상 타입으로 사용할 수 있다.',
+      '@FunctionalInterface는 해당 조건을 컴파일러가 검사하게 하고 설계 의도를 알리는 어노테이션이다.',
+    ],
+    grading: ['추상 메서드 1개', '람다의 대상 타입', '어노테이션의 컴파일 검사와 의도 표시'],
+    trap: 'default·static·private 메서드가 있어도 추상 메서드가 하나라면 함수형 인터페이스다.',
+  },
+  {
+    no: 2,
+    area: 'Java · 기초',
+    level: '하급',
+    points: 6,
+    title: '자바의 가상 실행 기계',
+    question: 'OS와 독립적으로 바이트코드를 실행하고 Stack·Heap·Static 등의 메모리 영역을 관리하는 것은?',
+    approach: '단서 네 개 중 결정적인 것은 “바이트코드 실행”과 “가상 기계”다. 도구 묶음인 JDK와 구분한다.',
+    answer: ['JVM(Java Virtual Machine, 자바 가상 머신)'],
+    grading: ['JVM 또는 자바 가상 머신'],
+    trap: 'JDK는 개발 도구 묶음, JRE는 실행 환경, JVM은 바이트코드를 실제로 실행하는 가상 머신이다.',
+  },
+  {
+    no: 3,
+    area: 'Java · 기초',
+    level: '하급',
+    points: 6,
+    title: 'main 메서드 선언부',
+    question: '자바 애플리케이션 수행에 필요한 main 메서드 선언부를 작성하시오.',
+    approach: '접근 범위 → 객체 필요 여부 → 반환값 → 약속된 이름 → 문자열 배열 입력 순서로 조립한다.',
+    answer: ['public static void main(String[] args)'],
+    code: ['public static void main(String[] args) {', '    // 프로그램 시작점', '}'],
+    grading: ['public', 'static', 'void', 'main', 'String[] 매개변수'],
+    trap: '매개변수 이름 args는 바꿀 수 있지만 반환형 void와 String[] 타입은 지켜야 한다.',
+  },
+  {
+    no: 4,
+    area: 'Java · 심화',
+    level: '중급',
+    points: 11,
+    title: 'final의 세 가지 사용 위치',
+    question: 'final 키워드가 사용되는 3가지 경우와 의미를 서술하시오.',
+    approach: '문제가 “3가지”라고 수를 줬다. final이 붙을 수 있는 변수·메서드·클래스를 먼저 칸으로 나눈다.',
+    answer: [
+      'final 변수: 한 번 대입한 뒤 다시 대입할 수 없다.',
+      'final 메서드: 하위 클래스에서 오버라이딩할 수 없다.',
+      'final 클래스: 다른 클래스가 상속할 수 없다.',
+    ],
+    grading: ['변수 · 재대입 금지', '메서드 · 오버라이딩 금지', '클래스 · 상속 금지'],
+    trap: 'final 참조 변수가 가리키는 객체의 내부 상태까지 불변이 되는 것은 아니다.',
+  },
+  {
+    no: 5,
+    area: 'Java · 기초',
+    level: '중급',
+    points: 11,
+    title: '추상화',
+    question: '객체 지향 프로그래밍의 특징 중 추상화란 무엇인지 서술하시오.',
+    approach: '대상에서 무엇을 남기는지와 무엇을 감추는지를 한 쌍으로 쓰면 정의가 완성된다.',
+    answer: [
+      '복잡한 대상에서 공통적이고 핵심적인 속성과 기능을 추출하여 모델링하는 것이다.',
+      '불필요한 구현 세부사항은 감추고, 사용자가 알아야 할 역할과 인터페이스를 드러낸다.',
+    ],
+    grading: ['핵심·공통 특징 추출', '모델링', '구현 세부 은닉과 역할 노출'],
+    trap: '추상화는 단순히 abstract 키워드를 쓰는 것이 아니라 복잡성을 다루는 설계 원리다.',
+  },
+  {
+    no: 6,
+    area: 'Java · 심화',
+    level: '상급',
+    points: 16,
+    title: '오버라이딩의 정의와 조건',
+    question: '오버라이딩의 정의와 성립 조건을 모두 서술하시오.',
+    approach: '“정의”와 “모든 조건”을 분리한 뒤 시그니처·반환형·접근 범위·예외·금지 대상을 체크한다.',
+    answer: [
+      '하위 클래스가 상위 클래스에서 상속받은 인스턴스 메서드의 구현을 다시 정의하는 것이다.',
+      '메서드 이름과 매개변수 목록이 같아야 하며, 반환형은 같거나 공변 반환형이어야 한다.',
+      '접근 제한자는 더 좁아질 수 없고, 검사 예외는 같거나 더 좁은 범위만 선언할 수 있다.',
+      'private·final 메서드는 오버라이딩할 수 없고 static 메서드는 오버라이딩이 아니라 숨김이다.',
+    ],
+    grading: ['상속 관계와 재정의', '이름·매개변수 동일', '공변 반환형', '접근 범위', '검사 예외', '제외 대상'],
+    trap: '@Override는 강력히 권장되지만 어노테이션 자체가 오버라이딩의 성립 조건은 아니다.',
+  },
+  {
+    no: 7,
+    area: 'Java · 심화',
+    level: '중급',
+    points: 11,
+    title: 'IO 객체 이름',
+    question: '파일 바이트 입력, 표준 입력, 버퍼 문자 입력에 해당하는 IO 객체명을 작성하시오.',
+    promptLines: [
+      '(a) 파일을 읽기 위한 바이트 기반 스트림',
+      '(b) 키보드 입력 등에 사용하는 표준 입력 스트림',
+      '(c) 버퍼를 이용해 효율적으로 읽는 문자 기반 스트림',
+    ],
+    approach: '각 칸에서 출처(파일·키보드), 데이터 단위(바이트·문자), 기능(버퍼)을 따로 표시해 이름을 고른다.',
+    answer: [
+      '(a) FileInputStream',
+      '(b) System.in · 타입은 InputStream',
+      '(c) BufferedReader',
+    ],
+    grading: ['FileInputStream', 'System.in', 'BufferedReader'],
+    trap: 'BufferedInputStream은 바이트 기반이다. 문제는 “문자 기반” 버퍼이므로 BufferedReader다.',
+  },
+  {
+    no: 8,
+    area: 'Java · 심화',
+    level: '하급',
+    points: 6,
+    title: 'Stream 코드 실행 결과',
+    question: 'names의 각 이름 뒤에 “는 못말려”를 붙인 뒤 출력하는 코드의 실행 결과를 작성하시오.',
+    promptLines: [
+      'List<String> names = Arrays.asList("짱구", "철수", "유리");',
+      '',
+      'names.stream()',
+      '     .map(name -> name + "는 못말려")',
+      '     .forEach(System.out::println);',
+    ],
+    approach: '원본 목록 → map으로 문자열 변환 → forEach로 순서대로 출력이라는 데이터 흐름을 한 단계씩 추적한다.',
+    answer: ['짱구는 못말려', '철수는 못말려', '유리는 못말려'],
+    code: ['짱구는 못말려', '철수는 못말려', '유리는 못말려'],
+    grading: ['입력 순서 유지', '각 문자열 변환', '각 결과가 한 줄씩 출력'],
+    trap: 'map은 새 문자열 흐름을 만들고 forEach가 실제 출력한다. 원래 names 목록 자체는 바뀌지 않는다.',
+  },
+  {
+    no: 9,
+    area: 'Java · 심화',
+    level: '상급',
+    points: 16,
+    title: 'DTO Getter와 Setter',
+    question: 'Player 클래스의 playerName과 playerNumber에 대한 Getter/Setter를 작성하시오.',
+    promptLines: [
+      'public class Player {',
+      '    private String playerName;',
+      '    private int playerNumber;',
+      '}',
+    ],
+    approach: '필드 2개 × 읽기·쓰기 2가지로 총 4개 메서드를 만든다. 각 필드 타입이 반환형과 매개변수 타입이 된다.',
+    answer: ['각 private 필드를 읽는 public Getter와 값을 대입하는 public Setter를 작성한다.'],
+    code: [
+      'public String getPlayerName() {',
+      '    return playerName;',
+      '}',
+      'public void setPlayerName(String playerName) {',
+      '    this.playerName = playerName;',
+      '}',
+      'public int getPlayerNumber() { return playerNumber; }',
+      'public void setPlayerNumber(int playerNumber) {',
+      '    this.playerNumber = playerNumber;',
+      '}',
+    ],
+    grading: ['두 Getter의 반환형·return', '두 Setter의 void·매개변수', 'this로 필드와 매개변수 구분'],
+    trap: 'Setter 매개변수와 필드 이름이 같으므로 this.playerName처럼 객체의 필드를 명시한다.',
+  },
+  {
+    no: 10,
+    area: 'Java · 기초',
+    level: '하급',
+    points: 6,
+    title: 'HashSet의 중복 검사',
+    question: 'HashSet 중복 검사를 위한 (a), (b) 메서드와 이를 제공하는 최상위 (c) 클래스를 쓰시오.',
+    promptLines: [
+      '(a)는 객체에 저장된 값이 같은지 동등 비교한다.',
+      '(b)는 객체의 식별 번호를 반환한다.',
+      '(a)와 (b)는 최상위 (c) 클래스가 제공한다.',
+    ],
+    approach: '“값이 같은지”는 equals, “식별 번호”는 hashCode라는 설명 단서를 먼저 연결하고 선언 위치를 찾는다.',
+    answer: ['(a) equals()', '(b) hashCode()', '(c) Object'],
+    grading: ['equals()', 'hashCode()', 'Object'],
+    trap: '두 객체가 equals로 같다면 반드시 같은 hashCode를 반환해야 한다. 둘을 함께 재정의한다.',
+  },
+]
