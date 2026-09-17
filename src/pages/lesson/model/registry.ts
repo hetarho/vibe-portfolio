@@ -1,5 +1,6 @@
 import type { DeckDef } from '../deck'
 import { agentBasicsForResearcherDeck } from '../content/agent-basics-for-researcher'
+import { agentBuildForHrDeck } from '../content/agent-build-for-hr'
 import { aiWorkspaceThreeTasksDeck } from '../content/ai-workspace-three-tasks'
 import { careerAndAiStudyDeck } from '../content/career-and-ai-study'
 import { codeReadingForPmDeck } from '../content/code-reading-for-pm'
@@ -32,6 +33,24 @@ export type Lesson = {
 
 /** 강의 목록. 새 강의를 추가하려면 content/ 아래에 덱을 만들고 이 배열에 한 줄 추가한다. */
 export const lessons: Lesson[] = [
+  {
+    id: 'agent-build-for-hr',
+    version: 'V2',
+    title: 'HR 담당자를 위한 에이전트 개발 첫 수업',
+    subtitle: '엑셀 평정지 1,000장을 웹 평정 화면으로 · 개념부터 화면이 실제로 뜰 때까지',
+    audience: '1대1 · 인사평정을 관할하는 HR 담당자 · 개발 경험 없음',
+    duration: '2시간 · 30화면 · 전체 2회 중 1회차',
+    outline: [
+      'AI란 · 에이전트란 · 공통 개념 여섯 장',
+      '지금의 엑셀 집계와, 만들려는 화면 두 개',
+      '맡길 일과 내가 정할 일 · 만들 것을 적는 여섯 칸',
+      '인사 데이터는 넣지 않는다 · 되돌릴 수 있게 해 둔다',
+      '“다 됐습니다”를 직접 확인하는 법과 막혔을 때의 규칙',
+      '실습 · 직위 선택부터 자동 집계와 제출 현황까지',
+      '시제품과 실제 운영의 차이 · 집에서 쓰는 코치 프롬프트',
+    ],
+    deck: agentBuildForHrDeck,
+  },
   {
     id: 'java-thinking-workshop',
     version: 'V2',
