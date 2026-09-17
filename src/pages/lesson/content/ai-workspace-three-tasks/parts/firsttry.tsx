@@ -12,7 +12,7 @@ import {
   SlideLayout,
   SlideNote,
 } from '../../../deck'
-import { TypeThis } from '../ui/TypeThis'
+import { TypeThis } from '../../shared'
 
 const VAGUE_RESULT = [
   '일반적인 절차만 줄줄 나옵니다',

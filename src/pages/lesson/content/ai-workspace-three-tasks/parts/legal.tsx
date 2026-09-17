@@ -11,7 +11,7 @@ import {
   SlideLayout,
   SlideNote,
 } from '../../../deck'
-import { TypeThis } from '../ui/TypeThis'
+import { TypeThis } from '../../shared'
 
 const WITHOUT = [
   '매번 다른 양식으로 정리된다',

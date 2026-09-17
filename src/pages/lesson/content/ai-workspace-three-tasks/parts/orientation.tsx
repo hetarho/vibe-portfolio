@@ -10,7 +10,7 @@ import {
   SlideLayout,
   SlideNote,
 } from '../../../deck'
-import { TypeThis } from '../ui/TypeThis'
+import { TypeThis } from '../../shared'
 
 /** D24. 타자 1 · 열어둔 화면 읽히기 */
 export function CollectType1Slide() {

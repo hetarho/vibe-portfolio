@@ -11,7 +11,7 @@ import {
   SlideLayout,
   SlideNote,
 } from '../../../deck'
-import { TypeThis } from '../ui/TypeThis'
+import { TypeThis } from '../../shared'
 
 const MACHINE_PART = [
   '여기저기 흩어진 기한과 서류를 한 장에 모으기',

@@ -5,3 +5,4 @@
 export { PromptCopyButton, tutorPrompt } from './ui/PromptCopyButton'
 export { AiHumanRoleSlide, AiInPracticeSlide, AiWhatSlide } from './ui/ai'
 export { AgentInPracticeSlide, AgentLoopSlide, AgentWhatSlide } from './ui/agent'
+export { TypeThis } from './ui/TypeThis'
