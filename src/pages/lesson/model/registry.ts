@@ -10,6 +10,7 @@ import { mvpLifecycleForFounderDeck } from '../content/mvp-lifecycle-for-founder
 import { personalAiAgentsDeck } from '../content/personal-ai-agents'
 import { vibeCodingFirstAppDeck } from '../content/vibe-coding-first-app'
 import { codeThinkingBasicsDeck } from '../content/code-thinking-basics'
+import { javaExamRetakeDeck } from '../content/java-exam-retake'
 import { javaThinkingWorkshopDeck } from '../content/java-thinking-workshop'
 
 export type Lesson = {
@@ -50,6 +51,24 @@ export const lessons: Lesson[] = [
       '시제품과 실제 운영의 차이 · 집에서 쓰는 코치 프롬프트',
     ],
     deck: agentBuildForHrDeck,
+  },
+  {
+    id: 'java-exam-retake',
+    version: 'V2',
+    title: 'Java 재시험 예상문제 50',
+    subtitle: '문제는 바뀌어도 범위는 그대로 · 중요한 순서대로 · 문제 한 장, 풀이 한 장',
+    audience: '1대1 · 코딩이 처음인 비전공 학원 수강생 · 재시험 대비',
+    duration: '자습용 · 108화면 · 문제 50세트',
+    outline: [
+      '예상문제를 뽑은 기준과 중요도 순서 읽는 법',
+      '서술형에서 점수를 받는 문장 쓰기',
+      '시험장 직전에 읽을 무조건 외울 열 줄',
+      '1번 ~ 10번 · 이 범위의 뼈대가 되는 핵심 개념',
+      '11번 ~ 30번 · 같은 단원에서 짝으로 나오는 문제',
+      '31번 ~ 50번 · 범위 안 나머지와 실행 결과 예측',
+      '자가 채점 결과로 다시 볼 문제만 추리기',
+    ],
+    deck: javaExamRetakeDeck,
   },
   {
     id: 'java-thinking-workshop',
