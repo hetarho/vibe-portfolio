@@ -12,6 +12,7 @@ import { vibeCodingFirstAppDeck } from '../content/vibe-coding-first-app'
 import { codeThinkingBasicsDeck } from '../content/code-thinking-basics'
 import { javaExamRetakeDeck } from '../content/java-exam-retake'
 import { javaThinkingWorkshopDeck } from '../content/java-thinking-workshop'
+import { webBasicsForStudentDeck } from '../content/web-basics-for-student'
 
 export type Lesson = {
   /** URL에 쓰이는 값 — /lesson/{id} */
@@ -34,6 +35,27 @@ export type Lesson = {
 
 /** 강의 목록. 새 강의를 추가하려면 content/ 아래에 덱을 만들고 이 배열에 한 줄 추가한다. */
 export const lessons: Lesson[] = [
+  {
+    id: 'web-basics-for-student',
+    version: 'V2',
+    title: '웹개발 한 바퀴와 개발자처럼 생각하기',
+    subtitle: '분식집 주문 사이트를 만들어 가며 웹 전체를 보고, 만들기 전에 하는 생각 열 가지까지',
+    audience: '1대1 · 코딩 학원에서 문법을 배우는 중인 학생 · 실무 경험 없음',
+    duration: '2시간 30분 · 47화면 · 웹 전반편',
+    outline: [
+      '화면 한 장 만들기 · HTML·CSS·JS와 브라우저',
+      '친구 폰에서 안 열린다 · 요청과 응답, 서버와 포트',
+      '주문 버튼을 누른 다음 · 프론트와 백, HTTP와 API',
+      '껐다 켜니 사라졌다 · 데이터베이스, 표와 기본키, SQL',
+      '느려지고 중복된다 · 인덱스, 표 나누기와 조인',
+      '서버 코드 안쪽과 로그인 · 카운터·주방·창고, 증표',
+      '문을 연다 · 배포 네 단계와 그다음 날의 운영',
+      '학원 과정 4층과 겹쳐 보기 · Spring MVC와 Oracle이 놓이는 자리',
+      '만들기 전에 하는 생각 열 가지 · 동시 주문부터 애매한 요구까지',
+      '집에서 쓰는 복습 프롬프트 · 내가 설명하고 AI가 채점',
+    ],
+    deck: webBasicsForStudentDeck,
+  },
   {
     id: 'agent-build-for-hr',
     version: 'V2',
