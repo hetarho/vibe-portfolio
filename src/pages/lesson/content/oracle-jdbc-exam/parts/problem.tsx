@@ -1,4 +1,4 @@
-import { Check, Eye, PencilLine, TriangleAlert } from 'lucide-react'
+import { Check, Eye, EyeOff, PencilLine, TriangleAlert } from 'lucide-react'
 import type { ComponentType } from 'react'
 import { useState } from 'react'
 import type { SlideProps } from '../../../deck'
@@ -35,12 +35,22 @@ const PLACEHOLDER: Record<AskType, string> = {
   오류: '이유를 먼저 쓰고, 고친 코드를 이어서 씁니다.',
 }
 
-function AnswerPanel({ problem, grade, onGrade }: { problem: PracticeProblem; grade: Grade | null; onGrade: (grade: Grade) => void }) {
+function AnswerPanel({ problem, grade, onGrade, onClose }: { problem: PracticeProblem; grade: Grade | null; onGrade: (grade: Grade) => void; onClose: () => void }) {
   return (
     <>
       {/* 안쪽 여백을 sm으로 둬야 1080p에서 정답 코드가 한 줄에 50자까지 들어간다 */}
       <Panel tone="raised" pad="sm" className="animate-rise flex flex-col gap-4">
-        <PanelLabel tone="accent">정답</PanelLabel>
+        <div className="flex items-center justify-between gap-3">
+          <PanelLabel tone="accent">정답</PanelLabel>
+          <button
+            type="button"
+            onClick={onClose}
+            className="flex items-center gap-2 rounded-full bg-surface-sunken px-3 py-2 text-deck-caption font-semibold text-content-secondary transition duration-200 ease-deck hover:bg-surface-highlight hover:text-content-primary"
+          >
+            <EyeOff className="size-5" />
+            정답 닫기
+          </button>
+        </div>
         {problem.answer.map((line) => (
           <div key={line} className="flex items-start gap-3">
             <Check className="mt-1 size-5 shrink-0 text-positive md:size-6" strokeWidth={3} />
@@ -101,7 +111,7 @@ function AnswerPanel({ problem, grade, onGrade }: { problem: PracticeProblem; gr
 
 /**
  * 문제 하나가 화면 하나.
- * 왼쪽에 문제와 답 칸, 오른쪽에 정답을 둔다. 정답은 버튼을 눌러야 열리고,
+ * 왼쪽에 문제와 답 칸, 오른쪽에 정답을 둔다. 정답은 버튼으로 열고 다시 닫을 수 있다.
  * 이미 채점한 문제로 돌아오면 열린 채로 보여 준다.
  * 문제 칸은 기출 시험지처럼 "번호. 문장 (배점)" 아래에 대괄호 이름을 단 덩어리를 쌓는다.
  * 표본과 테이블은 정답을 열기 전까지 비어 있는 오른쪽에 둔다. 왼쪽에 함께 쌓으면
@@ -164,7 +174,7 @@ export function makeProblemSlide(problem: PracticeProblem): ComponentType<SlideP
 
           <div className="flex min-w-0 flex-col gap-4">
             {open ? (
-              <AnswerPanel problem={problem} grade={note.grade} onGrade={setGrade} />
+              <AnswerPanel problem={problem} grade={note.grade} onGrade={setGrade} onClose={() => setOpen(false)} />
             ) : (
               <>
                 {problem.sample ? <SampleTable /> : null}
