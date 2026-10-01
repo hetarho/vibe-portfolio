@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 import { PROBLEMS } from './problems'
-import type { UnitKey } from './units'
+import { ACADEMY_PROBLEMS } from './academy-problems'
 import { UNITS } from './units'
 
 /** 정답을 연 뒤 스스로 매기는 점수 */
@@ -81,7 +81,7 @@ export function useNote(no: number) {
 }
 
 export type UnitSummary = {
-  key: UnitKey
+  key: string
   title: string
   total: number
   got: number[]
@@ -109,9 +109,14 @@ function summarize(notes: NoteMap): Summary {
     unsure: [],
     missed: [],
   }))
+  units.push(
+    { key: '학원 JDBC', title: '학원 제공 JDBC 예시', total: 0, got: [], unsure: [], missed: [] },
+    { key: '학원 SQL', title: '학원 제공 SQL 예시', total: 0, got: [], unsure: [], missed: [] },
+  )
 
-  for (const problem of PROBLEMS) {
-    const unit = units.find((item) => item.key === problem.unit)
+  for (const problem of [...PROBLEMS, ...ACADEMY_PROBLEMS]) {
+    const key = 'source' in problem ? `학원 ${problem.section}` : problem.unit
+    const unit = units.find((item) => item.key === key)
     if (!unit) continue
     unit.total += 1
     const grade = notes[problem.no]?.grade ?? null
@@ -123,7 +128,7 @@ function summarize(notes: NoteMap): Summary {
   const missed = units.reduce((sum, unit) => sum + unit.missed.length, 0)
   const again = units.flatMap((unit) => [...unit.missed, ...unit.unsure]).sort((a, b) => a - b)
 
-  return { units, graded: got + unsure + missed, got, unsure, missed, total: PROBLEMS.length, again }
+  return { units, graded: got + unsure + missed, got, unsure, missed, total: PROBLEMS.length + ACADEMY_PROBLEMS.length, again }
 }
 
 /** 정리 화면에서 쓰는 전체 현황. 화면에 들어올 때 한 번 읽는다. */

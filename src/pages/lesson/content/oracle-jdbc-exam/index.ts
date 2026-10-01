@@ -1,5 +1,6 @@
 import type { DeckDef, SlideDef } from '../../deck'
 import { PROBLEMS } from './model/problems'
+import { ACADEMY_PROBLEMS } from './model/academy-problems'
 import { UNITS } from './model/units'
 import { RetrySlide, ReviewBoardSlide, RoutineSlide } from './parts/closing'
 import {
@@ -30,12 +31,14 @@ import {
 } from './parts/concept-query'
 import { CheatSheetSlide, CoverSlide, HowToSlide, MapSlide, TablesSlide } from './parts/opening'
 import { makeProblemSlide } from './parts/problem'
+import { AcademyIntroSlide } from './parts/academy-intro'
 import { makeUnitSlide } from './parts/unit'
 
 const PART = {
   opening: '시작 · 문제집 사용법',
   concept: '개념 한 바퀴 · 시험 범위 22화면',
   closing: '마무리 · 다시 볼 문제',
+  academy: '학원 제공 예시 문제 · 원본 시험지',
 }
 
 /**
@@ -87,19 +90,26 @@ const unitSlides: SlideDef[] = UNITS.flatMap((unit) => {
 
 /**
  * Oracle SQL부터 JDBC까지 배운 코딩학원 수강생이 혼자 쓰는 시험 대비 덱.
- * 앞부분에서 시험 범위 전체를 22화면으로 한 번 짚고, 이어서 study/oracle-jdbc-exam의 200문제를
- * 문제집 순서 그대로 한 화면에 하나씩 놓았다. 화면마다 직접 답을 쓴 뒤 정답을 열어 스스로 채점하고,
+ * 앞부분에서 시험 범위 전체를 22화면으로 한 번 짚고, 이어서 예상문제 200개와
+ * 학원에서 직접 제공한 예시 문제 27개를 차례로 놓았다. 화면마다 직접 답을 쓴 뒤 정답을 열어 스스로 채점하고,
  * 못 썼거나 애매한 문제는 정리 화면에 단원별로 모여 AI에게 비슷한 문제를 받는 프롬프트로 이어진다.
  */
 export const oracleJdbcExamDeck: DeckDef = {
   slides: [
-    { id: 'S1', part: PART.opening, title: '200문제의 범위와 배점', component: CoverSlide },
+    { id: 'S1', part: PART.opening, title: '예상문제 200개와 학원 예시 27개', component: CoverSlide },
     ...conceptSlides,
     { id: 'S2', part: PART.opening, title: '한 화면에서 하는 일 세 가지', component: HowToSlide },
     { id: 'S3', part: PART.opening, title: '열두 단원 지도', component: MapSlide },
     { id: 'S4', part: PART.opening, title: '문제에 나오는 테이블과 표본', component: TablesSlide },
     { id: 'S5', part: PART.opening, title: '시험 직전에 읽을 함정 열 줄', component: CheatSheetSlide },
     ...unitSlides,
+    { id: 'A0', part: PART.academy, title: '학원 제공 예시 문제 · JDBC 8문제와 SQL 19문제', component: AcademyIntroSlide },
+    ...ACADEMY_PROBLEMS.map((problem) => ({
+      id: `A${problem.section === 'JDBC' ? 'J' : 'S'}${problem.sourceNo}`,
+      part: `${PART.academy} · ${problem.section}`,
+      title: `${problem.section} ${problem.sourceNo}번 · ${problem.title}`,
+      component: makeProblemSlide(problem),
+    })),
     { id: 'R1', part: PART.closing, title: '단원별 채점 결과와 다시 볼 문제', component: ReviewBoardSlide },
     { id: 'R2', part: PART.closing, title: 'AI에게 비슷한 문제 받기', component: RetrySlide },
     { id: 'R3', part: PART.closing, title: '시험까지 하루 루틴', component: RoutineSlide },
@@ -109,6 +119,7 @@ export const oracleJdbcExamDeck: DeckDef = {
     { key: 'c', slideId: 'S5', label: '함정 열 줄' },
     { key: 't', slideId: 'S4', label: '테이블' },
     { key: 'q', slideId: 'Q1', label: '1번 문제' },
+    { key: 'a', slideId: 'A0', label: '학원 예시' },
     { key: 'r', slideId: 'R1', label: '정리' },
   ],
 }

@@ -5,8 +5,8 @@ import type { SlideProps } from '../../../deck'
 import { Chip, cx, Panel, PanelLabel, SlideHeadline, SlideKicker, SlideLayout } from '../../../deck'
 import type { Grade } from '../model/progress'
 import { useNote } from '../model/progress'
-import type { AskType, ExamProblem } from '../model/problems'
-import { examHeading } from '../model/problems'
+import type { AskType, PracticeProblem } from '../model/problems'
+import { examHeading, isAcademyProblem } from '../model/problems'
 import { unitOf } from '../model/units'
 import { CodeBlock } from '../ui/CodeBlock'
 import { ExamBlockView } from '../ui/ExamBlock'
@@ -35,7 +35,7 @@ const PLACEHOLDER: Record<AskType, string> = {
   오류: '이유를 먼저 쓰고, 고친 코드를 이어서 씁니다.',
 }
 
-function AnswerPanel({ problem, grade, onGrade }: { problem: ExamProblem; grade: Grade | null; onGrade: (grade: Grade) => void }) {
+function AnswerPanel({ problem, grade, onGrade }: { problem: PracticeProblem; grade: Grade | null; onGrade: (grade: Grade) => void }) {
   return (
     <>
       {/* 안쪽 여백을 sm으로 둬야 1080p에서 정답 코드가 한 줄에 50자까지 들어간다 */}
@@ -107,8 +107,9 @@ function AnswerPanel({ problem, grade, onGrade }: { problem: ExamProblem; grade:
  * 표본과 테이블은 정답을 열기 전까지 비어 있는 오른쪽에 둔다. 왼쪽에 함께 쌓으면
  * [코드]가 긴 문제에서 답 칸이 1080p 화면 밖으로 밀려난다.
  */
-export function makeProblemSlide(problem: ExamProblem): ComponentType<SlideProps> {
-  const unit = unitOf(problem.unit)
+export function makeProblemSlide(problem: PracticeProblem): ComponentType<SlideProps> {
+  const academy = isAcademyProblem(problem)
+  const unit = academy ? null : unitOf(problem.unit)
 
   return function ProblemSlide() {
     const { note, setDraft, setGrade } = useNote(problem.no)
@@ -119,9 +120,11 @@ export function makeProblemSlide(problem: ExamProblem): ComponentType<SlideProps
       <SlideLayout align="top">
         <div className="flex flex-wrap items-center justify-between gap-3 md:gap-5">
           <SlideKicker>
-            {problem.no}번 · {unit.key}. {unit.title}
+            {academy ? `학원 제공 예시 · ${problem.section} ${problem.sourceNo}번` : `${problem.no}번 · ${unit?.key}. ${unit?.title}`}
           </SlideKicker>
-          <Chip tone="accent">{examHeading(problem)}</Chip>
+          <span className={academy ? 'rounded-full bg-caution-soft px-4 py-2 text-deck-caption font-bold text-caution' : ''}>
+            {academy ? '학원에서 직접 제공한 문제' : <Chip tone="accent">{examHeading(problem)}</Chip>}
+          </span>
         </div>
 
         <SlideHeadline>{problem.title}</SlideHeadline>
@@ -130,10 +133,11 @@ export function makeProblemSlide(problem: ExamProblem): ComponentType<SlideProps
         <div className="grid gap-4 lg:grid-cols-2 lg:gap-6">
           <div className="flex min-w-0 flex-col gap-4">
             {/* 아래에 [보기]·[코드]가 붙는 문제는 덩어리까지 한 화면에 들어오도록 여백과 문장을 한 단계 작게 둔다 */}
-            <Panel tone="accentSoft" pad={problem.blocks ? 'sm' : 'md'} className="flex min-w-0 flex-col gap-3">
+            <Panel tone={academy ? 'raised' : 'accentSoft'} pad={problem.blocks ? 'sm' : 'md'} className={cx('flex min-w-0 flex-col gap-3', academy && 'border-2 border-caution')}>
               <p className={cx('font-bold text-content-strong', problem.blocks ? 'text-deck-caption' : 'text-deck-body')}>
-                <span className="text-accent">{problem.no}.</span> <RichText text={problem.question} />{' '}
-                <span className="font-semibold text-content-secondary">({problem.points}점)</span>
+                <span className={academy ? 'text-caution' : 'text-accent'}>{academy ? problem.sourceNo : problem.no}.</span>{' '}
+                <RichText text={problem.question} />{' '}
+                {!academy ? <span className="font-semibold text-content-secondary">({problem.points}점)</span> : null}
               </p>
               {problem.blocks?.map((block) => (
                 <ExamBlockView key={block.label} block={block} />

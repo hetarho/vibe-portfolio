@@ -11,6 +11,7 @@ import {
   SlideNote,
 } from '../../../deck'
 import { PROBLEMS } from '../model/problems'
+import { ACADEMY_PROBLEMS } from '../model/academy-problems'
 import { CHEAT_SHEET, JOIN_KEYS, UNITS } from '../model/units'
 import { RichText } from '../ui/RichText'
 import { SampleTable } from '../ui/SampleTable'
@@ -26,11 +27,10 @@ const LEVELS = [
 export function CoverSlide() {
   return (
     <SlideLayout>
-      <SlideKicker>Oracle SQL~JDBC 시험 대비 · {PROBLEMS.length}문제</SlideKicker>
-      <SlideHeadline size="hero">배운 범위를 {PROBLEMS.length}문제로 확인합니다</SlideHeadline>
+      <SlideKicker>Oracle SQL~JDBC 시험 대비 · 예상 {PROBLEMS.length}문제 + 학원 예시 {ACADEMY_PROBLEMS.length}문제</SlideKicker>
+      <SlideHeadline size="hero">예상문제 뒤에 학원 예시까지 풉니다</SlideHeadline>
       <SlideLead>
-        기초 용어부터 JDBC 코드까지 {UNITS.length}단원입니다. 먼저 22화면으로 범위 전체를 짚고, 그다음 한 화면에 한
-        문제씩 풉니다.
+        먼저 22화면으로 범위를 짚고 {UNITS.length}단원 예상문제 {PROBLEMS.length}개를 풉니다. 이어서 학원에서 직접 준 예시 문제 {ACADEMY_PROBLEMS.length}개를 별도 구간에서 풉니다.
       </SlideLead>
 
       <div className="grid gap-4 md:gap-6 lg:grid-cols-3">
@@ -48,7 +48,7 @@ export function CoverSlide() {
       </div>
 
       <SlideNote tone="quiet">
-        문제 형식과 배점은 Java 기출을 따랐습니다. <Mark>실제 시험의 출제 비율과 배점을 뜻하지는 않습니다</Mark>
+        위 난이도와 배점별 개수는 예상문제 200개 기준입니다. 학원 예시에는 배점을 붙이지 않았습니다. <Mark>예상문제의 배점은 실제 시험 배점이 아닙니다</Mark>
       </SlideNote>
     </SlideLayout>
   )
@@ -106,6 +106,7 @@ export function HowToSlide() {
         <Chip>T 테이블과 표본</Chip>
         <Chip>Q 1번 문제</Chip>
         <Chip>R 정리</Chip>
+        <Chip>A 학원 예시</Chip>
       </div>
 
       <SlideNote tone="quiet">

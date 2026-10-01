@@ -84,7 +84,7 @@ export function ReviewBoardSlide() {
                           unit.missed.includes(no) ? 'bg-accent text-accent-contrast' : 'bg-caution-soft text-caution',
                         )}
                       >
-                        {no}
+                        {unit.key === '학원 JDBC' ? no - 200 : unit.key === '학원 SQL' ? no - 208 : no}
                       </span>
                     ))}
                   </div>

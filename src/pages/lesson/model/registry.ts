@@ -39,10 +39,10 @@ export const lessons: Lesson[] = [
   {
     id: 'oracle-jdbc-exam',
     version: 'V2',
-    title: 'Oracle SQL~JDBC 시험 대비 200문제',
-    subtitle: '기초 용어부터 JDBC 코드까지 · 개념을 한 바퀴 짚은 뒤 한 화면에 한 문제씩 풀고 스스로 채점',
+    title: 'Oracle SQL~JDBC 시험 대비 · 예상 200문제 + 학원 예시 27문제',
+    subtitle: '개념을 짚고 예상문제 200개를 푼 뒤, 학원에서 직접 준 예시 문제 27개까지 확인',
     audience: '1대1 · Oracle과 JDBC까지 배운 코딩학원 수강생 · 시험 대비',
-    duration: '242화면 · 개념 22화면 + 12단원 200문제',
+    duration: '270화면 · 예상 200문제 + 학원 제공 예시 27문제',
     outline: [
       '개념 한 바퀴 · 시험 범위 전체를 22화면으로 먼저 짚기',
       '문제에 나오는 테이블과 결과 예측용 표본 네 행',
@@ -53,6 +53,7 @@ export const lessons: Lesson[] = [
       'G~I · DDL과 제약 조건, DML과 트랜잭션, 시퀀스',
       'J · JDBC 연결부터 자원 닫기까지',
       'K~L · 춘대학교 워크북 응용과 남은 유형',
+      '학원 제공 예시 · JDBC 8문제와 SQL 19문제',
       '단원별 채점 결과와 AI에게 비슷한 문제 받기',
     ],
     deck: oracleJdbcExamDeck,

@@ -48,13 +48,27 @@ export type ExamProblem = {
   trap?: string
 }
 
+/** 학원에서 직접 받은 시험지. 원본 번호는 JDBC/SQL 각각 1부터 시작한다. */
+export type AcademyProblem = Omit<ExamProblem, 'unit' | 'topic' | 'level' | 'points'> & {
+  source: 'academy'
+  section: 'JDBC' | 'SQL'
+  sourceNo: number
+}
+
+export type PracticeProblem = ExamProblem | AcademyProblem
+
+export function isAcademyProblem(problem: PracticeProblem): problem is AcademyProblem {
+  return 'source' in problem && problem.source === 'academy'
+}
+
 /** 고정폭으로 줄을 맞춰 보여 줄 덩어리. [보기]와 [문제]는 문장으로 읽힌다 */
 export function isMonoBlock(block: ExamBlock) {
   return block.label === '코드' || block.label === '실행 결과' || block.label === '테이블'
 }
 
 /** 기출의 머리말 "[Java - 기초] 하급문제"와 같은 모양 */
-export function examHeading(problem: ExamProblem) {
+export function examHeading(problem: PracticeProblem) {
+  if (isAcademyProblem(problem)) return `학원 제공 예시 · ${problem.section} ${problem.sourceNo}번`
   return `[Oracle - ${problem.topic}] ${problem.level}문제`
 }
 
