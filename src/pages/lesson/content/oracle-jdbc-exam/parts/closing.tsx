@@ -180,7 +180,7 @@ export function RoutineSlide() {
           </div>
           <p className="text-deck-body font-bold text-content-strong">정리 화면에 남은 번호만</p>
           <p className="text-deck-caption font-semibold text-content-secondary">
-            남은 번호와 AI가 낸 비슷한 문제만 풉니다. 이미 애매한 것을 확실하게 만드는 편이 점수가 큽니다.
+            남은 번호와 AI가 낸 비슷한 문제만 풉니다. 애매한 것을 확실하게 다지는 편이 점수에 더 도움이 됩니다.
           </p>
         </Panel>
 
@@ -191,14 +191,14 @@ export function RoutineSlide() {
           </div>
           <p className="text-deck-body font-bold text-content-strong">함정 열 줄만 소리 내서</p>
           <p className="text-deck-caption font-semibold text-content-secondary">
-            C 키로 여는 화면입니다. 이 시점에 새 내용을 넣으면 외운 것까지 흔들립니다.
+            C 키로 여는 화면입니다. 이 시점에 새 내용을 공부하면 외운 것까지 흔들립니다.
           </p>
         </Panel>
       </div>
 
       <div className="flex flex-wrap items-center gap-2 md:gap-3">
         <Chip tone="accent">답안지를 빈칸으로 내지 않기</Chip>
-        <Chip>“각각”이면 덩어리를 나눠 쓰기</Chip>
+        <Chip>“각각”이면 항목마다 나눠 쓰기</Chip>
         <Chip>NULL은 IS NULL로 비교하기</Chip>
       </div>
     </SlideLayout>

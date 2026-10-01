@@ -54,8 +54,8 @@ export function ConceptAlterSlide() {
       <div className="grid gap-4 lg:grid-cols-9 lg:gap-6">
         <div className="min-w-0 lg:col-span-5">
           <MiniTable
-            label="ALTER TABLE MEMBER 다음에 오는 말"
-            head={['뒤에 붙는 말', '하는 일']}
+            label="ALTER TABLE MEMBER 뒤에 쓰는 구문"
+            head={['뒤에 쓰는 구문', '하는 일']}
             mono={[0]}
             rows={[
               ['ADD (PHONE VARCHAR2(20))', '열 추가'],
@@ -71,7 +71,7 @@ export function ConceptAlterSlide() {
         <div className="min-w-0 lg:col-span-4">
           <Rules
             items={[
-              { label: '복사', text: '`CREATE TABLE 새이름 AS SELECT …`. 열과 행이 오고, 제약은 고른 열에 따로 걸어 둔 NOT NULL만 따라온다' },
+              { label: '복사', text: '`CREATE TABLE 새이름 AS SELECT …`. 열과 행이 복사되고, 제약은 고른 열에 따로 걸어 둔 NOT NULL만 따라온다' },
               { label: '구조만', text: '`WHERE 1 = 0`을 붙이면 행 없이 열 구조만 만들어진다' },
               { label: '주석', text: "`COMMENT ON COLUMN MEMBER.ID IS '회원번호'`" },
               { label: '뷰', text: 'SELECT에 이름을 붙인 가상 테이블. 데이터를 따로 저장하지 않고, `WITH READ ONLY`면 조회만 된다' },
@@ -162,7 +162,7 @@ export function ConceptSequenceSlide() {
             tone="given"
             lines={['CREATE SEQUENCE SEQ_TEST', 'START WITH 100', 'INCREMENT BY 5', 'MAXVALUE 110', 'NOCYCLE;']}
           />
-          <PanelLabel tone="accent">NEXTVAL을 부를 때마다</PanelLabel>
+          <PanelLabel tone="accent">NEXTVAL을 호출할 때마다</PanelLabel>
           <div className="flex flex-wrap items-center gap-2">
             <Chip tone="accent">100</Chip>
             <ArrowRight className="size-5 shrink-0 text-content-muted" />
@@ -177,8 +177,8 @@ export function ConceptSequenceSlide() {
         <div className="min-w-0 lg:col-span-5">
           <Rules
             items={[
-              { label: 'NEXTVAL', text: '다음 값을 발급하고 시퀀스를 진행한다. 첫 값은 시작값 그대로' },
-              { label: 'CURRVAL', text: '같은 세션에서 마지막으로 받은 값. `NEXTVAL`보다 먼저 부르면 `ORA-08002`' },
+              { label: 'NEXTVAL', text: '시퀀스를 증가시켜 다음 값을 발급한다. 첫 값은 시작값 그대로' },
+              { label: 'CURRVAL', text: '같은 세션에서 마지막으로 받은 값. `NEXTVAL`보다 먼저 조회하면 `ORA-08002`' },
               { label: '쓰는 곳', text: "`INSERT INTO MEMBER (ID, NAME) VALUES (SEQ_MEMBER.NEXTVAL, '가람')`" },
               { label: '변경', text: '`ALTER SEQUENCE`로 증가값은 바꾼다. 시작값은 수업 기준으로 삭제한 뒤 다시 생성' },
               { label: '빈 번호', text: '롤백해도 이미 발급한 번호는 돌아오지 않는다' },
@@ -203,7 +203,7 @@ const JDBC_STEPS = [
 export function ConceptJdbcFlowSlide() {
   return (
     <SlideLayout align="top">
-      <ConceptHead step={21} area="J단원" refs="147~155 · 159 · 160 · 198" title="JDBC는 여섯 단계를 차례로 밟습니다" />
+      <ConceptHead step={21} area="J단원" refs="147~155 · 159 · 160 · 198" title="JDBC는 여섯 단계를 차례로 거칩니다" />
 
       <ol className="grid gap-3 md:grid-cols-2 md:gap-4 lg:grid-cols-3">
         {JDBC_STEPS.map((step, index) => (
@@ -218,7 +218,7 @@ export function ConceptJdbcFlowSlide() {
 
       <Rules
         items={[
-          { label: 'DRIVER', text: '`"oracle.jdbc.driver.OracleDriver"`. 철자가 하나만 틀려도 1단계에서 멈춘다' },
+          { label: 'DRIVER', text: '`"oracle.jdbc.driver.OracleDriver"`. 철자가 하나만 틀려도 1단계에서 예외가 난다' },
           { label: 'URL', text: '`"jdbc:oracle:thin:@127.0.0.1:1521:XE"`' },
           { label: '예외', text: '1단계에서 클래스를 못 찾으면 `ClassNotFoundException`, 2~6단계가 실패하면 `SQLException`. 닫는 순서는 연 순서의 반대' },
         ]}

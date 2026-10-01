@@ -267,7 +267,7 @@ export const PROBLEMS: ExamProblem[] = [
       '조회 결과에서 같은 값의 중복을 제거한다.',
       '여러 열을 함께 쓰면 그 열들의 조합이 같은 행을 제거한다.',
     ],
-    trap: 'SELECT 목록에서 `DISTINCT`는 SELECT 바로 뒤에 한 번만 쓰고, 뒤에 오는 열 전체의 조합에 걸립니다. 56번의 `COUNT(DISTINCT 열)`처럼 그룹 함수 안에 쓰는 것은 따로입니다.',
+    trap: 'SELECT 목록에서 `DISTINCT`는 SELECT 바로 뒤에 한 번만 쓰고, 뒤에 오는 열 전체의 조합에 걸립니다. 56번의 `COUNT(DISTINCT 열)`처럼 그룹 함수 안에 쓰는 것과는 별개입니다.',
   },
   {
     no: 14,
@@ -794,7 +794,7 @@ export const PROBLEMS: ExamProblem[] = [
     ],
     answer: ['(a) `TO_CHAR`', '(b) `TO_DATE`', '(c) `TO_NUMBER`'],
     explain: ["문자열 `'2024-03-15'`를 날짜로 바꾸는 식은 `TO_DATE('2024-03-15', 'YYYY-MM-DD')`다."],
-    trap: '`TO_DATE`의 앞 인자는 바꿀 문자열, 뒤 인자는 그 문자열의 모양을 알려 주는 형식입니다. 46번의 `TO_CHAR`와 인자 순서가 같습니다.',
+    trap: '`TO_DATE`의 앞 인자는 바꿀 문자열, 뒤 인자는 그 문자열이 어떤 형식으로 쓰였는지 알려 줍니다. 46번의 `TO_CHAR`와 인자 순서가 같습니다.',
   },
   {
     no: 48,
@@ -932,7 +932,7 @@ export const PROBLEMS: ExamProblem[] = [
     level: '중급',
     points: 11,
     askType: '실행 결과',
-    title: 'COUNT의 세 가지 모양',
+    title: 'COUNT의 세 가지 쓰임',
     question: '다음 코드의 실행 결과를 순서대로 작성하시오.',
     blocks: [{ label: '코드', lines: ['SELECT COUNT(*), COUNT(DEPT), COUNT(DISTINCT DEPT)', 'FROM EXAM_EMP;'] }],
     sample: true,
@@ -1007,7 +1007,7 @@ export const PROBLEMS: ExamProblem[] = [
     blocks: [{ label: '코드', lines: ['SELECT DEPT_CODE, SUM(SALARY)', 'FROM EMPLOYEE;'] }],
     answer: ['그룹 함수 `SUM`과 집계하지 않은 `DEPT_CODE`를 함께 조회하면서 그룹 기준인 `GROUP BY`를 지정하지 않았기 때문이다.'],
     answerCode: ['SELECT DEPT_CODE, SUM(SALARY)', 'FROM EMPLOYEE', 'GROUP BY DEPT_CODE;'],
-    trap: '이때 나오는 오류는 `ORA-00937: not a single-group group function`입니다. 메시지를 알아 두면 오류 찾기 문제에서 바로 떠오릅니다.',
+    trap: '이때 나오는 오류는 `ORA-00937: not a single-group group function`입니다. 메시지를 알아 두면 오류 찾기 문제에서 원인을 바로 떠올릴 수 있습니다.',
   },
   {
     no: 61,
@@ -1531,7 +1531,7 @@ export const PROBLEMS: ExamProblem[] = [
       'LEFT JOIN EMPLOYEE E ON D.DEPT_ID = E.DEPT_CODE',
       'GROUP BY D.DEPT_ID, D.DEPT_TITLE;',
     ],
-    trap: '`LEFT JOIN` 뒤에서 인원을 구할 때는 오른쪽 테이블의 키를 `COUNT`에 넣습니다. 166번도 같은 모양입니다.',
+    trap: '`LEFT JOIN` 뒤에서 인원을 구할 때는 오른쪽 테이블의 키를 `COUNT`에 넣습니다. 166번도 같은 구조입니다.',
   },
   {
     no: 89,
@@ -1551,14 +1551,14 @@ export const PROBLEMS: ExamProblem[] = [
     level: '중급',
     points: 11,
     askType: '서술',
-    title: '서브쿼리 결과의 세 가지 모양',
+    title: '서브쿼리의 세 가지 종류',
     question: '단일 행 서브쿼리, 다중 행 서브쿼리, 다중 열 서브쿼리의 특징을 각각 서술하시오.',
     answer: [
       '단일 행 서브쿼리는 한 행을 반환한다.',
       '다중 행 서브쿼리는 여러 행을 반환한다.',
       '다중 열 서브쿼리는 두 열 이상을 반환하며 행의 수와는 별개다. 다중 행이면서 다중 열일 수도 있다.',
     ],
-    trap: '모양에 따라 쓰는 연산자가 다릅니다. 단일 행은 `=`·`>`, 다중 행은 `IN`·`ANY`·`ALL`, 다중 열은 `(열1, 열2) IN`이고 결과가 한 행이면 `=`도 씁니다.',
+    trap: '종류에 따라 쓰는 연산자가 다릅니다. 단일 행은 `=`·`>`, 다중 행은 `IN`·`ANY`·`ALL`, 다중 열은 `(열1, 열2) IN`이고 결과가 한 행이면 `=`도 씁니다.',
   },
   {
     no: 91,
@@ -1861,7 +1861,7 @@ export const PROBLEMS: ExamProblem[] = [
       { label: '실행 결과', lines: ['SALARY  R    D', '   500  (a)  (d)', '   500  (b)  (e)', '   400  (c)  (f)'] },
     ],
     answer: ['`RANK`: (a) `1`, (b) `1`, (c) `3`', '`DENSE_RANK`: (d) `1`, (e) `1`, (f) `2`'],
-    trap: '`RANK`는 동점인 두 행이 1등을 함께 쓰고 다음 순위를 3으로 매기고, `DENSE_RANK`는 바로 다음 번호 2를 매깁니다. `ROW_NUMBER`는 동점이어도 1, 2, 3을 붙입니다.',
+    trap: '`RANK`는 동점인 두 행을 공동 1위로 두고 다음 순위를 3으로 매기고, `DENSE_RANK`는 바로 다음 번호 2를 매깁니다. `ROW_NUMBER`는 동점이어도 1, 2, 3을 붙입니다.',
   },
   {
     no: 105,
@@ -1884,7 +1884,7 @@ export const PROBLEMS: ExamProblem[] = [
       '      FROM EMPLOYEE E)',
       'WHERE RN = 1;',
     ],
-    explain: ['`PARTITION BY`는 NULL 부서도 하나의 구획으로 묶는다.'],
+    explain: ['`PARTITION BY`는 NULL 부서도 하나의 그룹으로 묶는다.'],
     trap: '`WHERE RANK() OVER (...) = 1`처럼 바로 거르면 오류입니다. 순위 함수는 SELECT 단계에서 계산되므로 인라인 뷰로 한 번 감싸고 바깥에서 거릅니다.',
   },
   {
@@ -2040,7 +2040,7 @@ export const PROBLEMS: ExamProblem[] = [
     ],
     answerCode: ['CONSTRAINT GRADE_PK', '  PRIMARY KEY (TERM_NO, CLASS_NO, STUDENT_NO)'],
     explain: [
-      '복합 기본키는 열 정의를 다 쓴 뒤 테이블 수준에서 따로 선언한다. 170번이 가정하는 `TB_GRADE`의 기본키가 이런 모양이다.',
+      '복합 기본키는 열 정의를 다 쓴 뒤 테이블 수준에서 따로 선언한다. 170번이 가정하는 `TB_GRADE`의 기본키가 이런 형태다.',
     ],
     trap: '`ID ... PRIMARY KEY, NAME ... PRIMARY KEY`처럼 열마다 붙이면 기본키를 두 번 선언한 것이라 오류가 납니다.',
   },
@@ -2097,7 +2097,7 @@ export const PROBLEMS: ExamProblem[] = [
           '1. `TEAM_ID`가 1인 `PLAYER` 행 삽입은 ______하다.',
           '2. `TEAM_ID`가 99인 `PLAYER` 행 삽입은 ______하다.',
           '3. `TEAM_ID`가 NULL인 `PLAYER` 행 삽입은 ______하다.',
-          '4. `PLAYER_ID`만 다른 `TEAM_ID` 1 행을 또 삽입하는 것은 ______하다.',
+          '4. `TEAM_ID`가 1인 행을 `PLAYER_ID`만 바꿔 하나 더 삽입하는 것은 ______하다.',
           '5. 1번 행이 남아 있을 때 `TEAM_ID`가 1인 `TEAM` 행 삭제는 ______하다.',
         ],
       },
@@ -2277,7 +2277,7 @@ export const PROBLEMS: ExamProblem[] = [
       '`EMP_ID`, `EMP_NAME`, `SALARY` 세 열의 구조만 있고 행은 하나도 없는 빈 테이블이 만들어진다.',
       '`1 = 0`은 언제나 거짓이라 조회되는 행이 없다. 데이터는 복사하지 않고 열 구조만 가져오려고 붙인다.',
     ],
-    trap: '`WHERE` 절을 빼면 `EMPLOYEE`의 행이 모두 복사됩니다. 177번이 같은 모양을 빈칸으로 묻습니다.',
+    trap: '`WHERE` 절을 빼면 `EMPLOYEE`의 행이 모두 복사됩니다. 177번이 같은 코드를 빈칸 문제로 묻습니다.',
   },
   {
     no: 127,
@@ -2314,7 +2314,7 @@ export const PROBLEMS: ExamProblem[] = [
     title: '열 목록을 생략할 때',
     question: '`INSERT INTO MEMBER VALUES (...)`처럼 열 목록을 생략하고 삽입할 때 주의할 점을 서술하시오.',
     answer: [
-      '테이블의 **모든 열에 대해** 정의된 열 순서에 맞는 값을 제공해야 한다.',
+      '테이블의 **모든 열**에 정의된 열 순서대로 값을 넣어야 한다.',
       '열이 추가되거나 순서가 달라지면 의도와 다른 결과나 오류가 생길 수 있다.',
     ],
   },
@@ -2517,7 +2517,7 @@ export const PROBLEMS: ExamProblem[] = [
     title: 'NEXTVAL과 CURRVAL',
     question: '시퀀스의 `NEXTVAL`과 `CURRVAL`의 차이점을 서술하시오.',
     answer: [
-      '`NEXTVAL`은 다음 값을 발급하고 시퀀스를 진행한다.',
+      '`NEXTVAL`은 시퀀스를 증가시켜 다음 값을 발급한다.',
       '`CURRVAL`은 현재 세션에서 마지막으로 발급받은 값을 반환한다.',
     ],
   },
@@ -2528,7 +2528,7 @@ export const PROBLEMS: ExamProblem[] = [
     level: '중급',
     points: 11,
     askType: '실행 결과',
-    title: 'NEXTVAL을 세 번 부르면',
+    title: 'NEXTVAL을 세 번 호출하면',
     question: '다음 코드를 차례로 실행했을 때 세 `SELECT` 문의 실행 결과를 순서대로 작성하시오.',
     blocks: [
       {
@@ -2900,7 +2900,7 @@ export const PROBLEMS: ExamProblem[] = [
       'conn.close();',
     ],
     explain: ['실제 프로그램에서는 예외가 나도 닫히도록 `finally` 또는 `try-with-resources`를 쓸 수 있다.'],
-    trap: '`COUNT(*)`의 결과는 언제나 한 행이라 `while`이 필요 없습니다. 그 한 행도 `rs.next()`를 먼저 불러야 읽을 수 있습니다.',
+    trap: '`COUNT(*)`의 결과는 언제나 한 행이라 `while`이 필요 없습니다. 그 한 행도 `rs.next()`를 먼저 호출해야 읽을 수 있습니다.',
   },
   {
     no: 161,
@@ -2993,7 +2993,7 @@ export const PROBLEMS: ExamProblem[] = [
       '  ON D.DEPARTMENT_NO = S.DEPARTMENT_NO',
       'GROUP BY D.DEPARTMENT_NO, D.DEPARTMENT_NAME;',
     ],
-    trap: '88번과 같은 모양입니다. `COUNT(*)`로 쓰면 학생이 없는 학과가 1명으로 나옵니다.',
+    trap: '88번과 같은 구조입니다. `COUNT(*)`로 쓰면 학생이 없는 학과가 1명으로 나옵니다.',
   },
   {
     no: 167,
@@ -3019,7 +3019,7 @@ export const PROBLEMS: ExamProblem[] = [
     tables: ['TB_CLASS', 'TB_CLASS_PROFESSOR'],
     answer: ['(a) `LEFT JOIN`', '(b) `CP.CLASS_NO IS NULL`'],
     explain: ['(b)는 `CP.PROFESSOR_NO IS NULL`로 써도 된다. 같은 결과를 `NOT EXISTS`로도 구할 수 있다.'],
-    trap: 'LEFT JOIN으로 짝이 없는 행까지 남긴 다음 오른쪽 열이 NULL인 행만 고르는 방식입니다. 없는 것을 찾을 때 자주 쓰는 모양입니다.',
+    trap: 'LEFT JOIN으로 짝이 없는 행까지 남긴 다음 오른쪽 열이 NULL인 행만 고릅니다. 없는 것을 찾을 때 자주 쓰는 방법입니다.',
   },
   {
     no: 168,
@@ -3227,7 +3227,7 @@ export const PROBLEMS: ExamProblem[] = [
     ],
     tables: ['TB_STUDENT'],
     answer: ['`WHERE 1 = 0`'],
-    trap: '126번에서 서술한 것과 같은 모양입니다. 언제나 거짓인 조건을 붙이면 열 구조만 만들어집니다.',
+    trap: '126번에서 서술한 것과 같은 방법입니다. 언제나 거짓인 조건을 붙이면 열 구조만 만들어집니다.',
   },
   {
     no: 178,
@@ -3279,7 +3279,7 @@ export const PROBLEMS: ExamProblem[] = [
       'LEFT JOIN TB_PROFESSOR P',
       '  ON CP.PROFESSOR_NO = P.PROFESSOR_NO;',
     ],
-    trap: '여러 테이블을 이을 때 앞에서 `LEFT JOIN`으로 살린 행은 뒤의 조인도 모두 `LEFT JOIN`이어야 끝까지 남습니다.',
+    trap: '여러 테이블을 이을 때 앞에서 `LEFT JOIN`으로 남긴 행은 뒤의 조인도 모두 `LEFT JOIN`이어야 끝까지 남습니다.',
   },
   {
     no: 180,
@@ -3613,7 +3613,7 @@ export const PROBLEMS: ExamProblem[] = [
       },
     ],
     answer: ['(a) 앞(바로 이전)', '(b) `true`', '(c) `false`'],
-    trap: '그래서 `rs.next()`를 부르기 전에 `rs.getString()`을 하면 예외가 납니다.',
+    trap: '그래서 `rs.next()`보다 먼저 `rs.getString()`을 호출하면 예외가 납니다.',
   },
   {
     no: 200,

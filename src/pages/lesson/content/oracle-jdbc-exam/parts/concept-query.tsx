@@ -10,7 +10,7 @@ const STAGES = [
   { label: '꺼내기', title: 'SELECT와 함수', units: 'B · C', line: '조건 검색과 NULL, 문자·숫자·날짜 함수' },
   { label: '묶고 잇기', title: '그룹·조인·서브쿼리', units: 'D · E · F', line: '실행 순서, GROUP BY, JOIN, ROWNUM' },
   { label: '만들고 바꾸기', title: 'DDL·DML·시퀀스', units: 'G · H · I', line: '제약 조건, 트랜잭션, NEXTVAL' },
-  { label: '자바에서 부르기', title: 'JDBC', units: 'J', line: '여섯 단계와 PreparedStatement' },
+  { label: '자바에서 실행하기', title: 'JDBC', units: 'J', line: '여섯 단계와 PreparedStatement' },
 ]
 
 /** P1. 개념 파트의 목차. 시험 범위를 한 줄의 흐름으로 보여 준다. */
@@ -19,7 +19,7 @@ export function ConceptMapSlide() {
     <SlideLayout>
       <SlideKicker>개념 한 바퀴 · 문제를 풀기 전에</SlideKicker>
       <SlideHeadline>시험 범위는 한 줄로 이어집니다</SlideHeadline>
-      <SlideLead>SELECT로 꺼내 보는 데서 시작해 JDBC로 부르는 데까지, 단원 순서대로 갑니다.</SlideLead>
+      <SlideLead>SELECT로 꺼내 보는 데서 시작해 자바에서 JDBC로 실행하는 데까지, 단원 순서대로 갑니다.</SlideLead>
 
       <div className="grid gap-3 md:gap-4 lg:grid-cols-5">
         {STAGES.map((stage, index) => (
@@ -84,7 +84,7 @@ export function ConceptBasicsSlide() {
 
       <Rules
         items={[
-          { label: '기본키', text: '행 하나를 특정하는 열. 여러 열을 묶을 수도 있고, NULL과 중복이 모두 안 된다' },
+          { label: '기본키', text: '행 하나를 식별하는 열. 여러 열을 묶을 수도 있고, NULL과 중복이 모두 안 된다' },
           { label: '외래키', text: '다른 테이블의 키를 참조해서, 부모에 없는 값이 들어오지 못하게 막는다' },
           { label: '데이터와 정보', text: '데이터는 관찰·측정한 값, 정보는 거기에 의미를 붙인 결과' },
           { label: 'DBMS', text: '데이터를 추출·조작·정의·제어하는 프로그램. Oracle 18c XE가 DBMS이고 SQL Developer와 SQL*Plus는 접속 도구' },
@@ -196,7 +196,7 @@ export function ConceptNullSlide() {
         step={5}
         area="B·C·D단원"
         refs="22 · 23 · 25 · 49 · 52 · 56 · 62 · 99 · 188"
-        title="NULL은 세 곳에서 다르게 움직입니다"
+        title="NULL은 세 경우에 각각 다르게 처리됩니다"
         lead="비교, 산술 계산, 집계 함수 세 경우만 구분하면 대부분의 NULL 문제가 풀립니다."
       />
 
@@ -520,7 +520,7 @@ export function ConceptJoinSlide() {
         <Rules
           items={[
             { label: '별칭', text: '양쪽에 다 있는 열은 `E.JOB_CODE`처럼 쓴다. 빠지면 `ORA-00918`' },
-            { label: '세 표', text: '`JOIN`을 이어 붙인다. 지역은 직원 → 부서 → 지역 순서로 닿는다' },
+            { label: '세 표', text: '`JOIN`을 이어 붙인다. 지역은 직원 → 부서 → 지역 순서로 이어진다' },
           ]}
         />
       </div>
@@ -567,7 +567,7 @@ const OUTER_CASES: Array<{ code: string; line: string; rows: Array<[string | nul
   },
 ]
 
-/** P13. E단원: OUTER JOIN과 0명 세기 */
+/** P13. E단원: OUTER JOIN과 0명 표시 */
 export function ConceptOuterSlide() {
   return (
     <SlideLayout align="top">
@@ -604,12 +604,12 @@ export function ConceptOuterSlide() {
         <Rules
           items={[
             { label: '방향', text: '빠짐없이 남길 표를 `FROM` 바로 뒤에 두고 `LEFT JOIN`. Oracle의 `(+)`는 NULL로 채워질 쪽에 붙인다' },
-            { label: '이어 붙이기', text: 'LEFT로 살린 행은 뒤에 붙는 조인도 LEFT여야 끝까지 남는다' },
+            { label: '이어 붙이기', text: 'LEFT로 남긴 행은 뒤에 이어지는 조인도 LEFT여야 끝까지 남는다' },
           ]}
         />
         <Rules
           items={[
-            { label: '0명 세기', text: '`COUNT(*)` 대신 `COUNT(E.EMP_ID)`. 짝 없는 부서도 한 행으로 남기 때문이다' },
+            { label: '0명 표시', text: '`COUNT(*)` 대신 `COUNT(E.EMP_ID)`. 짝 없는 부서도 한 행으로 남기 때문이다' },
             { label: '없는 것 찾기', text: 'LEFT JOIN 다음 `WHERE 오른쪽.키 IS NULL`' },
           ]}
         />
@@ -640,7 +640,7 @@ const JOIN_KINDS = [
 export function ConceptJoinKindsSlide() {
   return (
     <SlideLayout align="top">
-      <ConceptHead step={14} area="E단원" refs="75 · 78 · 79 · 84 · 85 · 86" title="조인 조건의 모양에 따라 이름이 달라집니다" />
+      <ConceptHead step={14} area="E단원" refs="75 · 78 · 79 · 84 · 85 · 86" title="조인 조건을 거는 방식에 따라 이름이 달라집니다" />
 
       <div className="grid gap-4 md:gap-5 lg:grid-cols-3">
         {JOIN_KINDS.map((kind) => (
@@ -656,7 +656,7 @@ export function ConceptJoinKindsSlide() {
         <p className="font-mono text-deck-caption font-semibold wrap-anywhere text-content-strong">
           ON A.DEPT_CODE = B.DEPT_CODE AND A.EMP_ID &lt; B.EMP_ID
         </p>
-        <Caption>같은 부서 직원 쌍을 한 번씩만 뽑는 조건입니다. `&lt;` 하나가 자기 자신과의 쌍과 순서만 바뀐 쌍을 함께 지웁니다.</Caption>
+        <Caption>같은 부서 직원 쌍을 한 번씩만 뽑는 조건입니다. `&lt;` 조건 하나로 자기 자신과의 쌍과 순서만 바뀐 쌍을 함께 뺍니다.</Caption>
       </Panel>
     </SlideLayout>
   )
@@ -666,10 +666,10 @@ export function ConceptJoinKindsSlide() {
 export function ConceptSubquerySlide() {
   return (
     <SlideLayout align="top">
-      <ConceptHead step={15} area="F단원" refs="89~99 · 106" title="서브쿼리는 결과 모양이 연산자를 정합니다" />
+      <ConceptHead step={15} area="F단원" refs="89~99 · 106" title="서브쿼리는 결과가 몇 행, 몇 열인지에 따라 연산자가 달라집니다" />
 
       <MiniTable
-        head={['모양', '연산자', '예']}
+        head={['종류', '연산자', '예']}
         mono={[2]}
         rows={[
           ['단일 행', '`=` `>` `<`', 'SALARY > (SELECT AVG(SALARY) FROM EMPLOYEE)'],
