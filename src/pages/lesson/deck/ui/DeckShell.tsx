@@ -79,8 +79,11 @@ export function DeckShell({ deck, lessonTitle, index, onIndexChange, onExit }: P
         </div>
 
         <div className="flex flex-1 items-center gap-5">
-          {/* 칸이 좁아지는 모바일에서는 칸 사이 간격을 최소로 (간격이 칸보다 넓어지지 않게) */}
-          <div className="flex flex-1 items-center gap-px md:gap-1" role="presentation">
+          {/*
+            칸이 좁아지는 모바일에서는 칸 사이 간격을 최소로 (간격이 칸보다 넓어지지 않게).
+            화면이 100장을 넘는 문제풀이 덱은 데스크톱에서도 같은 이유로 최소 간격을 쓴다.
+          */}
+          <div className={cx('flex flex-1 items-center gap-px', total <= 100 && 'md:gap-1')} role="presentation">
             {slides.map((item, itemIndex) => (
               <button
                 key={item.id}

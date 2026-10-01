@@ -1,6 +1,18 @@
 /* 강의 덱 전용 스타일.
    덱 타이포 토큰 자체는 유틸리티(text-deck-*)를 만들어내야 해서 app/styles/theme.css에 있고,
    여기에는 화면 크기별로 그 토큰을 다시 잡는 규칙과 덱 안에서만 적용할 상한을 둔다. */
+/* 코드 글꼴 — 고정폭 글꼴에는 한글 글리프가 없다.
+   코드 안의 한글(별칭, 문자열 값)이 컴퓨터마다 다른 글꼴로 바뀌거나 네모로 깨지지 않게
+   덱 본문 글꼴(저장소에 들어 있는 Wanted Sans)을 대체 글꼴로 이어 붙인다.
+   브라우저는 글자마다 목록을 앞에서부터 훑으므로 영문은 고정폭 글꼴, 한글은 Wanted Sans로 그려진다.
+   pre·code 요소는 Tailwind preflight가 --default-mono-font-family로 글꼴을 따로 잡는다.
+   그 변수는 :root에서 이미 계산되어 내려오므로 덱 루트에서 한 번 더 이어 줘야 코드 블록에도 적용된다. */
+[data-deck] {
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace, "Wanted Sans Variable",
+    "Wanted Sans", Pretendard, "Noto Sans KR";
+  --default-mono-font-family: var(--font-mono);
+}
+
 /* ═════════════════════════════════════════════════════════
    덱 타이포 — 화면 폭별 재조정
    위 @theme 값은 "강의장 빔프로젝터 맨 뒷자리" 기준(본문 28px 이상)이다.
