@@ -48,7 +48,7 @@ export function CoverSlide() {
       </div>
 
       <SlideNote tone="quiet">
-        배점은 예시 시험의 형식을 빌린 것이고, <Mark>실제 시험의 출제 비율과 배점을 뜻하지는 않습니다</Mark>
+        문제 형식과 배점은 Java 기출을 따랐습니다. <Mark>실제 시험의 출제 비율과 배점을 뜻하지는 않습니다</Mark>
       </SlideNote>
     </SlideLayout>
   )

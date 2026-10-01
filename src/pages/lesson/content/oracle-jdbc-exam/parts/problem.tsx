@@ -5,9 +5,11 @@ import type { SlideProps } from '../../../deck'
 import { Chip, cx, Panel, PanelLabel, SlideHeadline, SlideKicker, SlideLayout } from '../../../deck'
 import type { Grade } from '../model/progress'
 import { useNote } from '../model/progress'
-import type { ExamProblem } from '../model/problems'
+import type { AskType, ExamProblem } from '../model/problems'
+import { examHeading } from '../model/problems'
 import { unitOf } from '../model/units'
 import { CodeBlock } from '../ui/CodeBlock'
+import { ExamBlockView } from '../ui/ExamBlock'
 import { RichText } from '../ui/RichText'
 import { SampleTable } from '../ui/SampleTable'
 import { TableList } from '../ui/TableList'
@@ -19,8 +21,18 @@ const GRADE_BUTTONS: Array<{ grade: Grade; label: string; tone: string }> = [
 ]
 
 /** 코드를 써야 하는 문제는 답 칸도 고정폭 글꼴로 맞춘다. 줄을 맞춰 써 봐야 절이 빠진 게 보인다. */
-function wantsCode(problem: ExamProblem) {
-  return problem.askType === '코드' || problem.askType === '오류 수정'
+const CODE_TYPES: AskType[] = ['코드 빈칸', '코드 작성', '오류']
+
+/** 답 칸의 안내 문구. 문제 모양마다 써야 하는 분량이 달라서 따로 둔다 */
+const PLACEHOLDER: Record<AskType, string> = {
+  서술: '아는 만큼 써 보세요. 물은 개수만큼 줄을 나눠 씁니다.',
+  용어: '이름만 정확히 씁니다. (a), (b)가 있으면 줄을 나눠 씁니다.',
+  빈칸: '빈칸 번호를 붙여 하나씩 씁니다.',
+  고르기: '고른 기호를 모두 씁니다.',
+  '코드 빈칸': '빈칸에 들어갈 코드만 씁니다. 빈칸이 여러 개면 (a), (b)로 줄을 나눠 씁니다.',
+  '코드 작성': '실행할 수 있는 모양으로 끝까지 써 보세요. 쉼표와 괄호까지 씁니다.',
+  '실행 결과': '실행하면 나오는 값을 그대로 씁니다. 이유를 물었으면 이어서 씁니다.',
+  오류: '이유를 먼저 쓰고, 고친 코드를 이어서 씁니다.',
 }
 
 function AnswerPanel({ problem, grade, onGrade }: { problem: ExamProblem; grade: Grade | null; onGrade: (grade: Grade) => void }) {
@@ -91,6 +103,9 @@ function AnswerPanel({ problem, grade, onGrade }: { problem: ExamProblem; grade:
  * 문제 하나가 화면 하나.
  * 왼쪽에 문제와 답 칸, 오른쪽에 정답을 둔다. 정답은 버튼을 눌러야 열리고,
  * 이미 채점한 문제로 돌아오면 열린 채로 보여 준다.
+ * 문제 칸은 기출 시험지처럼 "번호. 문장 (배점)" 아래에 대괄호 이름을 단 덩어리를 쌓는다.
+ * 표본과 테이블은 정답을 열기 전까지 비어 있는 오른쪽에 둔다. 왼쪽에 함께 쌓으면
+ * [코드]가 긴 문제에서 답 칸이 1080p 화면 밖으로 밀려난다.
  */
 export function makeProblemSlide(problem: ExamProblem): ComponentType<SlideProps> {
   const unit = unitOf(problem.unit)
@@ -98,7 +113,7 @@ export function makeProblemSlide(problem: ExamProblem): ComponentType<SlideProps
   return function ProblemSlide() {
     const { note, setDraft, setGrade } = useNote(problem.no)
     const [open, setOpen] = useState(note.grade !== null)
-    const code = wantsCode(problem)
+    const code = CODE_TYPES.includes(problem.askType)
 
     return (
       <SlideLayout align="top">
@@ -106,13 +121,7 @@ export function makeProblemSlide(problem: ExamProblem): ComponentType<SlideProps
           <SlideKicker>
             {problem.no}번 · {unit.key}. {unit.title}
           </SlideKicker>
-          <div className="flex flex-wrap items-center gap-2 md:gap-3">
-            <Chip>{problem.topic}</Chip>
-            <Chip>{problem.askType}</Chip>
-            <Chip tone="accent">
-              {problem.level} · {problem.points}점
-            </Chip>
-          </div>
+          <Chip tone="accent">{examHeading(problem)}</Chip>
         </div>
 
         <SlideHeadline>{problem.title}</SlideHeadline>
@@ -120,24 +129,18 @@ export function makeProblemSlide(problem: ExamProblem): ComponentType<SlideProps
         {/* min-w-0: 긴 코드 줄이 그리드 칸을 밀어내 모바일에서 화면이 옆으로 넓어지지 않게 */}
         <div className="grid gap-4 lg:grid-cols-2 lg:gap-6">
           <div className="flex min-w-0 flex-col gap-4">
-            <Panel tone="accentSoft" pad="md" className="flex flex-col gap-3">
-              <PanelLabel tone="accent">문제 {problem.no}</PanelLabel>
-              {/* 지문에 든 코드를 아래 블록에서 줄을 나눠 다시 보여 주는 문제는 지문을 한 단계 작게 둔다 */}
-              <p
-                className={cx(
-                  'font-bold text-content-strong',
-                  problem.questionCode ? 'text-deck-caption' : 'text-deck-body',
-                )}
-              >
-                <RichText text={problem.question} />
+            {/* 아래에 [보기]·[코드]가 붙는 문제는 덩어리까지 한 화면에 들어오도록 여백과 문장을 한 단계 작게 둔다 */}
+            <Panel tone="accentSoft" pad={problem.blocks ? 'sm' : 'md'} className="flex min-w-0 flex-col gap-3">
+              <p className={cx('font-bold text-content-strong', problem.blocks ? 'text-deck-caption' : 'text-deck-body')}>
+                <span className="text-accent">{problem.no}.</span> <RichText text={problem.question} />{' '}
+                <span className="font-semibold text-content-secondary">({problem.points}점)</span>
               </p>
+              {problem.blocks?.map((block) => (
+                <ExamBlockView key={block.label} block={block} />
+              ))}
             </Panel>
 
-            {problem.questionCode ? <CodeBlock lines={problem.questionCode} tone="given" /> : null}
-            {problem.sample ? <SampleTable /> : null}
-            {problem.tables ? <TableList keys={problem.tables} /> : null}
-
-            <Panel tone="raised" pad="md" className="flex flex-col gap-3">
+            <Panel tone="raised" pad="sm" className="flex flex-col gap-3">
               <div className="flex items-center gap-3">
                 <PencilLine className="size-6 shrink-0 text-accent md:size-7" />
                 <PanelLabel tone="accent">내 답</PanelLabel>
@@ -146,13 +149,9 @@ export function makeProblemSlide(problem: ExamProblem): ComponentType<SlideProps
                 value={note.draft}
                 onChange={(event) => setDraft(event.target.value)}
                 spellCheck={false}
-                placeholder={
-                  code
-                    ? '실행할 수 있는 모양으로 끝까지 써 보세요. 쉼표와 괄호까지 씁니다.'
-                    : '아는 만큼 써 보세요. 물은 개수만큼 줄을 나눠 씁니다.'
-                }
+                placeholder={PLACEHOLDER[problem.askType]}
                 className={cx(
-                  'min-h-32 w-full resize-y rounded-card bg-surface-sunken p-4 text-deck-caption leading-relaxed text-content-primary inset-shadow-sunken outline-none placeholder:font-sans placeholder:text-content-muted focus:ring-2 focus:ring-accent',
+                  'min-h-28 w-full resize-y rounded-card bg-surface-sunken p-4 text-deck-caption leading-relaxed text-content-primary inset-shadow-sunken outline-none placeholder:font-sans placeholder:text-content-muted focus:ring-2 focus:ring-accent',
                   code && 'font-mono',
                 )}
               />
@@ -163,23 +162,31 @@ export function makeProblemSlide(problem: ExamProblem): ComponentType<SlideProps
             {open ? (
               <AnswerPanel problem={problem} grade={note.grade} onGrade={setGrade} />
             ) : (
-              <Panel tone="sunken" pad="lg" className="flex grow flex-col items-center justify-center gap-5 text-center">
-                <Eye className="size-9 text-content-muted md:size-12" />
-                <p className="text-deck-body font-semibold text-content-secondary">
-                  왼쪽에 먼저 써 본 다음에 정답을 엽니다
-                </p>
-                <button
-                  type="button"
-                  onClick={() => setOpen(true)}
-                  className="flex items-center gap-3 rounded-full bg-accent px-6 py-3 text-deck-body font-bold text-accent-contrast shadow-lifted transition duration-200 ease-deck hover:bg-accent-strong md:px-10 md:py-4"
+              <>
+                {problem.sample ? <SampleTable /> : null}
+                {problem.tables ? <TableList keys={problem.tables} /> : null}
+                <Panel
+                  tone="sunken"
+                  pad={problem.sample || problem.tables ? 'md' : 'lg'}
+                  className="flex grow flex-col items-center justify-center gap-5 text-center"
                 >
-                  <Eye className="size-6 md:size-7" />
-                  정답 보기
-                </button>
-                <p className="text-deck-meta text-content-muted">
-                  정답과 해설{problem.trap ? ', 자주 틀리는 지점' : ''}이 열립니다
-                </p>
-              </Panel>
+                  <Eye className="size-9 text-content-muted md:size-12" />
+                  <p className="text-deck-body font-semibold text-content-secondary">
+                    왼쪽에 먼저 써 본 다음에 정답을 엽니다
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setOpen(true)}
+                    className="flex items-center gap-3 rounded-full bg-accent px-6 py-3 text-deck-body font-bold text-accent-contrast shadow-lifted transition duration-200 ease-deck hover:bg-accent-strong md:px-10 md:py-4"
+                  >
+                    <Eye className="size-6 md:size-7" />
+                    정답 보기
+                  </button>
+                  <p className="text-deck-meta text-content-muted">
+                    정답과 해설{problem.trap ? ', 자주 틀리는 지점' : ''}이 열립니다
+                  </p>
+                </Panel>
+              </>
             )}
           </div>
         </div>
