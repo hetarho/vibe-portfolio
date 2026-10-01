@@ -12,6 +12,7 @@ import { vibeCodingFirstAppDeck } from '../content/vibe-coding-first-app'
 import { codeThinkingBasicsDeck } from '../content/code-thinking-basics'
 import { javaExamRetakeDeck } from '../content/java-exam-retake'
 import { javaThinkingWorkshopDeck } from '../content/java-thinking-workshop'
+import { oracleJdbcExamDeck } from '../content/oracle-jdbc-exam'
 import { webBasicsForStudentDeck } from '../content/web-basics-for-student'
 
 export type Lesson = {
@@ -35,6 +36,27 @@ export type Lesson = {
 
 /** 강의 목록. 새 강의를 추가하려면 content/ 아래에 덱을 만들고 이 배열에 한 줄 추가한다. */
 export const lessons: Lesson[] = [
+  {
+    id: 'oracle-jdbc-exam',
+    version: 'V2',
+    title: 'Oracle SQL~JDBC 시험 대비 200문제',
+    subtitle: '기초 용어부터 JDBC 코드까지 · 개념을 한 바퀴 짚은 뒤 한 화면에 한 문제씩 풀고 스스로 채점',
+    audience: '1대1 · Oracle과 JDBC까지 배운 코딩학원 수강생 · 시험 대비',
+    duration: '242화면 · 개념 22화면 + 12단원 200문제',
+    outline: [
+      '개념 한 바퀴 · 시험 범위 전체를 22화면으로 먼저 짚기',
+      '문제에 나오는 테이블과 결과 예측용 표본 네 행',
+      '시험장에 들어가기 전에 읽을 함정 열 줄',
+      'A~B · 기초 용어와 SELECT 조건 검색',
+      'C~D · 함수, 정렬과 그룹, 집합 연산',
+      'E~F · JOIN, 서브쿼리와 순위',
+      'G~I · DDL과 제약 조건, DML과 트랜잭션, 시퀀스',
+      'J · JDBC 연결부터 자원 닫기까지',
+      'K~L · 춘대학교 워크북 응용과 남은 유형',
+      '단원별 채점 결과와 AI에게 비슷한 문제 받기',
+    ],
+    deck: oracleJdbcExamDeck,
+  },
   {
     id: 'web-basics-for-student',
     version: 'V2',
