@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>영화표 가격</title>
+</head>
+<body>
+  <h2>영화표 가격</h2>
+  <p>8세 미만 무료 · 8~18세 8,000원 · 성인 12,000원 · 18시 이후 유료표는 2,000원 할인</p>
+
+  나이 : <input type="number" id="age">
+  입장 시각(시) : <input type="number" id="hour" min="0" max="23">
+  <button onclick="ticketPrice()">가격 보기</button>
+  <div id="result"></div>
+
+  <script>
+    function ticketPrice() {
+      // 1. 나이와 입장 시각을 숫자로 가져온다
+      const age = Number(document.getElementById('age').value);
+      const hour = Number(document.getElementById('hour').value);
+
+      // 2. 나이로 기본 가격을 하나 정한다
+      let price;
+      if (age < 8) {
+        price = 0;
+      } else if (age <= 18) {
+        price = 8000;
+      } else {
+        price = 12000;
+      }
+
+      // 3. 18시 이후이고 유료표이면 2,000원을 뺀다
+      if (hour >= 18 && price > 0) {
+        price = price - 2000;
+      }
+
+      // 4. 가격을 보여준다
+      document.getElementById('result').innerHTML = price + '원';
+    }
+  </script>
+</body>
+</html>

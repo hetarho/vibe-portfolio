@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Practice2</title>
+</head>
+<body>
+  <h2>Practice2</h2>
+
+  <input type="number" id="num1">
+  <select id="op">
+    <option value="+">+</option>
+    <option value="-">-</option>
+    <option value="*">*</option>
+    <option value="/">/</option>
+    <option value="%">%</option>
+  </select>
+  <input type="number" id="num2">
+  <button onclick="calc()">=</button>
+  <input type="text" id="result" readonly>
+
+  <script>
+    function calc() {
+      // 1. 두 숫자와 연산자, 결과 칸을 가져온다
+      const num1 = Number(document.getElementById('num1').value);
+      const num2 = Number(document.getElementById('num2').value);
+      const op = document.getElementById('op').value;
+      const result = document.getElementById('result');
+
+      // 2. 연산자에 따라 다섯 갈래로 계산한다
+      let answer;
+      if (op == '+') {
+        answer = num1 + num2;
+      } else if (op == '-') {
+        answer = num1 - num2;
+      } else if (op == '*') {
+        answer = num1 * num2;
+      } else if (op == '/') {
+        answer = num1 / num2;
+      } else {
+        answer = num1 % num2;
+      }
+
+      // 3. 0으로 나눠서 숫자가 아니게 됐으면 빨간 칸에 '연산불가'를 쓰고,
+      //    아니면 칸을 원래대로 돌려놓고 결과를 쓴다
+      if (isNaN(answer) || answer == Infinity || answer == -Infinity) {
+        result.style.backgroundColor = 'red';
+        result.style.color = 'white';
+        result.value = '연산불가';
+      } else {
+        result.style.backgroundColor = '';
+        result.style.color = '';
+        result.value = answer;
+      }
+    }
+  </script>
+</body>
+</html>

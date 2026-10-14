@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>재고 주문</title>
+</head>
+<body>
+  <h2>떡볶이 주문</h2>
+
+  <p id="stock">남은 재고 7개</p>
+  주문 수량 : <input type="number" id="count">
+  <button onclick="order()">주문</button>
+
+  <script>
+    // 0. 재고를 7개로 기억해 둔다
+    //    버튼을 누를 때마다 남아 있어야 하므로 함수 밖에 둔다
+    let stock = 7;
+
+    function order() {
+      // 1. 주문 수량을 숫자로 가져온다
+      const count = Number(document.getElementById('count').value);
+
+      // 2. 1개보다 적으면 알리고 멈춘다
+      if (count < 1) {
+        alert('1개 이상 주문해 주세요');
+        return;
+      }
+
+      // 3. 재고보다 많으면 알리고 멈춘다 (재고는 그대로 둔다)
+      if (count > stock) {
+        alert('재고가 부족합니다');
+        return;
+      }
+
+      // 4. 재고에서 주문 수량을 뺀다
+      stock = stock - count;
+
+      // 5. 남은 재고를 보여준다
+      document.getElementById('stock').innerHTML = '남은 재고 ' + stock + '개';
+    }
+  </script>
+</body>
+</html>

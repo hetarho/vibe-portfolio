@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Practice3</title>
+  <style>
+    fieldset { width: 540px; line-height: 2.4; }
+  </style>
+</head>
+<body>
+  <h2>Practice3</h2>
+
+  <fieldset>
+    <legend>회원가입</legend>
+    아이디 : <input type="text" id="userId" onkeyup="checkId()"> <span id="idMsg"></span><br>
+    비밀번호 : <input type="password" id="pwd"><br>
+    비밀번호 확인 : <input type="password" id="pwd2" onblur="checkPwd()"> <span id="pwdMsg"></span><br>
+    이름 : <input type="text" id="userName"><br>
+    <button onclick="join()">회원가입</button>
+  </fieldset>
+
+  <script>
+    // 아이디 칸에 한 글자 칠 때마다
+    function checkId() {
+      // 1. 아이디 값과 안내 칸을 가져온다
+      const id = document.getElementById('userId').value;
+      const msg = document.getElementById('idMsg');
+      // 2. 비었을 때 · user01일 때 · 그 밖일 때, 세 갈래로 안내한다
+      if (id == '') {
+        msg.innerHTML = '';
+      } else if (id == 'user01') {
+        msg.innerHTML = '이미 존재하는 아이디입니다.';
+        msg.style.color = 'red';
+      } else {
+        msg.innerHTML = '사용 가능한 아이디입니다.';
+        msg.style.color = 'green';
+      }
+    }
+
+    // 비밀번호 확인 칸에서 커서가 나가면
+    function checkPwd() {
+      // 1. 두 비밀번호와 안내 칸을 가져온다
+      const pwd = document.getElementById('pwd').value;
+      const pwd2 = document.getElementById('pwd2').value;
+      const msg = document.getElementById('pwdMsg');
+      // 2. 같으면 초록 글자로, 다르면 빨간 글자로 안내한다
+      if (pwd == pwd2) {
+        msg.innerHTML = '비밀번호가 일치합니다.';
+        msg.style.color = 'green';
+      } else {
+        msg.innerHTML = '비밀번호가 일치하지 않습니다.';
+        msg.style.color = 'red';
+      }
+    }
+
+    // 「회원가입」 버튼을 누르면
+    function join() {
+      // 1. 네 칸을 값이 아니라 칸째로 가져온다 (지우고 커서를 옮겨야 하므로)
+      const id = document.getElementById('userId');
+      const pwd = document.getElementById('pwd');
+      const pwd2 = document.getElementById('pwd2');
+      const name = document.getElementById('userName');
+
+      // 2. 빈 칸이 있으면 알리고, 그 칸에 커서를 두고 멈춘다
+      if (id.value == '') {
+        alert('아이디를 입력해주세요');
+        id.focus();
+        return;
+      }
+      if (pwd.value == '') {
+        alert('비밀번호를 입력해주세요');
+        pwd.focus();
+        return;
+      }
+      if (pwd2.value == '') {
+        alert('비밀번호 확인을 입력해주세요');
+        pwd2.focus();
+        return;
+      }
+      if (name.value == '') {
+        alert('이름을 입력해주세요');
+        name.focus();
+        return;
+      }
+
+      // 3. 아이디가 user01이면 알리고, 아이디 칸을 지우고 커서를 두고 멈춘다
+      if (id.value == 'user01') {
+        alert('사용할 수 없는 아이디입니다');
+        id.value = '';
+        id.focus();
+        return;
+      }
+
+      // 4. 비밀번호가 다르면 알리고, 확인 칸을 지우고 커서를 두고 멈춘다
+      if (pwd.value != pwd2.value) {
+        alert('비밀번호가 일치하지 않습니다');
+        pwd2.value = '';
+        pwd2.focus();
+        return;
+      }
+
+      // 5. 여기까지 왔으면 전부 통과했다. 환영 알림을 띄우고 모든 칸을 비운다
+      alert(name.value + '님, 회원가입이 성공적으로 완료되었습니다^^');
+      id.value = '';
+      pwd.value = '';
+      pwd2.value = '';
+      name.value = '';
+      document.getElementById('idMsg').innerHTML = '';
+      document.getElementById('pwdMsg').innerHTML = '';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Practice4</title>
+  <style>
+    fieldset { width: 400px; }
+    li { margin: 4px 0; }
+    #output { width: 360px; height: 120px; border: 1px solid black; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <h2>Practice4</h2>
+
+  <fieldset>
+    <legend>구매 정보</legend>
+    <ul>
+      <li>구매자 : <input type="text" id="buyer" placeholder="구매자의 이름을 입력하세요"></li>
+      <li>상품명 : <input type="text" id="product" placeholder="구매 상품 명을 입력하세요"></li>
+      <li>가격 : <input type="text" id="price" placeholder="구매 가격을 입력하세요"></li>
+      <li>구매 수량 : <input type="number" id="count" min="10" max="100" step="10" placeholder="최소 10, 최대 100"></li>
+      <li>납품 등급 : <input type="range" id="grade" min="1" max="9" step="2" value="1"></li>
+      <li>기타 사항 : <textarea id="etc"></textarea></li>
+    </ul>
+  </fieldset>
+  <br>
+  <button onclick="printInfo()">입력 값 출력하기</button>
+  <div id="output"></div>
+
+  <script>
+    function printInfo() {
+      // 1. 여섯 칸의 값을 하나씩 가져온다
+      const buyer = document.getElementById('buyer').value;
+      const product = document.getElementById('product').value;
+      const price = document.getElementById('price').value;
+      const count = document.getElementById('count').value;
+      const grade = document.getElementById('grade').value;
+      const etc = document.getElementById('etc').value;
+
+      // 2. 값마다 앞에 이름을, 뒤에 단위를 붙여 한 줄씩 잇는다
+      const text = '구매자 명 : ' + buyer + '님<br>'
+        + '상품 명 : ' + product + '<br>'
+        + '가격 : ' + price + '만원<br>'
+        + '구매 수량 : ' + count + '개<br>'
+        + '납품등급 : ' + grade + '등급<br>'
+        + '기타사항 : ' + etc;
+
+      // 3. 결과 네모에 쓴다
+      document.getElementById('output').innerHTML = text;
+    }
+  </script>
+</body>
+</html>

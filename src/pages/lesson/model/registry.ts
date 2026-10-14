@@ -12,6 +12,7 @@ import { vibeCodingFirstAppDeck } from '../content/vibe-coding-first-app'
 import { codeThinkingBasicsDeck } from '../content/code-thinking-basics'
 import { javaExamRetakeDeck } from '../content/java-exam-retake'
 import { javaThinkingWorkshopDeck } from '../content/java-thinking-workshop'
+import { jsPracticeToCodeDeck } from '../content/js-practice-to-code'
 import { oracleJdbcExamDeck } from '../content/oracle-jdbc-exam'
 import { webBasicsForStudentDeck } from '../content/web-basics-for-student'
 
@@ -36,6 +37,26 @@ export type Lesson = {
 
 /** 강의 목록. 새 강의를 추가하려면 content/ 아래에 덱을 만들고 이 배열에 한 줄 추가한다. */
 export const lessons: Lesson[] = [
+  {
+    id: 'js-practice-to-code',
+    version: 'V2',
+    title: 'JavaScript 실습 다섯 문제와 코드로 옮기기',
+    subtitle: '학원 실습문제를 직접 만들며 패턴 카드 여덟 장을 모으고, 한글 절차를 그 카드로 코드까지 옮기기',
+    audience: '1대1 · JavaScript 함수까지 배운 코딩학원 수강생 · 혼자 코드 쓰기 연습',
+    duration: '약 3시간 · 51화면 · 1부 실습 + 2부 옮기기',
+    outline: [
+      '코드는 외워야 하나 · 외울 크기는 패턴 카드',
+      '1부 · 구매 정보와 검색 항목 · 값 가져오기, 화면에 쓰기, 보이고 숨기기',
+      '1부 · 계산기 · 숫자로 바꾸기와 0으로 나눈 경우를 알아내는 두 길',
+      '1부 · 카테고리 · 목록 하나씩 돌기와 그릇에 모으기',
+      '1부 · 회원가입 · 칠 때마다, 칸에서 나갈 때, 걸리면 알리고 멈추기',
+      '1부 정리 · 다섯 문제가 카드 여덟 장으로 풀린다',
+      '2부 · 옮기는 다섯 단계와 주석으로 먼저 쓰는 껍데기',
+      '2부 · 라떼 예제 → 순서 맞추기 → 빈칸 → 절차만 → 백지',
+      '집에서 쓰는 복습 프롬프트 · 절차를 먼저 채점받고 코드는 그다음',
+    ],
+    deck: jsPracticeToCodeDeck,
+  },
   {
     id: 'oracle-jdbc-exam',
     version: 'V2',

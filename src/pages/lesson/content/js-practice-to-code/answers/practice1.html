@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Practice1</title>
+  <style>
+    fieldset { width: 640px; line-height: 2; }
+    .second { margin-left: 96px; }
+    #output { width: 660px; height: 120px; border: 1px solid red; margin-top: 4px; }
+  </style>
+</head>
+<body>
+  <h2>Practice1</h2>
+
+  <fieldset>
+    <legend>취미</legend>
+    <label><input type="checkbox" id="all" onclick="checkAll()"> 전체선택</label>
+    <label><input type="checkbox" name="category" value="종합" onclick="checkOne()"> 종합</label>
+    <label><input type="checkbox" name="category" value="소설" onclick="checkOne()"> 소설</label>
+    <label><input type="checkbox" name="category" value="시/에세이" onclick="checkOne()"> 시/에세이</label>
+    <label><input type="checkbox" name="category" value="경제/경영" onclick="checkOne()"> 경제/경영</label>
+    <label><input type="checkbox" name="category" value="자기계발" onclick="checkOne()"> 자기계발</label>
+    <label><input type="checkbox" name="category" value="아동" onclick="checkOne()"> 아동</label>
+    <br>
+    <span class="second">
+      <label><input type="checkbox" name="category" value="여행" onclick="checkOne()"> 여행</label>
+      <label><input type="checkbox" name="category" value="과학" onclick="checkOne()"> 과학</label>
+      <label><input type="checkbox" name="category" value="역사/문화" onclick="checkOne()"> 역사/문화</label>
+      <label><input type="checkbox" name="category" value="외국어" onclick="checkOne()"> 외국어</label>
+      <label><input type="checkbox" name="category" value="컴퓨터" onclick="checkOne()"> 컴퓨터</label>
+      <label><input type="checkbox" name="category" value="만화" onclick="checkOne()"> 만화</label>
+    </span>
+  </fieldset>
+  <br>
+  <button onclick="printCategory()">카테고리 선택</button>
+  <div id="output"></div>
+
+  <script>
+    // 「카테고리 선택」 버튼을 누르면
+    function printCategory() {
+      // 1. 카테고리 칸을 전부 모은다
+      const boxes = document.getElementsByName('category');
+      // 2. 결과 그릇을 빈 글자로 시작한다
+      let result = '';
+      // 3. 하나씩 보면서 체크된 칸이면 이름을 뒤에 붙인다
+      for (let i = 0; i < boxes.length; i++) {
+        if (boxes[i].checked) {
+          result += boxes[i].value + ' ';
+        }
+      }
+      // 4. 결과 네모에 쓴다
+      document.getElementById('output').innerHTML = result;
+    }
+
+    // 「전체선택」을 누르면
+    function checkAll() {
+      // 1. 전체선택 칸이 체크됐는지 가져온다
+      const all = document.getElementById('all').checked;
+      // 2. 카테고리 칸을 하나씩 전부 그 값과 같게 만든다
+      const boxes = document.getElementsByName('category');
+      for (let i = 0; i < boxes.length; i++) {
+        boxes[i].checked = all;
+      }
+    }
+
+    // 카테고리 칸을 하나 누를 때마다
+    function checkOne() {
+      // 1. 카테고리 칸을 전부 모은다
+      const boxes = document.getElementsByName('category');
+      // 2. '전부 체크됨' 그릇을 참으로 두고 시작한다
+      let allChecked = true;
+      // 3. 하나씩 보면서 체크 안 된 칸을 만나면 거짓으로 바꾼다
+      for (let i = 0; i < boxes.length; i++) {
+        if (!boxes[i].checked) {
+          allChecked = false;
+        }
+      }
+      // 4. 전체선택 칸을 그릇과 같게 만든다
+      document.getElementById('all').checked = allChecked;
+    }
+  </script>
+</body>
+</html>

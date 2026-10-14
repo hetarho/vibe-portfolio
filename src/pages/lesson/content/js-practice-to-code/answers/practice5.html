@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Practice5</title>
+  <style>
+    fieldset { width: 460px; text-align: center; }
+    .box { display: none; width: 460px; margin-top: 16px; padding: 10px; background: lightgray; }
+  </style>
+</head>
+<body>
+  <h2>Practice5</h2>
+
+  <fieldset>
+    <legend>검색할 항목을 선택하세요.</legend>
+    <label><input type="radio" name="search" onclick="showSearch('title')"> 제목</label>
+    <label><input type="radio" name="search" onclick="showSearch('date')"> 날짜</label>
+    <label><input type="radio" name="search" onclick="showSearch('writer')"> 작성자</label>
+  </fieldset>
+
+  <div id="title" class="box">
+    검색할 제목을 입력하세요 :<br>
+    <input type="text" size="50"> <button>검색</button>
+  </div>
+  <div id="date" class="box">
+    검색할 날짜를 선택하세요 :<br>
+    <input type="date"> - <input type="date"> <button>검색</button>
+  </div>
+  <div id="writer" class="box">
+    검색할 작성자 아이디를 입력하세요 :<br>
+    <input type="text"> <button>검색</button>
+  </div>
+
+  <script>
+    function showSearch(kind) {
+      // 1. 세 검색 창을 모두 숨긴다
+      document.getElementById('title').style.display = 'none';
+      document.getElementById('date').style.display = 'none';
+      document.getElementById('writer').style.display = 'none';
+
+      // 2. 고른 검색 창 하나만 보이게 한다
+      document.getElementById(kind).style.display = 'block';
+    }
+  </script>
+</body>
+</html>
