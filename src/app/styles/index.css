@@ -2,5 +2,7 @@
    작품·위젯·강의 전용 스타일은 각 슬라이스의 styles.css가 소유하고
    해당 진입 컴포넌트에서 직접 import한다. */
 @import "tailwindcss";
+/* html-practice/는 수업에서 학생이 채우는 연습 파일이다. 앱 CSS에 클래스를 만들지 않게 훑지 않는다. */
+@source not "../../../html-practice";
 @import "./theme.css";
 @import "./base.css";

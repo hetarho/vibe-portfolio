@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>03 · 탭 메뉴 · 정답</title>
+  <style>
+    .panel { display: none; width: 360px; margin-top: 8px; padding: 12px; background: lightgray; }
+  </style>
+</head>
+<body>
+  <h2>03 · 탭 메뉴 · 정답</h2>
+
+  <button id="tab-menu" onclick="showTab('menu')">메뉴</button>
+  <button id="tab-place" onclick="showTab('place')">위치</button>
+  <button id="tab-hours" onclick="showTab('hours')">영업시간</button>
+
+  <div id="menu" class="panel" style="display: block;">떡볶이 4,000원 · 김밥 3,500원 · 라면 5,000원</div>
+  <div id="place" class="panel">KH정보교육원 1층 옆 골목</div>
+  <div id="hours" class="panel">매일 11시 ~ 21시 · 월요일 휴무</div>
+
+  <script>
+    function showTab(kind) {
+      // 1. 세 칸을 모두 숨긴다
+      document.getElementById('menu').style.display = 'none';
+      document.getElementById('place').style.display = 'none';
+      document.getElementById('hours').style.display = 'none';
+
+      // 2. 고른 칸 하나만 보이게 한다
+      document.getElementById(kind).style.display = 'block';
+
+      // 도전 · 탭 버튼 글자색을 모두 되돌리고, 고른 탭 버튼만 빨갛게 한다
+      document.getElementById('tab-menu').style.color = '';
+      document.getElementById('tab-place').style.color = '';
+      document.getElementById('tab-hours').style.color = '';
+      document.getElementById('tab-' + kind).style.color = 'red';
+    }
+  </script>
+</body>
+</html>

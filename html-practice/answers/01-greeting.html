@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>01 · 인사하기 · 정답</title>
+</head>
+<body>
+  <h2>01 · 인사하기 · 정답</h2>
+
+  이름 : <input type="text" id="name">
+  <button onclick="greet()">인사하기</button>
+  <div id="result"></div>
+
+  <script>
+    function greet() {
+      // 1. 이름 칸의 값을 가져온다
+      const name = document.getElementById('name').value;
+
+      // 도전 · 비었으면 안내하고 멈춘다
+      if (name == '') {
+        document.getElementById('result').innerHTML = '이름을 넣어 주세요';
+        return;
+      }
+
+      // 2. 이름 뒤에 "님, 반갑습니다!"를 붙여 결과 네모에 보여준다
+      document.getElementById('result').innerHTML = name + '님, 반갑습니다!';
+    }
+  </script>
+</body>
+</html>

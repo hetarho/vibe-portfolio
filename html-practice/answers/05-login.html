@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>05 · 로그인 · 정답</title>
+</head>
+<body>
+  <h2>05 · 로그인 · 정답</h2>
+
+  아이디 : <input type="text" id="userId"><br><br>
+  비밀번호 : <input type="password" id="pwd"><br><br>
+  <button onclick="login()">로그인</button>
+  <div id="result"></div>
+
+  <script>
+    function login() {
+      // 1. 두 칸을 칸째로 가져온다 (커서를 옮기고 칸을 비워야 하므로)
+      const id = document.getElementById('userId');
+      const pwd = document.getElementById('pwd');
+      const result = document.getElementById('result');
+
+      // 2. 아이디가 비었으면 알리고, 아이디 칸에 커서를 두고 멈춘다
+      if (id.value == '') {
+        alert('아이디를 입력해주세요');
+        id.focus();
+        return;
+      }
+
+      // 3. 비밀번호가 비었으면 알리고, 비밀번호 칸에 커서를 두고 멈춘다
+      if (pwd.value == '') {
+        alert('비밀번호를 입력해주세요');
+        pwd.focus();
+        return;
+      }
+
+      // 4. 아이디와 비밀번호가 모두 맞으면 초록 글자로 환영한다
+      if (id.value == 'admin' && pwd.value == '1234') {
+        result.innerHTML = id.value + '님, 환영합니다';
+        result.style.color = 'green';
+        return;
+      }
+
+      // 5. 여기까지 왔으면 틀린 것이다. 알리고, 비밀번호 칸을 비우고 커서를 둔다
+      alert('아이디 또는 비밀번호가 틀렸습니다');
+      pwd.value = '';
+      pwd.focus();
+    }
+  </script>
+</body>
+</html>

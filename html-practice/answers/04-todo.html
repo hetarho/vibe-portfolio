@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>04 · 오늘 할 일 · 정답</title>
+</head>
+<body>
+  <h2>04 · 오늘 할 일 · 정답</h2>
+
+  <label><input type="checkbox" name="todo"> 물 두 잔 마시기</label><br>
+  <label><input type="checkbox" name="todo"> 운동 30분</label><br>
+  <label><input type="checkbox" name="todo"> 자바스크립트 복습</label><br>
+  <label><input type="checkbox" name="todo"> 카드 여덟 장 쓰기</label><br>
+  <label><input type="checkbox" name="todo"> 열두 시 전에 자기</label><br>
+  <button onclick="countDone()">확인</button>
+  <div id="result"></div>
+
+  <script>
+    function countDone() {
+      // 1. 할 일 칸을 전부 모은다
+      const todos = document.getElementsByName('todo');
+
+      // 2. 완료 개수 그릇을 0으로 시작한다 (뜻 : 지금까지 본 칸 중 체크된 개수)
+      let done = 0;
+
+      // 3. 하나씩 보면서 체크된 칸이면 1을 더한다
+      for (let i = 0; i < todos.length; i++) {
+        if (todos[i].checked) {
+          done += 1;
+        }
+      }
+
+      // 4. "5개 중 O개 완료" 글자를 만든다
+      let text = todos.length + '개 중 ' + done + '개 완료';
+
+      // 5. 전부 했으면 뒤에 " · 오늘 할 일 끝!"을 붙인다
+      //    (그릇을 하나 더 두고 true에서 시작해 체크 안 된 칸을 만나면 false로 바꿔도 같은 답이다)
+      if (done == todos.length) {
+        text += ' · 오늘 할 일 끝!';
+      }
+
+      // 6. 결과를 보여준다
+      document.getElementById('result').innerHTML = text;
+    }
+  </script>
+</body>
+</html>

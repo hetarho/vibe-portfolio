@@ -59,6 +59,10 @@ FSD의 상위 레이어가 하위 레이어를 참조하는 의존 방향을 따
 스타일도 같은 규칙입니다. 전역 토큰과 reset만 `app/styles`에 있고, 작품·헤더·강의 전용 CSS는
 각 슬라이스의 `styles.css`가 소유하며 진입 컴포넌트가 직접 import합니다.
 
+`src/` 바깥의 `html-practice/`는 수업에서 학생이 직접 채우는 HTML 연습 파일 모음입니다.
+개발 서버에서 `http://localhost:3030/html-practice/`로 열리고, 파일을 저장하면 열린 화면이 저절로 새로 고쳐집니다.
+VS Code 화면을 반으로 나눠 쓰는 방법은 [html-practice/README.md](html-practice/README.md)에 있습니다.
+
 ## 강의 화면 (`/lesson`)
 
 강사가 빔프로젝터에 띄워놓고 진행하는 프레젠테이션형 화면입니다.

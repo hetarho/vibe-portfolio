@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HTML 연습장</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 24px;
+      font-family: "Pretendard", "Noto Sans KR", "Malgun Gothic", sans-serif;
+      color: #1c1a17;
+      background: #f6f4f1;
+      line-height: 1.5;
+    }
+    h1 { margin: 0 0 4px; font-size: 26px; }
+    .how { margin: 0 0 24px; color: #665e54; }
+    h2 { margin: 28px 0 10px; font-size: 18px; }
+    ol { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+    li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+    .no {
+      flex: none;
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #ebe7e1;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .name { flex: 1; min-width: 0; }
+    .name b { display: block; }
+    .name small { color: #7f766a; }
+    a {
+      flex: none;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: #1c1a17;
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    a.answer { background: #ebe7e1; color: #514a42; }
+  </style>
+</head>
+<body>
+  <h1>HTML 연습장</h1>
+  <p class="how">왼쪽에서 파일을 고치고 Ctrl+S로 저장하면 이 화면이 저절로 새로 고쳐집니다.<br>목록으로 돌아올 때는 뒤로 가기를 누릅니다.</p>
+
+  <h2>오늘 수업 · 1부 학원 실습문제 (쉬운 순서)</h2>
+  <ol>
+    <li><span class="no">1</span><span class="name"><b>구매 정보</b><small>lesson/practice4.html · 카드 1 · 2 · 3</small></span><a href="lesson/practice4.html">문제</a><a class="answer" href="../src/pages/lesson/content/js-practice-to-code/answers/practice4.html">정답</a></li>
+    <li><span class="no">2</span><span class="name"><b>검색 항목</b><small>lesson/practice5.html · 카드 4</small></span><a href="lesson/practice5.html">문제</a><a class="answer" href="../src/pages/lesson/content/js-practice-to-code/answers/practice5.html">정답</a></li>
+    <li><span class="no">3</span><span class="name"><b>계산기</b><small>lesson/practice2.html · 카드 5</small></span><a href="lesson/practice2.html">문제</a><a class="answer" href="../src/pages/lesson/content/js-practice-to-code/answers/practice2.html">정답</a></li>
+    <li><span class="no">4</span><span class="name"><b>카테고리</b><small>lesson/practice1.html · 카드 6 · 7</small></span><a href="lesson/practice1.html">문제</a><a class="answer" href="../src/pages/lesson/content/js-practice-to-code/answers/practice1.html">정답</a></li>
+    <li><span class="no">5</span><span class="name"><b>회원가입</b><small>lesson/practice3.html · 카드 8</small></span><a href="lesson/practice3.html">문제</a><a class="answer" href="../src/pages/lesson/content/js-practice-to-code/answers/practice3.html">정답</a></li>
+  </ol>
+
+  <h2>오늘 수업 · 2부 한글 절차를 코드로</h2>
+  <ol>
+    <li><span class="no">2</span><span class="name"><b>메뉴 합계 · 빈칸 채우기</b><small>lesson/menu.html</small></span><a href="lesson/menu.html">문제</a><a class="answer" href="../src/pages/lesson/content/js-practice-to-code/answers/menu.html">정답</a></li>
+    <li><span class="no">3</span><span class="name"><b>재고 주문 · 절차 보고 쓰기</b><small>lesson/stock.html</small></span><a href="lesson/stock.html">문제</a><a class="answer" href="../src/pages/lesson/content/js-practice-to-code/answers/stock.html">정답</a></li>
+    <li><span class="no">4</span><span class="name"><b>출석 인원 · 백지에서</b><small>lesson/attend.html</small></span><a href="lesson/attend.html">문제</a><a class="answer" href="../src/pages/lesson/content/js-practice-to-code/answers/attend.html">정답</a></li>
+  </ol>
+
+  <h2>몸풀기 다섯 개 · 뒤로 갈수록 미리 써 둔 것이 줄어듭니다</h2>
+  <ol>
+    <li><span class="no">1</span><span class="name"><b>인사하기</b><small>화면과 절차가 있음 · 카드 1 · 2 · 3</small></span><a href="warmup/01-greeting.html">문제</a><a class="answer" href="answers/01-greeting.html">정답</a></li>
+    <li><span class="no">2</span><span class="name"><b>사탕 나누기</b><small>화면과 절차가 있음 · 카드 1 · 5 · 2</small></span><a href="warmup/02-candy.html">문제</a><a class="answer" href="answers/02-candy.html">정답</a></li>
+    <li><span class="no">3</span><span class="name"><b>탭 메뉴</b><small>절차를 직접 · 카드 4와 매개변수</small></span><a href="warmup/03-tabs.html">문제</a><a class="answer" href="answers/03-tabs.html">정답</a></li>
+    <li><span class="no">4</span><span class="name"><b>오늘 할 일</b><small>절차를 직접 · 카드 6 · 7 · 2</small></span><a href="warmup/04-todo.html">문제</a><a class="answer" href="answers/04-todo.html">정답</a></li>
+    <li><span class="no">5</span><span class="name"><b>로그인</b><small>화면만 있음 · 카드 3 · 1 · 8 · 4</small></span><a href="warmup/05-login.html">문제</a><a class="answer" href="answers/05-login.html">정답</a></li>
+  </ol>
+
+  <h2>빈 연습장</h2>
+  <ol>
+    <li><span class="no">+</span><span class="name"><b>새 문제를 풀 때 복사해서 쓰는 파일</b><small>00-blank.html</small></span><a href="00-blank.html">열기</a></li>
+  </ol>
+</body>
+</html>

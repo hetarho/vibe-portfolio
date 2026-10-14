@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>02 · 사탕 나누기 · 정답</title>
+</head>
+<body>
+  <h2>02 · 사탕 나누기 · 정답</h2>
+
+  인원 : <input type="number" id="people">
+  사탕 : <input type="number" id="candy">
+  <button onclick="share()">나누기</button>
+  <div id="result"></div>
+
+  <script>
+    function share() {
+      // 1. 인원과 사탕 개수를 숫자로 가져온다
+      const people = Number(document.getElementById('people').value);
+      const candy = Number(document.getElementById('candy').value);
+
+      // 도전 · 인원이 1보다 적으면 안내하고 멈춘다 (0으로 나누면 Infinity와 NaN이 나온다)
+      if (people < 1) {
+        document.getElementById('result').innerHTML = '1명 이상 넣어 주세요';
+        return;
+      }
+
+      // 2. 1인당 개수를 구한다 (나눈 몫)
+      const each = Math.floor(candy / people);
+
+      // 3. 남은 개수를 구한다 (나머지)
+      const left = candy % people;
+
+      // 4. "1인당 O개, 남은 사탕 O개"를 보여준다
+      document.getElementById('result').innerHTML = '1인당 ' + each + '개, 남은 사탕 ' + left + '개';
+    }
+  </script>
+</body>
+</html>
