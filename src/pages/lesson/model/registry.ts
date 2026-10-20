@@ -12,6 +12,7 @@ import { vibeCodingFirstAppDeck } from '../content/vibe-coding-first-app'
 import { codeThinkingBasicsDeck } from '../content/code-thinking-basics'
 import { javaExamRetakeDeck } from '../content/java-exam-retake'
 import { javaThinkingWorkshopDeck } from '../content/java-thinking-workshop'
+import { jsBlankPageDrillDeck } from '../content/js-blank-page-drill'
 import { jsPracticeToCodeDeck } from '../content/js-practice-to-code'
 import { oracleJdbcExamDeck } from '../content/oracle-jdbc-exam'
 import { webBasicsForStudentDeck } from '../content/web-basics-for-student'
@@ -37,6 +38,25 @@ export type Lesson = {
 
 /** 강의 목록. 새 강의를 추가하려면 content/ 아래에 덱을 만들고 이 배열에 한 줄 추가한다. */
 export const lessons: Lesson[] = [
+  {
+    id: 'js-blank-page-drill',
+    version: 'V2',
+    title: '백지 공포증 깨기 · 껍데기부터 치는 JavaScript 반복 훈련',
+    subtitle: '같은 문제를 Step 1(보고 치기)부터 Step 5(백지)까지 다섯 번 치며 힌트를 한 겹씩 지우기',
+    audience: '1대1 · 예시는 바꿔 쓰지만 빈 화면에서 첫 줄을 못 떼는 국비과정 수강생',
+    duration: '1~4시간 · 교시마다 끊어 가기 · html-practice/drill 실습과 함께',
+    outline: [
+      '왜 하얘지나 · 문제 쪼개기와 문법 떠올리기를 떼어 놓기',
+      '다섯 Step · 보고 치기 → 값만 → 주석과 껍데기 → 주석만 → 백지',
+      '타자 연습장 · if-else, 값 가져오기, 함수, for 껍데기 다섯 판',
+      '1교시 · 인사하기와 사탕 나누기 · if / else 한 번',
+      '2교시 · 로그인과 재고 주문 · else if 여러 갈래와 함수 밖 그릇',
+      '3교시 · 사탕 쏙쏙과 스캔 기록 · for로 li를 만들어 화면에 넣기',
+      '4교시 · 장바구니 조립 · 이벤트 연결, 에러 처리, 계산, 출력',
+      '막혔을 때 내려가는 사다리와 집에서 쓰는 복습 프롬프트',
+    ],
+    deck: jsBlankPageDrillDeck,
+  },
   {
     id: 'js-practice-to-code',
     version: 'V2',
