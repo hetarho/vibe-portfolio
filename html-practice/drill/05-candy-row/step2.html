@@ -6,7 +6,7 @@
   <title>05 사탕 쏙쏙 · Step 2</title>
   <link rel="stylesheet" href="../drill.css">
   <script src="../problems.js"></script>
-  <script src="../drill.js"></script>
+  <script src="../drill.js" defer></script>
 </head>
 <body data-problem="candyRow" data-step="2">
   <!--
@@ -16,25 +16,31 @@
     1개보다 적으면 "1개 이상 넣어 주세요"를 보여줍니다.
     도전 : '<li>사탕</li>' 대신 '<li>' + i + '</li>'를 붙이면 숫자가 몇부터 나오나요?
 
-    뼈대는 다 있습니다. ___ 자리만 알맞은 값이나 연산자로 바꿉니다.
+    코드 칸에 아래 starter가 들어 있습니다. ___ 자리만 바꿉니다.
     ___ 이 하나라도 남아 있으면 버튼이 동작하지 않습니다.
-  -->
-  사탕 개수 : <input type="number" id="count">
-  <button onclick="drop()">사탕 놓기</button>
-  <ul id="result" class="pop candy"></ul>
 
-  <script>
+    이 파일은 브라우저로 열어서 씁니다. 고칠 일이 있을 때만 VS Code로 엽니다.
+    stage   : 오른쪽 「실행 화면」에 놓이는 HTML
+    starter : 왼쪽 「내 코드」 칸에 처음 들어 있는 코드
+  -->
+  <template id="stage">
+    사탕 개수 : <input type="number" id="count">
+    <button onclick="drop()">사탕 놓기</button>
+    <ul id="result" class="pop candy"></ul>
+  </template>
+
+  <script type="text/plain" id="starter">
     function drop() {
       const count = Number(document.getElementById('count').value);
 
-      if (count ___ 1) {                                      // 연산자 : 1보다 적은가?
+      if (count ___ 1) {  // 연산자 : 1보다 적은가?
         document.getElementById('result').innerHTML = '1개 이상 넣어 주세요';
       } else {
-        let html = ___;                                       // 처음 값 : 빈 글자
-        for (let i = 0; i < ___; i++) {                       // 몇 번 돌까?
+        let html = ___;  // 처음 값 : 빈 글자
+        for (let i = 0; i < ___; i++) {  // 몇 번 돌까?
           html += '<li>사탕</li>';
         }
-        document.getElementById('result').innerHTML = ___;    // 다 모은 그릇
+        document.getElementById('result').innerHTML = ___;  // 다 모은 그릇
       }
     }
   </script>

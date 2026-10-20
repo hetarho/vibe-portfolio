@@ -1,10 +1,10 @@
-import { ArrowRight, Clock, Eye, FileCode2, MessageCircleQuestion, RotateCcw, StepForward } from 'lucide-react'
+import { ArrowRight, Clock, ExternalLink, Eye, MessageCircleQuestion, RotateCcw, StepForward } from 'lucide-react'
 import type { ComponentType } from 'react'
 import { useState } from 'react'
 import type { SlideProps } from '../../../deck'
 import { Chip, cx, Mark, Panel, PanelLabel, SlideHeadline, SlideKicker, SlideLayout } from '../../../deck'
 import type { DrillProblem, Stuck } from '../model/drill'
-import { CART, CART_BLANKS, CART_STUCK, caseExpect, CLEAR_CART, drillOf, PERIODS, SHELLS } from '../model/drill'
+import { CART, CART_BLANKS, CART_STUCK, caseExpect, CLEAR_CART, drillHref, drillOf, PERIODS, SHELLS } from '../model/drill'
 import { DrillCode } from '../ui/DrillCode'
 import { StepTabs } from '../ui/StepTabs'
 
@@ -93,10 +93,15 @@ export function makeStepsSlide(problem: DrillProblem): ComponentType<SlideProps>
                 </p>
               ))}
             </Panel>
-            <p className="flex items-center gap-2 text-deck-meta text-content-muted">
-              <FileCode2 className="size-4 shrink-0" />
-              html-practice/drill/{problem.folder}/
-            </p>
+            <a
+              href={drillHref(problem)}
+              target="_blank"
+              rel="noreferrer"
+              className="flex w-fit items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-deck-caption font-bold text-accent-contrast shadow-lifted transition duration-200 ease-deck hover:opacity-90"
+            >
+              <ExternalLink className="size-5 shrink-0" />
+              Step 1부터 실습 열기
+            </a>
           </div>
           <div className="lg:col-span-6">
             <StepTabs problem={problem} />
@@ -253,7 +258,15 @@ export function CartBlanksSlide() {
     <SlideLayout align="top">
       <div className="flex flex-wrap items-center justify-between gap-3 md:gap-5">
         <SlideKicker>4교시 · 07 장바구니 조립</SlideKicker>
-        <Chip>drill/07-cart/cart.html</Chip>
+        <a
+          href={`/html-practice/drill/${CART.folder}/${CART.page}`}
+          target="_blank"
+          rel="noreferrer"
+          className="flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-deck-caption font-bold text-accent-contrast shadow-lifted transition duration-200 ease-deck hover:opacity-90"
+        >
+          <ExternalLink className="size-5 shrink-0" />
+          장바구니 실습 열기
+        </a>
       </div>
       <SlideHeadline>
         빈칸 여덟 개를 <Mark>조립 순서대로</Mark> 하나씩

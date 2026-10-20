@@ -6,7 +6,7 @@
   <title>01 인사하기 · Step 2</title>
   <link rel="stylesheet" href="../drill.css">
   <script src="../problems.js"></script>
-  <script src="../drill.js"></script>
+  <script src="../drill.js" defer></script>
 </head>
 <body data-problem="greeting" data-step="2">
   <!--
@@ -14,21 +14,27 @@
     이름 칸에 이름을 쓰고 「인사하기」를 누르면 결과 네모에 "OOO님, 반갑습니다!"를 보여줍니다.
     이름 칸이 비어 있으면 "이름을 넣어 주세요"를 보여줍니다.
 
-    뼈대는 다 있습니다. ___ 자리만 알맞은 값이나 연산자로 바꿉니다.
+    코드 칸에 아래 starter가 들어 있습니다. ___ 자리만 바꿉니다.
     ___ 이 하나라도 남아 있으면 버튼이 동작하지 않습니다.
-  -->
-  이름 : <input type="text" id="name">
-  <button onclick="greet()">인사하기</button>
-  <div id="result"></div>
 
-  <script>
+    이 파일은 브라우저로 열어서 씁니다. 고칠 일이 있을 때만 VS Code로 엽니다.
+    stage   : 오른쪽 「실행 화면」에 놓이는 HTML
+    starter : 왼쪽 「내 코드」 칸에 처음 들어 있는 코드
+  -->
+  <template id="stage">
+    이름 : <input type="text" id="name">
+    <button onclick="greet()">인사하기</button>
+    <div id="result"></div>
+  </template>
+
+  <script type="text/plain" id="starter">
     function greet() {
       const name = document.getElementById('name').value;
 
-      if (name == ___) {                                           // 비어 있는 글자는 따옴표 두 개로 씁니다
-        document.getElementById('result').innerHTML = ___;          // 비었을 때 보여줄 문장
+      if (name == ___) {  // 비어 있는 글자는 따옴표 두 개로 씁니다
+        document.getElementById('result').innerHTML = ___;  // 비었을 때 보여줄 문장
       } else {
-        document.getElementById('result').innerHTML = name + ___;   // 이름 뒤에 붙일 문장
+        document.getElementById('result').innerHTML = name + ___;  // 이름 뒤에 붙일 문장
       }
     }
   </script>

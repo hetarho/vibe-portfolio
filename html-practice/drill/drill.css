@@ -1,4 +1,4 @@
-/* 4시간 코스 공용 화면 · index.html과 같은 색을 씁니다 */
+/* 4시간 코스 실습 화면 · 노트북 한 화면에 코드 칸(왼쪽)과 결과(오른쪽)를 나란히 둡니다 */
 :root {
   --ink: #1c1a17;
   --muted: #665e54;
@@ -17,181 +17,220 @@
 
 body {
   margin: 0;
-  padding: 16px;
   font-family: "Pretendard", "Noto Sans KR", "Malgun Gothic", sans-serif;
   color: var(--ink);
   background: var(--paper);
-  line-height: 1.55;
+  line-height: 1.5;
   transition: background 0.4s;
 }
-body.drill-all-pass { background: var(--ok-soft); }
+body.d-all-pass { background: var(--ok-soft); }
 
-.drill-top, .drill-stage, .drill-check { max-width: 760px; margin: 0 auto 12px; }
+/* 실습 파일 안의 template과 starter는 화면에 보이지 않습니다 */
+template, #starter { display: none; }
 
-.drill-label {
-  margin: 0 0 8px;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--muted);
+.d-label { margin: 0 0 6px; font-size: 13px; font-weight: 700; color: var(--muted); }
+
+/* 맨 위 줄 · 코스 목록, 교시, Step 1~5, 사용법 */
+.d-top {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  background: var(--ink);
+  color: #fff;
 }
-
-/* 맨 위 줄 · 목록, 교시, Step 1~5 */
-.drill-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 10px; }
-.drill-back { color: var(--muted); text-decoration: none; font-size: 14px; }
-.drill-crumb { flex: 1; font-weight: 700; font-size: 14px; }
-.drill-steps { display: flex; gap: 4px; }
-.drill-step {
+.d-home { color: #ddd6cc; text-decoration: none; font-size: 14px; }
+.d-crumb { flex: 1; min-width: 0; font-weight: 700; font-size: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.d-steps { display: flex; gap: 4px; }
+.d-step {
   width: 30px;
   height: 30px;
   display: grid;
   place-items: center;
   border-radius: 50%;
-  background: var(--chip);
-  color: var(--ink);
+  background: #3f3a34;
+  color: #fff;
   text-decoration: none;
   font-weight: 700;
   font-size: 14px;
 }
-.drill-step.is-done { background: var(--ok); color: #fff; }
-.drill-step.is-now { outline: 3px solid var(--ink); outline-offset: 1px; }
+.d-step.is-done { background: var(--ok); }
+.d-step.is-now { outline: 3px solid var(--mark); outline-offset: 1px; }
+.d-help-button { padding: 6px 14px; border: 0; border-radius: 999px; background: var(--mark); color: var(--ink); font: inherit; font-weight: 700; cursor: pointer; }
 
-.drill-rule, .drill-problem, .drill-answer, .drill-peek, .drill-checklist, .drill-stage, .drill-check {
-  padding: 14px 16px;
+/* 사용법 */
+.d-help {
+  max-width: 820px;
+  margin: 12px auto 0;
+  padding: 16px 20px;
   border-radius: 12px;
   background: var(--card);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-  margin-bottom: 10px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
 }
-.drill-rule { background: var(--ink); color: #fff; }
-.drill-rule b { font-size: 16px; }
-.drill-rule p { margin: 4px 0 0; color: #ddd6cc; font-size: 14px; }
-.drill-problem h1 { margin: 0 0 6px; font-size: 20px; }
-.drill-problem p { margin: 2px 0; }
+.d-help[hidden] { display: none; }
+.d-help h2 { margin: 0 0 8px; font-size: 18px; }
+.d-help ol { margin: 0 0 12px; padding-left: 22px; display: grid; gap: 6px; }
+.d-help b { display: inline-block; min-width: 150px; margin-right: 8px; }
+
+/* 왼쪽 코드 · 오른쪽 결과 */
+.d-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 14px;
+  padding: 12px 16px 24px;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .d-main { grid-template-columns: minmax(0, 1fr); }
+}
+.d-left, .d-right { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.d-right { position: sticky; top: 62px; }
+
+.d-rule { padding: 10px 14px; border-radius: 10px; background: var(--ink); color: #fff; }
+.d-rule b { font-size: 16px; }
+.d-rule p { margin: 2px 0 0; color: #ddd6cc; font-size: 14px; }
+
+.d-answer, .d-problem, .d-stage, .d-check {
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: var(--card);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+.d-problem h1 { margin: 0 0 4px; font-size: 18px; }
+.d-problem p { margin: 2px 0; font-size: 15px; }
 
 /* 정답 코드 · 드래그와 복사를 막습니다 */
-.drill-code {
+.d-code {
   margin: 0;
-  padding: 12px 14px;
+  padding: 10px 12px;
   border-radius: 8px;
   background: #24211d;
   color: #f3eee6;
   font-family: var(--code);
-  font-size: 15px;
-  line-height: 1.6;
-  overflow-x: auto;
+  font-size: 14px;
+  line-height: 1.55;
+  overflow: auto;
+  max-height: 34vh;
   white-space: pre;
 }
-.no-copy {
-  user-select: none;
-  -webkit-user-select: none;
-  -webkit-touch-callout: none;
-}
-.drill-peek .drill-code { margin-top: 10px; }
-
-.drill-blanks {
-  display: inline-block;
-  margin: 0 0 10px;
-  padding: 4px 12px;
-  border-radius: 999px;
-  background: var(--mark);
-  font-weight: 700;
-  font-size: 14px;
-}
+.no-copy { user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
 
 /* Step 5 체크리스트 */
-.drill-checklist ol { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
-.drill-checklist button {
-  width: 100%;
-  padding: 10px 12px;
+.d-checklist { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+.d-check-item {
+  padding: 8px 10px;
   border: 2px solid var(--chip);
   border-radius: 10px;
   background: #fff;
   font: inherit;
-  text-align: left;
+  font-size: 14px;
+  font-weight: 700;
   cursor: pointer;
 }
-.drill-checklist li.is-done button { border-color: var(--ok); background: var(--ok-soft); color: var(--ok); font-weight: 700; }
-.drill-checklist li.is-done button::after { content: "  ✔"; }
-.drill-checklist-done { display: none; margin: 10px 0 0; color: var(--ok); font-weight: 700; }
-.drill-checklist.is-all { box-shadow: 0 0 0 3px var(--ok); }
-.drill-checklist.is-all .drill-checklist-done { display: block; }
+.d-check-item.is-done { border-color: var(--ok); background: var(--ok-soft); color: var(--ok); }
+.d-check-item.is-done::after { content: " ✔"; }
 
-/* 오류 상자 · Simple Browser에는 콘솔이 없어서 여기에 띄웁니다 */
-.drill-error {
-  margin-bottom: 8px;
-  padding: 10px 14px;
+/* 코드 칸 · 왼쪽 줄 번호 + 입력 칸 */
+.d-editor-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: -4px; }
+.d-blanks { padding: 2px 10px; border-radius: 999px; background: var(--mark); font-size: 13px; font-weight: 700; }
+.d-blanks[hidden] { display: none; }
+.d-editor {
+  display: flex;
+  height: 52vh;
+  min-height: 260px;
   border-radius: 10px;
-  background: var(--bad-soft);
-  border-left: 5px solid var(--bad);
-  color: var(--bad);
+  overflow: hidden;
+  background: #24211d;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
 }
-.drill-error small { display: block; color: #7a4a45; font-family: var(--code); }
+.d-editor.is-short { height: 36vh; min-height: 220px; }
+.d-gutter, .d-textarea {
+  margin: 0;
+  padding: 12px 10px;
+  font-family: var(--code);
+  font-size: 15px;
+  line-height: 1.6;
+}
+.d-gutter {
+  flex: none;
+  width: 44px;
+  overflow: hidden;
+  text-align: right;
+  color: #7f766a;
+  background: #1c1a17;
+  user-select: none;
+}
+.d-textarea {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: none;
+  resize: none;
+  color: #f3eee6;
+  background: transparent;
+  white-space: pre;
+  overflow: auto;
+  tab-size: 2;
+}
+.d-textarea::placeholder { color: #8a8175; }
+.d-editor:focus-within { box-shadow: 0 0 0 3px var(--mark); }
 
-/* 학생이 만든 실행 화면 */
-.drill-stage input, .drill-stage select { font: inherit; padding: 6px 8px; border: 1px solid #c9c1b6; border-radius: 6px; }
-.drill-stage button { font: inherit; padding: 6px 14px; border: 0; border-radius: 6px; background: var(--ink); color: #fff; cursor: pointer; }
-#result {
-  min-height: 28px;
-  margin-top: 12px;
-  padding: 10px 12px;
-  border: 2px dashed #d6cfc5;
-  border-radius: 8px;
-  font-size: 18px;
-  font-weight: 700;
-}
-#result:empty::before { content: "결과가 여기에 나옵니다"; color: #b0a79b; font-weight: 400; font-size: 14px; }
-.drill-flash { animation: drill-flash 0.7s; }
-@keyframes drill-flash {
-  0% { background: var(--mark); border-color: #e0b800; }
-  100% { background: transparent; }
-}
-
-/* 목록 · li가 하나씩 쏙쏙 들어옵니다 */
-ul.pop { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 0; padding: 0; list-style: none; }
-ul.pop li {
-  padding: 6px 12px;
-  border-radius: 999px;
-  background: var(--chip);
-  font-weight: 700;
-}
-ul.pop li.hit { background: var(--mark); box-shadow: 0 0 0 2px #e0b800; }
-ul.candy li::before { content: "🍬 "; }
-ul.cart { display: grid; }
-ul.cart li { border-radius: 8px; }
-.pop-in { animation: drill-pop 0.4s both; }
-@keyframes drill-pop {
-  0% { opacity: 0; transform: translateY(-14px) scale(0.4); }
-  70% { opacity: 1; transform: translateY(0) scale(1.15); }
-  100% { opacity: 1; transform: scale(1); }
-}
-
-/* 채점하기 */
-.drill-button {
-  padding: 10px 20px;
+.d-tools { display: flex; flex-wrap: wrap; gap: 6px; }
+.d-button {
+  padding: 8px 16px;
   border: 0;
   border-radius: 999px;
   background: var(--ink);
   color: #fff;
   font: inherit;
+  font-size: 15px;
   font-weight: 700;
   cursor: pointer;
 }
-.drill-button.ghost { background: var(--chip); color: var(--ink); font-weight: 400; }
-.drill-button:disabled { opacity: 0.6; cursor: default; }
-.drill-check-how { margin-left: 10px; color: var(--muted); font-size: 14px; }
-.drill-cases { margin: 12px 0 0; padding: 0; list-style: none; display: grid; gap: 6px; }
-.drill-cases li { padding: 8px 12px; border-radius: 8px; }
-.drill-cases li.is-ok { background: var(--ok-soft); color: var(--ok); }
-.drill-cases li.is-bad { background: var(--bad-soft); color: var(--bad); }
-.drill-cases small { display: block; color: #7a4a45; }
-.drill-pass {
-  margin-top: 12px;
-  padding: 16px;
-  border-radius: 12px;
-  background: var(--ok);
-  color: #fff;
-  font-size: 18px;
-  animation: drill-pop 0.5s both;
+.d-button.primary { background: var(--ok); }
+.d-button.ghost { background: var(--chip); color: var(--ink); font-weight: 400; }
+.d-button:disabled { opacity: 0.6; cursor: default; }
+
+/* 오류 상자 · 누르면 그 줄로 갑니다 */
+.d-errors { display: grid; gap: 6px; }
+.d-error {
+  padding: 8px 12px;
+  border: 0;
+  border-left: 5px solid var(--bad);
+  border-radius: 8px;
+  background: var(--bad-soft);
+  color: var(--bad);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
 }
-.drill-pass b { display: block; margin-bottom: 6px; }
-.drill-next { color: #fff; font-weight: 700; }
+.d-error small { display: block; color: #7a4a45; font-family: var(--code); }
+
+/* 실행 화면 */
+.d-frame { display: block; width: 100%; height: 150px; border: 0; border-radius: 8px; background: #fff; }
+.d-frame.is-hidden { position: absolute; left: -9999px; top: 0; width: 600px; visibility: hidden; }
+.d-frame-box { border-radius: 8px; box-shadow: inset 0 0 0 1px var(--chip); }
+
+/* 채점 결과 */
+.d-check-how, .d-score { margin: 0; color: var(--muted); font-size: 14px; }
+.d-cases { margin: 8px 0 0; padding: 0; list-style: none; display: grid; gap: 5px; }
+.d-cases li { padding: 6px 10px; border-radius: 8px; font-size: 14px; }
+.d-cases li.is-ok { background: var(--ok-soft); color: var(--ok); }
+.d-cases li.is-bad { background: var(--bad-soft); color: var(--bad); }
+.d-cases small { display: block; color: #7a4a45; }
+.d-pass { padding: 12px 14px; border-radius: 10px; background: var(--ok); color: #fff; font-size: 17px; animation: d-rise 0.4s both; }
+.d-pass b { display: block; margin-bottom: 4px; }
+.d-next { color: #fff; font-weight: 700; }
+@keyframes d-rise {
+  0% { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: none; }
+}
+
+/* 알림창 대신 띄우는 상자 */
+.d-toasts { position: fixed; left: 50%; bottom: 20px; z-index: 10; display: grid; gap: 6px; transform: translateX(-50%); }
+.d-toast { min-width: 260px; padding: 10px 16px; border-radius: 12px; background: var(--ink); color: #fff; box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25); animation: d-rise 0.25s both; }
+.d-toast small { display: block; color: var(--mark); font-weight: 700; }

@@ -6,7 +6,7 @@
   <title>03 로그인 · Step 2</title>
   <link rel="stylesheet" href="../drill.css">
   <script src="../problems.js"></script>
-  <script src="../drill.js"></script>
+  <script src="../drill.js" defer></script>
 </head>
 <body data-problem="login" data-step="2">
   <!--
@@ -16,27 +16,33 @@
     아이디가 admin이고 비밀번호가 1234이면 "admin님, 환영합니다"
     그 밖에는 "아이디 또는 비밀번호가 틀렸습니다"
 
-    뼈대는 다 있습니다. ___ 자리만 알맞은 값이나 연산자로 바꿉니다.
+    코드 칸에 아래 starter가 들어 있습니다. ___ 자리만 바꿉니다.
     ___ 이 하나라도 남아 있으면 버튼이 동작하지 않습니다.
-  -->
-  아이디 : <input type="text" id="userId"><br><br>
-  비밀번호 : <input type="password" id="pwd"><br><br>
-  <button onclick="login()">로그인</button>
-  <div id="result"></div>
 
-  <script>
+    이 파일은 브라우저로 열어서 씁니다. 고칠 일이 있을 때만 VS Code로 엽니다.
+    stage   : 오른쪽 「실행 화면」에 놓이는 HTML
+    starter : 왼쪽 「내 코드」 칸에 처음 들어 있는 코드
+  -->
+  <template id="stage">
+    아이디 : <input type="text" id="userId"><br><br>
+    비밀번호 : <input type="password" id="pwd"><br><br>
+    <button onclick="login()">로그인</button>
+    <div id="result"></div>
+  </template>
+
+  <script type="text/plain" id="starter">
     function login() {
       const id = document.getElementById('userId').value;
       const pwd = document.getElementById('pwd').value;
 
-      if (id == ___) {                                  // 아이디가 비었나?
+      if (id == ___) {  // 아이디가 비었나?
         document.getElementById('result').innerHTML = '아이디를 입력해주세요';
-      } else if (pwd == ___) {                          // 비밀번호가 비었나?
+      } else if (pwd == ___) {  // 비밀번호가 비었나?
         document.getElementById('result').innerHTML = '비밀번호를 입력해주세요';
-      } else if (id == ___ ___ pwd == ___) {            // 아이디가 admin 그리고 비밀번호가 1234
+      } else if (id == ___ ___ pwd == ___) {  // 아이디가 admin 그리고 비밀번호가 1234
         document.getElementById('result').innerHTML = id + '님, 환영합니다';
       } else {
-        document.getElementById('result').innerHTML = ___;   // 하나라도 틀렸을 때 보여줄 문장
+        document.getElementById('result').innerHTML = ___;  // 하나라도 틀렸을 때 보여줄 문장
       }
     }
   </script>

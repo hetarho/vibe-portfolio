@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>백지 공포증 깨기 · 4시간 코스</title>
+  <script src="problems.js"></script>
+  <style>
+    :root {
+      --ink: #1c1a17;
+      --muted: #665e54;
+      --paper: #f6f4f1;
+      --card: #fff;
+      --chip: #ebe7e1;
+      --ok: #1f7a4a;
+      --ok-soft: #e2f3e8;
+      --mark: #ffe27a;
+      --code: "D2Coding", "Consolas", "Menlo", monospace;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Pretendard", "Noto Sans KR", "Malgun Gothic", sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.6;
+    }
+    main { max-width: 980px; margin: 0 auto; padding: 24px 16px 60px; }
+    a { color: inherit; }
+    h1 { margin: 0 0 6px; font-size: 30px; line-height: 1.3; }
+    h2 { margin: 40px 0 12px; font-size: 22px; }
+    h2 small { margin-left: 8px; color: var(--muted); font-size: 15px; font-weight: 400; }
+    .lead { margin: 0 0 18px; color: var(--muted); font-size: 17px; }
+    .card { padding: 16px 18px; border-radius: 14px; background: var(--card); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08); }
+    .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--ink);
+      color: #fff;
+      font: inherit;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .btn.go { background: var(--ok); }
+    .btn.soft { background: var(--chip); color: var(--ink); font-weight: 400; }
+    kbd { padding: 1px 7px; border-radius: 6px; background: var(--chip); font-family: var(--code); font-size: 14px; box-shadow: inset 0 -2px 0 #d6cfc5; }
+    code { font-family: var(--code); font-size: 0.92em; }
+
+    /* 화면 그림 */
+    .how { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+    @media (max-width: 820px) { .how { grid-template-columns: minmax(0, 1fr); } }
+    .mock { padding: 10px; border-radius: 14px; background: #d9d3ca; }
+    .mock-top { display: flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 8px; background: var(--ink); color: #fff; font-size: 12px; }
+    .mock-top .dots { margin-left: auto; display: flex; gap: 3px; }
+    .mock-top .dots i { width: 12px; height: 12px; border-radius: 50%; background: #3f3a34; }
+    .mock-top .dots i.now { background: var(--mark); }
+    .mock-body { display: grid; grid-template-columns: 1.15fr 1fr; gap: 6px; margin-top: 6px; }
+    .mock-col { display: grid; gap: 6px; align-content: start; }
+    .mock-box { position: relative; padding: 8px 10px; border-radius: 8px; background: #fff; font-size: 12px; color: var(--muted); }
+    .mock-box.dark { background: var(--ink); color: #ddd6cc; }
+    .mock-box.code { min-height: 120px; background: #24211d; color: #8a8175; font-family: var(--code); }
+    .mock-box.btns { display: flex; gap: 4px; padding: 6px; background: transparent; }
+    .mock-box.btns span { padding: 3px 8px; border-radius: 999px; background: var(--ink); color: #fff; font-size: 11px; }
+    .mock-box.btns span.run { background: var(--ok); }
+    .mock-box.stage { min-height: 74px; }
+    .num {
+      display: inline-grid;
+      place-items: center;
+      width: 22px;
+      height: 22px;
+      margin-right: 6px;
+      border-radius: 50%;
+      background: var(--mark);
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 800;
+      vertical-align: middle;
+    }
+    .mock-box .num { position: absolute; top: -8px; right: -6px; margin: 0; }
+    .how-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+    .how-list li { display: grid; grid-template-columns: 28px 1fr; gap: 6px; }
+    .how-list b { display: block; }
+    .how-list span { color: var(--muted); font-size: 15px; }
+
+    /* Step 띠 */
+    .steps { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+    @media (max-width: 820px) { .steps { grid-template-columns: minmax(0, 1fr); } }
+    .step-card { padding: 12px; border-radius: 12px; background: var(--card); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08); }
+    .step-card b { display: block; }
+    .step-card span { color: var(--muted); font-size: 14px; }
+    .step-card.last { background: var(--ok-soft); }
+
+    /* 교시 목록 */
+    .period { margin-bottom: 12px; }
+    .period-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; margin-bottom: 8px; }
+    .period-head b { font-size: 18px; }
+    .period-head span { color: var(--muted); font-size: 14px; }
+    .item { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 10px 0; border-top: 1px solid var(--chip); }
+    .item:first-of-type { border-top: 0; }
+    .item-name { flex: 1; min-width: 180px; }
+    .item-name small { display: block; color: var(--muted); }
+    .step-links { display: flex; gap: 5px; }
+    .step-links a {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--chip);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .step-links a.done { background: var(--ok); color: #fff; }
+
+    /* 막혔을 때 · 선생님용 */
+    .ladder { margin: 0; padding-left: 22px; display: grid; gap: 6px; }
+    .two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
+    @media (max-width: 820px) { .two { grid-template-columns: minmax(0, 1fr); } }
+    table { width: 100%; border-collapse: collapse; font-size: 15px; }
+    td { padding: 6px 4px; border-top: 1px solid var(--chip); vertical-align: top; }
+    td:first-child { width: 42%; white-space: nowrap; }
+    .note { color: var(--muted); font-size: 14px; }
+  </style>
+</head>
+<body>
+  <!--
+    4시간 코스의 첫 화면입니다. 노트북 한 대, 화면 하나로 수업하는 것을 전제로 썼습니다.
+    문제 목록은 problems.js에서 읽어 그립니다. 문제를 더하면 이 화면에도 저절로 나옵니다.
+  -->
+  <main>
+    <h1>백지 공포증 깨기 · JavaScript 4시간 코스</h1>
+    <p class="lead">같은 문제를 다섯 번 칩니다. 칠 때마다 화면이 도와주는 힌트가 하나씩 사라집니다.<br>설치할 것도, 화면을 나눌 것도 없습니다. 이 브라우저 화면 하나로 끝까지 합니다.</p>
+    <div class="row">
+      <a class="btn go" id="continue" href="01-greeting/step1.html">처음부터 시작하기 →</a>
+      <a class="btn soft" href="../00-blank.html">손풀기 타자 연습장</a>
+      <a class="btn soft" href="/lesson/js-blank-page-drill">강의 화면 (선생님 설명용)</a>
+    </div>
+
+    <h2>1. 실습 화면은 이렇게 생겼습니다</h2>
+    <div class="how">
+      <div class="mock" aria-hidden="true">
+        <div class="mock-top">← 코스 목록 · 1교시 · 01 인사하기 <span class="dots"><i class="now"></i><i></i><i></i><i></i><i></i></span><span class="num" style="position: static">1</span></div>
+        <div class="mock-body">
+          <div class="mock-col">
+            <div class="mock-box dark">Step 1 · 보고 똑같이 치기<span class="num">2</span></div>
+            <div class="mock-box code">function greet() {<br>&nbsp;&nbsp;…<span class="num">3</span></div>
+            <div class="mock-box btns"><span class="run">▶ 실행</span><span>채점하기</span><span>정답 5초</span><span class="num" style="position: static">4</span></div>
+          </div>
+          <div class="mock-col">
+            <div class="mock-box">문제 설명</div>
+            <div class="mock-box stage">실행 화면<br>이름 [ &nbsp; &nbsp; ] [인사하기]<span class="num">5</span></div>
+            <div class="mock-box">✔ ✔ ✘ 채점 결과<span class="num">6</span></div>
+          </div>
+        </div>
+      </div>
+      <ol class="how-list">
+        <li><span class="num">1</span><div><b>맨 위 줄 · 동그라미 1~5</b><span>지금 Step이 노란 테두리, 통과한 Step은 초록색입니다. 누르면 그 Step으로 갑니다. 오른쪽 끝 「사용법」을 누르면 이 설명이 다시 나옵니다.</span></div></li>
+        <li><span class="num">2</span><div><b>검은 상자 · 이번 Step에서 할 일</b><span>막히면 이 한 줄을 소리 내어 읽습니다.</span></div></li>
+        <li><span class="num">3</span><div><b>내 코드 칸</b><span>여기에 칩니다. <kbd>Tab</kbd>은 두 칸 들여쓰기, <kbd>Enter</kbd>는 들여쓰기를 이어 줍니다. 친 코드는 저절로 저장됩니다.</span></div></li>
+        <li><span class="num">4</span><div><b>▶ 실행 · 채점하기</b><span><kbd>Ctrl</kbd> + <kbd>Enter</kbd>로도 실행됩니다. 틀린 곳이 있으면 빨간 상자에 줄 번호가 나오고, 누르면 그 줄로 갑니다.</span></div></li>
+        <li><span class="num">5</span><div><b>실행 화면</b><span>내 코드로 만든 화면입니다. 칸에 값을 넣고 버튼을 직접 눌러 봅니다.</span></div></li>
+        <li><span class="num">6</span><div><b>채점 결과</b><span>작은 경우를 차례로 넣어 본 결과입니다. 다 맞으면 화면이 초록색이 되고 다음 Step 버튼이 나옵니다.</span></div></li>
+      </ol>
+    </div>
+
+    <h2>2. 한 문제를 다섯 번 칩니다</h2>
+    <div class="steps">
+      <div class="step-card"><b>Step 1 · 보고 치기</b><span>위에 정답이 보입니다. 복사는 막혀 있으니 한 글자씩 칩니다.</span></div>
+      <div class="step-card"><b>Step 2 · 값만 바꾸기</b><span>뼈대는 다 있습니다. 노란 ___ 자리만 채웁니다.</span></div>
+      <div class="step-card"><b>Step 3 · 주석 보고 채우기</b><span>if 껍데기와 한국어 주석이 있습니다. 주석 아래에 씁니다.</span></div>
+      <div class="step-card"><b>Step 4 · 주석만</b><span>한국어 주석만 있습니다. 껍데기부터 치고 주석을 안으로 옮깁니다.</span></div>
+      <div class="step-card last"><b>Step 5 · 백지</b><span>아무것도 없습니다. 주석 → 껍데기 → 빈칸 순서로 씁니다.</span></div>
+    </div>
+    <p class="note">Step 1을 통과하면 다음 Step 버튼이 나옵니다. Step 5까지 통과하면 다음 문제로 넘어갑니다.</p>
+
+    <h2>3. 순서 <small>한 교시 = 약 1시간 · 1시간만 해도 끝맺음이 됩니다</small></h2>
+    <div id="periods"></div>
+
+    <h2>4. 막혔을 때 · 한 칸씩 내려갑니다</h2>
+    <div class="card">
+      <ol class="ladder">
+        <li><b>검은 상자를 소리 내어 읽습니다.</b> 이번 Step에서 할 일이 한 줄로 적혀 있습니다.</li>
+        <li><b>다음에 할 일을 한국어로 말합니다.</b> 말이 나오면 그대로 <code>// 주석</code>으로 씁니다.</li>
+        <li><b>속은 비우고 껍데기만 칩니다.</b> <code>if () { } else { }</code> · 손이 움직이면 머리가 풀립니다.</li>
+        <li><b>「정답 5초 보기」를 누릅니다.</b> 5초 뒤에 다시 가려집니다.</li>
+        <li><b>한 Step 내려갔다가 다시 올라옵니다.</b> 맨 위 동그라미에서 아래 번호를 누릅니다. 실패가 아니라 순서입니다.</li>
+      </ol>
+    </div>
+
+    <h2>5. 선생님용 · 노트북 한 대로 진행하기</h2>
+    <div class="two">
+      <div class="card">
+        <b>브라우저 탭 두 개만 씁니다</b>
+        <ol class="ladder">
+          <li>탭 1 · <a href="/lesson/js-blank-page-drill">강의 화면</a> · 교시를 시작할 때와 문제를 처음 소개할 때만 띄웁니다. 숫자 키 <kbd>1</kbd>~<kbd>4</kbd>로 교시 시작 화면으로 갑니다.</li>
+          <li>탭 2 · 이 코스 화면 · 학생이 칠 때는 이 탭에 둡니다.</li>
+          <li>탭 사이는 <kbd>Ctrl</kbd> + <kbd>Tab</kbd>으로 오갑니다. 키보드는 학생 앞에 두고, 선생님은 옆에서 화면만 가리킵니다.</li>
+          <li>매 교시 시작 5분은 <a href="../00-blank.html">타자 연습장</a>에서 껍데기를 다섯 판 칩니다.</li>
+        </ol>
+      </div>
+      <div class="card">
+        <b>키보드</b>
+        <table>
+          <tr><td><kbd>Ctrl</kbd> + <kbd>Enter</kbd></td><td>실행 (<kbd>Ctrl</kbd> + <kbd>S</kbd>도 같음)</td></tr>
+          <tr><td><kbd>Tab</kbd></td><td>두 칸 들여쓰기</td></tr>
+          <tr><td><kbd>Enter</kbd></td><td>윗줄 들여쓰기 이어 쓰기 · <code>{</code> 뒤면 두 칸 더</td></tr>
+          <tr><td>빈 줄에서 <kbd>}</kbd></td><td>한 단계 밖으로</td></tr>
+          <tr><td><kbd>Ctrl</kbd> + <kbd>Z</kbd></td><td>되돌리기</td></tr>
+        </table>
+        <p class="note">기록(통과한 Step, 친 코드)은 이 브라우저에만 남습니다. 다른 학생과 같은 노트북을 쓰면 수업 전에 지웁니다.</p>
+        <button class="btn soft" type="button" id="clear">이 브라우저의 기록 모두 지우기</button>
+      </div>
+    </div>
+    <p class="note">시간 배분, 교시별 발문, 자주 막히는 곳은 <a href="../TEACHING_GUIDE_4HOURS.md">TEACHING_GUIDE_4HOURS.md</a>에 있습니다.</p>
+  </main>
+
+  <script>
+    const PERIOD_INFO = {
+      '1교시': 'if / else 껍데기 손에 익히기 · 손풀기 패턴 A, B, C',
+      '2교시': 'else if 여러 갈래 · 손풀기 패턴 C',
+      '3교시': 'for 반복문 공포증 깨기 · 손풀기 패턴 D',
+      '4교시': '미니 프로젝트 조립 · 손풀기 패턴 C, D'
+    };
+
+    function passed(id, step) {
+      try {
+        return window.localStorage.getItem('drill-pass:' + id + ':' + step) == '1';
+      } catch (error) {
+        return false;
+      }
+    }
+
+    // 교시마다 문제를 모아 Step 버튼과 함께 그립니다
+    const box = document.getElementById('periods');
+    let current = null;
+    let firstTodo = null;
+    for (let i = 0; i < DRILL_ORDER.length; i++) {
+      const id = DRILL_ORDER[i];
+      const problem = DRILL_PROBLEMS[id];
+      if (problem.period != current) {
+        current = problem.period;
+        const card = document.createElement('div');
+        card.className = 'card period';
+        const blank = problem.period == '3교시' ? '../00-blank.html#D' : '../00-blank.html';
+        card.innerHTML =
+          '<div class="period-head"><b>' + problem.period + '</b><span>' + PERIOD_INFO[problem.period] + '</span>' +
+          '<a class="btn soft" style="margin-left: auto; padding: 4px 14px" href="' + blank + '">손풀기</a></div>';
+        box.appendChild(card);
+      }
+
+      const item = document.createElement('div');
+      item.className = 'item';
+      const name = document.createElement('div');
+      name.className = 'item-name';
+      name.innerHTML = '<b>' + problem.no + ' ' + problem.title + '</b><small>' + problem.desc[0] + '</small>';
+      item.appendChild(name);
+
+      const links = document.createElement('div');
+      links.className = 'step-links';
+      if (problem.page) {
+        const link = document.createElement('a');
+        link.href = problem.folder + '/' + problem.page;
+        link.className = passed(id, 'project') ? 'btn go' : 'btn';
+        link.textContent = passed(id, 'project') ? '통과 · 다시 열기' : '문제 열기';
+        item.appendChild(link);
+        if (!firstTodo && !passed(id, 'project')) {
+          firstTodo = link.href;
+        }
+      } else {
+        for (let n = 1; n <= 5; n++) {
+          const link = document.createElement('a');
+          link.href = problem.folder + '/step' + n + '.html';
+          link.textContent = n;
+          link.title = 'Step ' + n;
+          if (passed(id, n)) {
+            link.className = 'done';
+          } else if (!firstTodo) {
+            firstTodo = link.href;
+          }
+          links.appendChild(link);
+        }
+      }
+      if (links.children.length > 0) {
+        item.appendChild(links);
+      }
+      box.lastChild.appendChild(item);
+    }
+
+    // 통과한 기록이 있으면 첫 버튼을 「이어서 하기」로 바꿉니다
+    const go = document.getElementById('continue');
+    if (firstTodo && firstTodo.indexOf('01-greeting/step1.html') < 0) {
+      go.href = firstTodo;
+      go.textContent = '이어서 하기 →';
+    }
+
+    document.getElementById('clear').addEventListener('click', function () {
+      if (!window.confirm('통과한 Step과 친 코드를 이 브라우저에서 모두 지울까요?')) {
+        return;
+      }
+      try {
+        const keys = [];
+        for (let i = 0; i < window.localStorage.length; i++) {
+          const key = window.localStorage.key(i);
+          if (key.indexOf('drill-') == 0 || key.indexOf('typing-done:') == 0) {
+            keys.push(key);
+          }
+        }
+        for (let i = 0; i < keys.length; i++) {
+          window.localStorage.removeItem(keys[i]);
+        }
+      } catch (error) {
+        // 저장이 막힌 브라우저에는 지울 기록도 없습니다
+      }
+      window.location.reload();
+    });
+  </script>
+</body>
+</html>

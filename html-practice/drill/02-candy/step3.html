@@ -6,7 +6,7 @@
   <title>02 사탕 나누기 · Step 3</title>
   <link rel="stylesheet" href="../drill.css">
   <script src="../problems.js"></script>
-  <script src="../drill.js"></script>
+  <script src="../drill.js" defer></script>
 </head>
 <body data-problem="candy" data-step="3">
   <!--
@@ -15,15 +15,21 @@
     인원이 1보다 적으면 "1명 이상 넣어 주세요"를 보여줍니다.
     몫은 Math.floor(사탕 / 인원), 나머지는 사탕 % 인원으로 구합니다.
 
-    껍데기와 한국어 주석만 있습니다. 주석 바로 아래 빈 줄에 코드를 씁니다.
+    코드 칸에 껍데기와 한국어 주석이 들어 있습니다. 주석 아래 빈 줄에 코드를 씁니다.
     "~면" 앞부분은 if 괄호 ( ) 안에, → 뒷부분은 중괄호 { } 안에 씁니다.
-  -->
-  인원 : <input type="number" id="people">
-  사탕 : <input type="number" id="candy">
-  <button onclick="share()">나누기</button>
-  <div id="result"></div>
 
-  <script>
+    이 파일은 브라우저로 열어서 씁니다. 고칠 일이 있을 때만 VS Code로 엽니다.
+    stage   : 오른쪽 「실행 화면」에 놓이는 HTML
+    starter : 왼쪽 「내 코드」 칸에 처음 들어 있는 코드
+  -->
+  <template id="stage">
+    인원 : <input type="number" id="people">
+    사탕 : <input type="number" id="candy">
+    <button onclick="share()">나누기</button>
+    <div id="result"></div>
+  </template>
+
+  <script type="text/plain" id="starter">
     function share() {
       // 1. 인원 칸(id: people)과 사탕 칸(id: candy)의 값을 숫자로 바꿔 people, candy 그릇에 담는다
 

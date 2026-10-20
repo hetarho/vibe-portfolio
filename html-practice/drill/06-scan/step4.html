@@ -6,7 +6,7 @@
   <title>06 스캔 기록 · Step 4</title>
   <link rel="stylesheet" href="../drill.css">
   <script src="../problems.js"></script>
-  <script src="../drill.js"></script>
+  <script src="../drill.js" defer></script>
 </head>
 <body data-problem="scan" data-step="4">
   <!--
@@ -16,16 +16,22 @@
     아래 결과 네모에는 "OOO 학생은 O번 찍혔습니다"를 보여줍니다.
     노랗게 칠하는 li는 '<li class="hit">' + scans[i] + '</li>'입니다.
 
-    한국어 주석만 있습니다. 위에서부터 한 줄씩 치지 않습니다.
+    코드 칸에 한국어 주석만 들어 있습니다. 위에서부터 한 줄씩 치지 않습니다.
     껍데기부터 치고, 주석을 껍데기 안으로 옮긴 다음, 주석 아래를 채웁니다.
-  -->
-  <p>QR 스캔 기록 : A01, B02, A01, C03, B02</p>
-  찾을 학번 : <input type="text" id="target">
-  <button onclick="findScan()">찾기</button>
-  <ul id="list" class="pop"></ul>
-  <div id="result"></div>
 
-  <script>
+    이 파일은 브라우저로 열어서 씁니다. 고칠 일이 있을 때만 VS Code로 엽니다.
+    stage   : 오른쪽 「실행 화면」에 놓이는 HTML
+    starter : 왼쪽 「내 코드」 칸에 처음 들어 있는 코드
+  -->
+  <template id="stage">
+    <p>QR 스캔 기록 : A01, B02, A01, C03, B02</p>
+    찾을 학번 : <input type="text" id="target">
+    <button onclick="findScan()">찾기</button>
+    <ul id="list" class="pop"></ul>
+    <div id="result"></div>
+  </template>
+
+  <script type="text/plain" id="starter">
     // ★ 위에서부터 한 줄씩 치지 않습니다. 이 순서로 칩니다.
     //   ① function findScan() { } 껍데기
     //   ② 그 안에 for (let i = 0; i < ; i++) { } 껍데기
@@ -37,8 +43,6 @@
     // 2. 기록을 하나씩 돌면서 찾는 학번이면 노란 li를 붙이고 1을 센다
     // 3. 아니면 그냥 li를 붙인다
     // 4. 목록과 'OOO 학생은 O번 찍혔습니다'를 보여준다
-
-
   </script>
 </body>
 </html>

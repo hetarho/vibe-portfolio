@@ -22,6 +22,8 @@ type DrillCase = {
 type DrillSource = {
   no: string
   folder: string
+  /** Step 없이 한 장으로 푸는 문제(장바구니)의 파일 이름 */
+  page?: string
   period: string
   title: string
   fn: string
@@ -43,12 +45,11 @@ function loadSources() {
 
 const SOURCES = loadSources()
 
-/** step 파일에서 학생이 고치는 script 안쪽만 꺼내 들여쓰기를 걷어 낸다 */
+/** step 파일에서 학생 코드 칸에 처음 들어가는 starter만 꺼내 들여쓰기를 걷어 낸다 */
 function scriptLines(html: string) {
-  const inline = [...html.matchAll(/<script>\n([\s\S]*?)<\/script>/g)]
-  const body = inline.length > 0 ? inline[inline.length - 1][1] : ''
+  const starter = html.match(/<script type="text\/plain" id="starter">\n([\s\S]*?)<\/script>/)
   // 파일에는 칠 자리로 빈 줄을 두 줄씩 두었다. 화면에서는 한 줄로 줄여 세로를 아낀다
-  const lines = body
+  const lines = (starter ? starter[1] : '')
     .split('\n')
     .map((line) => line.replace(/^ {4}/, '').trimEnd())
     .filter((line, index, all) => !(line === '' && all[index - 1] === ''))
@@ -155,9 +156,16 @@ export function caseExpect(item: DrillCase) {
   return parts.join(' · ')
 }
 
-/** Step 이름과 그 Step에서 학생 파일에 남아 있는 것 */
+/** 실습 화면 주소. 사이트에 같이 배포되므로 강의 화면에서 바로 연다 */
+export const DRILL_HOME = '/html-practice/drill/index.html'
+
+export function drillHref(problem: { folder: string }, step = 1) {
+  return `/html-practice/drill/${problem.folder}/step${step}.html`
+}
+
+/** Step 이름과 그 Step에서 학생 코드 칸에 들어 있는 것 */
 export const STEPS = [
-  { no: 1, name: '보고 똑같이 치기', given: '오른쪽 화면에 정답 · 복사는 막혀 있음', hand: '한 글자씩 똑같이 친다' },
+  { no: 1, name: '보고 똑같이 치기', given: '코드 칸 위에 정답 · 복사는 막혀 있음', hand: '한 글자씩 똑같이 친다' },
   { no: 2, name: '값과 연산자만 바꾸기', given: '완성 코드 · 값과 연산자 자리만 ___', hand: '___만 바꾼다' },
   { no: 3, name: '주석 보고 껍데기 채우기', given: 'if 껍데기 + 한국어 주석', hand: '주석 아래에 코드를 쓴다' },
   { no: 4, name: '주석으로 뼈대 세우기', given: '한국어 주석 3~4줄만', hand: '껍데기부터 치고 주석을 안으로 옮긴다' },

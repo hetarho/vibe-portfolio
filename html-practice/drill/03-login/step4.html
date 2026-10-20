@@ -6,7 +6,7 @@
   <title>03 로그인 · Step 4</title>
   <link rel="stylesheet" href="../drill.css">
   <script src="../problems.js"></script>
-  <script src="../drill.js"></script>
+  <script src="../drill.js" defer></script>
 </head>
 <body data-problem="login" data-step="4">
   <!--
@@ -16,15 +16,21 @@
     아이디가 admin이고 비밀번호가 1234이면 "admin님, 환영합니다"
     그 밖에는 "아이디 또는 비밀번호가 틀렸습니다"
 
-    한국어 주석만 있습니다. 위에서부터 한 줄씩 치지 않습니다.
+    코드 칸에 한국어 주석만 들어 있습니다. 위에서부터 한 줄씩 치지 않습니다.
     껍데기부터 치고, 주석을 껍데기 안으로 옮긴 다음, 주석 아래를 채웁니다.
-  -->
-  아이디 : <input type="text" id="userId"><br><br>
-  비밀번호 : <input type="password" id="pwd"><br><br>
-  <button onclick="login()">로그인</button>
-  <div id="result"></div>
 
-  <script>
+    이 파일은 브라우저로 열어서 씁니다. 고칠 일이 있을 때만 VS Code로 엽니다.
+    stage   : 오른쪽 「실행 화면」에 놓이는 HTML
+    starter : 왼쪽 「내 코드」 칸에 처음 들어 있는 코드
+  -->
+  <template id="stage">
+    아이디 : <input type="text" id="userId"><br><br>
+    비밀번호 : <input type="password" id="pwd"><br><br>
+    <button onclick="login()">로그인</button>
+    <div id="result"></div>
+  </template>
+
+  <script type="text/plain" id="starter">
     // ★ 위에서부터 한 줄씩 치지 않습니다. 이 순서로 칩니다.
     //   ① function login() { } 껍데기
     //   ② 그 안에 if () { } else if () { } else if () { } else { } 껍데기
@@ -35,8 +41,6 @@
     // 2. 아이디가 비었으면 '아이디를 입력해주세요', 비밀번호가 비었으면 '비밀번호를 입력해주세요'
     // 3. admin / 1234 이면 'admin님, 환영합니다'
     // 4. 그 밖에는 '아이디 또는 비밀번호가 틀렸습니다'
-
-
   </script>
 </body>
 </html>

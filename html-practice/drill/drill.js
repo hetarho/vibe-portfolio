@@ -1,145 +1,233 @@
-// 4시간 코스 공용 장치
-// 문제 설명 · Step 이동 · 정답 보기 · 오류 알림 · 채점하기를 화면에 붙입니다.
-// 학생이 고치는 html 파일에는 학생 코드만 남도록 이 파일로 따로 뺐습니다.
+// 4시간 코스 실습 화면
+// 노트북 한 대, 화면 하나로 수업하도록 만든 화면입니다. VS Code도 화면 나누기도 필요 없습니다.
+// 왼쪽 코드 칸에 치고 → 실행하면 오른쪽에 결과가 나오고 → 「채점하기」로 확인합니다.
+//
+// 학생 코드는 실행할 때마다 새 iframe 안에서 돌립니다.
+// 같은 화면에서 다시 실행해도 let 그릇이 "이미 있다"는 오류 없이 처음부터 다시 시작하게 하려는 것입니다.
 // 학생 코드와 이름이 겹치지 않게 전체를 함수 하나로 감쌌습니다.
 (function () {
   const STEPS = {
-    1: { name: '보고 똑같이 치기', rule: '아래 정답 코드를 보고 왼쪽 파일의 <script> 안에 한 글자씩 똑같이 칩니다. 복사는 막혀 있습니다. 다 치면 저장하고 「채점하기」를 누릅니다.' },
-    2: { name: '값과 연산자만 바꾸기', rule: '뼈대는 다 있습니다. ___ 자리에 알맞은 값이나 연산자만 넣습니다. 문제 설명의 문장을 잘 보세요.' },
-    3: { name: '주석 보고 껍데기 채우기', rule: '껍데기와 한국어 주석이 있습니다. "~면" 앞부분은 if 괄호 ( ) 안에, → 뒷부분은 중괄호 { } 안에 씁니다.' },
-    4: { name: '주석으로 뼈대 세우기', rule: '한국어 주석만 있습니다. 위에서부터 치지 말고 function → if / else (→ for) 껍데기부터 칩니다. 그다음 주석을 껍데기 안으로 옮깁니다.' },
-    5: { name: '완전 백지', rule: 'script 안이 비어 있습니다. 아래 체크리스트 순서대로 스스로 주석부터 씁니다.' }
+    1: { name: '보고 똑같이 치기', rule: '왼쪽 위 정답 코드를 보고, 아래 코드 칸에 한 글자씩 똑같이 칩니다. 복사는 막혀 있습니다.' },
+    2: { name: '값과 연산자만 바꾸기', rule: '코드 칸에 뼈대가 다 있습니다. 노란 ___ 자리만 알맞은 값이나 기호로 바꿉니다.' },
+    3: { name: '주석 보고 껍데기 채우기', rule: '껍데기와 한국어 주석이 있습니다. "~면" 앞부분은 if 괄호 ( ) 안에, → 뒷부분은 { } 안 주석 아래에 씁니다.' },
+    4: { name: '주석으로 뼈대 세우기', rule: '한국어 주석만 있습니다. 위에서부터 치지 말고 function → if / else (→ for) 껍데기부터 치고, 주석을 그 안으로 옮깁니다.' },
+    5: { name: '완전 백지', rule: '코드 칸이 비어 있습니다. 아래 세 단계를 순서대로 눌러 가며 스스로 씁니다.' }
   };
-  const CHECKLIST = [
-    '한국어 주석부터 쓰기 (한 줄에 동작 하나)',
-    '껍데기 먼저 치기 (function, if / else, for를 속은 비운 채)',
-    '주석 아래 빈칸 채우기'
-  ];
+  const PLACEHOLDER = {
+    1: '위 정답 코드를 보고 여기에 똑같이 칩니다.\n다 치면 Ctrl + Enter (또는 ▶ 실행)',
+    5: '1) 한국어 주석부터 씁니다  // 1. ...\n2) 껍데기를 칩니다  function 이름() { }  if () { } else { }\n3) 주석 아래 빈칸을 채웁니다'
+  };
+  const CHECKLIST = ['한국어 주석부터', '껍데기 먼저', '빈칸 채우기'];
   const PEEK_SECONDS = 5;
+  const HELP = [
+    ['맨 위 검은 상자', '이번 Step에서 할 일입니다. 막히면 소리 내어 읽어 봅니다.'],
+    ['왼쪽 「내 코드」 칸', '여기에 코드를 칩니다. Tab은 두 칸 들여쓰기, Enter는 들여쓰기를 이어 줍니다.'],
+    ['▶ 실행 · Ctrl + Enter', '오른쪽 「실행 화면」이 새로 만들어집니다. 칸에 값을 넣고 버튼을 직접 눌러 봅니다.'],
+    ['빨간 상자', '틀린 곳의 줄 번호와 고칠 방법이 나옵니다. 누르면 그 줄로 커서가 갑니다.'],
+    ['채점하기', '작은 경우를 차례로 넣어 봅니다. 다 맞으면 화면이 초록색이 되고 다음 Step 버튼이 나옵니다.'],
+    ['막혔을 때', '「정답 5초 보기」를 누르거나, 위 동그라미에서 한 Step 아래로 내려갔다 옵니다.'],
+    ['저장', '친 코드는 저절로 저장됩니다. 창을 닫아도 남아 있고, 「처음 코드로」를 누르면 지워집니다.']
+  ];
 
-  const errors = [];
-  const observers = [];
-  let ready = false;
+  const scriptSrc = document.currentScript.src;
+  const STAGE_CSS = new URL('stage.css', scriptSrc).href;
+  // iframe 안에서 난 오류와 알림창을 바깥 화면으로 넘깁니다. 줄 번호를 맞추려고 한 줄로 씁니다
+  const BRIDGE =
+    "window.addEventListener('error',function(e){var f=window.frameElement;if(f&&f.drillError){f.drillError(e.message,e.lineno);}});" +
+    "window.alert=function(m){var f=window.frameElement;if(f&&f.drillAlert){f.drillAlert(String(m));}};";
 
-  // 학생 코드에서 난 오류를 모아 둡니다. Simple Browser에는 콘솔이 없어서 화면에 직접 띄웁니다.
-  window.addEventListener('error', function (event) {
-    errors.push({ message: event.message || '', line: event.lineno || 0 });
-    if (errors.length > 3) {
-      errors.shift();
-    }
-    if (ready) {
-      showErrors();
-    }
-  });
+  let page = null;
+  let editor = null;
+  let gutter = null;
+  let stageBox = null;
+  let errorBox = null;
+  let blanksBadge = null;
+  let errors = [];
 
-  document.addEventListener('DOMContentLoaded', setup);
+  setup();
 
   function setup() {
-    const id = document.body.dataset.problem;
-    const step = document.body.dataset.step;
-    const problem = window.DRILL_PROBLEMS[id];
+    const body = document.body;
+    const id = body.dataset.problem;
+    const step = body.dataset.step;
+    const stage = document.getElementById('stage');
+    const starter = document.getElementById('starter');
 
-    const stage = wrapStage();
-    document.body.insertBefore(buildTop(id, problem, step), stage);
-    document.body.appendChild(buildCheck(id, problem, step));
-    watchOutputs();
+    page = {
+      id: id,
+      step: step,
+      problem: window.DRILL_PROBLEMS[id],
+      mode: body.dataset.edit == 'html' ? 'html' : 'script',
+      stage: stage ? dedent(stage.innerHTML) : '',
+      starter: starter ? dedent(starter.tagName == 'TEMPLATE' ? starter.innerHTML : starter.textContent) : '',
+      key: 'drill-code:' + id + ':' + step
+    };
 
-    ready = true;
-    showErrors();
+    body.appendChild(buildTop());
+    body.appendChild(buildHelp());
+    body.appendChild(buildMain());
+    body.appendChild(make('div', 'd-toasts'));
+
+    const saved = readStore(page.key);
+    editor.value = saved === null ? page.starter : saved;
+    drawGutter();
+    countBlanks();
+    run();
+
+    if (readStore('drill-help-seen') != '1') {
+      toggleHelp(true);
+      writeStore('drill-help-seen', '1');
+    }
   }
 
-  // 학생이 만든 화면을 「실행 화면」 상자 하나로 묶습니다
-  function wrapStage() {
-    const stage = make('section', 'drill-stage');
-    stage.appendChild(make('h2', 'drill-label', '실행 화면'));
+  // ───── 화면 만들기 ─────
 
-    const nodes = [];
-    for (let i = 0; i < document.body.childNodes.length; i++) {
-      const node = document.body.childNodes[i];
-      if (node.nodeName != 'SCRIPT') {
-        nodes.push(node);
-      }
-    }
-    for (let i = 0; i < nodes.length; i++) {
-      stage.appendChild(nodes[i]);
-    }
+  function buildTop() {
+    const top = make('header', 'd-top');
+    const home = make('a', 'd-home', '← 코스 목록');
+    home.href = '../index.html';
+    top.appendChild(home);
+    top.appendChild(make('span', 'd-crumb', page.problem.period + ' · ' + page.problem.no + ' ' + page.problem.title));
 
-    document.body.insertBefore(stage, document.body.firstChild);
-    return stage;
-  }
-
-  function buildTop(id, problem, step) {
-    const top = make('header', 'drill-top');
-
-    // 목록 · 교시 · Step 이동
-    const nav = make('nav', 'drill-nav');
-    const back = make('a', 'drill-back', '← 목록');
-    back.href = '../../index.html';
-    nav.appendChild(back);
-    nav.appendChild(make('span', 'drill-crumb', problem.period + ' · ' + problem.no + ' ' + problem.title));
-    if (STEPS[step]) {
-      const steps = make('span', 'drill-steps');
+    if (STEPS[page.step]) {
+      const steps = make('nav', 'd-steps');
       for (let n = 1; n <= 5; n++) {
-        const link = make('a', 'drill-step', String(n));
+        const link = make('a', 'd-step', String(n));
         link.href = 'step' + n + '.html';
         link.title = 'Step ' + n + ' · ' + STEPS[n].name;
-        if (String(n) == step) {
+        if (String(n) == page.step) {
           link.classList.add('is-now');
         }
-        if (readStore('drill-pass:' + id + ':' + n) == '1') {
+        if (readStore('drill-pass:' + page.id + ':' + n) == '1') {
           link.classList.add('is-done');
         }
         steps.appendChild(link);
       }
-      nav.appendChild(steps);
+      top.appendChild(steps);
     }
-    top.appendChild(nav);
 
-    // 이번 Step의 규칙
-    const rule = make('section', 'drill-rule');
-    if (STEPS[step]) {
-      rule.appendChild(make('b', '', 'Step ' + step + ' · ' + STEPS[step].name));
-      rule.appendChild(make('p', '', STEPS[step].rule));
+    const help = make('button', 'd-help-button', '사용법');
+    help.type = 'button';
+    help.addEventListener('click', function () {
+      toggleHelp();
+    });
+    top.appendChild(help);
+    return top;
+  }
+
+  function buildHelp() {
+    const box = make('section', 'd-help');
+    box.hidden = true;
+    box.appendChild(make('h2', '', '이 화면 쓰는 법'));
+    const list = make('ol', '');
+    for (let i = 0; i < HELP.length; i++) {
+      const item = make('li', '');
+      item.appendChild(make('b', '', HELP[i][0]));
+      item.appendChild(make('span', '', HELP[i][1]));
+      list.appendChild(item);
+    }
+    box.appendChild(list);
+    const close = make('button', 'd-button', '알겠어요, 시작하기');
+    close.type = 'button';
+    close.addEventListener('click', function () {
+      toggleHelp(false);
+      editor.focus();
+    });
+    box.appendChild(close);
+    return box;
+  }
+
+  function toggleHelp(open) {
+    const box = document.querySelector('.d-help');
+    box.hidden = open === undefined ? !box.hidden : !open;
+  }
+
+  function buildMain() {
+    const main = make('main', 'd-main');
+    const left = make('section', 'd-left');
+    const right = make('section', 'd-right');
+
+    // 이번 Step 규칙
+    const rule = make('div', 'd-rule');
+    if (STEPS[page.step]) {
+      rule.appendChild(make('b', '', 'Step ' + page.step + ' · ' + STEPS[page.step].name));
+      rule.appendChild(make('p', '', STEPS[page.step].rule));
     } else {
       rule.appendChild(make('b', '', '조립 실습 · 빈칸 채우기'));
-      rule.appendChild(make('p', '', '화면과 뼈대는 다 있습니다. 왼쪽 파일 주석의 조립 순서대로 빈칸을 하나씩 채우고, 채울 때마다 저장해서 실행해 봅니다.'));
+      rule.appendChild(make('p', '', '코드 칸에 화면(HTML)과 script가 다 있습니다. 노란 빈칸을 아래 문제의 조립 순서대로 하나씩 채우고, 채울 때마다 실행해 봅니다.'));
     }
-    top.appendChild(rule);
+    left.appendChild(rule);
 
-    // 문제 설명
-    const desc = make('section', 'drill-problem');
-    desc.appendChild(make('h1', '', problem.no + ' · ' + problem.title));
-    for (let i = 0; i < problem.desc.length; i++) {
-      desc.appendChild(make('p', '', problem.desc[i]));
+    if (page.step == '1') {
+      const answer = make('div', 'd-answer');
+      answer.appendChild(make('p', 'd-label', '정답 코드 · 보고 똑같이 치기 (복사 금지)'));
+      answer.appendChild(codeBlock(page.problem.answer));
+      left.appendChild(answer);
     }
-    top.appendChild(desc);
-
-    // Step 1은 정답을 늘 보여 주고, Step 2~5는 막혔을 때만 잠깐 봅니다
-    if (step == '1') {
-      const box = make('section', 'drill-answer');
-      box.appendChild(make('h2', 'drill-label', '정답 코드 · 보고 똑같이 치기 (복사 금지)'));
-      box.appendChild(codeBlock(problem.answer));
-      top.appendChild(box);
-    } else if (problem.answer) {
-      top.appendChild(buildPeek(problem));
+    if (page.step == '5') {
+      left.appendChild(buildChecklist());
     }
 
-    const blanks = countBlanks();
-    if (blanks > 0) {
-      top.appendChild(make('p', 'drill-blanks', '남은 빈칸 ' + blanks + '개'));
+    // 코드 칸
+    const head = make('div', 'd-editor-head');
+    head.appendChild(make('p', 'd-label', page.mode == 'html' ? '내 코드 · 화면(HTML)과 script' : '내 코드'));
+    blanksBadge = make('span', 'd-blanks', '');
+    head.appendChild(blanksBadge);
+    left.appendChild(head);
+    left.appendChild(buildEditor());
+
+    // 버튼 줄
+    const tools = make('div', 'd-tools');
+    tools.appendChild(button('▶ 실행  Ctrl + Enter', 'd-button primary', run));
+    tools.appendChild(button('채점하기', 'd-button', grade));
+    let peekCode = null;
+    if (page.step != '1' && page.problem.answer) {
+      peekCode = codeBlock(page.problem.answer);
+      peekCode.hidden = true;
+      tools.appendChild(peekButton(peekCode));
+    }
+    tools.appendChild(button('처음 코드로', 'd-button ghost', resetCode));
+    left.appendChild(tools);
+    if (peekCode) {
+      left.appendChild(peekCode);
     }
 
-    if (step == '5') {
-      top.appendChild(buildChecklist(id));
-    }
+    errorBox = make('div', 'd-errors');
+    left.appendChild(errorBox);
 
-    top.appendChild(make('section', 'drill-errors'));
-    return top;
+    // 오른쪽 · 문제, 실행 화면, 채점 결과
+    const problem = make('div', 'd-problem');
+    problem.appendChild(make('h1', '', page.problem.no + ' · ' + page.problem.title));
+    for (let i = 0; i < page.problem.desc.length; i++) {
+      problem.appendChild(make('p', '', page.problem.desc[i]));
+    }
+    right.appendChild(problem);
+
+    const stage = make('div', 'd-stage');
+    stage.appendChild(make('p', 'd-label', '실행 화면 · 직접 눌러 보세요'));
+    stageBox = make('div', 'd-frame-box');
+    stage.appendChild(stageBox);
+    right.appendChild(stage);
+
+    const check = make('div', 'd-check');
+    check.appendChild(make('p', 'd-check-how', '「채점하기」를 누르면 작은 경우 ' + page.problem.cases.length + '개를 차례로 넣어 봅니다.'));
+    right.appendChild(check);
+
+    main.appendChild(left);
+    main.appendChild(right);
+    return main;
+  }
+
+  function button(text, className, onClick) {
+    const el = make('button', className, text);
+    el.type = 'button';
+    el.addEventListener('click', onClick);
+    return el;
   }
 
   // 복사가 안 되는 코드 상자
   function codeBlock(text) {
-    const pre = make('pre', 'drill-code no-copy', text);
+    const pre = make('pre', 'd-code no-copy', text);
     const blocked = ['copy', 'cut', 'contextmenu', 'selectstart', 'dragstart'];
     for (let i = 0; i < blocked.length; i++) {
       pre.addEventListener(blocked[i], function (event) {
@@ -149,111 +237,307 @@
     return pre;
   }
 
-  function buildPeek(problem) {
-    const box = make('section', 'drill-peek');
-    const button = make('button', 'drill-button ghost', '막혔으면 · 정답 ' + PEEK_SECONDS + '초 보기');
-    const code = codeBlock(problem.answer);
-    code.hidden = true;
-    button.type = 'button';
-    button.addEventListener('click', function () {
+  function peekButton(code) {
+    const label = '정답 ' + PEEK_SECONDS + '초 보기';
+    const el = button(label, 'd-button ghost', function () {
       let left = PEEK_SECONDS;
       code.hidden = false;
-      button.disabled = true;
-      button.textContent = left + '초 뒤에 가려집니다';
+      el.disabled = true;
+      el.textContent = left + '초 뒤에 가려집니다';
       const timer = setInterval(function () {
         left -= 1;
-        button.textContent = left + '초 뒤에 가려집니다';
+        el.textContent = left + '초 뒤에 가려집니다';
         if (left <= 0) {
           clearInterval(timer);
           code.hidden = true;
-          button.disabled = false;
-          button.textContent = '막혔으면 · 정답 ' + PEEK_SECONDS + '초 보기';
+          el.disabled = false;
+          el.textContent = label;
         }
       }, 1000);
     });
-    box.appendChild(button);
-    box.appendChild(code);
-    return box;
+    return el;
   }
 
-  // Step 5 체크리스트 · 저장하면 화면이 새로 고쳐지므로 체크한 것을 기억해 둡니다
-  function buildChecklist(id) {
-    const box = make('section', 'drill-checklist');
-    box.appendChild(make('h2', 'drill-label', '백지 3단계 체크리스트 · 순서대로'));
-    const list = make('ol', '');
-    const done = make('p', 'drill-checklist-done', '세 단계를 다 거쳤습니다. 이제 「채점하기」를 눌러 봅니다.');
-
-    function update() {
-      let all = true;
-      for (let i = 0; i < list.children.length; i++) {
-        if (!list.children[i].classList.contains('is-done')) {
-          all = false;
-        }
-      }
-      box.classList.toggle('is-all', all);
-    }
-
+  // Step 5 체크리스트 · 순서대로 눌러 가며 씁니다
+  function buildChecklist() {
+    const box = make('div', 'd-checklist');
     for (let i = 0; i < CHECKLIST.length; i++) {
-      const key = 'drill-check:' + id + ':' + i;
-      const item = make('li', '');
-      const button = make('button', '', (i + 1) + '. ' + CHECKLIST[i]);
-      button.type = 'button';
+      const key = 'drill-check:' + page.id + ':' + i;
+      const item = button(i + 1 + '. ' + CHECKLIST[i], 'd-check-item', function () {
+        item.classList.toggle('is-done');
+        writeStore(key, item.classList.contains('is-done') ? '1' : '');
+      });
       if (readStore(key) == '1') {
         item.classList.add('is-done');
       }
-      button.addEventListener('click', function () {
-        item.classList.toggle('is-done');
-        if (item.classList.contains('is-done')) {
-          writeStore(key, '1');
-        } else {
-          writeStore(key, '');
-        }
-        update();
-      });
-      item.appendChild(button);
-      list.appendChild(item);
+      box.appendChild(item);
     }
-
-    box.appendChild(list);
-    box.appendChild(done);
-    update();
     return box;
   }
 
-  // 학생 script와 버튼 onclick 안에 남은 ___ 와 빈칸_가 같은 빈칸을 셉니다
-  function countBlanks() {
+  // ───── 코드 칸 ─────
+
+  function buildEditor() {
+    const box = make('div', 'd-editor');
+    gutter = make('pre', 'd-gutter', '1');
+    gutter.setAttribute('aria-hidden', 'true');
+    editor = make('textarea', 'd-textarea');
+    editor.spellcheck = false;
+    editor.setAttribute('autocomplete', 'off');
+    editor.setAttribute('autocapitalize', 'off');
+    editor.setAttribute('aria-label', '내 코드');
+    editor.placeholder = PLACEHOLDER[page.step] || '';
+    if (page.step == '1') {
+      box.classList.add('is-short');
+    }
+
+    editor.addEventListener('input', function () {
+      writeStore(page.key, editor.value);
+      drawGutter();
+      countBlanks();
+    });
+    editor.addEventListener('scroll', function () {
+      gutter.scrollTop = editor.scrollTop;
+    });
+    editor.addEventListener('keydown', onKey);
+
+    box.appendChild(gutter);
+    box.appendChild(editor);
+    return box;
+  }
+
+  function onKey(event) {
+    // 한글을 조합하는 중에는 키를 가로채지 않습니다
+    if (event.isComposing || event.keyCode == 229) {
+      return;
+    }
+    const withCtrl = event.ctrlKey || event.metaKey;
+    if (withCtrl && (event.key == 'Enter' || event.key == 's' || event.key == 'S')) {
+      event.preventDefault();
+      run();
+      return;
+    }
+    if (withCtrl || event.altKey) {
+      return;
+    }
+
+    const at = editor.selectionStart;
+    const lineStart = editor.value.lastIndexOf('\n', at - 1) + 1;
+    const before = editor.value.slice(lineStart, at);
+
+    if (event.key == 'Tab') {
+      event.preventDefault();
+      insert('  ');
+    } else if (event.key == 'Enter') {
+      // 윗줄 들여쓰기를 이어 주고, { 로 끝났으면 두 칸 더 들어갑니다
+      event.preventDefault();
+      let indent = before.match(/^ */)[0];
+      if (before.trim().slice(-1) == '{') {
+        indent += '  ';
+      }
+      insert('\n' + indent);
+    } else if (event.key == '}' && before.length >= 2 && before.trim() == '' && editor.selectionEnd == at) {
+      // 빈 줄에서 } 를 치면 한 단계 밖으로 나옵니다
+      event.preventDefault();
+      editor.setSelectionRange(at - 2, at);
+      insert('}');
+    }
+  }
+
+  // execCommand로 넣어야 Ctrl + Z로 되돌릴 수 있습니다
+  function insert(text) {
+    if (!document.execCommand('insertText', false, text)) {
+      editor.setRangeText(text, editor.selectionStart, editor.selectionEnd, 'end');
+      editor.dispatchEvent(new Event('input'));
+    }
+  }
+
+  function drawGutter() {
+    const count = editor.value.split('\n').length;
     let text = '';
-    const scripts = document.querySelectorAll('script:not([src])');
-    for (let i = 0; i < scripts.length; i++) {
-      text += scripts[i].textContent;
+    for (let i = 1; i <= count; i++) {
+      text += i + '\n';
     }
-    const clicks = document.querySelectorAll('[onclick]');
-    for (let i = 0; i < clicks.length; i++) {
-      text += clicks[i].getAttribute('onclick');
+    gutter.textContent = text;
+    gutter.scrollTop = editor.scrollTop;
+  }
+
+  function countBlanks() {
+    const found = editor.value.match(/___|빈칸_[가-힣]/g);
+    blanksBadge.textContent = found ? '남은 빈칸 ' + found.length + '개' : '';
+    blanksBadge.hidden = !found;
+  }
+
+  function goToLine(line) {
+    const lines = editor.value.split('\n');
+    let start = 0;
+    for (let i = 0; i < line - 1 && i < lines.length; i++) {
+      start += lines[i].length + 1;
     }
-    const found = text.match(/___|빈칸_[가-힣]/g);
-    if (found) {
-      return found.length;
+    const end = start + (lines[line - 1] || '').length;
+    editor.focus();
+    editor.setSelectionRange(start, end);
+    // 고른 줄이 칸 가운데쯤 오게 스크롤합니다
+    const lineHeight = parseFloat(getComputedStyle(editor).lineHeight) || 24;
+    editor.scrollTop = Math.max(0, (line - 4) * lineHeight);
+  }
+
+  function resetCode() {
+    if (!window.confirm('지금 친 코드를 지우고 처음 코드로 돌아갈까요?')) {
+      return;
     }
-    return 0;
+    editor.value = page.starter;
+    writeStore(page.key, '');
+    drawGutter();
+    countBlanks();
+    run();
+    editor.focus();
+  }
+
+  // ───── 실행 ─────
+
+  // 실행 화면 문서를 만듭니다. offset은 학생 코드 첫 줄 앞에 있는 줄 수입니다
+  function buildDoc(code) {
+    let before =
+      '<!DOCTYPE html>\n<html lang="ko">\n<head>\n<meta charset="UTF-8">\n' +
+      '<link rel="stylesheet" href="' + STAGE_CSS + '">\n' +
+      '<script>' + BRIDGE + '<\/script>\n</head>\n<body>\n' +
+      page.stage + '\n';
+    let after = '\n</body>\n</html>';
+    if (page.mode == 'script') {
+      before += '<script>\n';
+      after = '\n<\/script>' + after;
+    }
+    return { html: before + code + after, offset: before.split('\n').length - 1 };
+  }
+
+  function makeFrame(code, onError, onAlert) {
+    const built = buildDoc(code);
+    const frame = make('iframe', 'd-frame');
+    frame.title = '실행 화면';
+    frame.drillError = function (message, line) {
+      onError(message, line - built.offset);
+    };
+    frame.drillAlert = onAlert;
+    frame.srcdoc = built.html;
+    return frame;
+  }
+
+  function run() {
+    errors = [];
+    showErrors();
+    const frame = makeFrame(
+      editor.value,
+      function (message, line) {
+        errors.push({ message: message, line: line });
+        if (errors.length > 3) {
+          errors.shift();
+        }
+        showErrors();
+      },
+      toast
+    );
+    frame.addEventListener('load', function () {
+      watchOutputs(frame);
+      fit(frame);
+    });
+    stageBox.innerHTML = '';
+    stageBox.appendChild(frame);
+  }
+
+  function fit(frame) {
+    const doc = frame.contentDocument;
+    if (doc && doc.documentElement) {
+      frame.style.height = Math.max(150, doc.documentElement.scrollHeight + 4) + 'px';
+    }
   }
 
   function showErrors() {
-    const box = document.querySelector('.drill-errors');
-    if (!box) {
-      return;
-    }
-    box.innerHTML = '';
+    errorBox.innerHTML = '';
     for (let i = 0; i < errors.length; i++) {
-      const row = make('div', 'drill-error');
-      let where = '';
-      if (errors[i].line > 0) {
-        where = errors[i].line + '번째 줄 · ';
-      }
-      row.appendChild(make('b', '', where + explain(errors[i].message)));
+      const line = errors[i].line;
+      const row = make('button', 'd-error');
+      row.type = 'button';
+      row.appendChild(make('b', '', (line > 0 ? line + '번째 줄 · ' : '') + explain(errors[i].message)));
       row.appendChild(make('small', '', errors[i].message));
-      box.appendChild(row);
+      if (line > 0) {
+        row.addEventListener('click', function () {
+          goToLine(line);
+        });
+      }
+      errorBox.appendChild(row);
     }
+  }
+
+  function toast(message) {
+    const box = document.querySelector('.d-toasts');
+    const item = make('div', 'd-toast');
+    item.appendChild(make('small', '', '알림창'));
+    item.appendChild(make('b', '', message));
+    box.appendChild(item);
+    setTimeout(function () {
+      item.remove();
+    }, 3500);
+  }
+
+  // 결과 칸이 바뀌면 반짝이고, 새로 생긴 li는 하나씩 쏙쏙 들어오게 합니다
+  function watchOutputs(frame) {
+    const doc = frame.contentDocument;
+    const ids = ['result', 'list'];
+    for (let i = 0; i < ids.length; i++) {
+      const el = doc.getElementById(ids[i]);
+      if (!el) {
+        continue;
+      }
+      remember(el);
+      const observer = new MutationObserver(function () {
+        flash(el);
+        popItems(el);
+        fit(frame);
+      });
+      observer.observe(el, { childList: true, characterData: true, subtree: true });
+    }
+  }
+
+  function flash(el) {
+    el.classList.remove('d-flash');
+    void el.offsetWidth;
+    el.classList.add('d-flash');
+  }
+
+  function popItems(list) {
+    const items = list.getElementsByTagName('li');
+    const before = list.dataset.seen ? list.dataset.seen.split('\n') : [];
+
+    // 뒤에 덧붙인 경우(장바구니)는 새 줄만, 통째로 바꾼 경우는 전부 다시 들어옵니다
+    let start = 0;
+    if (items.length > before.length) {
+      let same = true;
+      for (let i = 0; i < before.length; i++) {
+        if (items[i].textContent != before[i]) {
+          same = false;
+        }
+      }
+      if (same) {
+        start = before.length;
+      }
+    }
+
+    const gap = Math.min(90, 1800 / Math.max(1, items.length - start));
+    for (let i = start; i < items.length; i++) {
+      items[i].classList.add('pop-in');
+      items[i].style.animationDelay = Math.round((i - start) * gap) + 'ms';
+    }
+    remember(list);
+  }
+
+  function remember(list) {
+    const items = list.getElementsByTagName('li');
+    const texts = [];
+    for (let i = 0; i < items.length; i++) {
+      texts.push(items[i].textContent);
+    }
+    list.dataset.seen = texts.join('\n');
   }
 
   // 브라우저의 영어 오류 메시지를 학생이 바로 고칠 수 있는 말로 바꿉니다
@@ -293,131 +577,69 @@
     return '오류가 났습니다. 아래 영어 메시지를 선생님과 같이 읽어 봅니다.';
   }
 
-  function buildCheck(id, problem, step) {
-    const box = make('section', 'drill-check');
-    const button = make('button', 'drill-button', '채점하기');
-    const list = make('ol', 'drill-cases');
-    const pass = make('div', 'drill-pass');
-    button.type = 'button';
-    pass.hidden = true;
+  // ───── 채점 ─────
 
-    button.addEventListener('click', function () {
-      const rows = grade(problem);
-      let okCount = 0;
-      list.innerHTML = '';
-      for (let i = 0; i < rows.length; i++) {
-        const item = make('li', '');
-        if (rows[i].ok) {
-          okCount += 1;
-          item.className = 'is-ok';
-          item.appendChild(make('b', '', '✔ ' + rows[i].label));
-        } else {
-          item.className = 'is-bad';
-          item.appendChild(make('b', '', '✘ ' + rows[i].label));
-          item.appendChild(make('small', '', rows[i].detail));
-        }
-        list.appendChild(item);
-      }
-
-      const allOk = rows.length > 0 && okCount == rows.length;
-      document.body.classList.toggle('drill-all-pass', allOk);
-      pass.hidden = !allOk;
-      if (allOk) {
-        writeStore('drill-pass:' + id + ':' + (step || 'project'), '1');
-        const now = document.querySelector('.drill-step.is-now');
-        if (now) {
-          now.classList.add('is-done');
-        }
-        pass.innerHTML = '';
-        pass.appendChild(make('b', '', '모두 통과! ' + okCount + '개 중 ' + okCount + '개'));
-        pass.appendChild(nextLink(id, step));
-      }
-    });
-
-    box.appendChild(button);
-    box.appendChild(make('span', 'drill-check-how', '작은 경우 ' + problem.cases.length + '개를 차례로 넣어 봅니다'));
-    box.appendChild(pass);
-    box.appendChild(list);
-    return box;
-  }
-
-  function nextLink(id, step) {
-    const link = make('a', 'drill-next', '');
-    const n = Number(step);
-    if (n >= 1 && n < 5) {
-      link.href = 'step' + (n + 1) + '.html';
-      link.textContent = 'Step ' + (n + 1) + ' · ' + STEPS[n + 1].name + ' →';
-      return link;
-    }
-    const order = window.DRILL_ORDER;
-    const at = order.indexOf(id);
-    if (at >= 0 && at < order.length - 1) {
-      const next = window.DRILL_PROBLEMS[order[at + 1]];
-      link.href = '../' + next.folder + '/' + (next.page || 'step1.html');
-      link.textContent = '다음 문제 · ' + next.period + ' ' + next.no + ' ' + next.title + ' →';
-      return link;
-    }
-    link.href = '../../index.html';
-    link.textContent = '4교시까지 끝! 목록으로 →';
-    return link;
-  }
-
-  // 작은 경우를 하나씩 넣어 보고, 끝나면 칸과 결과를 처음처럼 돌려 둡니다
-  function grade(problem) {
-    const rows = [];
-    const realAlert = window.alert;
+  // 보이지 않는 새 실행 화면을 하나 더 만들어 작은 경우를 넣어 봅니다. 학생이 보는 화면은 건드리지 않습니다
+  function grade() {
+    run();
+    const loadErrors = [];
     let lastAlert = '';
-    window.alert = function (message) {
-      lastAlert = String(message);
-    };
+    const frame = makeFrame(
+      editor.value,
+      function (message, line) {
+        loadErrors.push((line > 0 ? line + '번째 줄 · ' : '') + explain(message));
+      },
+      function (message) {
+        lastAlert = message;
+      }
+    );
+    frame.classList.add('is-hidden');
+    frame.addEventListener('load', function () {
+      const rows = [];
+      if (loadErrors.length > 0) {
+        rows.push({ ok: false, label: '코드 오류', detail: loadErrors[0] + ' · 왼쪽 빨간 상자부터 고칩니다.' });
+      }
+      const more = runCases(frame.contentWindow, function () {
+        return lastAlert;
+      }, function () {
+        lastAlert = '';
+      });
+      for (let i = 0; i < more.length; i++) {
+        rows.push(more[i]);
+      }
+      frame.remove();
+      showResult(rows);
+    });
+    document.body.appendChild(frame);
+  }
 
-    const saved = saveInputs();
-    let readyToRun = true;
+  function runCases(win, getAlert, clearAlert) {
+    const problem = page.problem;
+    const rows = [];
     if (problem.reset) {
       try {
-        problem.reset();
+        win.eval('"use strict";' + problem.reset);
       } catch (error) {
-        readyToRun = false;
         rows.push({ ok: false, label: '준비', detail: explain(error.message) + ' ' + (problem.resetHint || '') });
+        return rows;
       }
     }
-
-    for (let i = 0; readyToRun && i < problem.cases.length; i++) {
+    for (let i = 0; i < problem.cases.length; i++) {
       const c = problem.cases[i];
-      lastAlert = '';
+      clearAlert();
       try {
-        rows.push(runCase(problem, c, function () {
-          return lastAlert;
-        }));
+        rows.push(runCase(win, c, getAlert));
       } catch (error) {
         rows.push({ ok: false, label: c.label, detail: explain(error.message) });
       }
     }
-
-    window.alert = realAlert;
-    restoreInputs(saved);
-    clearOutputs();
-    if (problem.reset) {
-      try {
-        problem.reset();
-      } catch (error) {
-        // 준비에서 이미 알렸습니다
-      }
-    }
-    for (let i = 0; i < observers.length; i++) {
-      observers[i].takeRecords();
-    }
-    rememberLists();
-
-    if (errors.length > 0) {
-      rows.unshift({ ok: false, label: '코드 오류', detail: '위 빨간 상자의 오류부터 고칩니다. 오류가 있으면 함수가 만들어지지 않습니다.' });
-    }
     return rows;
   }
 
-  function runCase(problem, c, getAlert) {
+  function runCase(win, c, getAlert) {
+    const doc = win.document;
     if (c.attr) {
-      const el = document.getElementById(c.attr.id);
+      const el = doc.getElementById(c.attr.id);
       const value = el ? el.getAttribute(c.attr.name) || '' : '';
       if (squash(value).indexOf(squash(c.attr.has)) >= 0) {
         return { ok: true, label: c.label };
@@ -426,32 +648,32 @@
     }
 
     for (const key in c.inputs || {}) {
-      const input = document.getElementById(key);
+      const input = doc.getElementById(key);
       if (!input) {
         return { ok: false, label: c.label, detail: 'id가 ' + key + '인 칸이 화면에 없습니다.' };
       }
       input.value = c.inputs[key];
     }
 
-    const name = c.call || problem.fn;
-    if (typeof window[name] != 'function') {
+    const name = c.call || page.problem.fn;
+    if (typeof win[name] != 'function') {
       return { ok: false, label: c.label, detail: name + ' 함수가 아직 없습니다. function ' + name + '() { } 껍데기부터 칩니다.' };
     }
-    window[name]();
+    win[name]();
 
     const problems = [];
     if (c.expectAlert !== undefined && squash(getAlert()) != squash(c.expectAlert)) {
       problems.push('알림창 · 기대 "' + c.expectAlert + '" / 실제 "' + (getAlert() || '안 뜸') + '"');
     }
     if (c.expect !== undefined) {
-      const out = document.getElementById(c.target || 'result');
+      const out = doc.getElementById(c.target || 'result');
       const actual = out ? out.textContent : '';
       if (squash(actual) != squash(c.expect)) {
         problems.push('결과 · 기대 "' + c.expect + '" / 실제 "' + (actual.trim() || '비어 있음') + '"');
       }
     }
     if (c.expectLi) {
-      const list = document.getElementById(c.expectLi.id);
+      const list = doc.getElementById(c.expectLi.id);
       const n = list ? list.getElementsByTagName('li').length : 0;
       if (n != c.expectLi.n) {
         problems.push('li 개수 · 기대 ' + c.expectLi.n + '개 / 실제 ' + n + '개');
@@ -464,98 +686,91 @@
     return { ok: true, label: c.label };
   }
 
-  function saveInputs() {
-    const saved = [];
-    const inputs = document.querySelectorAll('.drill-stage input, .drill-stage select, .drill-stage textarea');
-    for (let i = 0; i < inputs.length; i++) {
-      saved.push({ el: inputs[i], value: inputs[i].value });
-    }
-    return saved;
-  }
-
-  function restoreInputs(saved) {
-    for (let i = 0; i < saved.length; i++) {
-      saved[i].el.value = saved[i].value;
-    }
-  }
-
-  function clearOutputs() {
-    const ids = ['result', 'list'];
-    for (let i = 0; i < ids.length; i++) {
-      const el = document.getElementById(ids[i]);
-      if (el) {
-        el.innerHTML = '';
+  function showResult(rows) {
+    const box = document.querySelector('.d-check');
+    box.innerHTML = '';
+    let okCount = 0;
+    for (let i = 0; i < rows.length; i++) {
+      if (rows[i].ok) {
+        okCount += 1;
       }
     }
-  }
+    const allOk = rows.length > 0 && okCount == rows.length;
+    document.body.classList.toggle('d-all-pass', allOk);
 
-  // 결과 칸이 바뀌면 반짝이고, 새로 생긴 li는 하나씩 쏙쏙 들어오게 합니다
-  function watchOutputs() {
-    const ids = ['result', 'list'];
-    for (let i = 0; i < ids.length; i++) {
-      const el = document.getElementById(ids[i]);
-      if (!el) {
-        continue;
+    if (allOk) {
+      writeStore('drill-pass:' + page.id + ':' + (page.step || 'project'), '1');
+      const now = document.querySelector('.d-step.is-now');
+      if (now) {
+        now.classList.add('is-done');
       }
-      const observer = new MutationObserver(function () {
-        flash(el);
-        popItems(el);
-      });
-      observer.observe(el, { childList: true, characterData: true, subtree: true });
-      observers.push(observer);
+      const pass = make('div', 'd-pass');
+      pass.appendChild(make('b', '', '모두 통과! ' + okCount + '개 중 ' + okCount + '개'));
+      pass.appendChild(nextLink());
+      box.appendChild(pass);
+    } else {
+      box.appendChild(make('p', 'd-score', rows.length + '개 중 ' + okCount + '개 맞았습니다. ✘ 줄을 보고 고친 뒤 다시 채점합니다.'));
     }
-    rememberLists();
-  }
 
-  function flash(el) {
-    el.classList.remove('drill-flash');
-    void el.offsetWidth;
-    el.classList.add('drill-flash');
-  }
-
-  function popItems(list) {
-    const items = list.getElementsByTagName('li');
-    const before = list.dataset.seen ? list.dataset.seen.split('\n') : [];
-
-    // 뒤에 덧붙인 경우(장바구니)는 새 줄만, 통째로 바꾼 경우는 전부 다시 들어옵니다
-    let start = 0;
-    if (items.length > before.length) {
-      let same = true;
-      for (let i = 0; i < before.length; i++) {
-        if (items[i].textContent != before[i]) {
-          same = false;
-        }
+    const list = make('ol', 'd-cases');
+    for (let i = 0; i < rows.length; i++) {
+      const item = make('li', rows[i].ok ? 'is-ok' : 'is-bad');
+      item.appendChild(make('b', '', (rows[i].ok ? '✔ ' : '✘ ') + rows[i].label));
+      if (!rows[i].ok) {
+        item.appendChild(make('small', '', rows[i].detail));
       }
-      if (same) {
-        start = before.length;
-      }
+      list.appendChild(item);
     }
-
-    const gap = Math.min(90, 1800 / Math.max(1, items.length - start));
-    for (let i = start; i < items.length; i++) {
-      items[i].classList.add('pop-in');
-      items[i].style.animationDelay = Math.round((i - start) * gap) + 'ms';
-    }
-    remember(list);
+    box.appendChild(list);
+    box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
-  function rememberLists() {
-    const ids = ['result', 'list'];
-    for (let i = 0; i < ids.length; i++) {
-      const el = document.getElementById(ids[i]);
-      if (el) {
-        remember(el);
-      }
+  function nextLink() {
+    const link = make('a', 'd-next', '');
+    const n = Number(page.step);
+    if (n >= 1 && n < 5) {
+      link.href = 'step' + (n + 1) + '.html';
+      link.textContent = 'Step ' + (n + 1) + ' · ' + STEPS[n + 1].name + ' →';
+      return link;
     }
+    const order = window.DRILL_ORDER;
+    const at = order.indexOf(page.id);
+    if (at >= 0 && at < order.length - 1) {
+      const next = window.DRILL_PROBLEMS[order[at + 1]];
+      link.href = '../' + next.folder + '/' + (next.page || 'step1.html');
+      link.textContent = '다음 문제 · ' + next.period + ' ' + next.no + ' ' + next.title + ' →';
+      return link;
+    }
+    link.href = '../index.html';
+    link.textContent = '4교시까지 끝! 코스 목록으로 →';
+    return link;
   }
 
-  function remember(list) {
-    const items = list.getElementsByTagName('li');
-    const texts = [];
-    for (let i = 0; i < items.length; i++) {
-      texts.push(items[i].textContent);
+  // ───── 도구 ─────
+
+  // 파일 안에서 들여 쓴 만큼을 걷어 내고, 앞뒤 빈 줄을 뺍니다
+  function dedent(text) {
+    const lines = text.replace(/\t/g, '  ').split('\n');
+    while (lines.length > 0 && lines[0].trim() == '') {
+      lines.shift();
     }
-    list.dataset.seen = texts.join('\n');
+    while (lines.length > 0 && lines[lines.length - 1].trim() == '') {
+      lines.pop();
+    }
+    let least = Infinity;
+    for (let i = 0; i < lines.length; i++) {
+      if (lines[i].trim() != '') {
+        least = Math.min(least, lines[i].match(/^ */)[0].length);
+      }
+    }
+    if (least == Infinity) {
+      return '';
+    }
+    const out = [];
+    for (let i = 0; i < lines.length; i++) {
+      out.push(lines[i].slice(least).trimEnd());
+    }
+    return out.join('\n');
   }
 
   function squash(text) {

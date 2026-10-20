@@ -6,7 +6,7 @@
   <title>06 스캔 기록 · Step 2</title>
   <link rel="stylesheet" href="../drill.css">
   <script src="../problems.js"></script>
-  <script src="../drill.js"></script>
+  <script src="../drill.js" defer></script>
 </head>
 <body data-problem="scan" data-step="2">
   <!--
@@ -16,24 +16,30 @@
     아래 결과 네모에는 "OOO 학생은 O번 찍혔습니다"를 보여줍니다.
     노랗게 칠하는 li는 '<li class="hit">' + scans[i] + '</li>'입니다.
 
-    뼈대는 다 있습니다. ___ 자리만 알맞은 값이나 연산자로 바꿉니다.
+    코드 칸에 아래 starter가 들어 있습니다. ___ 자리만 바꿉니다.
     ___ 이 하나라도 남아 있으면 버튼이 동작하지 않습니다.
-  -->
-  <p>QR 스캔 기록 : A01, B02, A01, C03, B02</p>
-  찾을 학번 : <input type="text" id="target">
-  <button onclick="findScan()">찾기</button>
-  <ul id="list" class="pop"></ul>
-  <div id="result"></div>
 
-  <script>
+    이 파일은 브라우저로 열어서 씁니다. 고칠 일이 있을 때만 VS Code로 엽니다.
+    stage   : 오른쪽 「실행 화면」에 놓이는 HTML
+    starter : 왼쪽 「내 코드」 칸에 처음 들어 있는 코드
+  -->
+  <template id="stage">
+    <p>QR 스캔 기록 : A01, B02, A01, C03, B02</p>
+    찾을 학번 : <input type="text" id="target">
+    <button onclick="findScan()">찾기</button>
+    <ul id="list" class="pop"></ul>
+    <div id="result"></div>
+  </template>
+
+  <script type="text/plain" id="starter">
     function findScan() {
       const target = document.getElementById('target').value;
       const scans = ['A01', 'B02', 'A01', 'C03', 'B02'];
       let html = '';
-      let count = ___;                                   // 센 횟수의 처음 값
+      let count = ___;  // 센 횟수의 처음 값
 
-      for (let i = 0; i < ___; i++) {                    // 기록 개수만큼 (목록 이름.length)
-        if (scans[i] ___ target) {                       // 연산자 : 같은가?
+      for (let i = 0; i < ___; i++) {  // 기록 개수만큼 (목록 이름.length)
+        if (scans[i] ___ target) {  // 연산자 : 같은가?
           html += '<li class="hit">' + scans[i] + '</li>';
           count += 1;
         } else {

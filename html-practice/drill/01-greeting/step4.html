@@ -6,7 +6,7 @@
   <title>01 인사하기 · Step 4</title>
   <link rel="stylesheet" href="../drill.css">
   <script src="../problems.js"></script>
-  <script src="../drill.js"></script>
+  <script src="../drill.js" defer></script>
 </head>
 <body data-problem="greeting" data-step="4">
   <!--
@@ -14,14 +14,20 @@
     이름 칸에 이름을 쓰고 「인사하기」를 누르면 결과 네모에 "OOO님, 반갑습니다!"를 보여줍니다.
     이름 칸이 비어 있으면 "이름을 넣어 주세요"를 보여줍니다.
 
-    한국어 주석만 있습니다. 위에서부터 한 줄씩 치지 않습니다.
+    코드 칸에 한국어 주석만 들어 있습니다. 위에서부터 한 줄씩 치지 않습니다.
     껍데기부터 치고, 주석을 껍데기 안으로 옮긴 다음, 주석 아래를 채웁니다.
-  -->
-  이름 : <input type="text" id="name">
-  <button onclick="greet()">인사하기</button>
-  <div id="result"></div>
 
-  <script>
+    이 파일은 브라우저로 열어서 씁니다. 고칠 일이 있을 때만 VS Code로 엽니다.
+    stage   : 오른쪽 「실행 화면」에 놓이는 HTML
+    starter : 왼쪽 「내 코드」 칸에 처음 들어 있는 코드
+  -->
+  <template id="stage">
+    이름 : <input type="text" id="name">
+    <button onclick="greet()">인사하기</button>
+    <div id="result"></div>
+  </template>
+
+  <script type="text/plain" id="starter">
     // ★ 위에서부터 한 줄씩 치지 않습니다. 이 순서로 칩니다.
     //   ① function greet() { } 껍데기
     //   ② 그 안에 if () { } else { } 껍데기
@@ -31,8 +37,6 @@
     // 1. 이름 칸의 값을 가져온다
     // 2. 이름이 비어 있으면 '이름을 넣어 주세요'를 보여준다
     // 3. 아니면 'OOO님, 반갑습니다!'를 보여준다
-
-
   </script>
 </body>
 </html>

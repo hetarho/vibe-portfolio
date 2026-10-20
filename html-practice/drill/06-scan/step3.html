@@ -6,7 +6,7 @@
   <title>06 스캔 기록 · Step 3</title>
   <link rel="stylesheet" href="../drill.css">
   <script src="../problems.js"></script>
-  <script src="../drill.js"></script>
+  <script src="../drill.js" defer></script>
 </head>
 <body data-problem="scan" data-step="3">
   <!--
@@ -16,16 +16,22 @@
     아래 결과 네모에는 "OOO 학생은 O번 찍혔습니다"를 보여줍니다.
     노랗게 칠하는 li는 '<li class="hit">' + scans[i] + '</li>'입니다.
 
-    껍데기와 한국어 주석만 있습니다. 주석 바로 아래 빈 줄에 코드를 씁니다.
+    코드 칸에 껍데기와 한국어 주석이 들어 있습니다. 주석 아래 빈 줄에 코드를 씁니다.
     "~면" 앞부분은 if 괄호 ( ) 안에, → 뒷부분은 중괄호 { } 안에 씁니다.
-  -->
-  <p>QR 스캔 기록 : A01, B02, A01, C03, B02</p>
-  찾을 학번 : <input type="text" id="target">
-  <button onclick="findScan()">찾기</button>
-  <ul id="list" class="pop"></ul>
-  <div id="result"></div>
 
-  <script>
+    이 파일은 브라우저로 열어서 씁니다. 고칠 일이 있을 때만 VS Code로 엽니다.
+    stage   : 오른쪽 「실행 화면」에 놓이는 HTML
+    starter : 왼쪽 「내 코드」 칸에 처음 들어 있는 코드
+  -->
+  <template id="stage">
+    <p>QR 스캔 기록 : A01, B02, A01, C03, B02</p>
+    찾을 학번 : <input type="text" id="target">
+    <button onclick="findScan()">찾기</button>
+    <ul id="list" class="pop"></ul>
+    <div id="result"></div>
+  </template>
+
+  <script type="text/plain" id="starter">
     function findScan() {
       // 1. 찾을 학번 칸(id: target)의 값을 target 그릇에 담는다
 

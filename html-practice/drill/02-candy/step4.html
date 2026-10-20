@@ -6,7 +6,7 @@
   <title>02 사탕 나누기 · Step 4</title>
   <link rel="stylesheet" href="../drill.css">
   <script src="../problems.js"></script>
-  <script src="../drill.js"></script>
+  <script src="../drill.js" defer></script>
 </head>
 <body data-problem="candy" data-step="4">
   <!--
@@ -15,15 +15,21 @@
     인원이 1보다 적으면 "1명 이상 넣어 주세요"를 보여줍니다.
     몫은 Math.floor(사탕 / 인원), 나머지는 사탕 % 인원으로 구합니다.
 
-    한국어 주석만 있습니다. 위에서부터 한 줄씩 치지 않습니다.
+    코드 칸에 한국어 주석만 들어 있습니다. 위에서부터 한 줄씩 치지 않습니다.
     껍데기부터 치고, 주석을 껍데기 안으로 옮긴 다음, 주석 아래를 채웁니다.
-  -->
-  인원 : <input type="number" id="people">
-  사탕 : <input type="number" id="candy">
-  <button onclick="share()">나누기</button>
-  <div id="result"></div>
 
-  <script>
+    이 파일은 브라우저로 열어서 씁니다. 고칠 일이 있을 때만 VS Code로 엽니다.
+    stage   : 오른쪽 「실행 화면」에 놓이는 HTML
+    starter : 왼쪽 「내 코드」 칸에 처음 들어 있는 코드
+  -->
+  <template id="stage">
+    인원 : <input type="number" id="people">
+    사탕 : <input type="number" id="candy">
+    <button onclick="share()">나누기</button>
+    <div id="result"></div>
+  </template>
+
+  <script type="text/plain" id="starter">
     // ★ 위에서부터 한 줄씩 치지 않습니다. 이 순서로 칩니다.
     //   ① function share() { } 껍데기
     //   ② 그 안에 if () { } else { } 껍데기
@@ -34,8 +40,6 @@
     // 2. 인원이 1보다 적으면 '1명 이상 넣어 주세요'를 보여준다
     // 3. 아니면 몫과 나머지를 구해서
     // 4. '1인당 O개, 남은 사탕 O개'를 보여준다
-
-
   </script>
 </body>
 </html>

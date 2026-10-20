@@ -6,7 +6,7 @@
   <title>03 로그인 · Step 5</title>
   <link rel="stylesheet" href="../drill.css">
   <script src="../problems.js"></script>
-  <script src="../drill.js"></script>
+  <script src="../drill.js" defer></script>
 </head>
 <body data-problem="login" data-step="5">
   <!--
@@ -16,17 +16,21 @@
     아이디가 admin이고 비밀번호가 1234이면 "admin님, 환영합니다"
     그 밖에는 "아이디 또는 비밀번호가 틀렸습니다"
 
-    script 안이 완전히 비어 있습니다. 오른쪽 체크리스트 순서대로 합니다.
-    1) 한국어 주석부터 쓰기  2) 껍데기 먼저 치기  3) 빈칸 채우기
+    코드 칸이 비어 있습니다. 화면의 세 단계 버튼을 순서대로 누르며 씁니다.
+    1) 한국어 주석부터  2) 껍데기 먼저  3) 빈칸 채우기
+
+    이 파일은 브라우저로 열어서 씁니다. 고칠 일이 있을 때만 VS Code로 엽니다.
+    stage   : 오른쪽 「실행 화면」에 놓이는 HTML
+    starter : 왼쪽 「내 코드」 칸에 처음 들어 있는 코드
   -->
-  아이디 : <input type="text" id="userId"><br><br>
-  비밀번호 : <input type="password" id="pwd"><br><br>
-  <button onclick="login()">로그인</button>
-  <div id="result"></div>
+  <template id="stage">
+    아이디 : <input type="text" id="userId"><br><br>
+    비밀번호 : <input type="password" id="pwd"><br><br>
+    <button onclick="login()">로그인</button>
+    <div id="result"></div>
+  </template>
 
-  <script>
-
-
+  <script type="text/plain" id="starter">
 
   </script>
 </body>

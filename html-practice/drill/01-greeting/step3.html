@@ -6,7 +6,7 @@
   <title>01 인사하기 · Step 3</title>
   <link rel="stylesheet" href="../drill.css">
   <script src="../problems.js"></script>
-  <script src="../drill.js"></script>
+  <script src="../drill.js" defer></script>
 </head>
 <body data-problem="greeting" data-step="3">
   <!--
@@ -14,14 +14,20 @@
     이름 칸에 이름을 쓰고 「인사하기」를 누르면 결과 네모에 "OOO님, 반갑습니다!"를 보여줍니다.
     이름 칸이 비어 있으면 "이름을 넣어 주세요"를 보여줍니다.
 
-    껍데기와 한국어 주석만 있습니다. 주석 바로 아래 빈 줄에 코드를 씁니다.
+    코드 칸에 껍데기와 한국어 주석이 들어 있습니다. 주석 아래 빈 줄에 코드를 씁니다.
     "~면" 앞부분은 if 괄호 ( ) 안에, → 뒷부분은 중괄호 { } 안에 씁니다.
-  -->
-  이름 : <input type="text" id="name">
-  <button onclick="greet()">인사하기</button>
-  <div id="result"></div>
 
-  <script>
+    이 파일은 브라우저로 열어서 씁니다. 고칠 일이 있을 때만 VS Code로 엽니다.
+    stage   : 오른쪽 「실행 화면」에 놓이는 HTML
+    starter : 왼쪽 「내 코드」 칸에 처음 들어 있는 코드
+  -->
+  <template id="stage">
+    이름 : <input type="text" id="name">
+    <button onclick="greet()">인사하기</button>
+    <div id="result"></div>
+  </template>
+
+  <script type="text/plain" id="starter">
     function greet() {
       // 1. 이름 칸(id: name)의 값을 가져와 name 그릇에 담는다
 

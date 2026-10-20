@@ -58,7 +58,7 @@ export function StepTabs({ problem }: { problem: DrillProblem }) {
           </PanelLabel>
           <p className="flex items-center gap-2 text-deck-meta text-content-secondary">
             {step === 1 ? <Ban className="size-4 shrink-0" /> : <FileCode2 className="size-4 shrink-0" />}
-            {step === 1 ? '파일은 비어 있고, 오른쪽 화면의 이 코드를 보고 칩니다' : `step${step}.html · ${info.hand}`}
+            {step === 1 ? '코드 칸은 비어 있고, 위에 보이는 이 정답을 보고 칩니다' : `코드 칸에 처음 들어 있는 것 · ${info.hand}`}
           </p>
         </div>
         <DrillCode
@@ -66,7 +66,7 @@ export function StepTabs({ problem }: { problem: DrillProblem }) {
           lines={lines}
           size={lines.length > 15 || Math.max(0, ...lines.map(widthOf)) > 64 ? 'meta' : 'caption'}
           className="animate-rise"
-          empty="script 안이 완전히 비어 있습니다 · 주석 → 껍데기 → 빈칸"
+          empty="코드 칸이 완전히 비어 있습니다 · 주석 → 껍데기 → 빈칸"
         />
       </Panel>
     </div>

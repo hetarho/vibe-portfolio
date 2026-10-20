@@ -6,7 +6,7 @@
   <title>05 사탕 쏙쏙 · Step 4</title>
   <link rel="stylesheet" href="../drill.css">
   <script src="../problems.js"></script>
-  <script src="../drill.js"></script>
+  <script src="../drill.js" defer></script>
 </head>
 <body data-problem="candyRow" data-step="4">
   <!--
@@ -16,14 +16,20 @@
     1개보다 적으면 "1개 이상 넣어 주세요"를 보여줍니다.
     도전 : '<li>사탕</li>' 대신 '<li>' + i + '</li>'를 붙이면 숫자가 몇부터 나오나요?
 
-    한국어 주석만 있습니다. 위에서부터 한 줄씩 치지 않습니다.
+    코드 칸에 한국어 주석만 들어 있습니다. 위에서부터 한 줄씩 치지 않습니다.
     껍데기부터 치고, 주석을 껍데기 안으로 옮긴 다음, 주석 아래를 채웁니다.
-  -->
-  사탕 개수 : <input type="number" id="count">
-  <button onclick="drop()">사탕 놓기</button>
-  <ul id="result" class="pop candy"></ul>
 
-  <script>
+    이 파일은 브라우저로 열어서 씁니다. 고칠 일이 있을 때만 VS Code로 엽니다.
+    stage   : 오른쪽 「실행 화면」에 놓이는 HTML
+    starter : 왼쪽 「내 코드」 칸에 처음 들어 있는 코드
+  -->
+  <template id="stage">
+    사탕 개수 : <input type="number" id="count">
+    <button onclick="drop()">사탕 놓기</button>
+    <ul id="result" class="pop candy"></ul>
+  </template>
+
+  <script type="text/plain" id="starter">
     // ★ 위에서부터 한 줄씩 치지 않습니다. 이 순서로 칩니다.
     //   ① function drop() { } 껍데기
     //   ② 그 안에 if () { } else { } 껍데기
@@ -35,8 +41,6 @@
     // 2. 1개보다 적으면 '1개 이상 넣어 주세요'를 보여준다
     // 3. 아니면 개수만큼 돌면서 html 그릇에 '<li>사탕</li>'를 붙이고
     // 4. 다 모은 html을 결과 목록에 넣는다
-
-
   </script>
 </body>
 </html>

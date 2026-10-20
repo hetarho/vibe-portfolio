@@ -6,7 +6,7 @@
   <title>04 재고 주문 · Step 5</title>
   <link rel="stylesheet" href="../drill.css">
   <script src="../problems.js"></script>
-  <script src="../drill.js"></script>
+  <script src="../drill.js" defer></script>
 </head>
 <body data-problem="stock" data-step="5">
   <!--
@@ -16,17 +16,21 @@
     재고보다 많이 주문하면 "재고가 부족합니다"를 보여주고 재고는 그대로 둡니다.
     재고 그릇은 버튼을 누를 때마다 남아 있어야 하므로 함수 밖에 둡니다.
 
-    script 안이 완전히 비어 있습니다. 오른쪽 체크리스트 순서대로 합니다.
-    1) 한국어 주석부터 쓰기  2) 껍데기 먼저 치기  3) 빈칸 채우기
+    코드 칸이 비어 있습니다. 화면의 세 단계 버튼을 순서대로 누르며 씁니다.
+    1) 한국어 주석부터  2) 껍데기 먼저  3) 빈칸 채우기
+
+    이 파일은 브라우저로 열어서 씁니다. 고칠 일이 있을 때만 VS Code로 엽니다.
+    stage   : 오른쪽 「실행 화면」에 놓이는 HTML
+    starter : 왼쪽 「내 코드」 칸에 처음 들어 있는 코드
   -->
-  <p>처음 재고 7개 · 주문할 때마다 줄어듭니다</p>
-  주문 수량 : <input type="number" id="count">
-  <button onclick="order()">주문</button>
-  <div id="result"></div>
+  <template id="stage">
+    <p>처음 재고 7개 · 주문할 때마다 줄어듭니다</p>
+    주문 수량 : <input type="number" id="count">
+    <button onclick="order()">주문</button>
+    <div id="result"></div>
+  </template>
 
-  <script>
-
-
+  <script type="text/plain" id="starter">
 
   </script>
 </body>

@@ -6,9 +6,9 @@
   <title>07 장바구니 · 미니 프로젝트</title>
   <link rel="stylesheet" href="../drill.css">
   <script src="../problems.js"></script>
-  <script src="../drill.js"></script>
+  <script src="../drill.js" defer></script>
 </head>
-<body data-problem="cart" data-step="project">
+<body data-problem="cart" data-step="project" data-edit="html">
   <!--
     [4교시 · 07 장바구니 · 미니 프로젝트 조립]
     메뉴와 수량을 고르고 「담기」를 누르면 목록에 한 줄이 쏙 추가되고 총액이 늘어납니다.
@@ -17,84 +17,80 @@
     「비우기」를 누르면 목록이 비고 "총액 0원"으로 돌아갑니다.
     가격 : 떡볶이 4000원 · 김밥 3500원 · 라면 5000원 · 튀김 2500원
 
-    화면과 뼈대는 다 있습니다. 빈칸_가 부터 빈칸_아 까지 여덟 개와 clearCart 함수 안을 채웁니다.
-    조립 순서 (하나 채울 때마다 Ctrl+S로 저장하고 눌러 봅니다)
-    ① 이벤트 연결 : 아래 버튼 두 개의 빈칸 → 버튼을 누르면 어떤 함수가 실행되나요?
-    ② 에러 처리   : addItem의 2번 → 언제 멈춰야 하나요?
-    ③ 계산         : addItem의 3번, 4번 → 가격표와 곱하기, 더하기
-    ④ 출력         : addItem의 6번 → 언제 배달비가 무료인가요?
-    ⑤ 직접 쓰기    : clearCart 안의 주석 세 줄 아래를 채웁니다
-
-    [작은 경우로 확인]
-    - 떡볶이 2개 → 총액 8000원
-    - 김밥 1개   → 총액 11500원
-    - 라면 0개   → 알림창, 총액 그대로
-    - 라면 2개   → 총액 21500원 · 배달비 무료!
-    - 비우기     → 총액 0원
+    이 파일은 브라우저로 열어서 씁니다. 코드 칸에 아래 starter가 그대로 들어갑니다.
+    화면(HTML)과 script를 함께 고치는 문제라 starter에 둘 다 들어 있습니다.
   -->
-  <select id="menu">
-    <option value="떡볶이">떡볶이 4,000원</option>
-    <option value="김밥">김밥 3,500원</option>
-    <option value="라면">라면 5,000원</option>
-    <option value="튀김">튀김 2,500원</option>
-  </select>
-  수량 : <input type="number" id="qty" value="1">
-  <button id="addBtn" onclick="빈칸_가">담기</button>
-  <button id="clearBtn" onclick="빈칸_나">비우기</button>
+  <template id="starter">
+    <!-- 조립 순서 · 하나 채울 때마다 Ctrl+Enter로 실행해서 눌러 봅니다
+         ① 이벤트 연결 : 아래 버튼 두 개의 빈칸 → 버튼을 누르면 어떤 함수가 실행되나요?
+         ② 에러 처리   : addItem의 2번 → 언제 멈춰야 하나요?
+         ③ 계산         : addItem의 3번, 4번 → 가격표와 곱하기, 더하기
+         ④ 출력         : addItem의 6번 → 언제 배달비가 무료인가요?
+         ⑤ 직접 쓰기    : clearCart 안의 주석 세 줄 아래를 채웁니다 -->
+    <select id="menu">
+      <option value="떡볶이">떡볶이 4,000원</option>
+      <option value="김밥">김밥 3,500원</option>
+      <option value="라면">라면 5,000원</option>
+      <option value="튀김">튀김 2,500원</option>
+    </select>
+    수량 : <input type="number" id="qty" value="1">
+    <button id="addBtn" onclick="빈칸_가">담기</button>
+    <button id="clearBtn" onclick="빈칸_나">비우기</button>
 
-  <ul id="list" class="pop cart"></ul>
-  <div id="result">총액 0원</div>
+    <ul id="list" class="pop cart"></ul>
+    <div id="result">총액 0원</div>
 
-  <script>
-    // 0. 총액 그릇 · 버튼을 누를 때마다 남아 있어야 하므로 함수 밖에 둔다
-    let total = 0;
+    <script>
+      // 0. 총액 그릇 · 버튼을 누를 때마다 남아 있어야 하므로 함수 밖에 둔다
+      let total = 0;
 
-    function addItem() {
-      // 1. 메뉴와 수량을 가져온다 (수량은 숫자로)
-      const menu = document.getElementById('menu').value;
-      const qty = Number(document.getElementById('qty').value);
+      function addItem() {
+        // 1. 메뉴와 수량을 가져온다 (수량은 숫자로)
+        const menu = document.getElementById('menu').value;
+        const qty = Number(document.getElementById('qty').value);
 
-      // 2. [에러 처리] 수량이 1보다 적으면 알리고 멈춘다 (return을 만나면 함수가 여기서 끝난다)
-      if (빈칸_다) {
-        alert('1개 이상 담아 주세요');
-        return;
+        // 2. [에러 처리] 수량이 1보다 적으면 알리고 멈춘다 (return을 만나면 함수가 여기서 끝난다)
+        if (빈칸_다) {
+          alert('1개 이상 담아 주세요');
+          return;
+        }
+
+        // 3. 메뉴에 맞는 가격을 정한다
+        let price = 0;
+        if (menu == '떡볶이') {
+          price = 4000;
+        } else if (menu == '김밥') {
+          price = 빈칸_라;
+        } else if (빈칸_마) {
+          price = 5000;
+        } else {
+          price = 2500;
+        }
+
+        // 4. 금액(가격 × 수량)을 구해 총액에 더한다
+        const amount = 빈칸_바;
+        total = 빈칸_사;
+
+        // 5. 목록에 한 줄을 덧붙인다  예) 떡볶이 × 2 = 8000원
+        document.getElementById('list').innerHTML += '<li>' + menu + ' × ' + qty + ' = ' + amount + '원</li>';
+
+        // 6. 총액을 보여준다. 20000원 이상이면 뒤에 ' · 배달비 무료!'를 붙인다
+        if (빈칸_아) {
+          document.getElementById('result').innerHTML = '총액 ' + total + '원 · 배달비 무료!';
+        } else {
+          document.getElementById('result').innerHTML = '총액 ' + total + '원';
+        }
       }
 
-      // 3. 메뉴에 맞는 가격을 정한다
-      let price = 0;
-      if (menu == '떡볶이') {
-        price = 4000;
-      } else if (menu == '김밥') {
-        price = 빈칸_라;
-      } else if (빈칸_마) {
-        price = 5000;
-      } else {
-        price = 2500;
+      function clearCart() {
+        // 1. 총액 그릇을 0으로 되돌린다
+
+        // 2. 목록(id: list)을 비운다
+
+        // 3. 결과(id: result)에 '총액 0원'을 보여준다
+
       }
-
-      // 4. 금액(가격 × 수량)을 구해 총액에 더한다
-      const amount = 빈칸_바;
-      total = 빈칸_사;
-
-      // 5. 목록에 한 줄을 덧붙인다  예) 떡볶이 × 2 = 8000원
-      document.getElementById('list').innerHTML += '<li>' + menu + ' × ' + qty + ' = ' + amount + '원</li>';
-
-      // 6. 총액을 보여준다. 20000원 이상이면 뒤에 ' · 배달비 무료!'를 붙인다
-      if (빈칸_아) {
-        document.getElementById('result').innerHTML = '총액 ' + total + '원 · 배달비 무료!';
-      } else {
-        document.getElementById('result').innerHTML = '총액 ' + total + '원';
-      }
-    }
-
-    function clearCart() {
-      // 1. 총액 그릇을 0으로 되돌린다
-
-      // 2. 목록(id: list)을 비운다
-
-      // 3. 결과(id: result)에 '총액 0원'을 보여준다
-
-    }
-  </script>
+    </script>
+  </template>
 </body>
 </html>

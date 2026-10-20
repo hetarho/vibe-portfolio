@@ -6,7 +6,7 @@
   <title>04 재고 주문 · Step 3</title>
   <link rel="stylesheet" href="../drill.css">
   <script src="../problems.js"></script>
-  <script src="../drill.js"></script>
+  <script src="../drill.js" defer></script>
 </head>
 <body data-problem="stock" data-step="3">
   <!--
@@ -16,15 +16,21 @@
     재고보다 많이 주문하면 "재고가 부족합니다"를 보여주고 재고는 그대로 둡니다.
     재고 그릇은 버튼을 누를 때마다 남아 있어야 하므로 함수 밖에 둡니다.
 
-    껍데기와 한국어 주석만 있습니다. 주석 바로 아래 빈 줄에 코드를 씁니다.
+    코드 칸에 껍데기와 한국어 주석이 들어 있습니다. 주석 아래 빈 줄에 코드를 씁니다.
     "~면" 앞부분은 if 괄호 ( ) 안에, → 뒷부분은 중괄호 { } 안에 씁니다.
-  -->
-  <p>처음 재고 7개 · 주문할 때마다 줄어듭니다</p>
-  주문 수량 : <input type="number" id="count">
-  <button onclick="order()">주문</button>
-  <div id="result"></div>
 
-  <script>
+    이 파일은 브라우저로 열어서 씁니다. 고칠 일이 있을 때만 VS Code로 엽니다.
+    stage   : 오른쪽 「실행 화면」에 놓이는 HTML
+    starter : 왼쪽 「내 코드」 칸에 처음 들어 있는 코드
+  -->
+  <template id="stage">
+    <p>처음 재고 7개 · 주문할 때마다 줄어듭니다</p>
+    주문 수량 : <input type="number" id="count">
+    <button onclick="order()">주문</button>
+    <div id="result"></div>
+  </template>
+
+  <script type="text/plain" id="starter">
     // 0. 재고 그릇 stock을 7로 만든다 (버튼을 누를 때마다 남아 있어야 하므로 함수 밖, let)
 
 

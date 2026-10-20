@@ -3,6 +3,8 @@
 // 화면 맨 위의 문제 설명, Step 1에 띄우는 정답 코드, 「채점하기」가 넣어 볼 값이 모두 여기 있습니다.
 // 정답 코드를 고치면 같은 폴더 step2~4.html의 빈칸과 주석도 같이 맞춰 줍니다.
 //
+// reset : 채점 전에 실습 화면 안에서 실행할 코드 (함수 밖 그릇을 처음 값으로 되돌린다)
+//
 // cases 한 줄 = 작은 경우 하나
 //   inputs      : 칸 id → 넣을 값
 //   call        : 부를 함수 (없으면 fn)
@@ -131,9 +133,7 @@ function order() {
     document.getElementById('result').innerHTML = '남은 재고 ' + stock + '개';
   }
 }`,
-    reset: function () {
-      stock = 7;
-    },
+    reset: 'stock = 7;',
     resetHint: '함수 밖에 let stock = 7; 이 있어야 합니다.',
     cases: [
       { label: '재고 7개일 때 8개', inputs: { count: '8' }, expect: '재고가 부족합니다' },
@@ -229,11 +229,7 @@ function order() {
       '「비우기」를 누르면 목록이 비고 "총액 0원"으로 돌아갑니다.',
       '가격 : 떡볶이 4000원 · 김밥 3500원 · 라면 5000원 · 튀김 2500원'
     ],
-    reset: function () {
-      total = 0;
-      document.getElementById('list').innerHTML = '';
-      document.getElementById('result').innerHTML = '총액 0원';
-    },
+    reset: "total = 0; document.getElementById('list').innerHTML = ''; document.getElementById('result').innerHTML = '총액 0원';",
     resetHint: '함수 밖에 let total = 0; 이 있어야 합니다.',
     cases: [
       { label: '「담기」 버튼에 addItem() 연결', attr: { id: 'addBtn', name: 'onclick', has: 'addItem()' } },

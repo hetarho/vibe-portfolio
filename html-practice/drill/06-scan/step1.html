@@ -6,7 +6,7 @@
   <title>06 스캔 기록 · Step 1</title>
   <link rel="stylesheet" href="../drill.css">
   <script src="../problems.js"></script>
-  <script src="../drill.js"></script>
+  <script src="../drill.js" defer></script>
 </head>
 <body data-problem="scan" data-step="1">
   <!--
@@ -16,18 +16,22 @@
     아래 결과 네모에는 "OOO 학생은 O번 찍혔습니다"를 보여줍니다.
     노랗게 칠하는 li는 '<li class="hit">' + scans[i] + '</li>'입니다.
 
-    오른쪽 화면의 정답 코드를 보고 아래 <script> 안에 똑같이 칩니다.
-    복사하지 않고 한 글자씩 칩니다. 다 치면 Ctrl+S → 오른쪽 「채점하기」
+    브라우저에서 이 파일을 열면 왼쪽 위에 정답, 그 아래에 빈 코드 칸이 있습니다.
+    정답을 보고 코드 칸에 똑같이 칩니다. Ctrl+Enter로 실행 → 「채점하기」
+
+    이 파일은 브라우저로 열어서 씁니다. 고칠 일이 있을 때만 VS Code로 엽니다.
+    stage   : 오른쪽 「실행 화면」에 놓이는 HTML
+    starter : 왼쪽 「내 코드」 칸에 처음 들어 있는 코드
   -->
-  <p>QR 스캔 기록 : A01, B02, A01, C03, B02</p>
-  찾을 학번 : <input type="text" id="target">
-  <button onclick="findScan()">찾기</button>
-  <ul id="list" class="pop"></ul>
-  <div id="result"></div>
+  <template id="stage">
+    <p>QR 스캔 기록 : A01, B02, A01, C03, B02</p>
+    찾을 학번 : <input type="text" id="target">
+    <button onclick="findScan()">찾기</button>
+    <ul id="list" class="pop"></ul>
+    <div id="result"></div>
+  </template>
 
-  <script>
-    // 오른쪽 화면의 정답 코드를 보고 이 아래에 똑같이 칩니다. (복사 금지 · 한 글자씩)
-
+  <script type="text/plain" id="starter">
 
   </script>
 </body>

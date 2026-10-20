@@ -6,7 +6,7 @@
   <title>05 사탕 쏙쏙 · Step 5</title>
   <link rel="stylesheet" href="../drill.css">
   <script src="../problems.js"></script>
-  <script src="../drill.js"></script>
+  <script src="../drill.js" defer></script>
 </head>
 <body data-problem="candyRow" data-step="5">
   <!--
@@ -16,16 +16,20 @@
     1개보다 적으면 "1개 이상 넣어 주세요"를 보여줍니다.
     도전 : '<li>사탕</li>' 대신 '<li>' + i + '</li>'를 붙이면 숫자가 몇부터 나오나요?
 
-    script 안이 완전히 비어 있습니다. 오른쪽 체크리스트 순서대로 합니다.
-    1) 한국어 주석부터 쓰기  2) 껍데기 먼저 치기  3) 빈칸 채우기
+    코드 칸이 비어 있습니다. 화면의 세 단계 버튼을 순서대로 누르며 씁니다.
+    1) 한국어 주석부터  2) 껍데기 먼저  3) 빈칸 채우기
+
+    이 파일은 브라우저로 열어서 씁니다. 고칠 일이 있을 때만 VS Code로 엽니다.
+    stage   : 오른쪽 「실행 화면」에 놓이는 HTML
+    starter : 왼쪽 「내 코드」 칸에 처음 들어 있는 코드
   -->
-  사탕 개수 : <input type="number" id="count">
-  <button onclick="drop()">사탕 놓기</button>
-  <ul id="result" class="pop candy"></ul>
+  <template id="stage">
+    사탕 개수 : <input type="number" id="count">
+    <button onclick="drop()">사탕 놓기</button>
+    <ul id="result" class="pop candy"></ul>
+  </template>
 
-  <script>
-
-
+  <script type="text/plain" id="starter">
 
   </script>
 </body>

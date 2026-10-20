@@ -6,7 +6,7 @@
   <title>06 스캔 기록 · Step 5</title>
   <link rel="stylesheet" href="../drill.css">
   <script src="../problems.js"></script>
-  <script src="../drill.js"></script>
+  <script src="../drill.js" defer></script>
 </head>
 <body data-problem="scan" data-step="5">
   <!--
@@ -16,18 +16,22 @@
     아래 결과 네모에는 "OOO 학생은 O번 찍혔습니다"를 보여줍니다.
     노랗게 칠하는 li는 '<li class="hit">' + scans[i] + '</li>'입니다.
 
-    script 안이 완전히 비어 있습니다. 오른쪽 체크리스트 순서대로 합니다.
-    1) 한국어 주석부터 쓰기  2) 껍데기 먼저 치기  3) 빈칸 채우기
+    코드 칸이 비어 있습니다. 화면의 세 단계 버튼을 순서대로 누르며 씁니다.
+    1) 한국어 주석부터  2) 껍데기 먼저  3) 빈칸 채우기
+
+    이 파일은 브라우저로 열어서 씁니다. 고칠 일이 있을 때만 VS Code로 엽니다.
+    stage   : 오른쪽 「실행 화면」에 놓이는 HTML
+    starter : 왼쪽 「내 코드」 칸에 처음 들어 있는 코드
   -->
-  <p>QR 스캔 기록 : A01, B02, A01, C03, B02</p>
-  찾을 학번 : <input type="text" id="target">
-  <button onclick="findScan()">찾기</button>
-  <ul id="list" class="pop"></ul>
-  <div id="result"></div>
+  <template id="stage">
+    <p>QR 스캔 기록 : A01, B02, A01, C03, B02</p>
+    찾을 학번 : <input type="text" id="target">
+    <button onclick="findScan()">찾기</button>
+    <ul id="list" class="pop"></ul>
+    <div id="result"></div>
+  </template>
 
-  <script>
-
-
+  <script type="text/plain" id="starter">
 
   </script>
 </body>

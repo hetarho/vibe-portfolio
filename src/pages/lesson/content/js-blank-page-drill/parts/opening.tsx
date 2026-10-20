@@ -1,6 +1,6 @@
-import { AlertTriangle, ArrowRight, Brain, CheckCircle2, Eye, Hand, MonitorCheck } from 'lucide-react'
+import { AlertTriangle, ArrowRight, Brain, ClipboardList, ExternalLink, Hand, Keyboard, MonitorCheck, Play } from 'lucide-react'
 import { Chip, CompareGrid, cx, Mark, Panel, PanelLabel, SlideHeadline, SlideKicker, SlideLayout, SlideLead, SlideNote } from '../../../deck'
-import { drillOf, PERIODS, SHELLS, STEPS } from '../model/drill'
+import { DRILL_HOME, drillOf, PERIODS, SHELLS, STEPS } from '../model/drill'
 import { DrillCode } from '../ui/DrillCode'
 
 /** 시작 · 오늘 지도 */
@@ -226,46 +226,61 @@ export function FrameworkSlide() {
 }
 
 const SCREEN_PARTS = [
-  { icon: Eye, head: '정답 상자 · Step 1', detail: '복사와 드래그가 막혀 있습니다. 보고 한 글자씩 칩니다' },
-  { icon: AlertTriangle, head: '빨간 상자', detail: '코드가 틀리면 몇 번째 줄인지 한국어로 알려 줍니다' },
-  { icon: MonitorCheck, head: '「채점하기」', detail: '작은 경우를 차례로 넣어 봅니다. 다 맞으면 화면이 초록색이 됩니다' },
-  { icon: CheckCircle2, head: '동그라미 1~5', detail: '통과한 Step은 초록색으로 남습니다' },
+  { icon: ClipboardList, head: '검은 상자', detail: '이번 Step에서 할 일 한 줄. 막히면 소리 내어 읽습니다' },
+  { icon: Keyboard, head: '왼쪽 · 내 코드 칸', detail: '여기에 칩니다. 친 코드는 저절로 저장됩니다' },
+  { icon: Play, head: '▶ 실행 · Ctrl + Enter', detail: '오른쪽 실행 화면에서 버튼을 직접 눌러 봅니다' },
+  { icon: AlertTriangle, head: '빨간 상자', detail: '틀린 줄 번호와 고칠 방법. 누르면 그 줄로 갑니다' },
+  { icon: MonitorCheck, head: '채점하기', detail: '다 맞으면 화면이 초록색, 다음 Step 버튼이 나옵니다' },
 ]
 
-/** 준비 · 화면 반으로 나누기와 연습장 화면 읽는 법 */
+/** 준비 · 노트북 한 대, 브라우저 하나로 쓰는 법 */
 export function SetupSlide() {
   return (
     <SlideLayout>
-      <SlideKicker>준비 · 왼쪽은 파일, 오른쪽은 결과</SlideKicker>
+      <div className="flex flex-wrap items-center justify-between gap-3 md:gap-5">
+        <SlideKicker>준비 · 노트북 한 대, 화면 하나</SlideKicker>
+        <a
+          href={DRILL_HOME}
+          target="_blank"
+          rel="noreferrer"
+          className="flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-deck-caption font-bold text-accent-contrast shadow-lifted transition duration-200 ease-deck hover:opacity-90"
+        >
+          <ExternalLink className="size-5 shrink-0" />
+          실습 화면 열기
+        </a>
+      </div>
       <SlideHeadline>
-        저장하면 오른쪽이 <Mark>저절로</Mark> 다시 채점을 기다립니다
+        <Mark>브라우저 한 화면</Mark>에서 칩니다
       </SlideHeadline>
 
       <div className="grid items-stretch gap-4 md:gap-6 lg:grid-cols-9">
         <Panel tone="sunken" pad="md" className="flex flex-col gap-4 lg:col-span-4">
-          <PanelLabel>화면 나누기</PanelLabel>
-          {['pnpm dev로 개발 서버 켜기', 'VS Code 오른쪽에 localhost:3030/html-practice/', '목록에서 오늘 교시의 Step 1 열기', '왼쪽에서 같은 파일 열기 → 고치고 Ctrl+S'].map(
-            (line, index) => (
-              <p key={line} className="flex items-start gap-3 text-deck-caption font-semibold text-content-strong">
-                <span className="grid size-7 shrink-0 place-items-center rounded-full bg-surface-raised text-deck-meta font-bold shadow-raised md:size-8">
-                  {index + 1}
-                </span>
-                {line}
-              </p>
-            ),
-          )}
+          <PanelLabel>탭 두 개만 씁니다</PanelLabel>
+          {[
+            '탭 1 · 이 강의 화면 · 교시와 문제를 소개할 때',
+            '탭 2 · 실습 화면 · 학생이 칠 때',
+            'Ctrl + Tab으로 두 탭을 오갑니다',
+            '키보드는 학생 앞에, 선생님은 화면만 가리킵니다',
+          ].map((line, index) => (
+            <p key={line} className="flex items-start gap-3 text-deck-caption font-semibold text-content-strong">
+              <span className="grid size-7 shrink-0 place-items-center rounded-full bg-surface-raised text-deck-meta font-bold shadow-raised md:size-8">
+                {index + 1}
+              </span>
+              {line}
+            </p>
+          ))}
           <p className="mt-auto flex items-center gap-2 text-deck-caption text-content-secondary">
             <ArrowRight className="size-5 shrink-0" />
-            지난 수업 흔적은 git restore html-practice/ 로 지웁니다
+            실습 화면 첫 페이지에 사용법이 그림과 함께 있습니다
           </p>
         </Panel>
 
         <Panel tone="raised" pad="md" className="flex flex-col gap-4 lg:col-span-5">
-          <PanelLabel tone="accent">오른쪽 화면에서 볼 곳</PanelLabel>
+          <PanelLabel tone="accent">실습 화면에서 볼 곳</PanelLabel>
           {SCREEN_PARTS.map((part, index) => {
             const Icon = part.icon
             return (
-              <div key={part.head} className={cx('flex items-start gap-4', `animate-rise-${index + 1}`)}>
+              <div key={part.head} className={cx('flex items-start gap-4', `animate-rise-${Math.min(index + 1, 5)}`)}>
                 <Icon className="mt-1 size-6 shrink-0 text-accent md:size-7" />
                 <div className="flex flex-col">
                   <p className="text-deck-body font-bold text-content-strong">{part.head}</p>

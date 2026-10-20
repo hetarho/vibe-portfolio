@@ -1,0 +1,46 @@
+/* 실행 화면(iframe) 안쪽 · 학생이 만든 화면이 놓이는 곳 */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 14px 16px;
+  font-family: "Pretendard", "Noto Sans KR", "Malgun Gothic", sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  color: #1c1a17;
+  background: #fff;
+}
+
+input, select { font: inherit; padding: 6px 8px; border: 1px solid #c9c1b6; border-radius: 6px; }
+button { font: inherit; padding: 6px 14px; border: 0; border-radius: 6px; background: #1c1a17; color: #fff; cursor: pointer; }
+p { margin: 0 0 8px; }
+
+#result {
+  min-height: 28px;
+  margin-top: 12px;
+  padding: 10px 12px;
+  border: 2px dashed #d6cfc5;
+  border-radius: 8px;
+  font-size: 19px;
+  font-weight: 700;
+}
+#result:empty::before { content: "결과가 여기에 나옵니다"; color: #b0a79b; font-weight: 400; font-size: 15px; }
+.d-flash { animation: d-flash 0.7s; }
+@keyframes d-flash {
+  0% { background: #ffe27a; border-color: #e0b800; }
+  100% { background: transparent; }
+}
+
+/* 목록 · li가 하나씩 쏙쏙 들어옵니다 */
+ul.pop { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 0; padding: 0; list-style: none; }
+ul.pop li { padding: 6px 12px; border-radius: 999px; background: #ebe7e1; font-weight: 700; }
+ul.pop li.hit { background: #ffe27a; box-shadow: 0 0 0 2px #e0b800; }
+ul.candy li::before { content: "🍬 "; }
+ul.cart { display: grid; }
+ul.cart li { border-radius: 8px; }
+.pop-in { animation: d-pop 0.4s both; }
+@keyframes d-pop {
+  0% { opacity: 0; transform: translateY(-14px) scale(0.4); }
+  70% { opacity: 1; transform: translateY(0) scale(1.15); }
+  100% { opacity: 1; transform: scale(1); }
+}

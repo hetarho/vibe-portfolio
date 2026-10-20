@@ -6,7 +6,7 @@
   <title>04 재고 주문 · Step 2</title>
   <link rel="stylesheet" href="../drill.css">
   <script src="../problems.js"></script>
-  <script src="../drill.js"></script>
+  <script src="../drill.js" defer></script>
 </head>
 <body data-problem="stock" data-step="2">
   <!--
@@ -16,26 +16,32 @@
     재고보다 많이 주문하면 "재고가 부족합니다"를 보여주고 재고는 그대로 둡니다.
     재고 그릇은 버튼을 누를 때마다 남아 있어야 하므로 함수 밖에 둡니다.
 
-    뼈대는 다 있습니다. ___ 자리만 알맞은 값이나 연산자로 바꿉니다.
+    코드 칸에 아래 starter가 들어 있습니다. ___ 자리만 바꿉니다.
     ___ 이 하나라도 남아 있으면 버튼이 동작하지 않습니다.
-  -->
-  <p>처음 재고 7개 · 주문할 때마다 줄어듭니다</p>
-  주문 수량 : <input type="number" id="count">
-  <button onclick="order()">주문</button>
-  <div id="result"></div>
 
-  <script>
-    let stock = ___;                                     // 처음 재고 개수
+    이 파일은 브라우저로 열어서 씁니다. 고칠 일이 있을 때만 VS Code로 엽니다.
+    stage   : 오른쪽 「실행 화면」에 놓이는 HTML
+    starter : 왼쪽 「내 코드」 칸에 처음 들어 있는 코드
+  -->
+  <template id="stage">
+    <p>처음 재고 7개 · 주문할 때마다 줄어듭니다</p>
+    주문 수량 : <input type="number" id="count">
+    <button onclick="order()">주문</button>
+    <div id="result"></div>
+  </template>
+
+  <script type="text/plain" id="starter">
+    let stock = ___;  // 처음 재고 개수
 
     function order() {
       const count = Number(document.getElementById('count').value);
 
-      if (count ___ 1) {                                  // 연산자 : 1보다 적은가?
+      if (count ___ 1) {  // 연산자 : 1보다 적은가?
         document.getElementById('result').innerHTML = '1개 이상 주문해 주세요';
-      } else if (count ___ stock) {                       // 연산자 : 재고보다 많은가?
+      } else if (count ___ stock) {  // 연산자 : 재고보다 많은가?
         document.getElementById('result').innerHTML = '재고가 부족합니다';
       } else {
-        stock = stock ___ count;                          // 연산자 : 재고에서 주문 수량을 뺀다
+        stock = stock ___ count;  // 연산자 : 재고에서 주문 수량을 뺀다
         document.getElementById('result').innerHTML = '남은 재고 ' + stock + '개';
       }
     }
