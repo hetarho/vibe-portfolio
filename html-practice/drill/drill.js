@@ -17,6 +17,7 @@
     1: '위 정답 코드를 보고 여기에 똑같이 칩니다.\n다 치면 Ctrl + Enter (또는 ▶ 실행)',
     5: '1) 한국어 주석부터 씁니다  // 1. ...\n2) 껍데기를 칩니다  function 이름() { }  if () { } else { }\n3) 주석 아래 빈칸을 채웁니다'
   };
+  const HTML_ONLY_PLACEHOLDER = '오른쪽 위 「완성된 모습」을 보고 여기에 HTML을 씁니다.\n치는 대로 오른쪽 아래 「내가 만든 화면」에 바로 나옵니다.\n\n예) <h2>제목</h2>';
   const HTML_PLACEHOLDER = '실행 화면에 놓을 칸을 HTML로 씁니다.\n위 「채점에 쓰는 이름」의 id와 onclick을 그대로 써야 채점이 됩니다.';
   const CHECKLIST = ['한국어 주석부터', '껍데기 먼저', '빈칸 채우기'];
   const PEEK_SECONDS = 5;
@@ -48,20 +49,23 @@
   let blanksBadge = null;
   let errors = [];
 
-  setup();
-
   function setup() {
     const body = document.body;
     const id = body.dataset.problem;
     const step = body.dataset.step;
     const stage = document.getElementById('stage');
     const starter = document.getElementById('starter');
+    const target = document.getElementById('target');
+    // html-only : 함수 없이 화면만 만드는 문제. 코드 칸 하나에 HTML만 쓰고, 오른쪽에 완성된 모습을 같이 띄웁니다
+    const htmlOnly = body.dataset.edit == 'html-only';
 
     page = {
       id: id,
       step: step,
       problem: window.DRILL_PROBLEMS[id],
-      mode: body.dataset.edit == 'html' ? 'html' : 'script',
+      mode: body.dataset.edit == 'html' || htmlOnly ? 'html' : 'script',
+      htmlOnly: htmlOnly,
+      target: target ? dedent(target.innerHTML) : '',
       stage: stage ? dedent(stage.innerHTML) : '',
       starter: starter ? dedent(starter.tagName == 'TEMPLATE' ? starter.innerHTML : starter.textContent) : '',
       key: 'drill-code:' + id + ':' + step,
@@ -176,6 +180,9 @@
     if (STEPS[page.step]) {
       rule.appendChild(make('b', '', 'Step ' + page.step + ' · ' + STEPS[page.step].name));
       rule.appendChild(make('p', '', STEPS[page.step].rule));
+    } else if (page.htmlOnly) {
+      rule.appendChild(make('b', '', 'HTML 연습 · 완성된 모습 따라 만들기'));
+      rule.appendChild(make('p', '', '오른쪽 위 「완성된 모습」을 보고 왼쪽에 HTML을 씁니다. 치는 대로 오른쪽 아래 「내가 만든 화면」에 바로 나옵니다. 다 되면 「채점하기」.'));
     } else {
       rule.appendChild(make('b', '', '조립 실습 · 빈칸 채우기'));
       rule.appendChild(make('p', '', '코드 칸에 화면(HTML)과 script가 다 있습니다. 노란 빈칸을 아래 문제의 조립 순서대로 하나씩 채우고, 채울 때마다 실행해 봅니다.'));
@@ -193,7 +200,9 @@
     }
 
     // 코드 칸 · 탭이 둘이면 script와 HTML을 오갑니다
-    if (page.mode == 'html') {
+    if (page.htmlOnly) {
+      panes = [makePane('all', 'HTML', page.starter, page.key, HTML_ONLY_PLACEHOLDER)];
+    } else if (page.mode == 'html') {
       panes = [makePane('all', '화면(HTML)과 script', page.starter, page.key, PLACEHOLDER[page.step])];
     } else {
       panes = [
@@ -223,8 +232,11 @@
 
     // 버튼 줄
     const tools = make('div', 'd-tools');
-    tools.appendChild(button('▶ 실행  Ctrl + Enter', 'd-button primary', run));
-    tools.appendChild(button('채점하기', 'd-button', grade));
+    // HTML 연습은 치는 대로 바로 그려지므로 실행 버튼이 없습니다
+    if (!page.htmlOnly) {
+      tools.appendChild(button('▶ 실행  Ctrl + Enter', 'd-button primary', run));
+    }
+    tools.appendChild(button('채점하기', page.htmlOnly ? 'd-button primary' : 'd-button', grade));
     let peekBox = null;
     if (page.step != '1' && page.problem.answer) {
       peekBox = make('div', 'd-peek');
@@ -251,14 +263,33 @@
     errorBox.hidden = true;
     right.appendChild(errorBox);
 
+    if (page.htmlOnly) {
+      const target = make('div', 'd-stage d-target');
+      target.appendChild(make('p', 'd-label', '완성된 모습 · 이렇게 만듭니다'));
+      const targetBox = make('div', 'd-frame-box');
+      const frame = make('iframe', 'd-frame');
+      frame.title = '완성된 모습';
+      frame.srcdoc = wrapDoc(page.target);
+      frame.addEventListener('load', function () {
+        fit(frame);
+      });
+      targetBox.appendChild(frame);
+      target.appendChild(targetBox);
+      right.appendChild(target);
+    }
+
     const stage = make('div', 'd-stage');
-    stage.appendChild(make('p', 'd-label', '실행 화면 · 직접 눌러 보세요'));
+    stage.appendChild(make('p', 'd-label', page.htmlOnly ? '내가 만든 화면 · 치는 대로 바뀝니다' : '실행 화면 · 직접 눌러 보세요'));
     stageBox = make('div', 'd-frame-box');
     stage.appendChild(stageBox);
     right.appendChild(stage);
 
     const check = make('div', 'd-check');
-    check.appendChild(make('p', 'd-check-how', '「채점하기」를 누르면 작은 경우 ' + page.problem.cases.length + '개를 차례로 넣어 봅니다.'));
+    if (page.problem.checks) {
+      check.appendChild(make('p', 'd-check-how', '「채점하기」를 누르면 태그와 글자 ' + page.problem.checks.length + '가지를 차례로 확인합니다.'));
+    } else {
+      check.appendChild(make('p', 'd-check-how', '「채점하기」를 누르면 작은 경우 ' + page.problem.cases.length + '개를 차례로 넣어 봅니다.'));
+    }
     right.appendChild(check);
 
     main.appendChild(left);
@@ -353,6 +384,10 @@
       saveCode(pane.key, pane.textarea.value);
       drawGutter(pane);
       countBlanks();
+      if (page.htmlOnly) {
+        clearTimeout(previewTimer);
+        previewTimer = setTimeout(run, 300);
+      }
     });
     pane.textarea.addEventListener('scroll', function () {
       pane.gutter.scrollTop = pane.textarea.scrollTop;
@@ -364,6 +399,8 @@
     pane.wrap.appendChild(box);
     return pane;
   }
+
+  let previewTimer = 0;
 
   function switchPane(pane) {
     editor = pane.textarea;
@@ -544,12 +581,19 @@
   // ───── 실행 ─────
 
   // 실행 화면 문서를 만듭니다. spans에는 탭마다 문서 몇 번째 줄 다음부터 시작하는지 적어 둡니다
+  const DOC_HEAD =
+    '<!DOCTYPE html>\n<html lang="ko">\n<head>\n<meta charset="UTF-8">\n' +
+    '<link rel="stylesheet" href="' + STAGE_CSS + '">\n' +
+    '<script>' + BRIDGE + '<\/script>\n</head>\n<body>\n';
+  const DOC_TAIL = '\n</body>\n</html>';
+
+  function wrapDoc(body) {
+    return DOC_HEAD + body + DOC_TAIL;
+  }
+
   function buildDoc() {
-    const head =
-      '<!DOCTYPE html>\n<html lang="ko">\n<head>\n<meta charset="UTF-8">\n' +
-      '<link rel="stylesheet" href="' + STAGE_CSS + '">\n' +
-      '<script>' + BRIDGE + '<\/script>\n</head>\n<body>\n';
-    const tail = '\n</body>\n</html>';
+    const head = DOC_HEAD;
+    const tail = DOC_TAIL;
     const lineCount = function (text) {
       return text.split('\n').length - 1;
     };
@@ -821,6 +865,12 @@
   function runCases(win, getAlert, clearAlert) {
     const problem = page.problem;
     const rows = [];
+    if (problem.checks) {
+      for (let i = 0; i < problem.checks.length; i++) {
+        rows.push(runCheck(win.document, problem.checks[i]));
+      }
+      return rows;
+    }
     if (problem.reset) {
       try {
         win.eval('"use strict";' + problem.reset);
@@ -839,6 +889,32 @@
       }
     }
     return rows;
+  }
+
+  // HTML 연습 채점 · 태그가 있는지, 몇 개인지, 안의 글자와 속성이 맞는지
+  function runCheck(doc, c) {
+    const found = doc.querySelectorAll(c.selector);
+    if (c.count !== undefined && found.length != c.count) {
+      return { ok: false, label: c.label, detail: c.selector + ' · 기대 ' + c.count + '개 / 지금 ' + found.length + '개' };
+    }
+    if (found.length < (c.min || 1)) {
+      return { ok: false, label: c.label, detail: c.selector + ' 이(가) 화면에 없습니다. 태그 이름과 id 철자를 확인하세요.' };
+    }
+    const el = found[c.index || 0];
+    if (!el) {
+      return { ok: false, label: c.label, detail: c.selector + ' 이(가) ' + ((c.index || 0) + 1) + '번째까지 있어야 합니다. 지금 ' + found.length + '개' };
+    }
+    if (c.text !== undefined && squash(el.textContent) != squash(c.text)) {
+      return { ok: false, label: c.label, detail: '글자 · 기대 "' + c.text + '" / 지금 "' + (el.textContent.trim() || '비어 있음') + '"' };
+    }
+    for (const name in c.attrs || {}) {
+      // type을 빼먹은 input은 브라우저가 text로 봅니다. 그래서 type은 속성 대신 실제 값으로 봅니다
+      const value = name == 'type' ? el.type : el.getAttribute(name);
+      if (value != c.attrs[name]) {
+        return { ok: false, label: c.label, detail: name + '="' + c.attrs[name] + '" 이어야 합니다. 지금 : ' + (value || '없음') };
+      }
+    }
+    return { ok: true, label: c.label };
   }
 
   function runCase(win, c, getAlert) {
@@ -1026,4 +1102,7 @@
       // 기억하지 못해도 이번 화면에서는 그대로 보입니다
     }
   }
+
+  // 아래쪽에 선언한 상수까지 다 준비된 다음에 화면을 만듭니다
+  setup();
 })();

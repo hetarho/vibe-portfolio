@@ -135,7 +135,7 @@
     <h1>백지 공포증 깨기 · JavaScript 4시간 코스</h1>
     <p class="lead">같은 문제를 다섯 번 칩니다. 칠 때마다 화면이 도와주는 힌트가 하나씩 사라집니다.<br>설치할 것도, 화면을 나눌 것도 없습니다. 이 브라우저 화면 하나로 끝까지 합니다.</p>
     <div class="row">
-      <a class="btn go" id="continue" href="01-greeting/step1.html">처음부터 시작하기 →</a>
+      <a class="btn go" id="continue" href="h1-menu/practice.html">처음부터 시작하기 →</a>
       <a class="btn soft" href="../00-blank.html">손풀기 타자 연습장</a>
       <a class="btn soft" href="/lesson/js-blank-page-drill">강의 화면 (선생님 설명용)</a>
     </div>
@@ -176,7 +176,8 @@
       <div class="step-card last"><b>Step 5 · 백지</b><span>아무것도 없습니다. 주석 → 껍데기 → 빈칸 순서로 씁니다.</span></div>
     </div>
     <p class="note">HTML(화면)은 모든 Step에서 미리 채워져 있고 고칠 수 있습니다. Step 5의 HTML 탭에서 「도전 · HTML까지 백지로」를 누르면 화면까지 직접 씁니다.</p>
-    <p class="note">Step 1을 통과하면 다음 Step 버튼이 나옵니다. Step 5까지 통과하면 다음 문제로 넘어갑니다.</p>
+    <p class="note">Step 1을 통과하면 다음 Step 버튼이 나옵니다. Step 5까지 통과하면 다음 문제로 넘어갑니다.<br>
+    맨 앞 0교시 HTML 연습 두 문제는 Step 없이 한 장입니다. 오른쪽 위 「완성된 모습」을 보고 왼쪽에 HTML을 쓰면, 오른쪽 아래에 치는 대로 바로 그려집니다.</p>
 
     <h2>3. 순서 <small>한 교시 = 약 1시간 · 1시간만 해도 끝맺음이 됩니다</small></h2>
     <div id="periods"></div>
@@ -221,6 +222,7 @@
 
   <script>
     const PERIOD_INFO = {
+      '0교시': 'HTML 손풀기 · 완성된 모습을 보고 화면만 만들기 · 함수 없음',
       '1교시': 'if / else 껍데기 손에 익히기 · 손풀기 패턴 A, B, C',
       '2교시': 'else if 여러 갈래 · 손풀기 패턴 C',
       '3교시': 'for 반복문 공포증 깨기 · 손풀기 패턴 D',
@@ -239,6 +241,7 @@
     const box = document.getElementById('periods');
     let current = null;
     let firstTodo = null;
+    let anyPassed = false;
     for (let i = 0; i < DRILL_ORDER.length; i++) {
       const id = DRILL_ORDER[i];
       const problem = DRILL_PROBLEMS[id];
@@ -247,9 +250,10 @@
         const card = document.createElement('div');
         card.className = 'card period';
         const blank = problem.period == '3교시' ? '../00-blank.html#D' : '../00-blank.html';
+        // HTML 연습(0교시)에는 껍데기 손풀기가 없습니다
+        const warmup = problem.kind == 'html' ? '' : '<a class="btn soft" style="margin-left: auto; padding: 4px 14px" href="' + blank + '">손풀기</a>';
         card.innerHTML =
-          '<div class="period-head"><b>' + problem.period + '</b><span>' + PERIOD_INFO[problem.period] + '</span>' +
-          '<a class="btn soft" style="margin-left: auto; padding: 4px 14px" href="' + blank + '">손풀기</a></div>';
+          '<div class="period-head"><b>' + problem.period + '</b><span>' + PERIOD_INFO[problem.period] + '</span>' + warmup + '</div>';
         box.appendChild(card);
       }
 
@@ -266,6 +270,7 @@
         const link = document.createElement('a');
         link.href = problem.folder + '/' + problem.page;
         link.className = passed(id, 'project') ? 'btn go' : 'btn';
+        anyPassed = anyPassed || passed(id, 'project');
         link.textContent = passed(id, 'project') ? '통과 · 다시 열기' : '문제 열기';
         item.appendChild(link);
         if (!firstTodo && !passed(id, 'project')) {
@@ -279,6 +284,7 @@
           link.title = 'Step ' + n;
           if (passed(id, n)) {
             link.className = 'done';
+            anyPassed = true;
           } else if (!firstTodo) {
             firstTodo = link.href;
           }
@@ -291,10 +297,12 @@
       box.lastChild.appendChild(item);
     }
 
-    // 통과한 기록이 있으면 첫 버튼을 「이어서 하기」로 바꿉니다
+    // 첫 버튼은 아직 통과하지 못한 첫 문제로 갑니다. 통과한 기록이 있으면 「이어서 하기」라고 씁니다
     const go = document.getElementById('continue');
-    if (firstTodo && firstTodo.indexOf('01-greeting/step1.html') < 0) {
+    if (firstTodo) {
       go.href = firstTodo;
+    }
+    if (anyPassed) {
       go.textContent = '이어서 하기 →';
     }
 

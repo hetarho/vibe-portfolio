@@ -12,10 +12,60 @@
 //   expectAlert : 떠야 할 알림창 글자
 //   expectLi    : { id, n } 그 목록 안의 li 개수
 //   attr        : { id, name, has } 태그 속성에 들어 있어야 할 글자
+//
+// kind: 'html' 문제는 함수 없이 화면만 만듭니다. cases 대신 checks로 학생이 쓴 HTML의 생김새를 봅니다
+//   selector : 찾을 태그 (CSS 선택자)
+//   count    : 정확히 몇 개여야 하는지 · min : 적어도 몇 개
+//   index    : 여러 개 중 몇 번째를 볼지 (0부터)
+//   text     : 그 태그 안의 글자. 띄어쓰기는 보지 않습니다
+//   attrs    : 있어야 할 속성과 값
 
-window.DRILL_ORDER = ['greeting', 'candy', 'login', 'stock', 'candyRow', 'scan', 'cart'];
+window.DRILL_ORDER = ['htmlMenu', 'htmlLogin', 'greeting', 'candy', 'login', 'stock', 'candyRow', 'scan', 'cart'];
 
 window.DRILL_PROBLEMS = {
+  htmlMenu: {
+    no: 'H1',
+    folder: 'h1-menu',
+    page: 'practice.html',
+    period: '0교시',
+    kind: 'html',
+    title: '분식집 메뉴판 (HTML)',
+    desc: [
+      '오른쪽 위 「완성된 모습」과 똑같은 화면을 HTML로 만듭니다. 정답 코드는 없습니다. 보고 어떤 태그인지 맞혀 봅니다.',
+      '큰 제목은 h2, 문단은 p, 점이 찍힌 목록은 ul 안에 li, 굵은 글자는 strong입니다.'
+    ],
+    checks: [
+      { label: '큰 제목 h2 「분식집 메뉴」', selector: 'h2', text: '분식집 메뉴' },
+      { label: '문단 p 두 개', selector: 'p', count: 2 },
+      { label: '목록 ul 안에 li 세 개', selector: 'ul > li', count: 3 },
+      { label: '첫째 li 「떡볶이 4,000원」', selector: 'ul > li', index: 0, text: '떡볶이 4,000원' },
+      { label: '둘째 li 「김밥 3,500원」', selector: 'ul > li', index: 1, text: '김밥 3,500원' },
+      { label: '셋째 li 「라면 5,000원」', selector: 'ul > li', index: 2, text: '라면 5,000원' },
+      { label: '굵은 글자 strong 「오늘의 추천」', selector: 'strong', text: '오늘의 추천' }
+    ]
+  },
+
+  htmlLogin: {
+    no: 'H2',
+    folder: 'h2-login',
+    page: 'practice.html',
+    period: '0교시',
+    kind: 'html',
+    title: '로그인 화면 (HTML)',
+    desc: [
+      '오른쪽 위 「완성된 모습」과 똑같은 로그인 화면을 HTML로 만듭니다. 2교시 「03 로그인」 문제의 화면입니다.',
+      '자바스크립트가 칸을 찾을 수 있게 id를 붙입니다. 아이디 칸은 userId, 비밀번호 칸은 pwd, 결과 네모(div)는 result',
+      '비밀번호 칸은 글자가 ●로 가려지는 칸입니다. 줄을 바꾸려면 <br>을 씁니다.'
+    ],
+    checks: [
+      { label: '큰 제목 h2 「로그인」', selector: 'h2', text: '로그인' },
+      { label: '아이디 칸 · input id="userId" type="text"', selector: '#userId', attrs: { type: 'text' } },
+      { label: '비밀번호 칸 · input id="pwd" type="password"', selector: '#pwd', attrs: { type: 'password' } },
+      { label: '버튼 「로그인」', selector: 'button', text: '로그인' },
+      { label: '결과 네모 · div id="result"', selector: 'div#result' }
+    ]
+  },
+
   greeting: {
     no: '01',
     folder: '01-greeting',

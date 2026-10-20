@@ -52,6 +52,7 @@
 
 | 교시 | 파일 | 내용 |
 |---|---|---|
+| 0교시 | `drill/h1-menu` · `drill/h2-login` | HTML만 만들기. 완성된 모습을 보고 쓰면 치는 대로 바로 그려진다. 정답 코드 없음 |
 | 매 교시 시작 | `00-blank.html` | 껍데기 다섯 판 치기 (3교시는 `#D`) |
 | 1교시 | `drill/01-greeting` · `drill/02-candy` | if / else 한 번 |
 | 2교시 | `drill/03-login` · `drill/04-stock` | else if 여러 갈래, 함수 밖 그릇 |
