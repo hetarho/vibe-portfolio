@@ -17,11 +17,12 @@
     1: '위 정답 코드를 보고 여기에 똑같이 칩니다.\n다 치면 Ctrl + Enter (또는 ▶ 실행)',
     5: '1) 한국어 주석부터 씁니다  // 1. ...\n2) 껍데기를 칩니다  function 이름() { }  if () { } else { }\n3) 주석 아래 빈칸을 채웁니다'
   };
+  const HTML_PLACEHOLDER = '실행 화면에 놓을 칸을 HTML로 씁니다.\n위 「채점에 쓰는 이름」의 id와 onclick을 그대로 써야 채점이 됩니다.';
   const CHECKLIST = ['한국어 주석부터', '껍데기 먼저', '빈칸 채우기'];
   const PEEK_SECONDS = 5;
   const HELP = [
     ['맨 위 검은 상자', '이번 Step에서 할 일입니다. 막히면 소리 내어 읽어 봅니다.'],
-    ['왼쪽 「내 코드」 칸', '여기에 코드를 칩니다. Tab은 두 칸 들여쓰기, Enter는 들여쓰기를 이어 줍니다.'],
+    ['왼쪽 「내 코드」 칸', '여기에 코드를 칩니다. 위 탭으로 script와 HTML(화면)을 오갑니다. Tab은 두 칸 들여쓰기, Enter는 들여쓰기를 이어 줍니다.'],
     ['▶ 실행 · Ctrl + Enter', '오른쪽 「실행 화면」이 새로 만들어집니다. 칸에 값을 넣고 버튼을 직접 눌러 봅니다.'],
     ['빨간 상자', '틀린 곳의 줄 번호와 고칠 방법이 나옵니다. 누르면 그 줄로 커서가 갑니다.'],
     ['채점하기', '작은 경우를 차례로 넣어 봅니다. 다 맞으면 화면이 초록색이 되고 다음 Step 버튼이 나옵니다.'],
@@ -37,6 +38,9 @@
     "window.alert=function(m){var f=window.frameElement;if(f&&f.drillAlert){f.drillAlert(String(m));}};";
 
   let page = null;
+  // 코드 칸 탭. script 문제는 script와 HTML 두 개, 장바구니처럼 HTML과 script를 한 칸에 쓰는 문제는 하나
+  let panes = [];
+  // 지금 보이는 탭의 입력 칸과 줄 번호
   let editor = null;
   let gutter = null;
   let stageBox = null;
@@ -60,7 +64,8 @@
       mode: body.dataset.edit == 'html' ? 'html' : 'script',
       stage: stage ? dedent(stage.innerHTML) : '',
       starter: starter ? dedent(starter.tagName == 'TEMPLATE' ? starter.innerHTML : starter.textContent) : '',
-      key: 'drill-code:' + id + ':' + step
+      key: 'drill-code:' + id + ':' + step,
+      htmlKey: 'drill-html:' + id + ':' + step
     };
 
     body.appendChild(buildTop());
@@ -68,9 +73,12 @@
     body.appendChild(buildMain());
     body.appendChild(make('div', 'd-toasts'));
 
-    const saved = readStore(page.key);
-    editor.value = saved === null ? page.starter : saved;
-    drawGutter();
+    for (let i = 0; i < panes.length; i++) {
+      const saved = readStore(panes[i].key);
+      panes[i].textarea.value = saved === null ? panes[i].starter : saved;
+      drawGutter(panes[i]);
+    }
+    switchPane(panes[0]);
     countBlanks();
     run();
 
@@ -184,13 +192,34 @@
       left.appendChild(buildChecklist());
     }
 
-    // 코드 칸
+    // 코드 칸 · 탭이 둘이면 script와 HTML을 오갑니다
+    if (page.mode == 'html') {
+      panes = [makePane('all', '화면(HTML)과 script', page.starter, page.key, PLACEHOLDER[page.step])];
+    } else {
+      panes = [
+        makePane('script', 'script', page.starter, page.key, PLACEHOLDER[page.step]),
+        makePane('html', 'HTML · 화면', page.stage, page.htmlKey, HTML_PLACEHOLDER)
+      ];
+    }
     const head = make('div', 'd-editor-head');
-    head.appendChild(make('p', 'd-label', page.mode == 'html' ? '내 코드 · 화면(HTML)과 script' : '내 코드'));
+    const tabs = make('div', 'd-tabs');
+    tabs.appendChild(make('span', 'd-label', '내 코드'));
+    if (panes.length > 1) {
+      for (let i = 0; i < panes.length; i++) {
+        tabs.appendChild(panes[i].tab);
+      }
+    } else {
+      tabs.appendChild(make('span', 'd-label', '· ' + panes[0].label));
+    }
+    head.appendChild(tabs);
     blanksBadge = make('span', 'd-blanks', '');
     head.appendChild(blanksBadge);
     left.appendChild(head);
-    left.appendChild(buildEditor());
+    const editors = make('div', 'd-editors');
+    for (let i = 0; i < panes.length; i++) {
+      editors.appendChild(panes[i].wrap);
+    }
+    left.appendChild(editors);
 
     // 버튼 줄
     const tools = make('div', 'd-tools');
@@ -296,33 +325,125 @@
 
   // ───── 코드 칸 ─────
 
-  function buildEditor() {
+  function makePane(kind, label, starter, key, placeholder) {
+    const pane = { kind: kind, label: label, starter: starter, key: key };
+    pane.tab = button(label, 'd-tab', function () {
+      switchPane(pane);
+      editor.focus();
+    });
+    pane.wrap = make('div', 'd-pane');
+    if (kind == 'html') {
+      pane.wrap.appendChild(buildHtmlHint());
+    }
+
     const box = make('div', 'd-editor');
-    gutter = make('pre', 'd-gutter', '1');
-    gutter.setAttribute('aria-hidden', 'true');
-    editor = make('textarea', 'd-textarea');
-    editor.spellcheck = false;
-    editor.setAttribute('autocomplete', 'off');
-    editor.setAttribute('autocapitalize', 'off');
-    editor.setAttribute('aria-label', '내 코드');
-    editor.placeholder = PLACEHOLDER[page.step] || '';
     if (page.step == '1') {
       box.classList.add('is-short');
     }
+    pane.gutter = make('pre', 'd-gutter', '1');
+    pane.gutter.setAttribute('aria-hidden', 'true');
+    pane.textarea = make('textarea', 'd-textarea');
+    pane.textarea.spellcheck = false;
+    pane.textarea.setAttribute('autocomplete', 'off');
+    pane.textarea.setAttribute('autocapitalize', 'off');
+    pane.textarea.setAttribute('aria-label', '내 코드 · ' + label);
+    pane.textarea.placeholder = placeholder || '';
 
-    editor.addEventListener('input', function () {
-      writeStore(page.key, editor.value);
-      drawGutter();
+    pane.textarea.addEventListener('input', function () {
+      saveCode(pane.key, pane.textarea.value);
+      drawGutter(pane);
       countBlanks();
     });
-    editor.addEventListener('scroll', function () {
-      gutter.scrollTop = editor.scrollTop;
+    pane.textarea.addEventListener('scroll', function () {
+      pane.gutter.scrollTop = pane.textarea.scrollTop;
     });
-    editor.addEventListener('keydown', onKey);
+    pane.textarea.addEventListener('keydown', onKey);
 
-    box.appendChild(gutter);
-    box.appendChild(editor);
-    return box;
+    box.appendChild(pane.gutter);
+    box.appendChild(pane.textarea);
+    pane.wrap.appendChild(box);
+    return pane;
+  }
+
+  function switchPane(pane) {
+    editor = pane.textarea;
+    gutter = pane.gutter;
+    for (let i = 0; i < panes.length; i++) {
+      panes[i].wrap.hidden = panes[i] != pane;
+      panes[i].tab.classList.toggle('is-now', panes[i] == pane);
+    }
+  }
+
+  function paneOf(kind) {
+    for (let i = 0; i < panes.length; i++) {
+      if (panes[i].kind == kind) {
+        return panes[i];
+      }
+    }
+    return null;
+  }
+
+  // HTML 탭 위 · 채점이 찾는 id와 onclick. 학생이 HTML을 고치거나 새로 써도 이 이름은 그대로 써야 합니다
+  function buildHtmlHint() {
+    const hint = make('div', 'd-html-hint');
+    hint.appendChild(make('span', 'd-label', '채점에 쓰는 이름'));
+    const names = stageNames();
+    for (let i = 0; i < names.length; i++) {
+      hint.appendChild(make('code', '', names[i]));
+    }
+    if (page.step == '5') {
+      hint.appendChild(button('도전 · HTML까지 백지로', 'd-button ghost small', clearHtml));
+    }
+    return hint;
+  }
+
+  function stageNames() {
+    const box = document.createElement('template');
+    box.innerHTML = page.stage;
+    const found = box.content.querySelectorAll('[id], [onclick]');
+    const names = [];
+    for (let i = 0; i < found.length; i++) {
+      const el = found[i];
+      let text = '<' + el.tagName.toLowerCase();
+      if (el.id) {
+        text += ' id="' + el.id + '"';
+      }
+      if (el.getAttribute('class')) {
+        text += ' class="' + el.getAttribute('class') + '"';
+      }
+      if (el.getAttribute('onclick')) {
+        text += ' onclick="' + el.getAttribute('onclick') + '"';
+      }
+      names.push(text + '>');
+    }
+    return names;
+  }
+
+  // 학생이 HTML을 고쳤을 때 · 처음 화면에 있던 id 중 지금 화면에 없는 것
+  function missingIds(doc) {
+    const box = document.createElement('template');
+    box.innerHTML = page.stage;
+    const found = box.content.querySelectorAll('[id]');
+    const missing = [];
+    for (let i = 0; i < found.length; i++) {
+      if (!doc.getElementById(found[i].id)) {
+        missing.push('id="' + found[i].id + '"');
+      }
+    }
+    return missing.length > 0 ? ' · HTML에 없는 칸 : ' + missing.join(', ') : '';
+  }
+
+  function clearHtml() {
+    if (!window.confirm('HTML 칸을 비우고 화면도 직접 써 볼까요? 「처음 코드로」를 누르면 다시 채워집니다.')) {
+      return;
+    }
+    const pane = paneOf('html');
+    pane.textarea.value = '';
+    saveCode(pane.key, '');
+    drawGutter(pane);
+    switchPane(pane);
+    run();
+    editor.focus();
   }
 
   function onKey(event) {
@@ -371,23 +492,28 @@
     }
   }
 
-  function drawGutter() {
-    const count = editor.value.split('\n').length;
+  function drawGutter(pane) {
+    const count = pane.textarea.value.split('\n').length;
     let text = '';
     for (let i = 1; i <= count; i++) {
       text += i + '\n';
     }
-    gutter.textContent = text;
-    gutter.scrollTop = editor.scrollTop;
+    pane.gutter.textContent = text;
+    pane.gutter.scrollTop = pane.textarea.scrollTop;
   }
 
   function countBlanks() {
-    const found = editor.value.match(/___|빈칸_[가-힣]/g);
+    let all = '';
+    for (let i = 0; i < panes.length; i++) {
+      all += panes[i].textarea.value + '\n';
+    }
+    const found = all.match(/___|빈칸_[가-힣]/g);
     blanksBadge.textContent = found ? '남은 빈칸 ' + found.length + '개' : '';
     blanksBadge.hidden = !found;
   }
 
-  function goToLine(line) {
+  function goToLine(pane, line) {
+    switchPane(pane);
     const lines = editor.value.split('\n');
     let start = 0;
     for (let i = 0; i < line - 1 && i < lines.length; i++) {
@@ -402,12 +528,14 @@
   }
 
   function resetCode() {
-    if (!window.confirm('지금 친 코드를 지우고 처음 코드로 돌아갈까요?')) {
+    if (!window.confirm('지금 친 코드(HTML 포함)를 지우고 처음 코드로 돌아갈까요?')) {
       return;
     }
-    editor.value = page.starter;
-    writeStore(page.key, '');
-    drawGutter();
+    for (let i = 0; i < panes.length; i++) {
+      panes[i].textarea.value = panes[i].starter;
+      writeStore(panes[i].key, '');
+      drawGutter(panes[i]);
+    }
     countBlanks();
     run();
     editor.focus();
@@ -415,40 +543,63 @@
 
   // ───── 실행 ─────
 
-  // 실행 화면 문서를 만듭니다. offset은 학생 코드 첫 줄 앞에 있는 줄 수입니다
-  function buildDoc(code) {
-    let before =
+  // 실행 화면 문서를 만듭니다. spans에는 탭마다 문서 몇 번째 줄 다음부터 시작하는지 적어 둡니다
+  function buildDoc() {
+    const head =
       '<!DOCTYPE html>\n<html lang="ko">\n<head>\n<meta charset="UTF-8">\n' +
       '<link rel="stylesheet" href="' + STAGE_CSS + '">\n' +
-      '<script>' + BRIDGE + '<\/script>\n</head>\n<body>\n' +
-      page.stage + '\n';
-    let after = '\n</body>\n</html>';
-    if (page.mode == 'script') {
-      before += '<script>\n';
-      after = '\n<\/script>' + after;
+      '<script>' + BRIDGE + '<\/script>\n</head>\n<body>\n';
+    const tail = '\n</body>\n</html>';
+    const lineCount = function (text) {
+      return text.split('\n').length - 1;
+    };
+    if (page.mode == 'html') {
+      return { html: head + panes[0].textarea.value + tail, spans: [{ pane: panes[0], from: lineCount(head) }] };
     }
-    return { html: before + code + after, offset: before.split('\n').length - 1 };
+    const html = paneOf('html');
+    const script = paneOf('script');
+    const before = head + html.textarea.value + '\n<script>\n';
+    return {
+      html: before + script.textarea.value + '\n<\/script>' + tail,
+      spans: [{ pane: html, from: lineCount(head) }, { pane: script, from: lineCount(before) }]
+    };
   }
 
-  function makeFrame(code, onError, onAlert) {
-    const built = buildDoc(code);
+  // 문서의 줄 번호를 어느 탭의 몇 번째 줄인지로 바꿉니다
+  function locate(spans, line) {
+    for (let i = spans.length - 1; i >= 0; i--) {
+      if (line > spans[i].from) {
+        return { pane: spans[i].pane, line: line - spans[i].from };
+      }
+    }
+    return { pane: null, line: 0 };
+  }
+
+  function makeFrame(onError, onAlert) {
+    const built = buildDoc();
     const frame = make('iframe', 'd-frame');
     frame.title = '실행 화면';
     frame.drillError = function (message, line) {
-      onError(message, line - built.offset);
+      onError(message, locate(built.spans, line));
     };
     frame.drillAlert = onAlert;
     frame.srcdoc = built.html;
     return frame;
   }
 
+  function where(at) {
+    if (!at.pane || at.line <= 0) {
+      return '';
+    }
+    return (panes.length > 1 ? at.pane.label + ' ' : '') + at.line + '번째 줄 · ';
+  }
+
   function run() {
     errors = [];
     showErrors();
     const frame = makeFrame(
-      editor.value,
-      function (message, line) {
-        addError(message, line);
+      function (message, at) {
+        addError(message, at);
       },
       toast
     );
@@ -468,15 +619,15 @@
   }
 
   // 버튼을 여러 번 눌러 같은 오류가 또 나면 새로 쌓지 않고 횟수만 올립니다
-  function addError(message, line) {
+  function addError(message, at) {
     for (let i = 0; i < errors.length; i++) {
-      if (errors[i].message == message && errors[i].line == line) {
+      if (errors[i].message == message && errors[i].pane == at.pane && errors[i].line == at.line) {
         errors[i].count += 1;
         showErrors();
         return;
       }
     }
-    errors.push({ message: message, line: line, count: 1 });
+    errors.push({ message: message, pane: at.pane, line: at.line, count: 1 });
     if (errors.length > 2) {
       errors.shift();
     }
@@ -498,19 +649,20 @@
     errorBox.appendChild(head);
 
     for (let i = 0; i < errors.length; i++) {
+      const pane = errors[i].pane;
       const line = errors[i].line;
       const row = make('button', 'd-error');
       row.type = 'button';
-      row.appendChild(make('b', '', (line > 0 ? line + '번째 줄 · ' : '') + explain(errors[i].message)));
+      row.appendChild(make('b', '', where(errors[i]) + explain(errors[i].message)));
       const raw = make('small', '', errors[i].message);
       if (errors[i].count > 1) {
         raw.textContent += '  ×' + errors[i].count;
       }
       row.appendChild(raw);
-      if (line > 0) {
+      if (pane && line > 0) {
         row.title = '눌러서 ' + line + '번째 줄로 가기';
         row.addEventListener('click', function () {
-          goToLine(line);
+          goToLine(pane, line);
         });
       }
       errorBox.appendChild(row);
@@ -639,9 +791,8 @@
     const loadErrors = [];
     let lastAlert = '';
     const frame = makeFrame(
-      editor.value,
-      function (message, line) {
-        loadErrors.push((line > 0 ? line + '번째 줄 · ' : '') + explain(message));
+      function (message, at) {
+        loadErrors.push(where(at) + explain(message));
       },
       function (message) {
         lastAlert = message;
@@ -651,7 +802,7 @@
     frame.addEventListener('load', function () {
       const rows = [];
       if (loadErrors.length > 0) {
-        rows.push({ ok: false, label: '코드 오류', detail: loadErrors[0] + ' · 왼쪽 빨간 상자부터 고칩니다.' });
+        rows.push({ ok: false, label: '코드 오류', detail: loadErrors[0] + ' · 위 빨간 상자부터 고칩니다.' });
       }
       const more = runCases(frame.contentWindow, function () {
         return lastAlert;
@@ -684,7 +835,7 @@
       try {
         rows.push(runCase(win, c, getAlert));
       } catch (error) {
-        rows.push({ ok: false, label: c.label, detail: explain(error.message) });
+        rows.push({ ok: false, label: c.label, detail: explain(error.message) + missingIds(win.document) });
       }
     }
     return rows;
@@ -722,14 +873,18 @@
     if (c.expect !== undefined) {
       const out = doc.getElementById(c.target || 'result');
       const actual = out ? out.textContent : '';
-      if (squash(actual) != squash(c.expect)) {
+      if (!out) {
+        problems.push('id가 ' + (c.target || 'result') + '인 결과 칸이 화면에 없습니다');
+      } else if (squash(actual) != squash(c.expect)) {
         problems.push('결과 · 기대 "' + c.expect + '" / 실제 "' + (actual.trim() || '비어 있음') + '"');
       }
     }
     if (c.expectLi) {
       const list = doc.getElementById(c.expectLi.id);
       const n = list ? list.getElementsByTagName('li').length : 0;
-      if (n != c.expectLi.n) {
+      if (!list) {
+        problems.push('id가 ' + c.expectLi.id + '인 목록이 화면에 없습니다');
+      } else if (n != c.expectLi.n) {
         problems.push('li 개수 · 기대 ' + c.expectLi.n + '개 / 실제 ' + n + '개');
       }
     }
@@ -840,6 +995,15 @@
       el.textContent = text;
     }
     return el;
+  }
+
+  // 코드 칸은 비어 있는 것도 그대로 기억합니다 (HTML까지 백지로 비운 경우)
+  function saveCode(key, value) {
+    try {
+      window.localStorage.setItem(key, value);
+    } catch (error) {
+      // 기억하지 못해도 이번 화면에서는 그대로 보입니다
+    }
   }
 
   // 시크릿 창처럼 저장이 막힌 곳에서도 화면은 그대로 돌아가게 합니다
