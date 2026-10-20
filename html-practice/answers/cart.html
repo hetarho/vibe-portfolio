@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>07 장바구니 · 정답</title>
+  <link rel="stylesheet" href="../drill/drill.css">
+</head>
+<body>
+  <h2>07 장바구니 · 정답</h2>
+
+  <select id="menu">
+    <option value="떡볶이">떡볶이 4,000원</option>
+    <option value="김밥">김밥 3,500원</option>
+    <option value="라면">라면 5,000원</option>
+    <option value="튀김">튀김 2,500원</option>
+  </select>
+  수량 : <input type="number" id="qty" value="1">
+  <button id="addBtn" onclick="addItem()">담기</button>
+  <button id="clearBtn" onclick="clearCart()">비우기</button>
+
+  <ul id="list" class="pop cart"></ul>
+  <div id="result">총액 0원</div>
+
+  <script>
+    // 0. 총액 그릇 · 버튼을 누를 때마다 남아 있어야 하므로 함수 밖에 둔다
+    let total = 0;
+
+    function addItem() {
+      // 1. 메뉴와 수량을 가져온다 (수량은 숫자로)
+      const menu = document.getElementById('menu').value;
+      const qty = Number(document.getElementById('qty').value);
+
+      // 2. [에러 처리] 수량이 1보다 적으면 알리고 멈춘다
+      if (qty < 1) {
+        alert('1개 이상 담아 주세요');
+        return;
+      }
+
+      // 3. 메뉴에 맞는 가격을 정한다
+      let price = 0;
+      if (menu == '떡볶이') {
+        price = 4000;
+      } else if (menu == '김밥') {
+        price = 3500;
+      } else if (menu == '라면') {
+        price = 5000;
+      } else {
+        price = 2500;
+      }
+
+      // 4. 금액(가격 × 수량)을 구해 총액에 더한다
+      const amount = price * qty;
+      total = total + amount;
+
+      // 5. 목록에 한 줄을 덧붙인다
+      document.getElementById('list').innerHTML += '<li>' + menu + ' × ' + qty + ' = ' + amount + '원</li>';
+
+      // 6. 총액을 보여준다. 20000원 이상이면 뒤에 ' · 배달비 무료!'를 붙인다
+      if (total >= 20000) {
+        document.getElementById('result').innerHTML = '총액 ' + total + '원 · 배달비 무료!';
+      } else {
+        document.getElementById('result').innerHTML = '총액 ' + total + '원';
+      }
+    }
+
+    function clearCart() {
+      // 1. 총액 그릇을 0으로 되돌린다
+      total = 0;
+
+      // 2. 목록을 비운다
+      document.getElementById('list').innerHTML = '';
+
+      // 3. '총액 0원'을 보여준다
+      document.getElementById('result').innerHTML = '총액 0원';
+    }
+  </script>
+</body>
+</html>

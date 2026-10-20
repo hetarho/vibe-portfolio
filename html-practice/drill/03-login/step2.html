@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>03 로그인 · Step 2</title>
+  <link rel="stylesheet" href="../drill.css">
+  <script src="../problems.js"></script>
+  <script src="../drill.js"></script>
+</head>
+<body data-problem="login" data-step="2">
+  <!--
+    [2교시 · 03 로그인 · Step 2 값과 연산자만 바꾸기]
+    「로그인」을 누르면 위에서부터 차례로 확인해 결과 네모에 한 문장을 보여줍니다.
+    아이디가 비었으면 "아이디를 입력해주세요", 비밀번호가 비었으면 "비밀번호를 입력해주세요"
+    아이디가 admin이고 비밀번호가 1234이면 "admin님, 환영합니다"
+    그 밖에는 "아이디 또는 비밀번호가 틀렸습니다"
+
+    뼈대는 다 있습니다. ___ 자리만 알맞은 값이나 연산자로 바꿉니다.
+    ___ 이 하나라도 남아 있으면 버튼이 동작하지 않습니다.
+  -->
+  아이디 : <input type="text" id="userId"><br><br>
+  비밀번호 : <input type="password" id="pwd"><br><br>
+  <button onclick="login()">로그인</button>
+  <div id="result"></div>
+
+  <script>
+    function login() {
+      const id = document.getElementById('userId').value;
+      const pwd = document.getElementById('pwd').value;
+
+      if (id == ___) {                                  // 아이디가 비었나?
+        document.getElementById('result').innerHTML = '아이디를 입력해주세요';
+      } else if (pwd == ___) {                          // 비밀번호가 비었나?
+        document.getElementById('result').innerHTML = '비밀번호를 입력해주세요';
+      } else if (id == ___ ___ pwd == ___) {            // 아이디가 admin 그리고 비밀번호가 1234
+        document.getElementById('result').innerHTML = id + '님, 환영합니다';
+      } else {
+        document.getElementById('result').innerHTML = ___;   // 하나라도 틀렸을 때 보여줄 문장
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>04 재고 주문 · Step 3</title>
+  <link rel="stylesheet" href="../drill.css">
+  <script src="../problems.js"></script>
+  <script src="../drill.js"></script>
+</head>
+<body data-problem="stock" data-step="3">
+  <!--
+    [2교시 · 04 재고 주문 · Step 3 주석 보고 껍데기 채우기]
+    떡볶이 재고가 7개 있습니다. 주문 수량을 넣고 「주문」을 누를 때마다 재고가 줄고 "남은 재고 O개"를 보여줍니다.
+    1개보다 적게 주문하면 "1개 이상 주문해 주세요"를 보여줍니다.
+    재고보다 많이 주문하면 "재고가 부족합니다"를 보여주고 재고는 그대로 둡니다.
+    재고 그릇은 버튼을 누를 때마다 남아 있어야 하므로 함수 밖에 둡니다.
+
+    껍데기와 한국어 주석만 있습니다. 주석 바로 아래 빈 줄에 코드를 씁니다.
+    "~면" 앞부분은 if 괄호 ( ) 안에, → 뒷부분은 중괄호 { } 안에 씁니다.
+  -->
+  <p>처음 재고 7개 · 주문할 때마다 줄어듭니다</p>
+  주문 수량 : <input type="number" id="count">
+  <button onclick="order()">주문</button>
+  <div id="result"></div>
+
+  <script>
+    // 0. 재고 그릇 stock을 7로 만든다 (버튼을 누를 때마다 남아 있어야 하므로 함수 밖, let)
+
+
+    function order() {
+      // 1. 주문 수량 칸(id: count)의 값을 숫자로 바꿔 count 그릇에 담는다
+
+
+      if () {
+        // 2. count가 1보다 적으면 → '1개 이상 주문해 주세요'를 보여준다
+
+      } else if () {
+        // 3. count가 stock보다 많으면 → '재고가 부족합니다'를 보여준다
+
+      } else {
+        // 4. 아니면 → stock에서 count를 빼고, '남은 재고 O개'를 보여준다
+
+
+      }
+    }
+  </script>
+</body>
+</html>

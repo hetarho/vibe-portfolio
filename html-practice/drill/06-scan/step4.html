@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>06 스캔 기록 · Step 4</title>
+  <link rel="stylesheet" href="../drill.css">
+  <script src="../problems.js"></script>
+  <script src="../drill.js"></script>
+</head>
+<body data-problem="scan" data-step="4">
+  <!--
+    [3교시 · 06 스캔 기록 · Step 4 주석으로 뼈대 세우기]
+    QR 스캔 기록은 A01, B02, A01, C03, B02 다섯 개입니다. 코드 안에 목록으로 둡니다.
+    찾을 학번을 넣고 「찾기」를 누르면 기록 다섯 개를 li로 하나씩 보여주고, 찾는 학번은 노랗게 칠합니다.
+    아래 결과 네모에는 "OOO 학생은 O번 찍혔습니다"를 보여줍니다.
+    노랗게 칠하는 li는 '<li class="hit">' + scans[i] + '</li>'입니다.
+
+    한국어 주석만 있습니다. 위에서부터 한 줄씩 치지 않습니다.
+    껍데기부터 치고, 주석을 껍데기 안으로 옮긴 다음, 주석 아래를 채웁니다.
+  -->
+  <p>QR 스캔 기록 : A01, B02, A01, C03, B02</p>
+  찾을 학번 : <input type="text" id="target">
+  <button onclick="findScan()">찾기</button>
+  <ul id="list" class="pop"></ul>
+  <div id="result"></div>
+
+  <script>
+    // ★ 위에서부터 한 줄씩 치지 않습니다. 이 순서로 칩니다.
+    //   ① function findScan() { } 껍데기
+    //   ② 그 안에 for (let i = 0; i < ; i++) { } 껍데기
+    //   ③ for 안에 if () { } else { } 껍데기
+    //   ④ 아래 한국어 주석을 껍데기 안 알맞은 자리로 옮기기
+    //   ⑤ 주석 아래에 코드 채우기
+
+    // 1. 찾을 학번을 가져오고, 스캔 기록 목록과 html · count 그릇을 준비한다
+    // 2. 기록을 하나씩 돌면서 찾는 학번이면 노란 li를 붙이고 1을 센다
+    // 3. 아니면 그냥 li를 붙인다
+    // 4. 목록과 'OOO 학생은 O번 찍혔습니다'를 보여준다
+
+
+  </script>
+</body>
+</html>

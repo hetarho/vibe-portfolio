@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>02 사탕 나누기 · Step 3</title>
+  <link rel="stylesheet" href="../drill.css">
+  <script src="../problems.js"></script>
+  <script src="../drill.js"></script>
+</head>
+<body data-problem="candy" data-step="3">
+  <!--
+    [1교시 · 02 사탕 나누기 · Step 3 주석 보고 껍데기 채우기]
+    인원과 사탕 개수를 넣고 「나누기」를 누르면 "1인당 O개, 남은 사탕 O개"를 보여줍니다.
+    인원이 1보다 적으면 "1명 이상 넣어 주세요"를 보여줍니다.
+    몫은 Math.floor(사탕 / 인원), 나머지는 사탕 % 인원으로 구합니다.
+
+    껍데기와 한국어 주석만 있습니다. 주석 바로 아래 빈 줄에 코드를 씁니다.
+    "~면" 앞부분은 if 괄호 ( ) 안에, → 뒷부분은 중괄호 { } 안에 씁니다.
+  -->
+  인원 : <input type="number" id="people">
+  사탕 : <input type="number" id="candy">
+  <button onclick="share()">나누기</button>
+  <div id="result"></div>
+
+  <script>
+    function share() {
+      // 1. 인원 칸(id: people)과 사탕 칸(id: candy)의 값을 숫자로 바꿔 people, candy 그릇에 담는다
+
+
+      if () {
+        // 2. people이 1보다 적으면 → 결과 네모(id: result)에 '1명 이상 넣어 주세요'를 보여준다
+
+      } else {
+        // 3. 아니면 → 몫 Math.floor(candy / people)을 each에, 나머지 candy % people을 left에 담는다
+
+
+        // 4. '1인당 O개, 남은 사탕 O개'를 보여준다
+
+      }
+    }
+  </script>
+</body>
+</html>

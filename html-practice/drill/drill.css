@@ -1,0 +1,197 @@
+/* 4시간 코스 공용 화면 · index.html과 같은 색을 씁니다 */
+:root {
+  --ink: #1c1a17;
+  --muted: #665e54;
+  --paper: #f6f4f1;
+  --card: #fff;
+  --chip: #ebe7e1;
+  --ok: #1f7a4a;
+  --ok-soft: #e2f3e8;
+  --bad: #b3261e;
+  --bad-soft: #fdecea;
+  --mark: #ffe27a;
+  --code: "D2Coding", "Consolas", "Menlo", monospace;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 16px;
+  font-family: "Pretendard", "Noto Sans KR", "Malgun Gothic", sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.55;
+  transition: background 0.4s;
+}
+body.drill-all-pass { background: var(--ok-soft); }
+
+.drill-top, .drill-stage, .drill-check { max-width: 760px; margin: 0 auto 12px; }
+
+.drill-label {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+/* 맨 위 줄 · 목록, 교시, Step 1~5 */
+.drill-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 10px; }
+.drill-back { color: var(--muted); text-decoration: none; font-size: 14px; }
+.drill-crumb { flex: 1; font-weight: 700; font-size: 14px; }
+.drill-steps { display: flex; gap: 4px; }
+.drill-step {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--chip);
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 14px;
+}
+.drill-step.is-done { background: var(--ok); color: #fff; }
+.drill-step.is-now { outline: 3px solid var(--ink); outline-offset: 1px; }
+
+.drill-rule, .drill-problem, .drill-answer, .drill-peek, .drill-checklist, .drill-stage, .drill-check {
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: var(--card);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  margin-bottom: 10px;
+}
+.drill-rule { background: var(--ink); color: #fff; }
+.drill-rule b { font-size: 16px; }
+.drill-rule p { margin: 4px 0 0; color: #ddd6cc; font-size: 14px; }
+.drill-problem h1 { margin: 0 0 6px; font-size: 20px; }
+.drill-problem p { margin: 2px 0; }
+
+/* 정답 코드 · 드래그와 복사를 막습니다 */
+.drill-code {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: #24211d;
+  color: #f3eee6;
+  font-family: var(--code);
+  font-size: 15px;
+  line-height: 1.6;
+  overflow-x: auto;
+  white-space: pre;
+}
+.no-copy {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+.drill-peek .drill-code { margin-top: 10px; }
+
+.drill-blanks {
+  display: inline-block;
+  margin: 0 0 10px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--mark);
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* Step 5 체크리스트 */
+.drill-checklist ol { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+.drill-checklist button {
+  width: 100%;
+  padding: 10px 12px;
+  border: 2px solid var(--chip);
+  border-radius: 10px;
+  background: #fff;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.drill-checklist li.is-done button { border-color: var(--ok); background: var(--ok-soft); color: var(--ok); font-weight: 700; }
+.drill-checklist li.is-done button::after { content: "  ✔"; }
+.drill-checklist-done { display: none; margin: 10px 0 0; color: var(--ok); font-weight: 700; }
+.drill-checklist.is-all { box-shadow: 0 0 0 3px var(--ok); }
+.drill-checklist.is-all .drill-checklist-done { display: block; }
+
+/* 오류 상자 · Simple Browser에는 콘솔이 없어서 여기에 띄웁니다 */
+.drill-error {
+  margin-bottom: 8px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--bad-soft);
+  border-left: 5px solid var(--bad);
+  color: var(--bad);
+}
+.drill-error small { display: block; color: #7a4a45; font-family: var(--code); }
+
+/* 학생이 만든 실행 화면 */
+.drill-stage input, .drill-stage select { font: inherit; padding: 6px 8px; border: 1px solid #c9c1b6; border-radius: 6px; }
+.drill-stage button { font: inherit; padding: 6px 14px; border: 0; border-radius: 6px; background: var(--ink); color: #fff; cursor: pointer; }
+#result {
+  min-height: 28px;
+  margin-top: 12px;
+  padding: 10px 12px;
+  border: 2px dashed #d6cfc5;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 700;
+}
+#result:empty::before { content: "결과가 여기에 나옵니다"; color: #b0a79b; font-weight: 400; font-size: 14px; }
+.drill-flash { animation: drill-flash 0.7s; }
+@keyframes drill-flash {
+  0% { background: var(--mark); border-color: #e0b800; }
+  100% { background: transparent; }
+}
+
+/* 목록 · li가 하나씩 쏙쏙 들어옵니다 */
+ul.pop { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 0; padding: 0; list-style: none; }
+ul.pop li {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--chip);
+  font-weight: 700;
+}
+ul.pop li.hit { background: var(--mark); box-shadow: 0 0 0 2px #e0b800; }
+ul.candy li::before { content: "🍬 "; }
+ul.cart { display: grid; }
+ul.cart li { border-radius: 8px; }
+.pop-in { animation: drill-pop 0.4s both; }
+@keyframes drill-pop {
+  0% { opacity: 0; transform: translateY(-14px) scale(0.4); }
+  70% { opacity: 1; transform: translateY(0) scale(1.15); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* 채점하기 */
+.drill-button {
+  padding: 10px 20px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.drill-button.ghost { background: var(--chip); color: var(--ink); font-weight: 400; }
+.drill-button:disabled { opacity: 0.6; cursor: default; }
+.drill-check-how { margin-left: 10px; color: var(--muted); font-size: 14px; }
+.drill-cases { margin: 12px 0 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+.drill-cases li { padding: 8px 12px; border-radius: 8px; }
+.drill-cases li.is-ok { background: var(--ok-soft); color: var(--ok); }
+.drill-cases li.is-bad { background: var(--bad-soft); color: var(--bad); }
+.drill-cases small { display: block; color: #7a4a45; }
+.drill-pass {
+  margin-top: 12px;
+  padding: 16px;
+  border-radius: 12px;
+  background: var(--ok);
+  color: #fff;
+  font-size: 18px;
+  animation: drill-pop 0.5s both;
+}
+.drill-pass b { display: block; margin-bottom: 6px; }
+.drill-next { color: #fff; font-weight: 700; }

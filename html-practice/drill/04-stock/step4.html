@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>04 재고 주문 · Step 4</title>
+  <link rel="stylesheet" href="../drill.css">
+  <script src="../problems.js"></script>
+  <script src="../drill.js"></script>
+</head>
+<body data-problem="stock" data-step="4">
+  <!--
+    [2교시 · 04 재고 주문 · Step 4 주석으로 뼈대 세우기]
+    떡볶이 재고가 7개 있습니다. 주문 수량을 넣고 「주문」을 누를 때마다 재고가 줄고 "남은 재고 O개"를 보여줍니다.
+    1개보다 적게 주문하면 "1개 이상 주문해 주세요"를 보여줍니다.
+    재고보다 많이 주문하면 "재고가 부족합니다"를 보여주고 재고는 그대로 둡니다.
+    재고 그릇은 버튼을 누를 때마다 남아 있어야 하므로 함수 밖에 둡니다.
+
+    한국어 주석만 있습니다. 위에서부터 한 줄씩 치지 않습니다.
+    껍데기부터 치고, 주석을 껍데기 안으로 옮긴 다음, 주석 아래를 채웁니다.
+  -->
+  <p>처음 재고 7개 · 주문할 때마다 줄어듭니다</p>
+  주문 수량 : <input type="number" id="count">
+  <button onclick="order()">주문</button>
+  <div id="result"></div>
+
+  <script>
+    // ★ 위에서부터 한 줄씩 치지 않습니다. 이 순서로 칩니다.
+    //   ① 함수 밖에 let stock = 7; 한 줄
+    //   ② function order() { } 껍데기
+    //   ③ 그 안에 if () { } else if () { } else { } 껍데기
+    //   ④ 아래 한국어 주석을 껍데기 안 알맞은 자리로 옮기기
+    //   ⑤ 주석 아래에 코드 채우기
+
+    // 0. 재고를 7개로 기억한다 (함수 밖)
+    // 1. 주문 수량을 숫자로 가져온다
+    // 2. 1개보다 적으면 '1개 이상 주문해 주세요', 재고보다 많으면 '재고가 부족합니다'
+    // 3. 아니면 재고에서 빼고 '남은 재고 O개'를 보여준다
+
+
+  </script>
+</body>
+</html>

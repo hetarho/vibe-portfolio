@@ -50,11 +50,55 @@
       font-size: 14px;
     }
     a.answer { background: #ebe7e1; color: #514a42; }
+    li { flex-wrap: wrap; }
+    .steps { flex: none; display: flex; gap: 4px; }
+    a.step {
+      width: 30px;
+      height: 30px;
+      padding: 0;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+    }
+    a.done { background: #1f7a4a; }
+    .period { margin: 0 0 10px; color: #665e54; font-size: 14px; }
   </style>
 </head>
 <body>
   <h1>HTML 연습장</h1>
   <p class="how">왼쪽에서 파일을 고치고 Ctrl+S로 저장하면 이 화면이 저절로 새로 고쳐집니다.<br>목록으로 돌아올 때는 뒤로 가기를 누릅니다.</p>
+
+  <h2>4시간 코스 · 백지 공포증 깨기</h2>
+  <p class="period">한 문제를 Step 1(보고 치기) → 2(값만 바꾸기) → 3(주석 보고 채우기) → 4(주석만) → 5(백지)로 다섯 번 칩니다. 채점을 통과한 Step은 초록색이 됩니다.<br>시간 배분과 발문은 TEACHING_GUIDE_4HOURS.md에 있습니다.</p>
+
+  <h2>0 · 손풀기 · 매 교시 시작 5분</h2>
+  <ol>
+    <li><span class="no">0</span><span class="name"><b>타자 연습장 · 껍데기 5번 치기</b><small>00-blank.html · 패턴 A if-else · B 값 가져오기 · C 함수</small></span><a href="00-blank.html">열기</a></li>
+  </ol>
+
+  <h2>1교시 · if / else 껍데기 손에 익히기</h2>
+  <ol>
+    <li><span class="no">1</span><span class="name"><b>인사하기</b><small>drill/01-greeting · if / else 한 번</small></span><span class="steps"><a class="step" data-pass="greeting:1" href="drill/01-greeting/step1.html">1</a><a class="step" data-pass="greeting:2" href="drill/01-greeting/step2.html">2</a><a class="step" data-pass="greeting:3" href="drill/01-greeting/step3.html">3</a><a class="step" data-pass="greeting:4" href="drill/01-greeting/step4.html">4</a><a class="step" data-pass="greeting:5" href="drill/01-greeting/step5.html">5</a></span></li>
+    <li><span class="no">2</span><span class="name"><b>사탕 나누기</b><small>drill/02-candy · 숫자로 바꾸기 · 몫과 나머지</small></span><span class="steps"><a class="step" data-pass="candy:1" href="drill/02-candy/step1.html">1</a><a class="step" data-pass="candy:2" href="drill/02-candy/step2.html">2</a><a class="step" data-pass="candy:3" href="drill/02-candy/step3.html">3</a><a class="step" data-pass="candy:4" href="drill/02-candy/step4.html">4</a><a class="step" data-pass="candy:5" href="drill/02-candy/step5.html">5</a></span></li>
+  </ol>
+
+  <h2>2교시 · else if 여러 갈래</h2>
+  <ol>
+    <li><span class="no">3</span><span class="name"><b>로그인</b><small>drill/03-login · else if 세 번 · &&</small></span><span class="steps"><a class="step" data-pass="login:1" href="drill/03-login/step1.html">1</a><a class="step" data-pass="login:2" href="drill/03-login/step2.html">2</a><a class="step" data-pass="login:3" href="drill/03-login/step3.html">3</a><a class="step" data-pass="login:4" href="drill/03-login/step4.html">4</a><a class="step" data-pass="login:5" href="drill/03-login/step5.html">5</a></span></li>
+    <li><span class="no">4</span><span class="name"><b>재고 주문</b><small>drill/04-stock · 함수 밖 그릇 · else if</small></span><span class="steps"><a class="step" data-pass="stock:1" href="drill/04-stock/step1.html">1</a><a class="step" data-pass="stock:2" href="drill/04-stock/step2.html">2</a><a class="step" data-pass="stock:3" href="drill/04-stock/step3.html">3</a><a class="step" data-pass="stock:4" href="drill/04-stock/step4.html">4</a><a class="step" data-pass="stock:5" href="drill/04-stock/step5.html">5</a></span></li>
+  </ol>
+
+  <h2>3교시 · for 반복문 공포증 깨기</h2>
+  <ol>
+    <li><span class="no">0</span><span class="name"><b>타자 연습장 · for 껍데기 5번 치기</b><small>00-blank.html#D · 패턴 D</small></span><a href="00-blank.html#D">열기</a></li>
+    <li><span class="no">5</span><span class="name"><b>사탕 쏙쏙</b><small>drill/05-candy-row · 개수만큼 li 만들기</small></span><span class="steps"><a class="step" data-pass="candyRow:1" href="drill/05-candy-row/step1.html">1</a><a class="step" data-pass="candyRow:2" href="drill/05-candy-row/step2.html">2</a><a class="step" data-pass="candyRow:3" href="drill/05-candy-row/step3.html">3</a><a class="step" data-pass="candyRow:4" href="drill/05-candy-row/step4.html">4</a><a class="step" data-pass="candyRow:5" href="drill/05-candy-row/step5.html">5</a></span></li>
+    <li><span class="no">6</span><span class="name"><b>스캔 기록</b><small>drill/06-scan · 목록 돌기 + if + 세기</small></span><span class="steps"><a class="step" data-pass="scan:1" href="drill/06-scan/step1.html">1</a><a class="step" data-pass="scan:2" href="drill/06-scan/step2.html">2</a><a class="step" data-pass="scan:3" href="drill/06-scan/step3.html">3</a><a class="step" data-pass="scan:4" href="drill/06-scan/step4.html">4</a><a class="step" data-pass="scan:5" href="drill/06-scan/step5.html">5</a></span></li>
+  </ol>
+
+  <h2>4교시 · 미니 프로젝트 조립</h2>
+  <ol>
+    <li><span class="no">7</span><span class="name"><b>장바구니 총액 계산기</b><small>drill/07-cart/cart.html · 이벤트 연결 · 에러 처리 · 계산 · 출력</small></span><a href="drill/07-cart/cart.html" data-pass="cart:project">문제</a><a class="answer" href="answers/cart.html">정답</a></li>
+  </ol>
 
   <h2>오늘 수업 · 1부 학원 실습문제 (쉬운 순서)</h2>
   <ol>
@@ -83,7 +127,23 @@
 
   <h2>빈 연습장</h2>
   <ol>
-    <li><span class="no">+</span><span class="name"><b>새 문제를 풀 때 복사해서 쓰는 파일</b><small>00-blank.html</small></span><a href="00-blank.html">열기</a></li>
+    <li><span class="no">+</span><span class="name"><b>새 문제를 풀 때 복사해서 쓰는 파일</b><small>00-template.html · 3단계 사고 프레임워크 주석이 들어 있음</small></span><a href="00-template.html">열기</a></li>
   </ol>
+
+  <script>
+    // 채점을 통과한 Step을 초록색으로 칠합니다 (이 브라우저에서 통과한 것만)
+    const passLinks = document.querySelectorAll('[data-pass]');
+    for (let i = 0; i < passLinks.length; i++) {
+      let passed = null;
+      try {
+        passed = window.localStorage.getItem('drill-pass:' + passLinks[i].dataset.pass);
+      } catch (error) {
+        passed = null;
+      }
+      if (passed == '1') {
+        passLinks[i].classList.add('done');
+      }
+    }
+  </script>
 </body>
 </html>

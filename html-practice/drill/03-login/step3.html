@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>03 로그인 · Step 3</title>
+  <link rel="stylesheet" href="../drill.css">
+  <script src="../problems.js"></script>
+  <script src="../drill.js"></script>
+</head>
+<body data-problem="login" data-step="3">
+  <!--
+    [2교시 · 03 로그인 · Step 3 주석 보고 껍데기 채우기]
+    「로그인」을 누르면 위에서부터 차례로 확인해 결과 네모에 한 문장을 보여줍니다.
+    아이디가 비었으면 "아이디를 입력해주세요", 비밀번호가 비었으면 "비밀번호를 입력해주세요"
+    아이디가 admin이고 비밀번호가 1234이면 "admin님, 환영합니다"
+    그 밖에는 "아이디 또는 비밀번호가 틀렸습니다"
+
+    껍데기와 한국어 주석만 있습니다. 주석 바로 아래 빈 줄에 코드를 씁니다.
+    "~면" 앞부분은 if 괄호 ( ) 안에, → 뒷부분은 중괄호 { } 안에 씁니다.
+  -->
+  아이디 : <input type="text" id="userId"><br><br>
+  비밀번호 : <input type="password" id="pwd"><br><br>
+  <button onclick="login()">로그인</button>
+  <div id="result"></div>
+
+  <script>
+    function login() {
+      // 1. 아이디 칸(id: userId)과 비밀번호 칸(id: pwd)의 값을 id, pwd 그릇에 담는다
+
+
+      if () {
+        // 2. id가 비었으면 → '아이디를 입력해주세요'를 보여준다
+
+      } else if () {
+        // 3. pwd가 비었으면 → '비밀번호를 입력해주세요'를 보여준다
+
+      } else if () {
+        // 4. id가 'admin' 이고(&&) pwd가 '1234' 이면 → id + '님, 환영합니다'를 보여준다
+
+      } else {
+        // 5. 그 밖에는 → '아이디 또는 비밀번호가 틀렸습니다'를 보여준다
+
+      }
+    }
+  </script>
+</body>
+</html>

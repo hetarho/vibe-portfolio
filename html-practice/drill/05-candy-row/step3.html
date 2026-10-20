@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>05 사탕 쏙쏙 · Step 3</title>
+  <link rel="stylesheet" href="../drill.css">
+  <script src="../problems.js"></script>
+  <script src="../drill.js"></script>
+</head>
+<body data-problem="candyRow" data-step="3">
+  <!--
+    [3교시 · 05 사탕 쏙쏙 · Step 3 주석 보고 껍데기 채우기]
+    사탕 개수를 넣고 「사탕 놓기」를 누르면 그 개수만큼 사탕이 하나씩 쏙쏙 들어옵니다.
+    사탕 하나는 '<li>사탕</li>' 한 줄입니다. 반복하면서 html 그릇에 붙인 다음 한 번에 넣습니다.
+    1개보다 적으면 "1개 이상 넣어 주세요"를 보여줍니다.
+    도전 : '<li>사탕</li>' 대신 '<li>' + i + '</li>'를 붙이면 숫자가 몇부터 나오나요?
+
+    껍데기와 한국어 주석만 있습니다. 주석 바로 아래 빈 줄에 코드를 씁니다.
+    "~면" 앞부분은 if 괄호 ( ) 안에, → 뒷부분은 중괄호 { } 안에 씁니다.
+  -->
+  사탕 개수 : <input type="number" id="count">
+  <button onclick="drop()">사탕 놓기</button>
+  <ul id="result" class="pop candy"></ul>
+
+  <script>
+    function drop() {
+      // 1. 사탕 개수 칸(id: count)의 값을 숫자로 바꿔 count 그릇에 담는다
+
+
+      if () {
+        // 2. count가 1보다 적으면 → 결과 목록(id: result)에 '1개 이상 넣어 주세요'를 보여준다
+
+      } else {
+        // 3. 아니면 → 빈 글자 그릇 html을 만든다 (처음 값 '')
+
+        for (let i = 0; i < ; i++) {
+          // 4. count번 돌면서 → html 뒤에 '<li>사탕</li>'를 붙인다
+
+        }
+        // 5. 다 모은 html을 결과 목록에 넣는다
+
+      }
+    }
+  </script>
+</body>
+</html>

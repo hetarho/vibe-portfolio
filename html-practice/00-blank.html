@@ -2,35 +2,432 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>빈 연습장</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>타자 연습장</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 16px;
+      font-family: "Pretendard", "Noto Sans KR", "Malgun Gothic", sans-serif;
+      color: #1c1a17;
+      background: #f6f4f1;
+      line-height: 1.55;
+    }
+    main { max-width: 760px; margin: 0 auto; }
+    h1 { margin: 0 0 4px; font-size: 24px; }
+    .how { margin: 0 0 16px; color: #665e54; }
+    .back { color: #665e54; text-decoration: none; font-size: 14px; }
+    .tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+    .tabs button {
+      padding: 8px 14px;
+      border: 0;
+      border-radius: 999px;
+      background: #ebe7e1;
+      font: inherit;
+      cursor: pointer;
+    }
+    .tabs button.is-now { background: #1c1a17; color: #fff; font-weight: 700; }
+    .tabs button.is-done::after { content: " ✔"; color: #1f7a4a; }
+    .tabs button.is-now.is-done::after { color: #9be2b6; }
+    .card {
+      padding: 14px 16px;
+      margin-bottom: 12px;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+    .card h2 { margin: 0 0 2px; font-size: 18px; }
+    .card p { margin: 0 0 10px; color: #665e54; }
+    pre, textarea {
+      font-family: "D2Coding", "Consolas", "Menlo", monospace;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    #model {
+      margin: 0;
+      padding: 12px 14px;
+      border-radius: 8px;
+      background: #24211d;
+      color: #f3eee6;
+      white-space: pre;
+      overflow-x: auto;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    #model.is-hidden { color: transparent; background: #24211d repeating-linear-gradient(45deg, #2e2a25 0 10px, #24211d 10px 20px); }
+    .row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 10px; }
+    .ghost { padding: 6px 14px; border: 0; border-radius: 999px; background: #ebe7e1; font: inherit; cursor: pointer; }
+    .dots { display: flex; gap: 6px; }
+    .dots span { width: 22px; height: 22px; border-radius: 50%; background: #ebe7e1; display: grid; place-items: center; font-size: 12px; }
+    .dots span.is-done { background: #1f7a4a; color: #fff; }
+    .dots span.is-peek { background: #e0b800; color: #1c1a17; }
+    #status { font-weight: 700; }
+    #typing {
+      box-sizing: border-box;
+      width: 100%;
+      min-height: 220px;
+      padding: 12px 14px;
+      border: 2px solid #c9c1b6;
+      border-radius: 10px;
+      background: #fff;
+      resize: vertical;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    #typing.is-ok { background: #e2f3e8; border-color: #1f7a4a; }
+    #typing.is-wrong { border-color: #e08a00; }
+    #feedback { min-height: 24px; margin-top: 6px; font-weight: 700; }
+    #feedback.ok { color: #1f7a4a; }
+    #feedback.wrong { color: #b35f00; }
+    #times { margin: 6px 0 0; padding-left: 20px; color: #665e54; }
+    #done {
+      padding: 18px;
+      border-radius: 12px;
+      background: #1f7a4a;
+      color: #fff;
+      font-size: 18px;
+    }
+    #done[hidden] { display: none; }
+    .tip { font-size: 14px; }
+    .tip ol { margin: 6px 0 0; padding-left: 20px; }
+  </style>
 </head>
 <body>
   <!--
-    새 문제를 풀 때 이 파일을 복사해서 씁니다. (파일 이름만 바꿔서)
+    [타자 연습장 · 매 교시 시작 5분]
+    비즈니스 로직 없이 뼈대(껍데기)만 손에 익히는 화면입니다. 이 파일은 고치지 않습니다.
+    오른쪽 화면의 입력 칸에 직접 칩니다.
 
-    옮기는 다섯 단계
-    1. 꺼낼 것과 보여줄 것 : 화면의 칸을 보고 정한다 → 함수의 맨 위와 맨 아래
-    2. 기억할 그릇       : 그릇마다 이름, 처음 값, 뜻 한 문장
-    3. 한글 절차         : 한 줄에 동작 하나, 줄마다 동사로 끝낸다
-    4. 줄마다 카드       : 절차를 주석으로 쓰고, 그 아래에 카드를 붙인다
-    5. 작은 경우로 확인  : 0, 하나, 경계 값을 넣어 본다
+    1판은 보고 치고, 2판부터는 본보기가 가려집니다. 다섯 판을 연속으로 칩니다.
+    괄호 ( ) 와 따옴표 ' ' 안은 비워 둡니다. 띄어쓰기와 줄 바꿈은 채점하지 않습니다.
+
+    패턴 A : if-else 껍데기
+    패턴 B : 값 가져오기 + 조건문
+    패턴 C : 함수 + 조건문
+    패턴 D : for 반복문 껍데기 (3교시)
+
+    주소 끝에 #D 를 붙이면 패턴 D로 바로 열립니다. (00-blank.html#D)
+    새 문제를 풀 빈 파일이 필요하면 00-template.html을 복사해서 씁니다.
   -->
-  <h2>빈 연습장</h2>
+  <main>
+    <a class="back" href="index.html">← 목록</a>
+    <h1>타자 연습장 · 껍데기 5번 치기</h1>
+    <p class="how">1판은 보고 치고, 2판부터는 가리고 칩니다. 괄호와 따옴표 안은 비워 둡니다. 띄어쓰기와 줄 바꿈은 보지 않습니다.</p>
 
-  <!-- 화면 : 칸마다 태그와 id를 정해서 놓는다 -->
+    <div class="tabs" id="tabs"></div>
 
+    <section class="card">
+      <h2 id="patternName"></h2>
+      <p id="patternWhen"></p>
+      <pre id="model"></pre>
+      <div class="row">
+        <button class="ghost" id="peek" type="button">3초 보기</button>
+        <div class="dots" id="dots"></div>
+        <span id="status"></span>
+      </div>
+    </section>
+
+    <section class="card">
+      <textarea id="typing" spellcheck="false" autocomplete="off" autocapitalize="off" placeholder="여기에 칩니다. Tab을 누르면 두 칸 들여씁니다."></textarea>
+      <div id="feedback"></div>
+      <ol id="times"></ol>
+    </section>
+
+    <div id="done" hidden></div>
+
+    <section class="card tip">
+      <b>손이 먼저 기억하는 순서</b>
+      <ol>
+        <li>괄호는 열면 바로 닫습니다. <code>(</code> 치고 바로 <code>)</code>, <code>{</code> 치고 바로 <code>}</code></li>
+        <li>닫은 다음에 커서를 안으로 옮겨 속을 채웁니다</li>
+        <li>머리가 하얘지면 소리 내어 읽습니다. "만약 괄호, 중괄호 열고 닫고, 아니면 중괄호 열고 닫고"</li>
+      </ol>
+    </section>
+  </main>
 
   <script>
-    function run() {
-      // 1. 칸에서 값을 가져온다
+    const PATTERNS = {
+      A: {
+        name: '패턴 A · if-else 껍데기',
+        when: '갈림길 두 개. 모든 조건문은 이 모양에서 시작합니다.',
+        code: "if () {\n\n} else {\n\n}"
+      },
+      B: {
+        name: '패턴 B · 값 가져오기 + 조건문',
+        when: '칸에서 값을 꺼내 그릇에 담고, 그 그릇으로 갈림길을 만듭니다.',
+        code: "const value = document.getElementById('').value;\n\nif () {\n\n} else {\n\n}"
+      },
+      C: {
+        name: '패턴 C · 함수 + 조건문',
+        when: '버튼이 부를 함수 껍데기 안에 패턴 B를 넣습니다. 안쪽은 두 칸 들여씁니다.',
+        code: "function run() {\n  const value = document.getElementById('').value;\n\n  if () {\n\n  } else {\n\n  }\n}"
+      },
+      D: {
+        name: '패턴 D · for 반복문 껍데기 (3교시)',
+        when: 'i는 0에서 시작합니다. 몇 번 돌지는 i < 뒤에 씁니다. 지금은 비워 둡니다.',
+        code: "for (let i = 0; i < ; i++) {\n\n}"
+      }
+    };
+    const ROUNDS = 5;
+    const PEEK_SECONDS = 3;
 
-      // 2.
+    let key = 'A';
+    let round = 1;
+    let startedAt = 0;
+    let peeked = false;
+    let marks = [];
+    let busy = false;
 
-      // 3.
+    const tabs = document.getElementById('tabs');
+    const model = document.getElementById('model');
+    const typing = document.getElementById('typing');
+    const feedback = document.getElementById('feedback');
+    const status = document.getElementById('status');
+    const dots = document.getElementById('dots');
+    const times = document.getElementById('times');
+    const done = document.getElementById('done');
+    const peek = document.getElementById('peek');
 
-      // 4. 결과를 보여준다
-
+    // 띄어쓰기와 줄 바꿈은 빼고, 큰따옴표는 작은따옴표로 맞춰서 비교합니다
+    function squash(text) {
+      return text.replace(/\s+/g, '').replace(/"/g, "'");
     }
+
+    function codeLines(text) {
+      const lines = [];
+      const raw = text.split('\n');
+      for (let i = 0; i < raw.length; i++) {
+        if (raw[i].trim() != '') {
+          lines.push(squash(raw[i]));
+        }
+      }
+      return lines;
+    }
+
+    function buildTabs() {
+      tabs.innerHTML = '';
+      for (const k in PATTERNS) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.textContent = '패턴 ' + k;
+        if (k == key) {
+          button.className = 'is-now';
+        }
+        if (readStore('typing-done:' + k) == '1') {
+          button.classList.add('is-done');
+        }
+        button.addEventListener('click', function () {
+          choose(k);
+        });
+        tabs.appendChild(button);
+      }
+    }
+
+    function choose(k) {
+      key = k;
+      round = 1;
+      startedAt = 0;
+      peeked = false;
+      marks = [];
+      busy = false;
+      document.getElementById('patternName').textContent = PATTERNS[k].name;
+      document.getElementById('patternWhen').textContent = PATTERNS[k].when;
+      model.textContent = PATTERNS[k].code;
+      model.classList.remove('is-hidden');
+      peek.hidden = true;
+      typing.value = '';
+      typing.disabled = false;
+      typing.className = '';
+      feedback.textContent = '';
+      feedback.className = '';
+      times.innerHTML = '';
+      done.hidden = true;
+      buildTabs();
+      drawDots();
+      drawStatus();
+      typing.focus();
+    }
+
+    function drawDots() {
+      dots.innerHTML = '';
+      for (let i = 1; i <= ROUNDS; i++) {
+        const dot = document.createElement('span');
+        if (i <= marks.length) {
+          dot.className = 'is-done';
+          dot.textContent = '✔';
+          if (marks[i - 1].peeked) {
+            dot.className = 'is-peek';
+            dot.textContent = '봄';
+          }
+        }
+        dots.appendChild(dot);
+      }
+    }
+
+    function drawStatus() {
+      if (round == 1) {
+        status.textContent = '1판 · 보고 칩니다';
+      } else if (round <= ROUNDS) {
+        status.textContent = round + '판 · 안 보고 칩니다';
+      } else {
+        status.textContent = '다섯 판 끝';
+      }
+    }
+
+    function check() {
+      if (busy) {
+        return;
+      }
+      if (startedAt == 0) {
+        startedAt = Date.now();
+      }
+
+      const target = PATTERNS[key].code;
+      if (squash(typing.value) == squash(target)) {
+        success();
+        return;
+      }
+
+      // 틀린 줄 번호만 알려 주고, 정답 글자는 보여 주지 않습니다
+      const mine = codeLines(typing.value);
+      const want = codeLines(target);
+      typing.className = '';
+      feedback.className = '';
+      feedback.textContent = '';
+      for (let i = 0; i < mine.length; i++) {
+        const isLast = i == mine.length - 1;
+        if (i >= want.length) {
+          typing.className = 'is-wrong';
+          feedback.className = 'wrong';
+          feedback.textContent = '본보기보다 줄이 많습니다. ' + (i + 1) + '번째 줄을 다시 보세요.';
+          return;
+        }
+        if (mine[i] != want[i]) {
+          if (isLast && want[i].indexOf(mine[i]) == 0) {
+            return;
+          }
+          typing.className = 'is-wrong';
+          feedback.className = 'wrong';
+          feedback.textContent = (i + 1) + '번째 줄이 다릅니다.';
+          return;
+        }
+      }
+    }
+
+    function success() {
+      busy = true;
+      const seconds = Math.max(1, Math.round((Date.now() - startedAt) / 1000));
+      marks.push({ seconds: seconds, peeked: peeked });
+      typing.className = 'is-ok';
+      feedback.className = 'ok';
+      feedback.textContent = '✔ ' + round + '판 성공 · ' + seconds + '초';
+      const item = document.createElement('li');
+      item.textContent = round + '판 ' + seconds + '초' + (peeked ? ' (보고 침)' : '');
+      times.appendChild(item);
+      drawDots();
+
+      setTimeout(function () {
+        round += 1;
+        startedAt = 0;
+        peeked = false;
+        typing.value = '';
+        typing.className = '';
+        busy = false;
+        drawStatus();
+        if (round > ROUNDS) {
+          finish();
+          return;
+        }
+        // 2판부터는 본보기를 가립니다
+        model.classList.add('is-hidden');
+        peek.hidden = false;
+        feedback.className = '';
+        feedback.textContent = '이제 안 보고 칩니다. 막히면 「3초 보기」를 눌러도 됩니다.';
+        typing.focus();
+      }, 900);
+    }
+
+    function finish() {
+      let sum = 0;
+      let clean = 0;
+      for (let i = 0; i < marks.length; i++) {
+        sum += marks[i].seconds;
+        // 1판은 보고 치는 판이라 세지 않습니다
+        if (i > 0 && !marks[i].peeked) {
+          clean += 1;
+        }
+      }
+      writeStore('typing-done:' + key, '1');
+      typing.disabled = true;
+      peek.hidden = true;
+      model.classList.remove('is-hidden');
+      feedback.textContent = '';
+      done.hidden = false;
+      done.innerHTML = '';
+      const title = document.createElement('b');
+      title.textContent = PATTERNS[key].name + ' 다섯 판 끝!';
+      const line = document.createElement('p');
+      line.textContent = '평균 ' + Math.round(sum / marks.length) + '초 · 가리고 친 ' + (ROUNDS - 1) + '판 중 안 본 판 ' + clean + '개 · 첫 판 ' + marks[0].seconds + '초 → 마지막 판 ' + marks[marks.length - 1].seconds + '초';
+      const again = document.createElement('button');
+      again.className = 'ghost';
+      again.type = 'button';
+      again.textContent = '한 번 더';
+      again.addEventListener('click', function () {
+        choose(key);
+      });
+      done.appendChild(title);
+      done.appendChild(line);
+      done.appendChild(again);
+      buildTabs();
+    }
+
+    peek.addEventListener('click', function () {
+      peeked = true;
+      model.classList.remove('is-hidden');
+      peek.disabled = true;
+      setTimeout(function () {
+        if (round > 1 && round <= ROUNDS) {
+          model.classList.add('is-hidden');
+        }
+        peek.disabled = false;
+        typing.focus();
+      }, PEEK_SECONDS * 1000);
+    });
+
+    typing.addEventListener('input', check);
+
+    // Tab을 누르면 칸을 벗어나지 않고 두 칸 들여씁니다
+    typing.addEventListener('keydown', function (event) {
+      if (event.key == 'Tab') {
+        event.preventDefault();
+        const at = typing.selectionStart;
+        typing.value = typing.value.slice(0, at) + '  ' + typing.value.slice(typing.selectionEnd);
+        typing.selectionStart = at + 2;
+        typing.selectionEnd = at + 2;
+        check();
+      }
+    });
+
+    function readStore(name) {
+      try {
+        return window.localStorage.getItem(name);
+      } catch (error) {
+        return null;
+      }
+    }
+
+    function writeStore(name, value) {
+      try {
+        window.localStorage.setItem(name, value);
+      } catch (error) {
+        // 기억하지 못해도 연습은 그대로 됩니다
+      }
+    }
+
+    const fromHash = location.hash.replace('#', '').toUpperCase();
+    if (PATTERNS[fromHash]) {
+      key = fromHash;
+    }
+    choose(key);
   </script>
 </body>
 </html>

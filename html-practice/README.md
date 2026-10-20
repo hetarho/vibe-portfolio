@@ -5,6 +5,10 @@
 `js-practice-to-code` 수업에서 채우는 파일과, 카드별로 나눈 몸풀기 다섯 개가 들어 있습니다.
 몸풀기는 수업 첫머리에 풀게 하면 어느 카드가 비어 있는지 바로 보입니다.
 
+백지 앞에서 첫 줄을 못 떼는 학생을 위한 **1~4시간 코스**(`drill/`)도 있습니다.
+같은 문제를 Step 1(보고 치기)부터 Step 5(백지)까지 다섯 번 치면서 힌트를 하나씩 지웁니다.
+시간 배분, 발문, 멈췄을 때 대처는 [TEACHING_GUIDE_4HOURS.md](TEACHING_GUIDE_4HOURS.md)에 있습니다.
+
 ## 화면 나누기
 
 1. 터미널에서 개발 서버를 켭니다. 이미 켜져 있으면 넘어갑니다.
@@ -26,13 +30,33 @@
 
 | 경로 | 내용 |
 |---|---|
-| `index.html` | 오른쪽에 먼저 띄우는 목록 |
+| `index.html` | 오른쪽에 먼저 띄우는 목록. 4시간 코스 → 정규 수업 순서 |
+| `00-blank.html` | 타자 연습장. 껍데기 패턴 A(if-else) · B(값 가져오기 + 조건문) · C(함수 + 조건문) · D(for)를 다섯 판 연속으로 칩니다. 이 파일은 고치지 않고 화면에서 칩니다 |
+| `drill/` | 4시간 코스. 문제마다 `step1~5.html`, 4교시는 `07-cart/cart.html`. 정답과 채점 값은 `drill/problems.js`, 화면 장치는 `drill/drill.js` |
+| `TEACHING_GUIDE_4HOURS.md` | 4시간 코스 강사용 가이드 |
 | `lesson/` | 오늘 수업에서 채우는 파일. 1부 `practice1~5.html`, 2부 `menu` · `stock` · `attend` |
 | `warmup/` | 몸풀기 다섯 개. 뒤로 갈수록 미리 써 둔 것이 줄어듭니다 |
-| `answers/` | 몸풀기 정답. 오늘 수업 정답은 `src/pages/lesson/content/js-practice-to-code/answers/`에 있고, 목록의 「정답」이 그 파일을 엽니다 |
-| `00-blank.html` | 새 문제를 풀 때 복사해서 쓰는 빈 연습장. 옮기는 다섯 단계가 주석으로 들어 있습니다 |
+| `answers/` | 몸풀기 정답과 장바구니 정답(`cart.html`). 오늘 수업 정답은 `src/pages/lesson/content/js-practice-to-code/answers/`에 있고, 목록의 「정답」이 그 파일을 엽니다 |
+| `00-template.html` | 새 문제를 풀 때 복사해서 쓰는 빈 연습장. 3단계 사고 프레임워크(재료 준비 → 껍데기 먼저 → 빈칸 채우기)가 주석으로 들어 있습니다 |
 
 문제는 파일 맨 위 주석에 있습니다. 「작은 경우로 확인」에 적힌 값을 넣어 보고 맞으면 끝입니다.
+`lesson/` 파일의 script 안에는 선생님과 같이 채우는 3단계 틀이 주석으로 들어 있습니다.
+
+## 4시간 코스
+
+| 교시 | 파일 | 내용 |
+|---|---|---|
+| 매 교시 시작 | `00-blank.html` | 껍데기 다섯 판 치기 (3교시는 `#D`) |
+| 1교시 | `drill/01-greeting` · `drill/02-candy` | if / else 한 번 |
+| 2교시 | `drill/03-login` · `drill/04-stock` | else if 여러 갈래, 함수 밖 그릇 |
+| 3교시 | `drill/05-candy-row` · `drill/06-scan` | for로 li를 만들어 화면에 쏙쏙 넣기 |
+| 4교시 | `drill/07-cart/cart.html` | 장바구니 조립. 이벤트 연결 · 에러 처리 · 계산 · 출력 빈칸 |
+
+Step 화면에는 문제 설명, 복사가 막힌 정답(Step 1), 정답 5초 보기(Step 2~5), 체크리스트(Step 5), 「채점하기」가 붙습니다.
+코드에 오류가 나면 몇 번째 줄인지와 한국어 힌트를 화면에 띄우므로, Simple Browser에서도 콘솔 없이 고칠 수 있습니다.
+채점을 통과한 Step은 목록과 Step 화면에서 초록색이 됩니다. 이 기록은 그 브라우저에만 남습니다.
+
+문제 문장이나 정답을 바꾸려면 `drill/problems.js`를 고치고, 같은 문제 폴더의 `step2~4.html` 빈칸과 주석도 맞춰 줍니다.
 
 ## 몸풀기 다섯 개
 

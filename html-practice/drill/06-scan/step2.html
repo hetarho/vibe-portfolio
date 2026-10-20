@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>06 스캔 기록 · Step 2</title>
+  <link rel="stylesheet" href="../drill.css">
+  <script src="../problems.js"></script>
+  <script src="../drill.js"></script>
+</head>
+<body data-problem="scan" data-step="2">
+  <!--
+    [3교시 · 06 스캔 기록 · Step 2 값과 연산자만 바꾸기]
+    QR 스캔 기록은 A01, B02, A01, C03, B02 다섯 개입니다. 코드 안에 목록으로 둡니다.
+    찾을 학번을 넣고 「찾기」를 누르면 기록 다섯 개를 li로 하나씩 보여주고, 찾는 학번은 노랗게 칠합니다.
+    아래 결과 네모에는 "OOO 학생은 O번 찍혔습니다"를 보여줍니다.
+    노랗게 칠하는 li는 '<li class="hit">' + scans[i] + '</li>'입니다.
+
+    뼈대는 다 있습니다. ___ 자리만 알맞은 값이나 연산자로 바꿉니다.
+    ___ 이 하나라도 남아 있으면 버튼이 동작하지 않습니다.
+  -->
+  <p>QR 스캔 기록 : A01, B02, A01, C03, B02</p>
+  찾을 학번 : <input type="text" id="target">
+  <button onclick="findScan()">찾기</button>
+  <ul id="list" class="pop"></ul>
+  <div id="result"></div>
+
+  <script>
+    function findScan() {
+      const target = document.getElementById('target').value;
+      const scans = ['A01', 'B02', 'A01', 'C03', 'B02'];
+      let html = '';
+      let count = ___;                                   // 센 횟수의 처음 값
+
+      for (let i = 0; i < ___; i++) {                    // 기록 개수만큼 (목록 이름.length)
+        if (scans[i] ___ target) {                       // 연산자 : 같은가?
+          html += '<li class="hit">' + scans[i] + '</li>';
+          count += 1;
+        } else {
+          html += '<li>' + scans[i] + '</li>';
+        }
+      }
+
+      document.getElementById('list').innerHTML = html;
+      document.getElementById('result').innerHTML = target + ' 학생은 ' + count + '번 찍혔습니다';
+    }
+  </script>
+</body>
+</html>

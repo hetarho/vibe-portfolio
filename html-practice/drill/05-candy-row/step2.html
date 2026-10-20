@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>05 사탕 쏙쏙 · Step 2</title>
+  <link rel="stylesheet" href="../drill.css">
+  <script src="../problems.js"></script>
+  <script src="../drill.js"></script>
+</head>
+<body data-problem="candyRow" data-step="2">
+  <!--
+    [3교시 · 05 사탕 쏙쏙 · Step 2 값과 연산자만 바꾸기]
+    사탕 개수를 넣고 「사탕 놓기」를 누르면 그 개수만큼 사탕이 하나씩 쏙쏙 들어옵니다.
+    사탕 하나는 '<li>사탕</li>' 한 줄입니다. 반복하면서 html 그릇에 붙인 다음 한 번에 넣습니다.
+    1개보다 적으면 "1개 이상 넣어 주세요"를 보여줍니다.
+    도전 : '<li>사탕</li>' 대신 '<li>' + i + '</li>'를 붙이면 숫자가 몇부터 나오나요?
+
+    뼈대는 다 있습니다. ___ 자리만 알맞은 값이나 연산자로 바꿉니다.
+    ___ 이 하나라도 남아 있으면 버튼이 동작하지 않습니다.
+  -->
+  사탕 개수 : <input type="number" id="count">
+  <button onclick="drop()">사탕 놓기</button>
+  <ul id="result" class="pop candy"></ul>
+
+  <script>
+    function drop() {
+      const count = Number(document.getElementById('count').value);
+
+      if (count ___ 1) {                                      // 연산자 : 1보다 적은가?
+        document.getElementById('result').innerHTML = '1개 이상 넣어 주세요';
+      } else {
+        let html = ___;                                       // 처음 값 : 빈 글자
+        for (let i = 0; i < ___; i++) {                       // 몇 번 돌까?
+          html += '<li>사탕</li>';
+        }
+        document.getElementById('result').innerHTML = ___;    // 다 모은 그릇
+      }
+    }
+  </script>
+</body>
+</html>
