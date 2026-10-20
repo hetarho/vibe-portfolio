@@ -115,13 +115,29 @@
     return top;
   }
 
+  // 사용법은 화면 위에 뜨는 팝업입니다. 바깥을 누르거나 Esc를 누르면 닫힙니다
   function buildHelp() {
+    const shade = make('div', 'd-help-shade');
+    shade.hidden = true;
+    shade.addEventListener('click', function (event) {
+      if (event.target == shade) {
+        toggleHelp(false);
+      }
+    });
+    document.addEventListener('keydown', function (event) {
+      if (event.key == 'Escape') {
+        toggleHelp(false);
+      }
+    });
     const box = make('section', 'd-help');
-    box.hidden = true;
+    box.setAttribute('role', 'dialog');
+    box.setAttribute('aria-label', '이 화면 쓰는 법');
+    shade.appendChild(box);
     box.appendChild(make('h2', '', '이 화면 쓰는 법'));
     const list = make('ol', '');
     for (let i = 0; i < HELP.length; i++) {
       const item = make('li', '');
+      item.appendChild(make('span', 'd-help-no', String(i + 1)));
       item.appendChild(make('b', '', HELP[i][0]));
       item.appendChild(make('span', '', HELP[i][1]));
       list.appendChild(item);
@@ -134,12 +150,12 @@
       editor.focus();
     });
     box.appendChild(close);
-    return box;
+    return shade;
   }
 
   function toggleHelp(open) {
-    const box = document.querySelector('.d-help');
-    box.hidden = open === undefined ? !box.hidden : !open;
+    const shade = document.querySelector('.d-help-shade');
+    shade.hidden = open === undefined ? !shade.hidden : !open;
   }
 
   function buildMain() {
@@ -180,28 +196,31 @@
     const tools = make('div', 'd-tools');
     tools.appendChild(button('▶ 실행  Ctrl + Enter', 'd-button primary', run));
     tools.appendChild(button('채점하기', 'd-button', grade));
-    let peekCode = null;
+    let peekBox = null;
     if (page.step != '1' && page.problem.answer) {
-      peekCode = codeBlock(page.problem.answer);
-      peekCode.hidden = true;
-      tools.appendChild(peekButton(peekCode));
+      peekBox = make('div', 'd-peek');
+      peekBox.appendChild(make('p', 'd-label', '정답 · 곧 가려집니다'));
+      peekBox.appendChild(codeBlock(page.problem.answer));
+      peekBox.hidden = true;
+      tools.appendChild(peekButton(peekBox));
     }
     tools.appendChild(button('처음 코드로', 'd-button ghost', resetCode));
     left.appendChild(tools);
-    if (peekCode) {
-      left.appendChild(peekCode);
-    }
 
-    errorBox = make('div', 'd-errors');
-    left.appendChild(errorBox);
-
-    // 오른쪽 · 문제, 실행 화면, 채점 결과
+    // 오른쪽 · 문제, (정답 보기), 오류, 실행 화면, 채점 결과
     const problem = make('div', 'd-problem');
     problem.appendChild(make('h1', '', page.problem.no + ' · ' + page.problem.title));
     for (let i = 0; i < page.problem.desc.length; i++) {
       problem.appendChild(make('p', '', page.problem.desc[i]));
     }
     right.appendChild(problem);
+    if (peekBox) {
+      right.appendChild(peekBox);
+    }
+
+    errorBox = make('div', 'd-errors');
+    errorBox.hidden = true;
+    right.appendChild(errorBox);
 
     const stage = make('div', 'd-stage');
     stage.appendChild(make('p', 'd-label', '실행 화면 · 직접 눌러 보세요'));
@@ -237,11 +256,11 @@
     return pre;
   }
 
-  function peekButton(code) {
+  function peekButton(peekBox) {
     const label = '정답 ' + PEEK_SECONDS + '초 보기';
     const el = button(label, 'd-button ghost', function () {
       let left = PEEK_SECONDS;
-      code.hidden = false;
+      peekBox.hidden = false;
       el.disabled = true;
       el.textContent = left + '초 뒤에 가려집니다';
       const timer = setInterval(function () {
@@ -249,7 +268,7 @@
         el.textContent = left + '초 뒤에 가려집니다';
         if (left <= 0) {
           clearInterval(timer);
-          code.hidden = true;
+          peekBox.hidden = true;
           el.disabled = false;
           el.textContent = label;
         }
@@ -429,11 +448,7 @@
     const frame = makeFrame(
       editor.value,
       function (message, line) {
-        errors.push({ message: message, line: line });
-        if (errors.length > 3) {
-          errors.shift();
-        }
-        showErrors();
+        addError(message, line);
       },
       toast
     );
@@ -452,15 +467,48 @@
     }
   }
 
+  // 버튼을 여러 번 눌러 같은 오류가 또 나면 새로 쌓지 않고 횟수만 올립니다
+  function addError(message, line) {
+    for (let i = 0; i < errors.length; i++) {
+      if (errors[i].message == message && errors[i].line == line) {
+        errors[i].count += 1;
+        showErrors();
+        return;
+      }
+    }
+    errors.push({ message: message, line: line, count: 1 });
+    if (errors.length > 2) {
+      errors.shift();
+    }
+    showErrors();
+  }
+
   function showErrors() {
     errorBox.innerHTML = '';
+    errorBox.hidden = errors.length == 0;
+    if (errors.length == 0) {
+      return;
+    }
+    const head = make('div', 'd-errors-head');
+    head.appendChild(make('p', 'd-label', '코드 오류 · 고친 뒤 ▶ 실행을 누르면 사라집니다'));
+    head.appendChild(button('닫기 ✕', 'd-close', function () {
+      errors = [];
+      showErrors();
+    }));
+    errorBox.appendChild(head);
+
     for (let i = 0; i < errors.length; i++) {
       const line = errors[i].line;
       const row = make('button', 'd-error');
       row.type = 'button';
       row.appendChild(make('b', '', (line > 0 ? line + '번째 줄 · ' : '') + explain(errors[i].message)));
-      row.appendChild(make('small', '', errors[i].message));
+      const raw = make('small', '', errors[i].message);
+      if (errors[i].count > 1) {
+        raw.textContent += '  ×' + errors[i].count;
+      }
+      row.appendChild(raw);
       if (line > 0) {
+        row.title = '눌러서 ' + line + '번째 줄로 가기';
         row.addEventListener('click', function () {
           goToLine(line);
         });
@@ -469,15 +517,21 @@
     }
   }
 
+  // 실행 화면의 alert는 이 상자로 보여 줍니다. 새 알림이 오면 앞의 것을 바꿔 끼우고, 누르면 닫힙니다
+  let toastTimer = 0;
   function toast(message) {
     const box = document.querySelector('.d-toasts');
-    const item = make('div', 'd-toast');
-    item.appendChild(make('small', '', '알림창'));
+    box.innerHTML = '';
+    const item = button('', 'd-toast', function () {
+      box.innerHTML = '';
+    });
+    item.appendChild(make('small', '', '알림창 · 누르면 닫힙니다'));
     item.appendChild(make('b', '', message));
     box.appendChild(item);
-    setTimeout(function () {
-      item.remove();
-    }, 3500);
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () {
+      box.innerHTML = '';
+    }, 3000);
   }
 
   // 결과 칸이 바뀌면 반짝이고, 새로 생긴 li는 하나씩 쏙쏙 들어오게 합니다
@@ -722,7 +776,7 @@
       list.appendChild(item);
     }
     box.appendChild(list);
-    box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    box.scrollIntoView({ behavior: 'smooth', block: 'end' });
   }
 
   function nextLink() {
