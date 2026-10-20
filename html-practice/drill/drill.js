@@ -116,6 +116,36 @@
         steps.appendChild(link);
       }
       top.appendChild(steps);
+    } else {
+      // Step이 없는 한 장짜리 문제(0교시 HTML, 4교시 장바구니)는 같은 교시 문제를 동그라미로 보여 줍니다
+      const siblings = make('nav', 'd-steps');
+      const order = window.DRILL_ORDER;
+      for (let i = 0; i < order.length; i++) {
+        const other = window.DRILL_PROBLEMS[order[i]];
+        if (other.period != page.problem.period) {
+          continue;
+        }
+        const link = make('a', 'd-step wide', other.no);
+        link.href = hrefOf(other);
+        link.title = other.no + ' ' + other.title;
+        if (order[i] == page.id) {
+          link.classList.add('is-now');
+        }
+        if (readStore('drill-pass:' + order[i] + ':project') == '1') {
+          link.classList.add('is-done');
+        }
+        siblings.appendChild(link);
+      }
+      top.appendChild(siblings);
+    }
+
+    // 통과하기 전에도 다음 문제로 넘어갈 수 있게 늘 보여 줍니다
+    const next = nextProblem();
+    if (next) {
+      const link = make('a', 'd-next-problem', '다음 문제 →');
+      link.href = hrefOf(next);
+      link.title = next.period + ' ' + next.no + ' ' + next.title;
+      top.appendChild(link);
     }
 
     const help = make('button', 'd-help-button', '사용법');
@@ -1018,17 +1048,29 @@
       link.textContent = 'Step ' + (n + 1) + ' · ' + STEPS[n + 1].name + ' →';
       return link;
     }
-    const order = window.DRILL_ORDER;
-    const at = order.indexOf(page.id);
-    if (at >= 0 && at < order.length - 1) {
-      const next = window.DRILL_PROBLEMS[order[at + 1]];
-      link.href = '../' + next.folder + '/' + (next.page || 'step1.html');
+    const next = nextProblem();
+    if (next) {
+      link.href = hrefOf(next);
       link.textContent = '다음 문제 · ' + next.period + ' ' + next.no + ' ' + next.title + ' →';
       return link;
     }
     link.href = '../index.html';
     link.textContent = '4교시까지 끝! 코스 목록으로 →';
     return link;
+  }
+
+  function nextProblem() {
+    const order = window.DRILL_ORDER;
+    const at = order.indexOf(page.id);
+    if (at >= 0 && at < order.length - 1) {
+      return window.DRILL_PROBLEMS[order[at + 1]];
+    }
+    return null;
+  }
+
+  // 문제의 첫 화면 주소 · Step이 있으면 step1, 한 장짜리면 그 파일
+  function hrefOf(problem) {
+    return '../' + problem.folder + '/' + (problem.page || 'step1.html');
   }
 
   // ───── 도구 ─────

@@ -59,6 +59,18 @@ template, #starter { display: none; }
   font-size: 14px;
 }
 .d-step.is-done { background: var(--ok); }
+.d-step.wide { width: auto; min-width: 30px; padding: 0 9px; border-radius: 999px; }
+.d-next-problem {
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: #3f3a34;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.d-next-problem:hover { background: #5a534b; }
 .d-step.is-now { outline: 3px solid var(--mark); outline-offset: 1px; }
 .d-help-button { padding: 6px 14px; border: 0; border-radius: 999px; background: var(--mark); color: var(--ink); font: inherit; font-weight: 700; cursor: pointer; }
 
